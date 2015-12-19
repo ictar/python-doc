@@ -21,7 +21,7 @@
 
 ## 世界上的其他地方都在使用Unicode (有很好的理由)
 
-人们有时候会忘记，Python有多老了；Guido在1989年12月开始编写Python，在1991年2月作为开源代码第一次发布。这意味着Python自身早于[1991年10月发布的Unicode标准第一卷](https://en.wikipedia.org/wiki/Unicode#History)。在几年间，Unicode标准化后创建的语言选择基于能够支持Unicode的编码来实现字符串。这使得Python 2位于这种不幸的位置，在这种情况下，它在2004年(Python 3计划开始的时候)获得了重要的牵引, 但由于`unicode`类型完全是可选的，并且人们不是对所有的文本数据使用此类型，它可以说是提供了对Unicode文本最薄弱的支持。
+人们有时候会忘记，Python有多老了；Guido在1989年12月开始编写Python，在1991年2月作为开源代码第一次发布。这意味着Python自身早于[1991年10月发布的Unicode标准第一卷](https://en.wikipedia.org/wiki/Unicode#History)。在几年间，Unicode标准化后创建的语言选择基于能够支持Unicode的编码来实现字符串。这使得Python 2位于这种不幸的位置，在这种情况下，它在2004年(Python 3计划开始的时候)获得了重要的关注, 但由于`unicode`类型完全是可选的，并且人们不是对所有的文本数据使用此类型，它可以说是提供了对Unicode文本最薄弱的支持。
 
 从任何一种书面语言支持Unicode和文本是很重要的。Python是世界的语言，而不仅仅是那些支持ASCII覆盖的罗马字母的语言。这就是为什么当涉及到文本时，Python 3使它成为"Unicode或者bust"；它保证了所有的Python 3代码将支持世界上的所有人，无论开发者是否明确的编写代码指出。在Python 2中，那些花时间正确的为文本数据指定unicode类型的项目和不这么做的项目之间已经出现了分裂；而在Python 3中，并不存在这样的分裂，并且免费的支持所有的语言。
 
