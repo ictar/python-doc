@@ -45,7 +45,7 @@ quick access to all modules
 [General Index](https://docs.python.org/3/genindex.html)
 all functions, classes, terms
 
-[词汇表](https://docs.python.org/3/glossary.html)
+[词汇表](./glossary.md)
 那些最重要的术语解释
 
 [Search page](https://docs.python.org/3/search.html)
