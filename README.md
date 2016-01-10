@@ -11,5 +11,6 @@ translate python documents to Chinese for convenient reference
 
 # 目录说明
 1. [Python Official documentation](./Python Official documentation/) python 官方文档
-2. [Others](./Others/) 其他零零碎碎的Python文档 
+2. [Django Official documentation](./Django Official documentation/) python 官方文档
+3. [Others](./Others/) 其他零零碎碎的Python文档 
 

@@ -34,7 +34,7 @@ tutorial for C/C++ programmers
 [Python/C API](https://docs.python.org/3/c-api/index.html)
 reference for C/C++ programmers
 
-[FAQs](https://docs.python.org/3/faq/index.html)
+[FAQs](./faq)
 frequently asked questions (with answers!)
 
 **Indices and tables:**
