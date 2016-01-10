@@ -6,7 +6,7 @@
 
 你所需要知道的关于Django的一切。
 
-## 该文档如何组织¶
+## 该文档如何组织
 
 Django has a lot of documentation. A high-level overview of how it’s organized will help you know where to look for certain things:
 
@@ -19,7 +19,7 @@ Django has a lot of documentation. A high-level overview of how it’s organized
 ----------
 
 
-## 第一步¶
+## 第一步
 
 你是Django或者编程的新手？这里就是开始的地方！
 
@@ -31,7 +31,7 @@ Django has a lot of documentation. A high-level overview of how it’s organized
 ----------
 
 
-## 模型层¶
+## 模型层
 
 Django provides an abstraction layer (the “models”) for structuring and manipulating the data of your Web application. Learn more about it below:
 
@@ -46,7 +46,7 @@ Django provides an abstraction layer (the “models”) for structuring and mani
 ----------
 
 
-## 视图层¶
+## 视图层
 
 Django has the concept of “views” to encapsulate the logic responsible for processing a user’s request and for returning the response. Find all you need to know about views via the links below:
 
@@ -61,7 +61,7 @@ Middleware: Overview | Built-in middleware classes
 ----------
 
 
-## 模板层¶
+## 模板层
 
 模板层提供用于渲染要呈现给用户的信息的设计者友好语法。了解设计师如何使用这一语法师以及如何通过编程进行扩展：
 
@@ -73,7 +73,7 @@ Middleware: Overview | Built-in middleware classes
 ----------
 
 
-## 表单¶
+## 表单
 
 Django提供了一个丰富的框架，以帮助创建表格和操作表格数据。
 
@@ -84,7 +84,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 ----------
 
 
-## 开发过程¶
+## 开发过程
 
 了解各种组件和工具，以助您进行Django应用程序的开发和测试：
 
@@ -99,7 +99,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 ----------
 
 
-## admin站点¶
+## admin站点
 
 所有你所需要知道的自动管理接口，Django最流行的功能之一：
 
@@ -111,7 +111,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 ----------
 
 
-## 安全¶
+## 安全
 
 安全性是至关重要的Web应用程序的开发主题，Django提供多种保护手段和机制：
 
@@ -126,7 +126,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 ----------
 
 
-## 国际化和本地化¶
+## 国际化和本地化
 
 Django还提供了一个强大的国际化和本地化的框架，以帮助您的用于多国语言和世界各地区的应用的发展：
 
@@ -137,7 +137,7 @@ Django还提供了一个强大的国际化和本地化的框架，以帮助您�
 ----------
 
 
-## 性能和优化¶
+## 性能和优化
 
 有各种各样的技术和工具，可以帮助你的代码的运行更有效率 - 速度更快，并且使用更少的系统资源。
 
@@ -147,7 +147,7 @@ Django还提供了一个强大的国际化和本地化的框架，以帮助您�
 ----------
 
 
-##Python兼容性¶
+##Python兼容性
 
 Django的目标是兼容不同Python风味及版本：
 
@@ -158,7 +158,7 @@ Django的目标是兼容不同Python风味及版本：
 ----------
 
 
-## 地理框架¶
+## 地理框架
 
 [GeoDjango](https://docs.djangoproject.com/en/1.9/ref/contrib/gis/)意图成为一个世界级的地理Web框架。它的目标是尽可能容易地构建GIS Web应用程序，并加强空间功能数据的能力。
 
@@ -166,7 +166,7 @@ Django的目标是兼容不同Python风味及版本：
 ----------
 
 
-## 常见的Web应用程序的工具¶
+## 常见的Web应用程序的工具
 
 Django还提供了多种通常在Web应用程序开发过程中需要的工具：
 
@@ -187,7 +187,7 @@ Django还提供了多种通常在Web应用程序开发过程中需要的工具�
 ----------
 
 
-##其他核心功能¶
+##其他核心功能
 
 了解Django框架的其他一些核心功能：
 
@@ -204,7 +204,7 @@ Django还提供了多种通常在Web应用程序开发过程中需要的工具�
 ----------
 
 
-## Django的开源项目¶
+## Django的开源项目
 
 了解了Django项目本身以及您如何参与到开发过程：
 
