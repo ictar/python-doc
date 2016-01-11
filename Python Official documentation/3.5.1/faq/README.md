@@ -3,7 +3,7 @@
 原文： [Python Frequently Asked Questions](https://docs.python.org/3/faq/index.html)
 
 * [Python一般问题 FAQ](https://docs.python.org/3/faq/general.html)
-* [编程类FAQ](https://docs.python.org/3/faq/programming.html)
+* [编程类FAQ](./编程类FAQ.md)
 * [设计和历史类 FAQ](https://docs.python.org/3/faq/design.html)
 * [库及扩展类 FAQ](https://docs.python.org/3/faq/library.html)
 * [扩展/嵌入类 FAQ](https://docs.python.org/3/faq/extending.html)
