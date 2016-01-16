@@ -88,7 +88,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 
 了解各种组件和工具，以助您进行Django应用程序的开发和测试：
 
-* **设置**: [概述](https://docs.djangoproject.com/en/1.9/topics/settings/) | Full list of settings
+* **设置**: [概述](./topics/设置.md) | [Full list of settings](https://docs.djangoproject.com/en/1.9/ref/settings/)
 * **应用**: [概述](https://docs.djangoproject.com/en/1.9/ref/applications/)
 * **异常**: [概述](https://docs.djangoproject.com/en/1.9/ref/exceptions/)
 * **django-admin 和 manage.py**: [概述](https://docs.djangoproject.com/en/1.9/ref/django-admin/) | Adding custom commands
@@ -130,7 +130,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 
 Django还提供了一个强大的国际化和本地化的框架，以帮助您的用于多国语言和世界各地区的应用的发展：
 
-* [概述](./国际化和本地化.md) | [国际化](https://docs.djangoproject.com/en/1.9/topics/i18n/translation/) | [本地化](https://docs.djangoproject.com/en/1.9/topics/i18n/translation/#how-to-create-language-files) | [本地的Web用户界面格式及表单输入](https://docs.djangoproject.com/en/1.9/topics/i18n/formatting/)
+* [概述](./topics/i18n/国际化和本地化.md) | [国际化](./topics/i18n/翻译（转换）.md) | [本地化](https://docs.djangoproject.com/en/1.9/topics/i18n/translation/#how-to-create-language-files) | [本地的Web用户界面格式及表单输入](https://docs.djangoproject.com/en/1.9/topics/i18n/formatting/)
 * [时区](https://docs.djangoproject.com/en/1.9/topics/i18n/timezones/)
 
 
@@ -213,7 +213,3 @@ Django还提供了多种通常在Web应用程序开发过程中需要的工具�
 * **文档**: About this documentation
 * **第三方发行版本**: Overview
 * **Django over time**: API stability | Release notes and upgrading instructions | Deprecation Timeline
-
-
-
-
