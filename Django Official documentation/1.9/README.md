@@ -8,12 +8,12 @@
 
 ## 该文档如何组织
 
-Django has a lot of documentation. A high-level overview of how it’s organized will help you know where to look for certain things:
+Django有大量的文档。关于如何组织的高层次概述可以帮助你知道到哪查找你想要的东西：
 
-* [Tutorials](https://docs.djangoproject.com/en/1.9/intro/) take you by the hand through a series of steps to create a Web application. Start here if you’re new to Django or Web application development. Also look at the “First steps” below.
-* [Topic guides](https://docs.djangoproject.com/en/1.9/topics/) discuss key topics and concepts at a fairly a fairly high level and provide useful background information and explanation.
-* [Reference guides](https://docs.djangoproject.com/en/1.9/ref/) contain technical reference for APIs and other aspects of Django’s machinery. They describe how it works and how to use it but assume that you have a basic understanding of key concepts.
-* [How-to guides](https://docs.djangoproject.com/en/1.9/howto/) are recipes. They guide you through the steps involved in addressing key problems and use-cases. They are more advanced than tutorials and assume some knowledge of how Django works.
+* [教程](https://docs.djangoproject.com/en/1.9/intro/) take you by the hand through a series of steps to create a Web application. Start here if you’re new to Django or Web application development. Also look at the “First steps” below.
+* [主题指导](https://docs.djangoproject.com/en/1.9/topics/) discuss key topics and concepts at a fairly a fairly high level and provide useful background information and explanation.
+* [参考指导](https://docs.djangoproject.com/en/1.9/ref/) contain technical reference for APIs and other aspects of Django’s machinery. They describe how it works and how to use it but assume that you have a basic understanding of key concepts.
+* [How-to指导](https://docs.djangoproject.com/en/1.9/howto/) are recipes. They guide you through the steps involved in addressing key problems and use-cases. They are more advanced than tutorials and assume some knowledge of how Django works.
 
 
 ----------
@@ -23,24 +23,52 @@ Django has a lot of documentation. A high-level overview of how it’s organized
 
 你是Django或者编程的新手？这里就是开始的地方！
 
-* **From scratch**: Overview | Installation
-* **Tutorial: Part 1**: Requests and responses | Part 2: Models and the admin site | Part 3: Views and templates | Part 4: Forms and generic views | Part 5: Testing | Part 6: Static files | Part 7: Customizing the admin site
-* **Advanced Tutorials**: How to write reusable apps | Writing your first patch for Django
-
+* **从无到有**: [概述](https://docs.djangoproject.com/en/1.9/intro/overview/) | [安装](https://docs.djangoproject.com/en/1.9/intro/install/)
+* **教程: 第一部分**:[第1部分：请求和响应](https://docs.djangoproject.com/en/1.9/intro/tutorial01/) |
+[第2部分：模型和admin站点](https://docs.djangoproject.com/en/1.9/intro/tutorial02/) |
+[第3部分：视图和模板](https://docs.djangoproject.com/en/1.9/intro/tutorial03/) |
+[第4部分：表单和通用视图](https://docs.djangoproject.com/en/1.9/intro/tutorial04/) |
+[第5部分：测试](https://docs.djangoproject.com/en/1.9/intro/tutorial05/) |
+[第6部分：静态文件](https://docs.djangoproject.com/en/1.9/intro/tutorial06/) |
+[第7部分：定制admin站点](https://docs.djangoproject.com/en/1.9/intro/tutorial07/)
+* **高级教程**: [如何编写可复用的应用程序](https://docs.djangoproject.com/en/1.9/intro/reusable-apps/) |
+[编写第一个Django补丁](https://docs.djangoproject.com/en/1.9/intro/contributing/)
 
 ----------
 
 
 ## 模型层
 
-Django provides an abstraction layer (the “models”) for structuring and manipulating the data of your Web application. Learn more about it below:
+Django提供了一个用于构建以及操作Web应用数据的抽象层（“模型(model)”）。下面学习关于它的更多内容：
 
-* **Models**: Introduction to models | Field types | Meta options | Model class
-* **QuerySets**: Executing queries | QuerySet method reference | Lookup expressions
-* **Model instances**: Instance methods | Accessing related objects
-* **Migrations**: Introduction to Migrations | Operations reference | SchemaEditor | Writing migrations
-* **Advanced**: Managers | Raw SQL | Transactions | Aggregation | Custom fields | Multiple databases | Custom lookups | Query Expressions | Conditional Expressions | Database Functions
-* **Other**: Supported databases | Legacy databases | Providing initial data | Optimize database access | PostgreSQL specific features
+* **模型(model)**: [模型入门](https://docs.djangoproject.com/en/1.9/topics/db/models/) |
+[(field)类型](https://docs.djangoproject.com/en/1.9/ref/models/fields/) |
+[Meta选项](https://docs.djangoproject.com/en/1.9/ref/models/options/) |
+[Model类](https://docs.djangoproject.com/en/1.9/ref/models/class/)
+* **查询集(QuerySet)**: [执行查询](https://docs.djangoproject.com/en/1.9/topics/db/queries/) |
+[QuerySet方法参考](https://docs.djangoproject.com/en/1.9/ref/models/querysets/) |
+[查询表达式](https://docs.djangoproject.com/en/1.9/ref/models/lookups/)
+* **Model实例**: [实例方法](https://docs.djangoproject.com/en/1.9/ref/models/instances/) |
+[访问相关对象](https://docs.djangoproject.com/en/1.9/ref/models/relations/)
+* **移植**: [移植简介](https://docs.djangoproject.com/en/1.9/topics/migrations/) |
+[操作参考](https://docs.djangoproject.com/en/1.9/ref/migration-operations/) |
+[SchemaEditor](https://docs.djangoproject.com/en/1.9/ref/schema-editor/) |
+[编写移植](https://docs.djangoproject.com/en/1.9/howto/writing-migrations/)
+* **高级**: [_Managers_](https://docs.djangoproject.com/en/1.9/topics/db/managers/) |
+[原始SQL](https://docs.djangoproject.com/en/1.9/topics/db/sql/) |
+[_Transactions_](https://docs.djangoproject.com/en/1.9/topics/db/transactions/) |
+[聚合](https://docs.djangoproject.com/en/1.9/topics/db/aggregation/) |
+[定制域(field)](https://docs.djangoproject.com/en/1.9/howto/custom-model-fields/) |
+[_Multiple databases_](https://docs.djangoproject.com/en/1.9/topics/db/multi-db/) |
+[自定义查询](https://docs.djangoproject.com/en/1.9/howto/custom-lookups/) |
+[查询表达式](https://docs.djangoproject.com/en/1.9/ref/models/expressions/) |
+[条件表达式](https://docs.djangoproject.com/en/1.9/ref/models/conditional-expressions/) |
+[数据库函数](https://docs.djangoproject.com/en/1.9/ref/models/database-functions/)
+* **其他**: [支持的数据库](https://docs.djangoproject.com/en/1.9/ref/databases/) |
+[旧版数据库](https://docs.djangoproject.com/en/1.9/howto/legacy-databases/) |
+[提供初始数据](https://docs.djangoproject.com/en/1.9/howto/initial-data/) |
+[优化数据库访问](https://docs.djangoproject.com/en/1.9/topics/db/optimization/) |
+[PostgreSQL特定功能](https://docs.djangoproject.com/en/1.9/ref/contrib/postgres/)
 
 
 ----------
@@ -48,15 +76,31 @@ Django provides an abstraction layer (the “models”) for structuring and mani
 
 ## 视图层
 
-Django has the concept of “views” to encapsulate the logic responsible for processing a user’s request and for returning the response. Find all you need to know about views via the links below:
+Django有“视图(view)”的概念，用来封装负责处理用户请求并返回响应的逻辑。通过下面链接，可以找到你所需要知道的关于视图的一切：
 
-* **The basics**: URLconfs | View functions | Shortcuts | Decorators
-* **Reference**: Built-in Views | Request/response objects | TemplateResponse objects
-* **File uploads**: Overview | File objects | Storage API | Managing files | Custom storage
-* **Class-based views**: Overview | Built-in display views | Built-in editing views | Using mixins | API reference | Flattened index
-* **Advanced**: Generating CSV | Generating PDF
-Middleware: Overview | Built-in middleware classes
-
+* **基础知识**: [_URLconfs_](https://docs.djangoproject.com/en/1.9/topics/http/urls/) |
+[视图函数](https://docs.djangoproject.com/en/1.9/topics/http/views/) |
+[快捷键](https://docs.djangoproject.com/en/1.9/topics/http/shortcuts/) |
+[装饰器](https://docs.djangoproject.com/en/1.9/topics/http/decorators/)
+* **参考**: [内置视图](https://docs.djangoproject.com/en/1.9/ref/views/) |
+[Request/response对象](https://docs.djangoproject.com/en/1.9/ref/request-response/) |
+[TemplateResponse对象](https://docs.djangoproject.com/en/1.9/ref/template-response/)
+* **文件上传**: [概述](https://docs.djangoproject.com/en/1.9/topics/http/file-uploads/) |
+[File对象](https://docs.djangoproject.com/en/1.9/ref/files/file/) |
+[存储API](https://docs.djangoproject.com/en/1.9/ref/files/storage/) |
+[管理文件](https://docs.djangoproject.com/en/1.9/topics/files/) |
+[自定义存储](https://docs.djangoproject.com/en/1.9/howto/custom-file-storage/)
+* **基于类的视图**: [概述](https://docs.djangoproject.com/en/1.9/topics/class-based-views/) |
+[内置展示视图](https://docs.djangoproject.com/en/1.9/topics/class-based-views/generic-display/) |
+[内置编辑视图](https://docs.djangoproject.com/en/1.9/topics/class-based-views/generic-editing/) |
+[_Using mixins_](https://docs.djangoproject.com/en/1.9/topics/class-based-views/mixins/) |
+[API参考](https://docs.djangoproject.com/en/1.9/ref/class-based-views/) |
+[_Flattened index_](https://docs.djangoproject.com/en/1.9/ref/class-based-views/flattened-index/)
+* **高级**: [生成CSV](https://docs.djangoproject.com/en/1.9/howto/outputting-csv/) |
+[生成PDF](https://docs.djangoproject.com/en/1.9/howto/outputting-pdf/)
+*   **Middleware:**
+[概述](https://docs.djangoproject.com/en/1.9/topics/http/middleware/) |
+[内置中间件类](https://docs.djangoproject.com/en/1.9/ref/middleware/)
 
 ----------
 
@@ -65,9 +109,12 @@ Middleware: Overview | Built-in middleware classes
 
 模板层提供用于渲染要呈现给用户的信息的设计者友好语法。了解设计师如何使用这一语法师以及如何通过编程进行扩展：
 
-* **The basics**: Overview
-* **For designers**: Language overview | Built-in tags and filters | Humanization
-* **For programmers**: Template API | Custom tags and filters
+* **基础知识**: [概述](https://docs.djangoproject.com/en/1.9/topics/templates/)
+* **对于初学者**: [语言概述](https://docs.djangoproject.com/en/1.9/ref/templates/language/) |
+[内置标签和过滤器](https://docs.djangoproject.com/en/1.9/ref/templates/builtins/) |
+[人性化](https://docs.djangoproject.com/en/1.9/ref/contrib/humanize/)
+* **对于程序员**: [模板API](https://docs.djangoproject.com/en/1.9/ref/templates/api/) |
+[定制标签和过滤器](https://docs.djangoproject.com/en/1.9/howto/custom-template-tags/)
 
 
 ----------
@@ -77,8 +124,14 @@ Middleware: Overview | Built-in middleware classes
 
 Django提供了一个丰富的框架，以帮助创建表格和操作表格数据。
 
-* **The basics**: Overview | Form API | Built-in fields | Built-in widgets
-* **Advanced**: Forms for models | Integrating media | Formsets | Customizing validation
+* **基础知识**: [概述](https://docs.djangoproject.com/en/1.9/topics/forms/) |
+[Form API_](https://docs.djangoproject.com/en/1.9/ref/forms/api/) |
+[内置域(field)](https://docs.djangoproject.com/en/1.9/ref/forms/fields/) |
+[内置小工具(widget)](https://docs.djangoproject.com/en/1.9/ref/forms/widgets/)
+* **高级**: [_Forms for models_](https://docs.djangoproject.com/en/1.9/topics/forms/modelforms/) |
+[_Integrating media_](https://docs.djangoproject.com/en/1.9/topics/forms/media/) |
+[_Formsets_](https://docs.djangoproject.com/en/1.9/topics/forms/formsets/) |
+[自定义验证](https://docs.djangoproject.com/en/1.9/ref/forms/validation/)
 
 
 ----------
@@ -88,12 +141,16 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 
 了解各种组件和工具，以助您进行Django应用程序的开发和测试：
 
-* **设置**: [概述](./topics/设置.md) | [Full list of settings](https://docs.djangoproject.com/en/1.9/ref/settings/)
+* **设置**: [概述](./topics/设置.md) | [设置完整列表](https://docs.djangoproject.com/en/1.9/ref/settings/)
 * **应用**: [概述](https://docs.djangoproject.com/en/1.9/ref/applications/)
 * **异常**: [概述](https://docs.djangoproject.com/en/1.9/ref/exceptions/)
-* **django-admin 和 manage.py**: [概述](https://docs.djangoproject.com/en/1.9/ref/django-admin/) | Adding custom commands
-* **测试**: [简介](https://docs.djangoproject.com/en/1.9/topics/testing/) | Writing and running tests | Included testing tools | Advanced topics
-* **部署**: [概述](https://docs.djangoproject.com/en/1.9/howto/deployment/) | WSGI servers | Deploying static files | Tracking code errors by email
+* **django-admin 和 manage.py**: [概述](https://docs.djangoproject.com/en/1.9/ref/django-admin/) | [_Adding custom commands_](https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/)
+* **测试**: [简介](https://docs.djangoproject.com/en/1.9/topics/testing/) | [编写和运行测试](https://docs.djangoproject.com/en/1.9/topics/testing/overview/) |
+[_Included testing tools_](https://docs.djangoproject.com/en/1.9/topics/testing/tools/) |
+[高级主题](https://docs.djangoproject.com/en/1.9/topics/testing/advanced/)
+* **部署**: [概述](./howto/部署Django.md) | [_WSGI servers_](./howto/如何使用WSGI进行部署.md) |
+[部署静态文件](https://docs.djangoproject.com/en/1.9/howto/static-files/deployment/) |
+[通过email跟踪代码错误](https://docs.djangoproject.com/en/1.9/howto/error-reporting/)
 
 
 ----------
@@ -130,7 +187,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 
 Django还提供了一个强大的国际化和本地化的框架，以帮助您的用于多国语言和世界各地区的应用的发展：
 
-* [概述](./topics/i18n/国际化和本地化.md) | [国际化](./topics/i18n/翻译（转换）.md) | [本地化](https://docs.djangoproject.com/en/1.9/topics/i18n/translation/#how-to-create-language-files) | [本地的Web用户界面格式及表单输入](https://docs.djangoproject.com/en/1.9/topics/i18n/formatting/)
+* [概述](./topics/i18n/国际化和本地化.md) | [国际化](./topics/i18n/翻译（转换）.md) | [本地化](./topics/i18n/翻译（转换）.md/#how-to-create-language-files) | [本地的Web用户界面格式及表单输入](https://docs.djangoproject.com/en/1.9/topics/i18n/formatting/)
 * [时区](https://docs.djangoproject.com/en/1.9/topics/i18n/timezones/)
 
 
@@ -141,7 +198,7 @@ Django还提供了一个强大的国际化和本地化的框架，以帮助您�
 
 有各种各样的技术和工具，可以帮助你的代码的运行更有效率 - 速度更快，并且使用更少的系统资源。
 
-* [性能和优化概述](https://docs.djangoproject.com/en/1.9/topics/performance/)
+* [性能和优化概述](./topics/性能和优化概述.md)
 
 
 ----------
@@ -170,18 +227,22 @@ Django的目标是兼容不同Python风味及版本：
 
 Django还提供了多种通常在Web应用程序开发过程中需要的工具：
 
-* **认证**: Overview | Using the authentication system | Password management | Customizing authentication | API Reference
-* [Caching]()
-* [Logging]()
-* [Sending emails]()
-* [Syndication feeds (RSS/Atom)]()
-* [Pagination]()
-* [Messages framework]()
-* [Serialization]()
-* [Sessions]()
-* [Sitemaps]()
-* [Static files management]()
-* [Data validation]()
+* **认证**: [概述](https://docs.djangoproject.com/en/1.9/topics/auth/) |
+[使用认证系统](https://docs.djangoproject.com/en/1.9/topics/auth/default/) |
+[密码管理](https://docs.djangoproject.com/en/1.9/topics/auth/passwords/) |
+[自定义验证](https://docs.djangoproject.com/en/1.9/topics/auth/customizing/) |
+[API参考](https://docs.djangoproject.com/en/1.9/ref/contrib/auth/)
+*   [缓存](https://docs.djangoproject.com/en/1.9/topics/cache/)
+*   [日志](https://docs.djangoproject.com/en/1.9/topics/logging/)
+*   [发送电子邮件](https://docs.djangoproject.com/en/1.9/topics/email/)
+*   [联合订阅(RSS/Atom)](https://docs.djangoproject.com/en/1.9/ref/contrib/syndication/)
+*   [分页](https://docs.djangoproject.com/en/1.9/topics/pagination/)
+*   [消息框架](https://docs.djangoproject.com/en/1.9/ref/contrib/messages/)
+*   [序列化](https://docs.djangoproject.com/en/1.9/topics/serialization/)
+*   [_Sessions_](https://docs.djangoproject.com/en/1.9/topics/http/sessions/)
+*   [站点地图](https://docs.djangoproject.com/en/1.9/ref/contrib/sitemaps/)
+*   [静态文件管理](https://docs.djangoproject.com/en/1.9/ref/contrib/staticfiles/)
+*   [数据验证](https://docs.djangoproject.com/en/1.9/ref/validators/)
 
 
 ----------
@@ -191,14 +252,14 @@ Django还提供了多种通常在Web应用程序开发过程中需要的工具�
 
 了解Django框架的其他一些核心功能：
 
-* [Conditional content processing]()
-* [Content types and generic relations]()
-* [Flatpages]()
-* [Redirects]()
-* [Signals]()
-* [System check framework]()
-* [The sites framework]()
-* [Unicode in Django]()
+*   [有条件的内容处理](https://docs.djangoproject.com/en/1.9/topics/conditional-view-processing/)
+*   [_Content types and generic relations_](https://docs.djangoproject.com/en/1.9/ref/contrib/contenttypes/)
+*   [_Flatpages_](https://docs.djangoproject.com/en/1.9/ref/contrib/flatpages/)
+*   [重定向](https://docs.djangoproject.com/en/1.9/ref/contrib/redirects/)
+*   [信号](https://docs.djangoproject.com/en/1.9/topics/signals/)
+*   [_System check framework_](https://docs.djangoproject.com/en/1.9/topics/checks/)
+*   [站点框架](https://docs.djangoproject.com/en/1.9/ref/contrib/sites/)
+*   [Django中的Unicode](https://docs.djangoproject.com/en/1.9/ref/unicode/)
 
 
 ----------
@@ -208,8 +269,17 @@ Django还提供了多种通常在Web应用程序开发过程中需要的工具�
 
 了解了Django项目本身以及您如何参与到开发过程：
 
-* **社区**: How to get involved | The release process | Team organization | Meet the team | Current roles | The Django source code repository | Security policies | Mailing lists
-* **设计理念**: Overview
-* **文档**: About this documentation
-* **第三方发行版本**: Overview
-* **Django over time**: API stability | Release notes and upgrading instructions | Deprecation Timeline
+* **社区**: [如何参与](internals/contributing/) |
+[发布过程](internals/release-process/) |
+[团队组织](internals/organization/) |
+[认识我们的团队](internals/team/) |
+[当前绝色](internals/roles/) |
+[Django源代码库](internals/git/) |
+[安全策略](internals/security/) |
+[邮件列表](internals/mailing-lists/)
+* **设计理念**: [概述](misc/design-philosophies/)
+* **文档**: [关于此文档](internals/contributing/writing-documentation/)
+* **第三方发行版本**: [概述](misc/distributions/)
+* **Django over time**: [API的稳定性](misc/api-stability/) |
+[发行说明和升级说明](releases/) |
+[弃用时间表](internals/deprecation/)

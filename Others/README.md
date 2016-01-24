@@ -7,3 +7,4 @@
 3. [Python async-await教程](./Python async-await教程.md)
 4. [hasattr()是有害的](./hasattr()是有害的.md)
 5. [异常 - 原力的黑暗面](./异常 - 原力的黑暗面.md)
+6. [Python Cookbook 3rd Edition Documentation(中文版)](http://python3-cookbook.readthedocs.org/zh_CN/latest/index.html)
