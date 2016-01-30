@@ -10,7 +10,8 @@ translate python documents to Chinese for convenient reference
 欢迎抓虫~~
 
 # 目录说明
-1. [Python Common](./Python Common/) python 常规文档
-2. [Django](./Django) Django 相关文档
-3. [Flask](./Flask) Flask相关文档
-4. [Scrapy](./Scrapy) Scrapy相关文档
+- [Python Common](./Python Common/) python 常规文档
+- [Django](./Django) Django 相关文档
+- [Flask](./Flask) Flask相关文档
+- [Scrapy](./Scrapy) Scrapy相关文档
+- [Others](./Others) 其他一些没法分类的文档
