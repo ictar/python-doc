@@ -41,7 +41,7 @@ Django有大量的文档。关于如何组织的高层次概述可以帮助你�
 
 Django提供了一个用于构建以及操作Web应用数据的抽象层（“模型(model)”）。下面学习关于它的更多内容：
 
-* **模型(model)**: [模型入门](https://docs.djangoproject.com/en/1.9/topics/db/models/) |
+* **模型(model)**: [模型入门](./topics/db/模型.md) |
 [(field)类型](https://docs.djangoproject.com/en/1.9/ref/models/fields/) |
 [Meta选项](https://docs.djangoproject.com/en/1.9/ref/models/options/) |
 [Model类](https://docs.djangoproject.com/en/1.9/ref/models/class/)
