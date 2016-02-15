@@ -10,3 +10,5 @@
 - [hasattr()是有害的](./hasattr()是有害的.md)
 - [异常 - 原力的黑暗面](./异常 - 原力的黑暗面.md)
 - [Python Cookbook 3rd Edition Documentation(中文版)](http://python3-cookbook.readthedocs.org/zh_CN/latest/index.html)
+- [什么是stackless](./什么是stackless.md)
+看看怎么用一种比较温和淡定的态度来看待stackless
