@@ -124,7 +124,7 @@ Django有“视图(view)”的概念，用来封装负责处理用户请求并�
 
 Django提供了一个丰富的框架，以帮助创建表格和操作表格数据。
 
-* **基础知识**: [概述](https://docs.djangoproject.com/en/1.9/topics/forms/) |
+* **基础知识**: [概述](./topics/forms/使用表单.md) |
 [Form API_](https://docs.djangoproject.com/en/1.9/ref/forms/api/) |
 [内置域(field)](https://docs.djangoproject.com/en/1.9/ref/forms/fields/) |
 [内置小工具(widget)](https://docs.djangoproject.com/en/1.9/ref/forms/widgets/)
