@@ -12,3 +12,4 @@
 - [Python Cookbook 3rd Edition Documentation(中文版)](http://python3-cookbook.readthedocs.org/zh_CN/latest/index.html)
 - [什么是stackless](./什么是stackless.md)
 看看怎么用一种比较温和淡定的态度来看待stackless
+- [2016年的Python 3](./2016年的Python 3.md) 作者根据周围人的一些看法简单谈谈了2016年，Python 3何去何从
