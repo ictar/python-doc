@@ -150,12 +150,12 @@ loop.close()
 
 随着协程的这个具体的定义（这与生成器提供的一个API相匹配），你可以在任何[`asyncio.Future`对象](https://docs.python.org/3/library/asyncio-task.html#future)上使用`yield from`，来将它传递到事件循环中，当你等待某些事发生的时候暂停协程的执行（作为一个未来对象，它是`asyncio`的实现细节，并且它并不重要）。一旦未来对象到达事件循环，它会被监控，直到未来的对象做完了它需要做的事。一旦未来对象做完了它需要做的事，事件循环会注意到，然后暂停以等待未来的结果的协程再次启动，而其结果发回给使用`send()`方法的协程。
 
-（unfinished）就拿上面的例子来说。事件循环开始每个的倒数（）协程的调用，执行，直到它碰到从收率和asyncio.sleep（）在其中的一个功能。返回一个asyncio.Future它被传递到事件循环，并暂停协程的执行对象。有事件循环手表将来对象，直到一秒以上（以及检查在其他的东西它看，像其他协程）。一旦一秒时，该事件循环发生暂停倒计时（）给了事件循环以后对象协程，未来对象的结果发送回给了它未来的目标放 ​​在首位的协程，而协程再次开始运行。继续这样跌下去，直到所有的倒计时（）协同程序完成后运行，事件循环无关观看。我实际上将告诉你如何准确所有这一切协同程序/事件循环东西的作品后，一个完整的例子，但首先我想解释如何异步和等待的工作。
-Take our example above. The event loop starts each of the `countdown()` coroutine calls, executing until it hits `yield from` and the `asyncio.sleep()` function in one of them. That returns an `asyncio.Future` object which gets passed down to the event loop and pauses execution of the coroutine. There the event loop watches the future object until the one second is over (as well as checking on other stuff it's watching, like the other coroutine). Once the one second is up, the event loop takes the paused `countdown()` coroutine that gave the event loop the future object, sends the result of the future object back into the coroutine that gave it the future object in the first place, and the coroutine starts running again. This keeps going until all of the `countdown()` coroutines are finished running and the event loop has nothing to watch. I'll actually show you a complete example of how exactly all of this coroutine/event loop stuff works later, but first I want to explain how `async` and `await` work.
+就拿上面的例子来说。事件循环开始每个`countdown()`协程调用，执行，直到它碰到其中的`yield from`和`asyncio.sleep()`函数。它返回一个`asyncio.Future`对象，该对象被传递到事件循环中，并暂停协程的执行。在那里，事件循环监控Future对象，直到一秒结束（以及检查它所监控的其他东西，例如其他协程）。一旦一秒结束，该事件循环接收提供给它Future对象的已暂停的`countdown()`协程，将Future对象的结果发送回最初给它Future对象的协程，然后协程再次开始运行。继续，直到所有的`countdown()`协同程序完成运行，而事件循环没有需要监控的东西为止。实际上，稍后我将用一个完整的例子来告诉你所有这些协同程序/事件循环如何准确工作，但我想先解释`async`和`await`如何工作。
+
 
 ## 在Python 3.5中，从`yield from`到`await`
 
-In Python 3.4, a function that was flagged as a coroutine for the purposes of asynchronous programming looked like:
+在Python 3.4中，出于异步编程目的而被标记为一个协同程序的函数看起来像这样：
 ```py
 # This also works in Python 3.5.
 @asyncio.coroutine
@@ -163,17 +163,19 @@ def py34_coro():
     yield from stuff()
 ```
 
-In Python 3.5, the [`types.coroutine` decorator](https://docs.python.org/3/library/types.html#types.coroutine) has been added to also flag a generator as a coroutine like `asyncio.coroutine` does. You can also use `async def` to syntactically define a function as being a coroutine, although it cannot contain any form of `yield` expression; only `return` and `await` are allowed for returning a value from the coroutine.
+在Python 3.5中, [`types.coroutine`装饰器](https://docs.python.org/3/library/types.html#types.coroutine)也被添加，以用于像协程（例如，`asyncio.coroutine`）一样标记一个生成器。你也可以使用`async def`在语义上定义一个函数为一个协程，即使它并不包含任何形式的`yield`表达式；只有`return`和`await`被允许从协程中返回一个值。
+
 ```py
 async def py35_coro():
     await stuff()
 ```
 
-A key thing `async` and `types.coroutine` do, though, is tighten the definition of what a coroutine is. It takes coroutines from simply being an interface to an actual type, making the distinction between any generator and a generator that is meant to be a coroutine much more stringent (and the [`inspect.iscoroutine()` function](https://docs.python.org/3/library/inspect.html#inspect.iscoroutine) is even stricter by saying `async` has to be used).
+虽然，`async`和`types.coroutine`做的一个关键的事情是为了严格定义协程。它将协程从单纯的一个接口变成一个确切的类型，使得任何生成器与意指协程的生成器之间的区别更加严格(而[`inspect.iscoroutine()`函数](https://docs.python.org/3/library/inspect.html#inspect.iscoroutine)则更为严格，在此函数中，必须使用`async`)。
 
-You will also notice that beyond just `async`, the Python 3.5 example introduces `await` expressions (which are only valid within an `async def`). While `await` operates much like `yield from`, the objects that are acceptable to an `await` expression are different. Coroutines are definitely allowed in an `await` expression since the concept of coroutines are fundamental in all of this. But when you call `await` on an object , it technically needs to be an [_awaitable_ object](https://docs.python.org/3/reference/datamodel.html?#awaitable-objects): an object that defines an `__await__()` method which returns an iterator which is **not** a coroutine itself . Coroutines themselves are also considered awaitable objects (hence why `collections.abc.Coroutine` inherits from `collections.abc.Awaitable`). This definition follows a Python tradition of making most syntax constructs translate into a method call underneath the hood, much like `a + b` is `a.__add__(b)` or `b.__radd__(a)` underneath it all.
+你还会注意到，不仅仅是`async`，Python 3.5例子引进了`await`表达式（这只在`async def`中有效）。虽然`await`操作起来非常像`yield from`，但是`await`表达式可接受的对象是不同的。在定义上，`await`表达式允许协程，因为协同程序的概念为其根本。但是，当你在一个对象上调用`await`时，在技术上，它需要是一个[`awaitable`对象](https://docs.python.org/3/reference/datamodel.html?#awaitable-objects)：一个对象，它定义了一个`__await__()`方法，该方法返回一个不是协程自身的迭代器。协同程序本身也被认为是awaitable对象（这就是为什么`collections.abc.Coroutine`从`collections.abc.Awaitable`继承）。这个定义遵循了Python的一个传统，即使大多数的语法构造转换成引擎下的方法调用，就像`a + b`是引擎下的`a.__add__(b)`或者`b.__radd__(a)`方法。
 
-How does the difference between `yield from` and `await` play out at a low level (i.e., a generator with `types.coroutine` vs. one with `async def`)? Let's look at the bytecode of the two examples above in Python 3.5 to get at the nitty-gritty details. The bytecode for `py34_coro()` is:
+在较低的层次上，`yield from`和`await`的区别是怎样的（例如，带有`types.coroutine`的生成器对比带有`async def`的生成器）？让我们来看看上面两个Python 3.5的例子的字节码来获得具体细节。`py34_coro()`字节码是：
+
 ```py
 >>> dis.dis(py34_coro)
   2           0 LOAD_GLOBAL              0 (stuff)
@@ -186,7 +188,8 @@ How does the difference between `yield from` and `await` play out at a low level
              15 RETURN_VALUE
 ```
 
-The bytecode for `py35_coro()` is :
+`py35_coro()`字节码是：
+
 ```py
 >>> dis.dis(py35_coro)
   1           0 LOAD_GLOBAL              0 (stuff)
@@ -199,10 +202,11 @@ The bytecode for `py35_coro()` is :
              15 RETURN_VALUE
 ```
 
-Ignoring the difference in line number due to `py34_coro()` having the `asyncio.coroutine` decorator, the only visible difference between them is the [`GET_YIELD_FROM_ITER` opcode](https://docs.python.org/3/library/dis.html#opcode-GET_YIELD_FROM_ITER) versus the [`GET_AWAITABLE` opcode](https://docs.python.org/3/library/dis.html#opcode-GET_AWAITABLE). Both functions are properly flagged as being coroutines, so there's no difference there. In the case of `GET_YIELD_FROM_ITER`, it simply checks if its argument is a generator or coroutine, otherwise it calls `iter()` on its argument (the acceptance of a coroutine object by the opcode for `yield from` is only allowed when the opcode is used from within a coroutine itself, which is true in this case thanks to the `types.coroutine` decorator flagging the generator as such at the C level with the `CO_ITERABLE_COROUTINE` flag on the code object).
+忽略因为`py34_coro()`拥有`asyncio.coroutine`装饰器带来的行号的差别，它们之间唯一可见的区别是[`GET_YIELD_FROM_ITER`操作码](https://docs.python.org/3/library/dis.html#opcode-GET_YIELD_FROM_ITER)与[`GET_AWAITABLE`操作码](https://docs.python.org/3/library/dis.html#opcode-GET_AWAITABLE)。这两个函数都被恰当的标记为协程，所以那里没有区别。对于`GET_YIELD_FROM_ITER`，它只是检查它的参数是否是一个生成器或一个协程，否则，在其参数上调用`iter()`（对于`yield from`，通过操作码接受一个协程对象只有当从协程内部使用该操作码时才被允许，在这种情况下，这是真的，这多亏了`types.coroutine`装饰器标记了该生成器，并且同样地在C层次上对代码对象使用`CO_ITERABLE_COROUTINE`标记）。
 
-But `GET_AWAITABLE` does something different. While the bytecode will accept a coroutine just like `GET_YIELD_FROM_ITER`, it will **not** accept a generator if has not been flagged as a coroutine. Beyond just coroutines, though, the bytecode will accepted an _awaitable_ object as discussed earlier. This makes `yield from` expressions and `await` expressions both accept coroutines while differing on whether they accept plain generators or awaitable objects, respectively.
+但`GET_AWAITABLE`则有点不同。虽然字节码将接受一个像`GET_YIELD_FROM_ITER`的协程，但是它不会接受一个没有被标记为协同程序的生成器。虽然协程之外，字节码会像之前讨论的那样接受一个`awaitable`对象。这使得`yield from`表达式和`await`表达式都接受协程，从产生表情和等待分别表达均接受协程，而差异在于它们是否分别接受普通生成器或者awaitable对象。
 
+你可能会奇怪，为什么一个什么样的区别异步基于协同程序和基于发电机协同程序将在各自的暂停表情接受吗？造成这种情况的重要原因是要确保你不要弄乱，不慎混合和匹配对象恰好有相同的API来最好的Python的能力。由于发电机本身实施协程API的话，那就很容易意外地使用发电机当你真正希望使用一个协同程序。而且，由于不是所有的发电机都写在一个基于协程控制流程中使用，你需要避免不慎使用发电机不正确。但是，由于Python是不是静态编译，使用生成自定义协程的时候最好的语言可以提供的是运行时检查。这意味着，当types.coroutine时，Python的编译器不能判断一台发电机将被用来作为协程或只是一个普通的发电机（记住，只是因为语法说types.coroutine，这并不意味着一个人不是招'吨前面做类型=垃圾更早版本），并且有不同的限制从而不同的操作码由基于它具有的时间知识编译器射出。
 You may be wondering why the difference between what an `async`-based coroutine and a generator-based coroutine will accept in their respective pausing expressions? The key reason for this is to make sure you don't mess up and accidentally mix and match objects that just happen to have the same API to the best of Python's abilities. Since generators inherently implement the API for coroutines then it would be easy to accidentally use a generator when you actually expected to be using a coroutine. And since not all generators are written to be used in a coroutine-based control flow, you need to avoid accidentally using a generator incorrectly. But since Python is not statically compiled, the best the language can offer is runtime checks when using a generator-defined coroutine. This means that when `types.coroutine` is used, Python's compiler can't tell if a generator is going to be used as a coroutine or just a plain generator (remember, just because the syntax says `types.coroutine` that doesn't mean someone hasn't earlier done `types = spam` earlier), and thus different opcodes that have different restrictions are emitted by the compiler based on the knowledge it has at the time.
 
 One very key point I want to make about the difference between a generator-based coroutine and an `async` one is that only generator-based coroutines can actually pause execution and force something to be sent down to the event loop. You typically don't see this very important detail because you usually call event loop-specific functions like the [`asyncio.sleep()` function](https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep) since event loops implement their own APIs and these are the kind of functions that have to worry about this little detail. For the vast majority of us, we will work with event loops rather than be writing them and thus only be writing `async` coroutines and never need to really care about this. But if you're like me and were wondering why you couldn't write something like `asyncio.sleep()` using only `async` coroutines, this can be quite the "aha!" moment.

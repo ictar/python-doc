@@ -1,13 +1,13 @@
 原文：[Building a better user experience for deploying Python web applications.](http://blog.dscpl.com.au/2016/02/building-better-user-experience-for.html)
 
 ---
-Yet again I missed out on a getting a talk into PyCon US. The title of my proposed talk was the same as this blog post. Since it wasn’t accepted, I thought I might instead use a blog post to give a sneak peek at some of the more recent work I have been doing on Python web application deployment, which I otherwise would have described a bit about in my talk if it had been accepted.
+我又一次错过了一个在PyCon US谈话的机会。我想谈的题目与这篇博客文章是一样的。由于它不被接受，所以我想我可能会转而使用一篇博文来一瞥我一直在做的Python Web应用程序部署的最近的工作，而如果它被接受，我本来会在我的谈话中描述一下相关内容。
 
-For those who may have been following what I have been doing in the past with creating and supplying Docker images for running Python web applications using Apache and mod_wsgi, this is a progression of that work, expanding on the scope and making it usable beyond Docker containers.
+对于那些可能已经跟随我在过去一直在做的，使用Apache和mod_wsgi来为运行着的Python web应用程序创建和运用Docker图像的人，这是工作的进展，扩大范围，并使它在Docker容器外可用。
 
-# Demonstration using Django
+# 使用Django示范
 
-To illustrate what it is all about a simple demonstration is in order. For that lets create a new Django web application project and get it running.
+为了说明这是怎么一回事，下面是一个简单的演示。其中，创建了一个新的Django web应用程序项目，并让它运行。
 ```py
 > $ django-admin startproject mydjangosite
 > $ cd mydjangosite/
@@ -22,15 +22,15 @@ To illustrate what it is all about a simple demonstration is in order. For that 
 > Quit the server with CONTROL-C.
 ```
 
-Nothing special here and if we go to the URL ‘http://127.0.0.1:8000/admin' we will be presented with the login page for the Django admin interface. As we are using the builtin Django development server the styling for the login page will look correct as the development server automatically worries about static file assets such as style sheets.
+这里没有什么特别的，而如果我们访问URL“http://127.0.0.1:8000/admin”，我们将看到Django管理界面的登录页面。由于我们使用的是内置Django开发服务器，所以登录页面的样式看起来正确的，因为开发服务器自动处理静态文件资产，例如样式表。
 
-As you should all hopefully know, the Django development server should not be used for a production system. For development though at least, the development server can be handy due to the fact that it does handle static file assets and also offers automatic code reloading. Use of the development server can though hide certain problems that will only occur in a production environment where a multi process and/or multi threaded configuration may be used.
+正如你应该都希望知道的，Django开发服务器不应该被用于生产系统。但至少对于开发，由于它处理静态文件资产，同时还提供动态代码加载，因此开发服务器是很方便的。虽然开发服务器的使用会隐藏只会发生在生产环境中（其中可能使用一个多进程和/或多线程结构）的某些问题。
 
-Setting up a production grade web server is often viewed as being a lot of trouble and people can struggle with it. Lets therefore see if we can make that a bit easier.
+建立一个生产级Web服务器通常被视为是一个很大的麻烦，人们可以与之斗争。因此，让我们看看我们是否能够使之更容易一些。
 
-# Simplified web application wrapper
+# 简化的web应用程序包装
 
-In order to create that Django application above I first needed to have Django installed. This was simply so that the ‘django-admin’ program was available. Imagine though that I didn’t need that as I had created the project skeleton by hand, or had checked out an existing Django project repository. To emphasise this, lets use ‘virtualenvwrapper’ to create a fresh Python virtual environment. Into this I am going to install a single Python package called ‘warpdrive’.
+为了创建上面的Django应用程序，首先需要安装Django。这很简单，只是以便‘django-admin’程序可用。试想一下，虽然我并不需要它，因为我曾手工创建该项目的骨架，或已签出一个现有的Django项目库。为了强调这一点，让我们使用'virtualenvwrapper“创建一个新的Python虚拟环境。其中，我要安装一个名为“WarpDrive”的Python包。
 
 ```sh
 > $ mkvirtualenv warpdrive
@@ -48,17 +48,18 @@ In order to create that Django application above I first needed to have Django i
 > Successfully installed warpdrive-0.14.6
 ```
 
-We will still need Django, but we definitely don’t want to install that manually as an argument to ‘pip’ on the command line. Instead we should list any such required Python packages in a ‘requirements.txt’ file for ‘pip’. We will therefore create a ‘requirements.txt’ file listing only ‘Django’ in it.
+我们仍然需要Django，但我们绝对不希望在命令行上将其作为参数传递给'pip'以进行手动安装。相反，我们应该为"pip"在‘requirements.txt’文件中任何需要的Python包。因此，我们将创建一个“requirements.txt”，并在文件中只列出”Django。
 
-Even now I still don’t really want to run ‘pip’ by hand as setting up a Python web application project so it can be run is often more than just installing required Python packages. For example, when using Django with a production grade WSGI server, it would generally be necessary to run ‘python manage.py collectstatic’. These are steps though that can be forgotten by users. A better approach would be to automate such steps, and where necessary, record such manual steps in special build scripts that would be automatically run when setting up the environment for running a Python web application. This is where ‘warpdrive’ comes into play.
+即使到现在，我仍然没有真的想要手动运行‘pip’来建立一个Python Web应用程序项目，这样的话，它可以比安装必需的Python包更频繁的运行。例如，当与一个生产级WSGI服务器一起使用Django时，它一般会需要运行'python manage.py collectstatic'。这些措施虽然可能被用户遗忘。更好的方法是自动完成这样的步骤，并在必要时，将这些手动步骤记录在特殊的构建脚本中，这样，在为运行一个Python Web应用程序设置环境时，就可以自动运行。这就是‘warpdrive’发挥的作用。
 
-Now although I create a Python virtual environment and installed ‘warpdrive’, that was purely so that I had ‘warpdrive’ installed and show that otherwise I had an empty Python installation.
+现在，虽然我创建了一个Python虚拟环境，并安装了‘warpdrive’，但是它很干净，所以我安装了‘warpdrive’并显示它，否则我只是安装了一个空的Python。
 
-What I am now going to do is build a separate Python virtual environment for this specific Python web application, but have ‘warpdrive’ create it and set it up for me.
+我现在要做的事是为这个特定的Python Web应用程序建立一个单独的Python虚拟环境，但是让‘warpdrive’为我创建并设置它。
+
 ```py
-> (warpdrive) $ eval "$(warpdrive activate mydjangosite)"&nbsp;
+> (warpdrive) $ eval "$(warpdrive activate mydjangosite)" 
 > (warpdrive+mydjangosite) $ warpdrive build
->  -----&gt; Installing dependencies with pip
+>  ----->; Installing dependencies with pip
 > Collecting Django (from -r requirements.txt (line 1))
 >  Downloading Django-1.9.2-py2.py3-none-any.whl (6.6MB)
 >  100% |████████████████████████████████| 6.6MB 1.4MB/s
@@ -67,28 +68,30 @@ What I am now going to do is build a separate Python virtual environment for thi
 > Collecting mod-wsgi
 > Installing collected packages: mod-wsgi
 > Successfully installed mod-wsgi-4.4.22
->  -----&gt; Collecting static files for Django
+>  ----->; Collecting static files for Django
 > Copying ‘.../django/contrib/admin/static/admin/css/base.css’
 > ...
 > 
 > 56 static files copied to '/Users/graham/.warpdrive/warpdrive+mydjangosite/home/django_static_root'.
 ```
-The first step here was to use ‘warpdrive activate’ to create a fresh Python virtual environment and use it for the current shell. The second step was to use ‘warpdrive build’ to setup our environment.
 
-The ‘warpdrive build’ command is doing a few things here, but the main things are that it installed all Python packages listed in the ‘requirements.txt’ file, installed ‘mod_wsgi-express’ and finally ran ‘python manage.py collectstatic’.
+这里的第一步是使用‘warpdrive activate’创建一个新的Python虚拟环境，并将其用于当前的shell。第二步是使用‘warpdrive build’来设置我们的环境。
 
-You may note that we didn’t actually specify that the Django management command ‘collectstatic’ should be executed. This is because ‘warpdrive’ itself knows about various ways that Python web applications may be launched, including special support for detecting when you are running a Django web application. Knowing that you are using Django it will automatically run ‘collectstatic’ for you.
+‘warpdrive build’命令在这里做一些事情，但主要的事情是，它安装在‘requirements.txt’ 文件中列出的所有Python包，安装‘mod_wsgi-express’，最后运行‘python manage.py collectstatic’。
 
-The keen eyed may even notice that we didn’t modify the Django settings module and specify ‘STATIC_ROOT’ so that ‘collectstatic’ knew where to copy static file assets. Again this is the smarts of ‘warpdrive’ kicking in, with it realising that it wasn’t defined and supplying its own value of ‘STATIC_ROOT’ instead when ‘collectstatic' is run.
+你可能注意到，我们实际上并没有指定Django管理命令‘collectstatic’应该被执行。这是因为‘warpdrive’本身知道了Python Web应用程序可能会启动的各种方式，包括当你运行一个Django web应用程序时检测的特殊支持。知道你正在使用Django，它就会自动为你运行‘collectstatic’。
 
-As you go along and make changes to static file assets or modify the ‘requirements.txt’ file, you simply need to re-run ‘warpdrive build’ to refresh the current environment.
+敏锐的人甚至可能会注意到，我们没有修改Django的设置模块，并指定‘STATIC_ROOT’从而使得“collectstatic”知道从哪里拷贝静态文件资产。再次，这是‘warpdrive’的聪明之处，它意识到当运行‘collectstatic'时，并没有为它定义‘STATIC_ROOT’，因此它会用它自己的‘STATIC_ROOT’值来代替。
 
-With the environment for the web application built, we can now start it up. To do this we are going to use ‘warpdrive start'.
+当你接着更改静态文件资产或修改‘requirements.txt’文件时，你只需要重新运行‘warpdrive build’来刷新当前环境。
+
+随着Web应用程序的环境的构建，现在我们可以启动它了。要做到这一点，我们将使用‘warpdrive start'。
+
 ```py
 > (warpdrive+mydjangosite) $ warpdrive start
->  -----&gt; Configuring for server type of auto
->  -----&gt; Running server script start-mod_wsgi
->  -----&gt; Executing server command ' mod_wsgi-express start-server --log-to-terminal --startup-log --port 8080 --application-type module --entry-point mydjangosite.wsgi --callable-object application --url-alias /static/ /Users/graham/.warpdrive/warpdrive+mydjangosite/home/django_static_root/'
+>  ----->; Configuring for server type of auto
+>  ----->; Running server script start-mod_wsgi
+>  ----->; Executing server command ' mod_wsgi-express start-server --log-to-terminal --startup-log --port 8080 --application-type module --entry-point mydjangosite.wsgi --callable-object application --url-alias /static/ /Users/graham/.warpdrive/warpdrive+mydjangosite/home/django_static_root/'
 > Server URL : http://localhost:8080/
 > Server Root : /tmp/mod_wsgi-localhost:8080:502
 > Server Conf : /tmp/mod_wsgi-localhost:8080:502/httpd.conf
@@ -104,73 +107,80 @@ With the environment for the web application built, we can now start it up. To d
 > [Thu Feb 18 12:58:37.279748 2016] [mpm_prefork:notice] [pid 9456] AH00163: Apache/2.4.16 (Unix) mod_wsgi/4.4.22 Python/2.7.10 configured -- resuming normal operations
 > [Thu Feb 18 12:58:37.280085 2016] [core:notice] [pid 9456] AH00094: Command line: 'httpd (mod_wsgi-express) -f /tmp/mod_wsgi-localhost:8080:502/httpd.conf -E /dev/stderr -D FOREGROUND'
 ```
-Unlike before, this time the Django development server is not being run. Instead ‘warpdrive’ is running ‘mod_wsgi-express’. In doing that it has automatically determined from the Django application itself what the WSGI application entry point is, where static files assets are mounted, as well as determine where the static file assets are located. Our style sheets for the Django admin page therefore work, even if you had forgot to set up ‘STATIC_ROOT’ in the Django settings file as ‘warpdrive’ would have detected that.
 
-With no real extra work we have got ourselves a production grade WSGI server and can thus be more confident that we have something more comparable to when we really deploy our Django application. Notionally this could even be used as the basis of your production deployment and if it was, it means that your local environment is going to be as close as possible to the actual production platform.
+与之前不同，这次，Django开发服务器并没有运行。相反，‘warpdrive’会运行‘mod_wsgi-express’。在此过程中，已经从Django应用本身自动决定WSGI应用程序入口点是什么，静态文件资产挂载在哪里，以及确定静态文件资产位于何处。因此，我们用于Django管理页面的样式表可以工作，即使你已经忘了在Django配置文件中设置“STATIC_ROOT”，因为‘warpdrive’会检测到。
 
-As far as additional configuration or setup steps, ‘warpdrive’ supports various mechanisms for supplying hook scripts which can be executed as part of the build and deployment phases. This means you can capture setup steps and have them triggered on both a local environment and production where appropriate. Additional WSGI server options or environment variables can also be supplied to override or customise the configuration, such as tuning the number of processes and threads being used.
+没有真正额外的工作，我们已经有了自己生产级别的WSGI服务器，从而可以更加自信，当我们真正部署我们的Django应用程序时，我们有更多的东西可比较。理论上，这甚至可以被用作生产部署的基础，如果是的话，这意味着你的本地环境将尽可能接近实际生产平台。
 
-One specific environment variable relevant to local development is ‘MOD_WSGI_RELOAD_ON_CHANGES’. Define this when running ‘warpdrive start’ and you get back the automatic code reloading feature of the builtin Django development server, meaning you can just as readily use ‘warpdrive' during development also.
+至于其他配置或安装步骤，‘warpdrive’支持执行钩子脚本（可作为构建和部署阶段的一部分执行）的各种机制。这意味着你可以捕捉设置步骤，并在适当情况下，同时在本地环境和生产环境上触发它们。也可提供附加的WSGI服务器选项或环境变量来覆盖或定制结构，诸如调谐正在使用的进程和线程的数目。
 
-# That cool kid called Docker
+一个有关本地开发的特定环境变量是“MOD_WSGI_RELOAD_ON_CHANGES”。运行‘warpdrive start’时定义这个变量，而恢复内置的Django开发服务器的自动代码加载功能，意味着你也可以在开发过程中容易地使用‘warpdrive’。
 
-You may be saying, but I use Docker, so how is this going to help me.
 
-This is no problem and ‘warpdrive’ actually grew out of all the work I have been doing with Docker. You could technically create your own Docker base image and provided it satisfies a few requirements around certain system packages being available, trigger ‘warpdrive build’ &nbsp;from your ‘Dockerfile’ and ‘warpdrive start’ from the ‘CMD’.
+# 那个名为Docker的酷小孩
 
-The easier path though would be to use Docker base images which I have created which already incorporate all the required base packages and integrate ‘warpdrive’ already.
+你可能会说，但我用Docker，所以这是将怎么帮助我呢。
 
-Having to create Docker images yourself can still be a pain though, especially when doing it from scratch and you aren’t aware of all the traps and pitfalls in doing that.
+这是没有问题的，‘warpdrive’实际上产生于我一直在使用Docker做的所有工作。你可以在技术上建立自己的Docker基本图形，并假设它满足关于特定的可用系统包的一些要求，从你的‘Dockerfile’中触发‘warpdrive build’，以及从‘CMD’中触发‘warpdrive start’。
 
-To make it all easier, ‘warpdrive’ and the Docker base images I have are S2I enabled.
+虽然较容易的方法是使用Docker基本图形，也就是我所创建的已经包含所有必需的基本包和整合‘warpdrive’的那个。
 
-Most probably wouldn’t have heard of S2I, but what it stands for is ’Source to Image’. It is effectively the concept of build packs as implemented by some hosting services, but re-imagined and modernised to use Docker.
+虽然必须自己创建Docker图形仍然很痛苦，尤其是从头做起，而你不知道在此过程中所有的陷阱。
 
-You can read more about Source to Image at:
+为了使这一切变得更容易，我有的‘warpdrive’和Docker基本图像已经启用S2I。
+
+最有可能的是，你没有听说过S2I，但它所代表的是“从源到图像”。它由一些托管服务实现，加强了构建包的概念，但重新想象和现代化了Docker的使用。
+
+你可以在这里读到更多关于“从源到图像”的内容：
 
 *   [https://github.com/openshift/source-to-image](https://github.com/openshift/source-to-image)
 
-Having already shown that my Django web application runs, all I now need to do to create a Docker image for it is to run ‘warpdrive s2i’.
+我的Django Web应用程序已运行，要为它创建一个Docker图像，我现在所要做的是运行‘warpdrive s2i’。
+
 ```py
 > (warpdrive+mydjangosite) $ warpdrive s2i
-> ---&gt; Installing application source
-> ---&gt; Building application from source
-> -----&gt; Installing dependencies with pip
+> --->; Installing application source
+> --->; Building application from source
+> ----->; Installing dependencies with pip
 > Collecting Django (from -r requirements.txt (line 1))
 > Downloading Django-1.9.2-py2.py3-none-any.whl (6.6MB)
 > Installing collected packages: Django
 > Successfully installed Django-1.9.2
-> -----&gt; Collecting static files for Django
+> ----->; Collecting static files for Django
 > Copying ‘.../django/contrib/admin/static/admin/img/icon-yes.svg’
 > ...
 > 
 > 56 static files copied to '/home/warpdrive/django_static_root'.
-> ---&gt; Fix permissions on application source
+> --->; Fix permissions on application source
 > (warpdrive+mydjangosite) $ docker images | grep mydjangosite
 > warpdrive-mydjangosite latest 8d7fd16f7ab8 20 seconds ago 819.6 MB
 ```
-The result of this is a Docker image incorporating my Django web application and all it needs, called ‘warpdrive-mydjangosite'. As before, ‘collectstatic’ was automatically run as part of the build phase for the Docker image.
 
-Running the Docker image is then just a matter of executing ‘docker run’ and exposing the appropriate port.
+这样做的结果是结合我的Django web应用程序及其所需的Docker图像，它叫做warpdrive-mydjangosite'。和以前一样，作为Docker图像生成阶段的一部分，‘collectstatic’被自动运行。
+
+那么，运行Docker图像只是执行‘docker run’，并暴露适当的端口的问题。
+
 ```py
 > (warpdrive+mydjangosite) $ docker run -p 8080:8080 warpdrive-mydjangosite
-> ---&gt; Executing the start up script
->  -----&gt; Configuring for server type of auto
->  -----&gt; Running server script start-mod_wsgi
->  -----&gt; Executing server command ' mod_wsgi-express start-server --log-to-terminal --startup-log --port 8080 --application-type module --entry-point mydjangosite.wsgi --callable-object application --url-alias /static/ /home/warpdrive/django_static_root/'
+> --->; Executing the start up script
+>  ----->; Configuring for server type of auto
+>  ----->; Running server script start-mod_wsgi
+>  ----->; Executing server command ' mod_wsgi-express start-server --log-to-terminal --startup-log --port 8080 --application-type module --entry-point mydjangosite.wsgi --callable-object application --url-alias /static/ /home/warpdrive/django_static_root/'
 > [Thu Feb 18 03:08:22.406961 2016] [mpm_event:notice] [pid 19:tid 139789921310464] AH00489: Apache/2.4.18 (Unix) mod_wsgi/4.4.22 Python/2.7.11 configured -- resuming normal operations
 > [Thu Feb 18 03:08:22.407345 2016] [core:notice] [pid 19:tid 139789921310464] AH00094: Command line: 'httpd (mod_wsgi-express) -f /tmp/mod_wsgi-localhost:8080:1001/httpd.conf -E /dev/stderr -D MOD_WSGI_MPM_ENABLE_EVENT_MODULE -D MOD_WSGI_MPM_EXISTS_EVENT_MODULE -D MOD_WSGI_MPM_EXISTS_WORKER_MODULE -D MOD_WSGI_MPM_EXISTS_PREFORK_MODULE -D FOREGROUND'
 ```
-You can then test further your web application running in the context of Docker and if happy, push the Docker image up to your hosting platform and run it.
 
-# Deploying to OpenShift 3
+然后，你可以进一步测试在Docker上下文中运行的web应用程序，而如果结果令你满意，你可以推送该Docker图像到你的托管平台，并运行它。
 
-If using the latest version of OpenShift based on Docker and Kubernetes deployment is even easier. This is because you don’t need to go through the separate step yourself of creating the Docker image and uploading it to a Docker registry. This is because OpenShift itself is aware of Source to Image and can deploy web applications direct from a Git repository.
+# 部署到OpenShift 3
 
-To deploy this same application to OpenShift, all I would need to do is commit my changes and push them up to my Git repository and run:
+如果使用基于Docker和Kubernetes的OpenShift最新版本，部署更容易。这是因为你不需要自己通过单独的步骤去创建Docker图像并将其上传到Docker注册表。这是因为OpenShift本身知道从源到图像，并可以直接从一个Gi​​t仓库部署Web应用程序。
+
+要部署同样的应用程序到OpenShift，所有我需要做的就是提交我的修改，并推动它们到了我的Git仓库，然后运行：
+
 ```py
 > (warpdrive+mydjangosite) $ oc new-app grahamdumpleton/warp0-debian8-python27~https://github.com/GrahamDumpleton/django-hello-world-v1.git
-> --&gt; Found Docker image d148eec (8 hours old) from Docker Hub for "grahamdumpleton/warp0-debian8-python27"
+> -->; Found Docker image d148eec (8 hours old) from Docker Hub for "grahamdumpleton/warp0-debian8-python27"
 > Python 2.7 (Warp Drive)
 >  -----------------------
 >  S2I builder for Python web applications.
@@ -182,7 +192,7 @@ To deploy this same application to OpenShift, all I would need to do is commit m
 >  * This image will be deployed in deployment config "django-hello-world-v1"
 >  * Port 8080/tcp will be load balanced by service "django-hello-world-v1"
 >  * Other containers can access this service through the hostname "django-hello-world-v1"
-> --&gt; Creating resources with label app=django-hello-world-v1 ...
+> -->; Creating resources with label app=django-hello-world-v1 ...
 >  imagestream "django-hello-world-v1" created
 >  buildconfig "django-hello-world-v1" created
 >  deploymentconfig "django-hello-world-v1" created
@@ -190,42 +200,44 @@ To deploy this same application to OpenShift, all I would need to do is commit m
 > (warpdrive+mydjangosite) $ oc expose service django-hello-world-v1
 > route "django-hello-world-v1" exposed
 ```
-OpenShift will automatically download my Docker base image with S2I support as necessary, and the Git repository containing my application source code, trigger the S2I build process to create the final Docker image and then deploy it. We then just need to run one final step to actually make the web application publicly accessible and we are done.
 
-# Alternate PaaS providers
+OpenShift将在必要的时候自动下载我的​​带有S2I支持的Docker基本图像S2I支持，以及包含我的应用程序源代码的Git仓库，引发S2I构建过程创建最终的Docker图像，然后进行部署。然后，我们只需要运行最后一步来实际上使Web应用程序可以被公开访问，这样我们就做完了。
 
-Could ‘warpdrive’ be used with other PaaS providers?
+# 备选的PaaS提供商
 
-The answer there is yes, provided they don’t lock you out completely from the build and deployment phases, and don’t screw up the Python environment too much. I haven’t tweaked ‘warpdrive’ for this, and probably won't, but I have deployed previous iterations of all this work to OpenShift 2 and Heroku.
+‘warpdrive’可以与其他PaaS提供商一起用吗？
 
-The end result is that we have the possibility here of having one deployment story that can work with multiple hosting services, but which can still also be used on your local development platform.
+答案是肯定的，只要在构建和部署阶段，他们不完全锁定你，并且不要过多搞砸了Python环境。我还没有为此调整‘warpdrive’，并且也许不会，但我已经部署所有这些工作的以前迭代到OpenShift 2和Heroku上了。
 
-# Alternate web servers
+最终的结果是，我们在这里有一个可能性，就是使得一个部署可以与多个主机服务一起工作，但仍然可以在你的本地开​​发平台上使用。
 
-In our sample application we used Django, but if using an alternate WSGI framework you just need to supply a WSGI application entrypoint in a ‘wsgi.py’ file in the top directory of your project.
 
-By default the ‘auto’ mode of ‘warpdrive’ will use ‘mod_wsgi-express’ to host any WSGI application, including Django specific applications. This is because ‘mod_wsgi-express’ was largely purpose built for this type of deployment setup. It is therefore the best option available.
+# 备选的web服务器
 
-The performance of most WSGI servers is more or less the same when configured properly. If you still wish to use a different WSGI server because the characteristics of that WSGI server better suit some unique requirement of your web application, you can still use that alternate WSGI server. To do this you just need to override the ‘auto’ mode and say what WSGI server you want to use.
+在我们的样例应用中，我们使用了Django，但是如果使用给一个备选的WSGI框架，你只需要在你的项目的顶级目录中的‘wsgi.py’文件中应用一个WSGI应用入口点。
 
-Alternate WSGI servers which are supported are ‘gunicorn’, ‘uwsgi’ and ‘waitress’. When these are selected you just need to ensure that they are also listed in the ‘requirements.txt’ file for ‘pip’. So long as you do that, ‘warpdrive’ will start up that WSGI server for you instead, supplying a minimal set of options required to get them to listen on the correct port for HTTP connections and log to the terminal. Any other required options to ensure the WSGI server behaves properly inside of a Docker container will also be supplied if necessary.
+默认情况下，‘warpdrive’的‘auto’模式将使用‘mod_wsgi-express’来处理任何WSGI应用，包括Django特定应用。这是因为，‘mod_wsgi-express’的主要目的是为这种类型的部署步骤所构建的。因此，这是可用的最佳选项。
 
-As well as specifying any of these alternate WSGI servers, you can also specify explicitly that ‘mod_wsgi’ should be used. Do be aware though that overriding the deployment mechanism and not using ‘auto’, means that the configuration of the WSGI server is then entirely up to you. So if specifying ‘mod_wsgi’ or an alternate WSGI server explicitly, you would then need to tell it how to host your Django application, whereas with ‘auto’ mode that is all done for you.
+当配置恰当时，大多数WSGI服务器的性能或多或少是相同的。如果你仍然因为某个WSGI服务器的特性能够更好的满足你的web应用的特殊需求而希望使用一个不同的WSGI服务器，那么你可以仍旧使用那个备选的WSGI服务器。要做到这点，你只需要重写‘auto’模式，然后配置你想要使用的WSGI服务器。
 
-For those who don’t want to actually use a WSGI server, but instead for example want to use the Tornado web server, you can instead supply an ‘app.py’ file. If this file exists then that will take precedence and ‘warpdrive’ will execute it as a Python script to run your Python web application. Your web application then just needs to listen on the appropriate HTTP port.
+所支持的备选WSGI服务器是‘gunicorn’, ‘uwsgi’和‘waitress’。在选择这些时，你只需要确保在用于“pip”的‘requirements.txt’文件中列出它们。一旦你这样做了，‘warpdrive’将会为你用那个WSGI服务器取而代之，运用所需的最小集选项来使它们监听HTTP连接的正确端口，并将在终端保存日志。其他任何确保WSGI服务器可以在一个Docker容器中正常工作的必选项也将在需要的时候应用。
 
-Need even more control over startup, you can also supply an ‘app.sh’ file and so as necessary easily preform any last minute steps or set special environment variables. The only requirement at this point is that the final command in the shell script to run the actual web application use ‘exec’ so that the web application replaces the shell process. This is to ensure signals works properly when things are run under Docker. You might use an ‘app.sh’ file for example when wishing to setup and run Jupyter Notebook.
+与指定这些任何一个备选WSGI服务器相同，你也可以显式指定应该使用的‘mod_wsgi’。虽然要注意，覆盖部署机制并且不使用‘auto’意味着该WSGI服务器的配置完全取决于你。所以，如果显式指定‘mod_wsgi’或备选WSGI服务器，你会需要告诉它如何使用你的Django应用，反之，‘auto’模式会帮你做好这一切。
 
-Special knowledge for other Python web frameworks could also be added if they have a unique and commonly used method of deployment. For example, ‘warpdrive’ will also recognise a ‘paste.ini’ file as might be used by Paste based web applications and configure and launch ‘mod_wsgi-express’ to run it.
+对于那些实际上不想使用WSGI服务器，而想要使用其他诸如Tornado web服务器的人，你可以应用一个‘app.py’文件来代替。如果这个文件存在了，那么它会获得优先权，而‘warpdrive’将把它作为一个Python脚本执行，从而运行你的Python web应用。然后，你的web应用只需要监听正确的HTTP端口即可。
 
-# Should you use this?
+想要更多关于启动的控制权，你也可以运用一个‘app.sh’文件，在其中执行任何必要的步骤或者设置特殊的环境变量。关于这点唯一必要条件是，在shell脚本中运行实际的web应用的最后的命令要使用‘exec’，这样的话，该web应用才能替代shell进程。这是要确保当在Docker下运行时，信号正确工作。例如，当想要安装和运行Jupyter Notebook时，你可能会使用一个‘app.sh’文件
 
-Right now ‘warpdrive’ is my play thing.
+如果其他Python web框架的特殊知识具有一个唯一且常用的部署方法，那么它们也可以被添加。例如，‘warpdrive’也将识别一个‘paste.ini’文件（它可能被基于Paste的web应用使用），然后配置和启动‘mod_wsgi-express’来运行它。
 
-Bringing new Open Source projects into the open and making them public is a dangerous exercise due to the demands that users put on developers of the projects.
+# 你应该用它吗?
 
-So right now you probably don’t want to use it because I still want the flexibility to make any sorts of changes I want to how it works. Plus I don’t really want hoards of users pestering me with simple questions.
+现在，‘warpdrive’就是我的玩具。
 
-Will I ever say it is ready to use? Maybe, maybe not. That really depends on whether there is any interest. Surprisingly I have gotten a fait bit of push back from some quarters on this whole concept in the past. This may well be a vocal minority who think they already known how to do everything themselves, but such negative reactions aren’t always encouraging to the idea of declaring it public and usable.
+由于用户对项目开发者的要求，将新的开源项目带到公众面前是危险的。
 
-If you are intrigued by what I have presented, think it has merit and might be something you would use, then at least follow me on Twitter (@GrahamDumpleton) and let me know on Twitter what you think. Thanks.
+所以现在，你可能不想要使用它，因为我仍然想要可以灵活地根据我想要的对它的工作方式进行修改。另外，我真的不想要成堆的用户用简单的问题纠缠我。
+
+我曾经说它已准备好使用吗?可能会，可能不会。这取决于是否有任何兴趣。令人吃惊的是，过去，从这整个概念的某些部分中，我已经获得了一些既成事实(原文是：I have gotten a fait bit of push back from some quarters on this whole concept in the past.想不到确切的译法，SOS！T_T)。这很可能是少数人，他们认为他们已经知道自己如何做这一切了，但是这样消极的反应并不有助于将此想法公布于众并使之可用。
+
+如果你受我所呈现的东西所启发，认为它有价值，并且你可能使用的它，那么至少在Twitter上关注我（@GrahamDumpleton），然后在Twitter上让我知道你的想法。谢谢。
