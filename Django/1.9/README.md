@@ -99,7 +99,7 @@ Django有“视图(view)”的概念，用来封装负责处理用户请求并�
 * **高级**: [生成CSV](https://docs.djangoproject.com/en/1.9/howto/outputting-csv/) |
 [生成PDF](https://docs.djangoproject.com/en/1.9/howto/outputting-pdf/)
 *   **Middleware:**
-[概述](https://docs.djangoproject.com/en/1.9/topics/http/middleware/) |
+[概述](./topics/http/中间件.md) |
 [内置中间件类](https://docs.djangoproject.com/en/1.9/ref/middleware/)
 
 ----------

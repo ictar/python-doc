@@ -1,6 +1,6 @@
-# Python Official documentation
+# Python Common documentation
 
-[python官方](www.python.org)文档
+关注与Python语言本身
 
 # 目录说明
 - [3.5.1](./3.5.1/) 
