@@ -27,3 +27,7 @@
 - [为部署Python web应用程序构建一个更好的用户体验](./为部署Python web应用程序构建一个更好的用户体验.md)
 
     介绍使用warpdrive简单快捷的在不同的WSGI上部署web应用以及一些关于改进部署体验的做法
+
+- [在Python中导入一个Docker容器](./在Python中导入一个Docker容器.md)
+
+    介绍了一个工具Sidomo，它可以将奇怪的软件转换成在Python代码中无缝运行的漂亮且单纯的Python模块。
