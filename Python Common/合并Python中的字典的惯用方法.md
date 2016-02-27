@@ -2,29 +2,29 @@
 
 ---
 
-Have you ever wanted to combine two or more dictionaries in Python?
+你是否曾经想过在Python将两个或多个字典进行合并？
 
-There are multiple ways to solve this problem: some are awkward, some are inaccurate, and most require multiple lines of code.
+有多种方式来解决这个问题：有一些是不方便的，一些是不准确的，并且大多数需要多行代码。
 
-Let’s walk through the different ways of solving this problem and discuss which is the most [Pythonic](https://docs.python.org/3/glossary.html#term-pythonic).
+让我们漫游解决此问题的不同方式，并讨论哪一个最[Pythonic](https://docs.python.org/3/glossary.html#term-pythonic)。
 
-## Our Problem
+## 我们的问题
 
-Before we can discuss solutions, we need to clearly define our problem.
+在我们讨论解决方案之前，我们需要清楚地界定我们的问题。
 
-Our code has two dictionaries: `user` and `defaults`.  We want to merge these two dictionaries into a new dictionary called `context`.
+我们的代码有两个字典：`user`和`defaults`。我们希望将这两个字典合并成一个名为`context`的新字典。
 
-We have some requirements:
+我们有一些需求：
 
-1.  `user` values should override `defaults` values in cases of duplicate keys
-2.  keys in `defaults` and `user` may be any valid keys
-3.  the values in `defaults` and `user` can be anything
-4.  `defaults` and `user` should not change during the creation of `context`
-5.  updates made to `context` should never alter `defaults` or `user`
+1.  在有重复的键的情况下，`user`值应该覆盖`defaults`值
+2.  `defaults`和`user`中的键可以是任何有效的键
+3.  `defaults`和`user`中的值可以是任何东西
+4.  在创建`context`的过程中，`defaults`和`user`不应该更改
+5.  对`context`做的更新绝不应该改变`defaults`或`user`
 
-**Note**: In 5, we’re focused on updates to the dictionary, not contained objects.  For concerns about mutability of nested objects, we should look into [copy.deepcopy](https://docs.python.org/3/library/copy.html#copy.deepcopy).
+**注**: 在5中，我们专注于对字典的更新，而不是包含对象。有关嵌套对象的可变性的考虑，我们应该考虑[copy.deepcopy](https://docs.python.org/3/library/copy.html#copy.deepcopy)。
 
-So we want something like this:
+因此，我们希望是这样的：
 ```py
 >>> user = {'name': "Trey", 'website': "http://treyhunner.com"}
 >>> defaults = {'name': "Anonymous User", 'page_name': "Profile Page"}
@@ -33,245 +33,248 @@ So we want something like this:
 {'website': 'http://treyhunner.com', 'name': 'Trey', 'page_name': 'Profile Page'}
 ```
 
-    We’ll also consider whether a solution is Pythonic.  This is a very subjective and often illusory measure.  Here are a few of the particular criteria we will use:
+我们也将考虑一个解决方法是否Pythonic。这是一个非常主观，并且经常是虚幻的度量。下面一些我们将使用的特殊的标准：
 
-*   The solution should be concise but not terse
-*   The solution should be readable but not overly verbose
-*   The solution should be one line if possible so it can be written inline if needed
-*   The solution should not be needlessly inefficient
+*   解决方案应该是简洁的，但不是简短生硬的
+*   解决方案应该是可读的，但不是过于冗长的
+*   如果有可能，解决方案应该是一行代码，这样的话，如果有需要，它可以内联使用
+*   解决方案应该是不必要的低效的
 
-## Possible Solutions
+## 可能的解决方案
 
-Now that we’ve defined our problem, let’s discuss some possible solutions.
+现在我们已经定义了我们的问题，让我们一起讨论一些可能的解决方案吧。
 
-We’re going to walk through a number of methods for merging dictionaries and discuss which of these methods is the most accurate and which is the most idiomatic.
+我们将看到许多合并字典的方法，并讨论这些方法中，哪一个是最准确的，以及哪一个是最地道的。
 
-### Multiple update
 
-Here’s one of the simplest ways to merge our dictionaries:
+### 多次更新
+
+下面是合并我们的字典最简单的方法之一：
 ```py
 context = {}
 context.update(defaults)
 context.update(user)
 ```
 
-Here we’re making an empty dictionary and using the [update](https://docs.python.org/3.5/library/stdtypes.html#dict.update) method to add items from each of the other dictionaries.  Notice that we’re adding `defaults` first so that any common keys in `user` will override those in `defaults`.
+在这里，我们创建了一个空字典，然后使用[update](https://docs.python.org/3.5/library/stdtypes.html#dict.update)方法从每个字典中添加`defaults`，这样做使得`user`中的任何公共键将覆盖`defaults`中的公共键。
 
-All five of our requirements were met so this is **accurate**.  This solution takes three lines of code and cannot be performed inline, but it’s pretty clear.
+我们所有的五个需求都得到满足，因此这是**准确的**。这个解决方案有三行代码，因此不能内联执行，但它是相当清晰的。
 
-Score:
+得分：
 
-*   Accurate: yes
-*   Idiomatic: fairly, but it would be nicer if it could be inlined
+*   准确性：是的
+*   符合语言习惯：相当符合，但是如果可以内联的话，那就更好了
 
-### Copy and update
+### 复制然后更新
 
-Alternatively, we could copy `defaults` and update the copy with `user`.
+另外，我们可以复制`defaults`，然后用`user`来更新这个副本。
 ```py
 context = defaults.copy()
 context.update(user)
 ```
 
-This solution is only slightly different from the previous one.
+这种解决方案只与前一个略有不同。
 
-For this particular problem, I prefer this solution of copying the `defaults` dictionary to make it clear that `defaults` represents default values.
+对于这个特定的问题，我更喜欢复制`defaults`字典这个解决方案，因为这清晰的表示了`defaults`代表的默认值。
 
-Score:
+得分：
 
-*   Accurate: yes
-*   Idiomatic: yes
+*   准确性：是的
+*   符合语言习惯：是的（译者：但是还是没法内联呀！！）
 
-### Dictionary constructor
+### 字典构造器
 
-We could also pass our dictionary to the `dict` constructor which will also copy the dictionary for us:
+我们也可以将我们的字典传递给`dict`构造器，这样，它也将为我们复制这个字典：
 ```py
 context = dict(defaults)
 context.update(user)
 ```
-This solution is very similar to the previous one, but it’s a little bit less explicit.
 
-Score:
+该解决方案与前一个是非常相似的，但它有点不明确。
 
-*   Accurate: yes
-*   Idiomatic: somewhat, though I’d prefer the first two solutions over this
+得分：
 
-### Keyword arguments hack
+*   准确性：是的
+*   符合语言习惯：有点，但相比于这个，我更喜欢前两个
 
-You may have seen this clever answer before, [possibly on StackOverflow](http://stackoverflow.com/a/39858/98187):
+### 巧用关键参数
+
+你可以之前已经看到过这个聪明的回答，[可能是在StackOverflow上](http://stackoverflow.com/a/39858/98187):
 ```py
 context = dict(defaults, **user)
 ```
 
-This is just one line of code.  That’s kind of cool.  However, this solution is a little hard to understand.
+这个代码只有一行。这很酷。但是，这个方案有点难理解。
 
-Beyond readability, there’s an even bigger problem: **this solution is wrong.**
+除了可读性之外，还有一个更大的问题：**这个解决方案是错误的。**
 
-The keys must be strings.  In Python 2 (with the CPython interpreter) we can get away with non-strings as keys, but don’t be fooled: this is a hack that only works by accident in Python 2 using the standard CPython runtime.
+键必须是字符串。在Python 2（使用CPython解释器）中，我们可以侥幸使用非字符串作为键，但不要被愚弄：这是一种hack行为，它只能偶然在使用标准CPython运行时间的Python 2中有效。
 
-Score:
+得分：
 
-*   Accurate: no.  Requirement 2 is not met (keys may be any valid key)
-*   Idiomatic: no.  This is a hack.
+*   准确性：不是。不满足需求2（键应该是任何有效键）
+*   符合语言习惯：不是。这是一种hack行为。
 
-### Dictionary comprehension
+### 字典推导
 
-Just because we can, let’s try doing this with a dictionary comprehension:
+只是因为我们可以，所以让我们借助字典推导来进行以下尝试：
 ```py
 context = {k: v for d in [defaults, user] for k, v in d.items()}
 ```
 
-This works, but this is a little hard to read.
+这有效，但是这有点难以阅读。
 
-If we have an unknown number of dictionaries this might be a good idea, but we’d probably want to break our comprehension over multiple lines to make it more readable.  In our case of two dictionaries, this doubly-nested comprehension is a little much.
+如果我们有数量不明的字典，那么这可能是一个好主意，但我们可能需要将我们的推导变成多行代码，以使之更具可读性。在我们两个字典的情况下，这种双重嵌套的推导有点多。
 
-Score:
+得分：
 
-*   Accurate: yes
-*   Idiomatic: arguably not
+*   准确性：是的
+*   符合语言习惯：可以说不是
 
-### Concatenate items
+### 连接项
 
-What if we get a `list` of items from each dictionary, concatenate them, and then create a new dictionary from that?
+如果我们从每个字典得到一个项`list`，连接它们，然后从中创建一个新的字典呢？
 ```py
 context = dict(list(defaults.items()) + list(user.items()))
 ```
 
-This actually works.  We know that the `user` keys will win out over `defaults` because those keys come at the end of our concatenated list.
+这确实有效。我们知道，`user`将胜过`defaults`，因为这些键在我们连接列表的结尾出现。
 
-In Python 2 we actually don’t need the `list` conversions, but we’re working in Python 3 here (you are on Python 3, right?).
+在Python 2中，我们其实并不需要`list`转换，但在这里，我们在Python 3中工作（你是在Python 3中，对吧？）。
 
-Score:
+得分：
 
-*   Accurate: yes
-*   Idiomatic: not particularly, there’s a bit of repetition
+*   准确性：是的
+*   符合语言习惯：不特别复合，有一点重复
 
-### Union items
+### 合并项
 
-In Python 3, `items` is a `dict_items` object, which is a quirky object that supports union operations.
+在Python 3中，`items`是一个`dict_items`对象，它是一个支持并操作的奇怪的对象。
 ```py
 context = dict(defaults.items() | user.items())
 ```
 
-That’s kind of interesting.  But **this is not accurate**.
+这有点有趣。但是，**这是不准确的。**
 
-Requirement 1 (`user` should “win” over `defaults`) fails because the union of two `dict_items` objects is a [set](https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset) of key-value pairs and sets are unordered so duplicate keys may resolve in an _unpredictable_ way.
+要求1（`user`应该“胜过”`defaults`）不满足，因为两个`dict_items`对象的并集并不是一个键值对的[集合(set)](https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset)，并且集合是无序的，因此重复键可能以一种不可预知的方式来解决。
 
-Requirement 3 (the values can be anything) fails because sets require their items to be [hashable](https://docs.python.org/3/glossary.html#term-hashable) so both the keys _and values_ in our key-value tuples must be hashable.
+要求3（值可以是任何东西）不满足，因为集合要求它们的项是[可哈希的](https://docs.python.org/3/glossary.html#term-hashable)，所以在我们的键值元组中，无论是键还是值都必须是可哈希的。
 
-Side note: I’m not sure why the union operation is even allowed on `dict_items` objects.  What is this good for?
+附注：我不知道为什么甚至在dict_items对象上运行并操作。这有什么好处？
 
-Score:
+得分：
+*   准确性：不是，需求1和3不满足
+*   符合语言习惯：不是
 
-*   Accurate: no, requirements 1 and 3 fail
-*   Idiomatic: no
 
-### Chain items
+### 链接项
 
-So far the most idiomatic way we’ve seen to perform this merge in a single line of code involves creating two lists of items, concatenating them, and forming a dictionary.
+目前，我们看到在一行代码中执行这个合并操作的最符合语言习惯的方式包括创建两个项列表，连接它们，然后组成一个字典。
 
-We can join our items together more succinctly with [itertools.chain](https://docs.python.org/3/library/itertools.html#itertools.chain):
+我们可以使用[itertools.chain](https://docs.python.org/3/library/itertools.html#itertools.chain)更简洁的将我们的项放在一起：
 ```py
 from itertools import chain
 context = dict(chain(defaults.items(), user.items()))
 ```
 
-This works well and may be more efficient than creating two unnecessary lists.
+这种方式运行良好，并可能比创建两个不必要的列表更有效率。
 
-Score:
+得分：
 
-*   Accurate: yes
-*   Idiomatic: fairly, but those `items` calls seem slightly redundant
+*   准确性：是的
+*   符合语言习惯：相当符合，但是这些`items`调用似乎略显多余
 
 ### ChainMap
 
-A [ChainMap](https://docs.python.org/3/library/collections.html#collections.ChainMap) allows us to create a new dictionary without even looping over our initial dictionaries (well _sort of_, we’ll discuss this):
+[ChainMap](https://docs.python.org/3/library/collections.html#collections.ChainMap)允许我们创建一个新的字典，在此过程中甚至没有遍历我们初始的字典（好吧，其实是有点的，我们将讨论这一点）：
 ```py
 from collections import ChainMap
 context = ChainMap({}, user, defaults)
 ```
 
-A `ChainMap` groups dictionaries together into a proxy object (a “view”); lookups query each provided dictionary until a match is found.
+`ChainMap`将字典集合成一个代理对象（一个“view”）；查找查询每个提供的字典，知道找到一个匹配。
 
-This code raises a few questions.
+此代码引发了一些问题。
 
-#### Why did we put `user` before `defaults`?
+#### 为什么我们将`user`放在`defaults`之前？
 
-We ordered our arguments this way to ensure requirement 1 was met.  The dictionaries are searched in order, so `user` returns matches before `defaults`.
+我们用这种方式排序是为了确保满足需求1.按顺序查找字典，所以`user`在`defaults`之前返回匹配。
 
-#### Why is there an empty dictionary before `user`?
+#### 为什么在`user`之前有一个空字典？
 
-This is for requirement 5.  Changes to `ChainMap` objects affect the first dictionary provided and we don’t want `user` to change so we provided an empty dictionary first.
+这是为了满足需求5.更改为`ChainMap`对象会影响提供的第一个字典，而我们不想`user`被改变，所以我们首先提供了一个空字典。
 
-#### Does this actually give us a dictionary?
+#### 这个真的提供了一个字典吗？
 
-A `ChainMap` object is **not a dictionary** but it is a **dictionary-like** mapping.  We may be okay with this if our code practices [duck typing](https://docs.python.org/3/glossary.html#term-duck-typing), but we’ll need to inspect the features of `ChainMap` to be sure.  Among other features, `ChainMap` objects are coupled to their [underlying dictionaries](https://gist.github.com/treyhunner/2abe2617ea029504ef8e) and they handle [removing items](https://gist.github.com/treyhunner/5260810b4cced03359d9) in an interesting way.
+`ChainMap`对象**不是一个字典**，但它是一个**类字典**映射。如果我们的代码实现[鸭子类型(duck typing)](https://docs.python.org/3/glossary.html#term-duck-typing)，那么我们也许会同意这点，但是以防万一，我们需要检查`ChainMap`的特性。在其他特性中，`ChainMap`对象被耦合到它们的[基础字典](https://gist.github.com/treyhunner/2abe2617ea029504ef8e)，并且它们以一种有趣的方式处理[项删除](https://gist.github.com/treyhunner/5260810b4cced03359d9)。
 
-Score:
+得分：
 
-*   Accurate: possibly, we’ll need to consider our use cases
-*   Idiomatic: yes if we decide this suits our use case
+*   准确性：可能，我们需要考虑自己的用例
+*   符合语言习惯：如果我们确定了这个满足用例，那么是的
 
-### Dictionary from ChainMap
+### 来自ChainMap的字典
 
-If we really want a dictionary, we could convert our `ChainMap` to a dictionary:
+如果我们真的想要一个字典，那么我们可以转换我们的`ChainMap`到一个字典：
 ```py
 context = dict(ChainMap(user, defaults))
 ```
 
-It’s a little odd that `user` must come before `defaults` in this code whereas this order was flipped in most of our other solutions.  Outside of that oddity, this code is fairly simple and should be clear enough for our purposes.
+在这个代码中，`user`必须位于`defaults`之前，这有点奇怪，而这个顺序出现在我们大多数解决方案中。除了这种怪异性外，这个代码是非常简单的，并且对于我们的目的是足够清晰的。
 
-Score:
 
-*   Accurate: yes
-*   Idiomatic: yes
+得分：
 
-### Dictionary concatenation
+*   准确性：是的
+*   符合语言习惯：是的
 
-What if we simply concatenate our dictionaries?
+### 字典级联
+
+如果我们只是简单级联我们的字典呢？
 ```py
 context = defaults + user
 ```
 
-This is cool, but it **isn’t valid**.  This was discussed in a [python-ideas thread](https://mail.python.org/pipermail/python-ideas/2015-February/031748.html) last year.
+这很酷，但是**无效**。去年，在[python-ideas线程](https://mail.python.org/pipermail/python-ideas/2015-February/031748.html)对其进行了讨论。
 
-Some of the concerns brought up in this thread include:
+一些在此线程中被提出的问题包括：
 
-*   Maybe `|` makes more sense than `+` because dictionaries are like sets
-*   For duplicate keys, should the left-hand side or right-hand side win?
-*   Should there be an `updated` built-in instead (kind of like [sorted](https://docs.python.org/3/library/functions.html#sorted))?
+*   或许`|`比`+`更有意义，因为字典类似集合
+*   对于重复的键，应该是左侧还是右侧胜出呢？
+*   是否应该有一个内置的`updated`来取而代之(有点像[sorted](https://docs.python.org/3/library/functions.html#sorted))?
 
-Score:
+得分：
 
-*   Accurate: no. This doesn’t work.
-*   Idiomatic: no. This doesn’t work.
+*   准确性：不是。无效
+*   符合语言习惯：不是。无效
 
-### Dictionary unpacking
+### 字典解包(unpacking)
 
-If you’re using Python 3.5, thanks to [PEP 448](https://www.python.org/dev/peps/pep-0448/), there’s a new way to merge dictionaries:
+如果你使用的是Python 3.5，那么得益于[PEP 448](https://www.python.org/dev/peps/pep-0448/)，有一个新的方法来合并字典：
 ```py
 context = {**defaults, **user}
 ```
 
-This is simple and Pythonic.  There are quite a few symbols, but it’s fairly clear that the output is a dictionary at least.
+这个方法简单并且Pythonic。有相当多的符号，但是至少它的输出是一个字典，这是相当明显的。
 
-This is functionally equivalent to our very first solution where we made an empty dictionary and populated it with all items from `defaults` and `user` in turn.  All of our requirements are met and this is likely the simplest solution we’ll ever get.
+这是功能上等同于我们的第一个解决方案，在这个方案中我们创建了一个空字典，并反过来用所有来自于`defaults`和`user`的项填充它。我们所有的要求都得到满足，并且这可能是我们可以得到的最简单的解决方案。
 
-Score:
+得分：
 
-*   Accurate: yes
-*   Idiomatic: yes
+*   准确性：是的
+*   符合语言习惯：是的
 
-## Summary
+## 总结
 
-There are a number of ways to combine multiple dictionaries, but there are few elegant ways to do this with just one line of code.
+有许多方法可以合并多个字典，但也有几个优雅的方法，它们只用一行代码来做到。
 
-If you’re using Python 3.5, this is the one obvious way to solve this problem:
+如果你正在使用Python 3.5，那么这是解决这一问题的有效方法之一：
 ```py
 context = {**defaults, **user}
 ```
 
-If you are not yet using Python 3.5, you’ll need to review the solutions above to determine which is the most appropriate for your needs.
+如果你还没有使用Python 3.5，你需要看看上面的解决方案，以确定哪些方案最适合你。
 
-**Note**: For those of you particularly concerned with performance, I also measured the [performance of these different dictionary merging methods](https://gist.github.com/treyhunner/f35292e676efa0be1728).
+**注**：对于那些特别关注性能的人来说，我还测量了[这些不同的字典合并方法的性能](https://gist.github.com/treyhunner/f35292e676efa0be1728)。
 
-I teach Python for a living.  If you like my teaching style and your team is interested in **[Python training](http://truthful.technology/)**, please [contact me](/cdn-cgi/l/email-protection#f29a979e9e9db2868087869a94879edc8697919a9c9d9e9d958b)!
+我以教Python为生。如果你喜欢我的教学方式，并且你的团队对**[Python培训](http://truthful.technology/)**有兴趣，请[与我联系](/cdn-cgi/l/email-protection#f29a979e9e9db2868087869a94879edc8697919a9c9d9e9d958b)!
