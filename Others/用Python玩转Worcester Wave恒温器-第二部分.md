@@ -2,51 +2,52 @@
 
 ---
 
-In the [previous part](http://blog.rtwilson.com/hacking-the-worcester-wave-thermostat-in-python-part-1/) we had established that the Worcester Wave thermostat app communicates with a remote server (run by Worcester Bosch) using the XMPP protocol, with TLS encryption. However, because of the encryption we haven’t yet managed to see the actual content of any of these messages!
+在[前面的部分](http://blog.rtwilson.com/hacking-the-worcester-wave-thermostat-in-python-part-1/)，我们已经确定了Worcester Wave恒温器应用使用XMPP协议与远程服务器(由Worcester Bosch运行)进行通信，并使用TLS加密。然而，由于加密，我们还尚未成功看到这些消息的任何实际内容！
 
-To decrypt the messages we need to do a _man in the middle attack_. In this sort of attack we put insert ourselves between the two ends of the conversation and intercept messages, decrypt them and then forward them on to the original destination. Although it is called an ‘attack’, here I am basically attacking myself – because I’m basically monitoring communications going from a phone I own through a network I own. Beware that doing this to networks that you do not own or have permission to use in this way is almost certainly illegal.
+要解密消息，我们需要做一个中间人攻击。在这种攻击中，我们把自己插入到对话两端之间，拦截消息，解密它们，然后转发到原目的地。虽然被称为“攻击”，在这里我基本上是攻击自己-因为我基本上是通过我自己的网络监控通过我自己的手机的通信。要注意的是，对于那些你不拥有的网络，或者是没有以这种方式使用的权限的网络，这样做几乎可以肯定是违法的。
 
-There is a [good guide](https://blog.heckel.xyz/2013/08/04/use-sslsplit-to-transparently-sniff-tls-ssl-connections/) to setting all of this up using a tool called [sslsplit](https://www.roe.ch/SSLsplit), although I had to do things slightly differently as I couldn’t get sslsplit to work with the STARTTLS method used by the Worcester Wave (as you may remember from the previous part, STARTTLS is a way of starting the communication in an unencrypted manner, and then ‘turning on’ the encryption part-way through the communication).
+有一个[很好的指导](https://blog.heckel.xyz/2013/08/04/use-sslsplit-to-transparently-sniff-tls-ssl-connections/)，这个指导使用一个名为[sslsplit](https://www.roe.ch/SSLsplit)的工具来设置这一切，虽然我不得不做的事情略有不同，因为我无法让sslsplit与Worcester Wave使用的STARTTLS方法一起工作（从先前的部分，你可能还记得，STARTTLS是一种方式，它以未加密的方式开始通信，然后通过通信“打开”的加密）。
 
-The summary of the approach that I used is:
+我使用的方法总结如下：
 
-1.  I configured a Linux server on my network to use Network Address Translation (NAT) – so it works almost like a router. This means that I can then set up another device on the network to use that server as a ‘gateway’, which means it will send _all_ traffic to that server, which will then forward it on to the correct place.
-2.  I created a self-signed [root certificate](https://en.wikipedia.org/wiki/Root_certificate) on the server. A root certificate is a ‘fully trusted’ certificate that can be used to trust any other certificates or keys derived from it (that explanation is probably technically wrong, but it’s conceptually right).
-3.  I installed this root certificate on a spare Android phone, connected the phone to my home wifi and configured the Linux server as the gateway. I then tested, and could access the internet fine from the phone, with all of the communications going through the server.
+1. 我在我的网络上配置了一台Linux服务器，它使用网络地址转换（NAT），所以它几乎像一个路由器一样工作。这意味着我可以在网络上再设置其他设备以作为一个“网关”使用该服务器，这意味着它会发送 所有流量发送到那个服务器上，然后将其转发到正确的位置。
+2. 我在服务器上创建了一个自签名的[根证书](https://en.wikipedia.org/wiki/Root_certificate)。根证书是可以用于信任来自它派生的任何其他证书或密钥的“完全信任”证书（这个解释可能技术上错误，但概念上它是对的）。
+3.  我在一个备用的Andr​​oid手机上安装了这个根证书，将手机连接到我家wifi，然后配置Linux服务器的网关。接着，进行测试，它可以从手机很好的访问互联网，其中所有的通信通过服务器。
 
-Now, if I use the Worcester Wave app on the phone, all of the communications will go through the server – and the phone will believe the server when it says that it is the Bosch server at the other end, because of the root certificate we installed.
+现在，如果我在手机上使用Worcester Wave应用，那么所有的通信将通过服务器 - 当该服务器说它是另一端的Bosch服务器时，手机将信任这个服务器，这是因为我们安装的根证书。
 
-Now we’ve got all of the certificates and networking stuff configured, we just need to actually decrypt the messages. As I said above, I tried using [SSLSplit](https://www.roe.ch/SSLsplit), but it couldn’t seem to cope with STARTTLS. I found the same with Wireshark itself, so looked for another option.
+现在，我们已经配置了所有的证书和网络相关的东西，我们只需要实际解密消息。正如我前面所说，我尝试使用[SSLSplit](https://www.roe.ch/SSLsplit)，但它似乎无法应付STARTTLS。我发现使用Wireshark本身也是一样的，所以我找了另一种方法。
 
-Luckily, I found a great tool called [starttls-mitm](https://github.com/ipopov/starttls-mitm) which _does_ work with STARTTLS. Even more impressively it’s barely 80 lines of Python, and so it’s very easy to understand the code. This does mean that it is less configurable than a more complex tool like SSLSplit – but that’s not a problem for me, as the tool does exactly what I want . It is even configured for XMPP by default too! (Of course, as it is written in Python I could always modify the code myself if I needed to).
+幸运的是，我发现了名为[starttls-mitm](https://github.com/ipopov/starttls-mitm)的伟大的工具，它确实对STARTTLS有效。更令人印象深刻的是，它几乎只有80行Python代码，所以很容易理解这个代码。这并不意味着它比更复杂的工具，例如SSLSplit，更不可配置 —— 但是这对我来说不是一个问题，因为工具做的正是我想要的东西。默认情况下，它甚至配置了XMPP呢！（当然，因为它是用Python写的，所以如果我需要的话，我可以随时自己修改代码）
 
-So, running starttls-mitm with the appropriate command-line parameters (basically your keys, certificates etc) will print out all communications: both the unencrypted ones before the STARTTLS call, and the decrypted version of the encrypted ones after the STARTTLS call. If we then start doing something with the app while this is running, what do we get?
+因此，使用相应的命令行参数（基本上是你的密钥，证书等）运行starttls-mitm将打印出所有的通信：都是STARTTLS调用之前的未加密的通信，以及STARTTLS调用后那些加密的解密版本。如果当其运行时，我们再开始使用该应用程序做一些事情，那么我们获得什么呢？
 
-Well, first we get the opening logging information starttls-mitm telling us what it is doing:
+嗯，首先我们得到打开的日志信息，starttls-mitm告诉我们它是做什么的：
 ```sh
 LISTENER ready on port 8443
 CLIENT CONNECT from: ('192.168.0.42', 57913)
 RELAYING
 ```
 
-We then start getting the beginnings of the communication:
+然后，获取该通信的开端：
 ```xml
 C->S 129 '<stream:stream to="wa2-mz36-qrmzh6.bosch.de" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0">'
 S->C 442 '<?xml version=\'1.0\' encoding=\'UTF-8\'?><stream:stream xmlns:stream="http://etherx.jabber.org/streams" xmlns="jabber:client" from="wa2-mz36-qrmzh6.bosch.de" id="260d2859" xml:lang="en" version="1.0"><stream:features><starttls xmlns="urn:ietf:params:xml:ns:xmpp-tls"></starttls><mechanisms xmlns="urn:ietf:params:xml:ns:xmpp-sasl"><mechanism>DIGEST-MD5</mechanism></mechanisms><auth xmlns="http://jabber.org/features/iq-auth"/></stream:features>'
 ```
 
-Fairly obviously, `C-&gt;S` are messages from the client to the server, and `S-&gt;C` are messages back from the server (the numbers directly afterwards are just the length of the message). These are just the initial handshaking communications for the start of XMPP communication, and aren’t particularly exciting as we saw this in Wireshark too.
+相当明显，`C->S`是从客户端到服务器的消息，而`S->C`是从服务器返回的消息（后面紧跟着的数字只是消息的长度）。这些只是XMPP通信开始的初始握手通信，并且不是特别令我们兴奋，因为我们也在Wireshark中看到了这一点。
 
-However, now we get to the interesting bit:
+但是，现在我们得到了有趣的一点：
 ```xml
 C->S 51 '<starttls xmlns="urn:ietf:params:xml:ns:xmpp-tls"/>'
 S->C 50 '<proceed xmlns="urn:ietf:params:xml:ns:xmpp-tls"/>'
 Wrapping sockets.
 ```
 
-The STARTTLS message is sent, and the server says PROCEED, and – crucially – starttls-mitm notices this and announces that it is ‘wrapping sockets’ (basically enabling the decryption of the communication from this point onwards).
+STARTTLS消息被发送，然后服务器说PROCEED，而关键的是，starttls-mitm注意到了这点并宣布它是“包装套接字”（基本上从这时起，启用通信的解密）。
 
-I’ll skip the boring TLS handshaking messages now, and skip to the initialisation of the XMPP protocol itself. I’m no huge XMPP expert, but basically the `iq` messages are ‘info/query’ messages which are part of the handshaking process with each side saying who they are, what they support etc. This part of the communication finishes with each side announcing its ‘presence’ (remember, XMPP is originally a chat protocol, so this is the equivalent of saying you are ‘Online’ or ‘Active’ on Skype, Facebook Messenger or whatever).
+现在，我将跳过无聊的TLS握手消息，并跳到XMPP协议本身的初始化。我不是XMPP大专家，但基本上，`iq`消息是“信息/查询”消息，这些消息是握手过程的一部分，其中每一方说，它们是谁，它们支持什么等.当每边宣布它的“存在”时，通信的这部分结束（记住，XMPP原本是一个聊天协议，所以等同于在Skype，Facebook Messenger等上说你“在线”或“活跃”）。
+
 ```xml
 C->S 110 '<iq id="lj8Vq-1" type="set"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"><resource>70</resource></bind></iq>'
 S->C 188 '<iq type="result" id="lj8Vq-1" to="wa2-mz36-qrmzh6.bosch.de/260d2859"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"><jid>rrccontact_458921440@wa2-mz36-qrmzh6.bosch.de/70</jid></bind></iq>'
@@ -58,19 +59,19 @@ C->S 34 '<presence id="lj8Vq-4"></presence>'
 C->S 34 '<presence id="lj8Vq-5"></presence>'
 ```
 
-Now all of the preliminary messages are dealt with, we get to the good bit. The message below is sent from the client (the phone app) to the server:
+现在所有的初步消息都被处理了，我们一点点的做好。下面是从客户端（手机应用程序）发送到服务器的消息：
 ```xml
 C->S 162 '<message id="lj8Vq-6" to="rrcgateway_458921440@wa2-mz36-qrmzh6.bosch.de" type="chat"><body>GET /ecus/rrc/uiStatus HTTP /1.0\nUser-Agent: NefitEasy</body></message>'
 ```
 
-It basically seems to be a HTTP GET request embedded within an XMPP message. That seems a bit strange to me – why not just use HTTP directly? – but at least it is easy to understand. The URL that is being requested also makes sense – I was on the ‘home screen’ of the app at that point, so it was grabbing the status for displaying in the user-interface (things like current temperature, set-point temperature, whether the boiler is on or not, etc).
+基本上，它似乎是嵌入在XMPP消息中的HTTP GET请求。这对我来说似乎有点奇怪 —— 为什么不直接使用HTTP呢？ - 但至少这是很容易理解的。被请求的URL页是有道理的 —— 在这一点上我位于应用的“主屏幕”上，因此它抓取状态用于在用户界面中显示（像当前温度，设定温度，热水器是否开启，等等信息）。
 
-Now we can see the response from the server:
+现在我们可以看到来自服务器的响应：
 ```xml
 S->C 904 '<message to="rrccontact_458921440@wa2-mz36-qrmzh6.bosch.de/70" type="chat" xml:lang="en" from="rrcgateway_458921440@wa2-mz36-qrmzh6.bosch.de/RRC-RestApi"><body>HTTP/1.0 200 OK\nContent-Length: 640\nContent-Type: application/json\nconnection: close\n\n5EBW5RuFo7QojD4F1Uv0kOde1MbeVA46P3RDX6ZEYKaKkbLxanqVR2I8ceuQNbxkgkfzeLgg6D5ypF9jo7yGVRbR/ydf4L4MMTHxvdxBubG5HhiVqJgSc2+7iPvhcWvRZrRKBEMiz8vAsd5JleS4CoTmbN0vV7kHgO2uVeuxtN5ZDsk3/cZpxiTvvaXWlCQGOavCLe55yQqmm3zpGoNFolGPTNC1MVuk00wpf6nbS7sFaRXSmpGQeGAfGNxSxfVPhWZtWRP3/ETi1Z+ozspBO8JZRAzeP8j0fJrBe9u+kDQJNXiMkgzyWb6Il6roSBWWgwYuepGYf/dSR9YygF6lrV+iQdZdyF08ZIgcNY5g5XWtm4LdH8SO+TZpP9aocLUVR1pmFM6m19MKP+spMg8gwPm6L9YuWSvd62KA8ASIQMtWbzFB6XjanGBQpVeMLI1Uzx4wWRaRaAG5qLTda9PpGk8K6LWOxHwtsuW/CDST/hE5jXvWqfVmrceUVqHz5Qcb0sjKRU5TOYA+JNigSf0Z4CIh7xD1t7bjJf9m6Wcyys/NkwZYryoQm99J2yH2khWXyd2DRETbsynr1AWrSRlStZ5H9ghPoYTqvKvgWsyMVTxbMOht86CzoufceI2W+Rr9</body></message>'
 ```
 
-Oh. This looks a bit more complicated, and not very easily interpretable. Lets format the main body of the message formatted a bit more nicely:
+噢，这看起来有点复杂，而且不是很容易理解。让我们格式化消息主体让它看起来更好些：
 ```
 HTTP/1.0 200 OK
 Content-Length: 640
@@ -80,13 +81,13 @@ connection: close
 5EBW5RuFo7QojD4F1Uv0kOde1MbeVA46P3RDX6ZEYKaKkbLxanqVR2I8ceuQNbxkgkfzeLgg6D5ypF9jo7yGVRbR/ydf4L4MMTHxvdxBubG5HhiVqJgSc2+7iPvhcWvRZrRKBEMiz8vAsd5JleS4CoTmbN0vV7kHgO2uVeuxtN5ZDsk3/cZpxiTvvaXWlCQGOavCLe55yQqmm3zpGoNFolGPTNC1MVuk00wpf6nbS7sFaRXSmpGQeGAfGNxSxfVPhWZtWRP3/ETi1Z+ozspBO8JZRAzeP8j0fJrBe9u+kDQJNXiMkgzyWb6Il6roSBWWgwYuepGYf/dSR9YygF6lrV+iQdZdyF08ZIgcNY5g5XWtm4LdH8SO+TZpP9aocLUVR1pmFM6m19MKP+spMg8gwPm6L9YuWSvd62KA8ASIQMtWbzFB6XjanGBQpVeMLI1Uzx4wWRaRaAG5qLTda9PpGk8K6LWOxHwtsuW/CDST/hE5jXvWqfVmrceUVqHz5Qcb0sjKRU5TOYA+JNigSf0Z4CIh7xD1t7bjJf9m6Wcyys/NkwZYryoQm99J2yH2khWXyd2DRETbsynr1AWrSRlStZ5H9ghPoYTqvKvgWsyMVTxbMOht86CzoufceI2W+Rr9
 ```
 
-So, it seems to be a standard HTTP response (200 OK), but the body looks like it is encoded somehow. I assume that the decoded body would be something like JSON or XML or something containing the various status values – but how do we decode it to get that?
+所以，这似乎是一个标准的HTTP响应（200 OK），但响应体看起来是用某种方式进行编码。我假设解码的响应体是像JSON或XML或含有各种状态值的东西 - 但我们如何解码得到这些信息？
 
-I tried all sorts of things like Base64, MD5 and so on but nothing seemed to work. I gave up on this for a few days, while gently pondering it in the back of my mind. When I came back to it, I realised that the data here was probably actually _encrypted_, using the Access Code that comes with the Wave and the password that you set up when you first connect the Wave. Of course, to decrypt it we need to know how it was encrypted…so time to break out the next tool: a decompiler.
+我尝试各种东西，例如Base64，MD5等，但似乎没有任何用。在这几天，我放弃了，而是在我的脑海里轻轻地琢磨。当我回过头看它的时候，我意识到，这里的数据可能是实际加密的，使用Wave自带的访问码和当你第一次连接Wave设置的密码。当然，要对其进行解密，我们需要知道它是如何加密的...所以是时候拿出下一个工具了：一个反编译器。
 
-Yes, that’s right: to fully understand exactly what the Wave app is doing, I needed to decompile the Android app’s APK file and look at the code. I did this using the aptly named [Android APK Decompiler](http://www.decompileandroid.com/), and got surprisingly readable Java code out of it! (I mean, it had a lot of goto statements, but at least the variables had sensible names!)
+是的，这是正确的：要充分认识Wave应用程序是干什么的，我需要反编译Android应用的APK文件，并查看代码。我使用适当命名的[Android APK反编译器](http://www.decompileandroid.com/)这样做，并从中得到了令人惊讶的可读的Java代码！（我的意思是，它有很多goto语句，但至少变量有有意义的名字！）
 
-It’s difficult to explain the full details of the encryption/decryption algorithm in prose – so I’ve included the Python code I implemented to do this below. However, a brief summary is that: the main encryption is AES using ECB, with keys generated from the MD5 sums of combinations of the Access Code, the password and a ‘secret’ (a value hard-coded into the app).
+很难用散文的形式解释加密/解密算法的全部细节 - 所以我已经在下面包括了我实现它的Python代码。然而，小结是：主加密使用ECB的AES，密钥是由接入码，密码和一个‘secret’（硬编码到应用程序的值）的组合的MD5校验和生成的。
 ```py
 def encode(s):
     abyte1 = get_md5(access + secret)
@@ -117,7 +118,7 @@ def decode(data):
     return res
 ```
 
-Using these functions we can decrypt the response to the `GET /ecus/rrc/uiStatus` message that we saw earlier, and we get this:
+使用这些函数，我们可以解密我们之前看到的`GET /ecus/rrc/uiStatus`消息的响应，然后我们得到了这些：
 ```json
 {'id': '/ecus/rrc/uiStatus',
  'recordable': 0,
@@ -153,8 +154,8 @@ Using these functions we can decrypt the response to the `GET /ecus/rrc/uiStatus
  'writeable': 0}
 ``` 
 
-This makes far more sense!
+这有意义得多！
 
-It may not be immediately apparent what each field is (three character variable names – great!), but some of them are fairly obvious (CTD presumably stands for something like Current Time/Date), or can be established by decoding a number of messages with the boiler in different states (showing that DHW stands for Domestic Hot Water and BAI for Burner Active Indicator).
+它可能不会立即显现出来每个字段是什么（三字符变量名 - 太棒了！），但其中一些相当明显（CTD大概代表了像当前时间/日期之类的东西），也可以通过解码一堆在不同的状态下热水器的消息来建立（它表明，DHW代表了家用热水（Domestic Hot Water），而BAI表示燃烧器活动指示灯（Burner Active Indicator））。
 
-We’ve made a lot of progress in the second part of this guide: we’ve now decrypted the communications, and worked out how to get all of the status information that is shown on the app home screen. At this point I set up a simple temperature monitoring system to produce nice graphs of temperature over time – but I’ll leave the description of that to later in the series. In the next part we’re going to look at sending messages to actually _change_ the state of the thermostat (such as setting a new temperature, or switching to manual mode), and then have a look at the Python library I’ve written to control the thermostat.
+在本指南的第二部分，我们已经取得了很大的进步：我们现在已经解密了通信，并制定了如何获得所有在应用主屏幕上显示的状态信息。在这一点上，我建立了一个简单的温度监控系统来产生漂亮的随着时间的推移的温度曲线图 —— 但我会将这部分的说明留在以后的系列。在接下来的部分，我们将看看发送消息以真正 改变温控器的状态（如设置新的温度，或切换至手动模式），然后看看我写的控制温控器的Python库。
