@@ -27,7 +27,7 @@ pip install -e 'git+https://github.com/deepgram/sidomo.git#egg=sidomo'
 
 ### 例子：一个简单的Hello  World
 
-这将从Ubuntu基本映像中启动一个容器，运行`echo hello from`，然后运行`echo the other side`，然后从该过程中打印输出行。要为这个例子做准备，你需要使用一个shell命令将Ubuntu映像拉到你的机器上。
+这将从Ubuntu基本镜像中启动一个容器，运行`echo hello from`，然后运行`echo the other side`，然后从该过程中打印输出行。要为这个例子做准备，你需要使用一个shell命令将Ubuntu镜像拉到你的机器上。
 
 ###### shell
 ```sh
