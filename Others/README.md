@@ -52,6 +52,10 @@
 
     如何处理大量的（指无法一次性存入内存）JSON数据集呢？本文给出了一个第三方库ijson来迭代的处理此问题。同时，通过一个简单的交通管制数据的分析，向我们娓娓道来如何使用Pandas处理分析可视化数据……
 
-- [复合构建器模式(Composite Builder Pattern)，一个声明式编程的例子](复合构建器模式(Composite Builder Pattern)，一个声明式编程的例子)
+- [复合构建器模式(Composite Builder Pattern)，一个声明式编程的例子](./复合构建器模式(Composite Builder Pattern)，一个声明式编程的例子)
     
     针对于那些属性来自于多个源的复杂对象来说，本文给出了一个例子，提出复合构建器模式以方便编程。
+
+- [Python Mock：简单介绍 —— 第一部分](./Python Mock：简单介绍 —— 第一部分.md)
+    
+    本文带你走入Python mock，这个用于测试（TDD方法）的库……

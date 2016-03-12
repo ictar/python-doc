@@ -2,54 +2,56 @@
 
 ---
 
-As already stressed in the two introductory posts on TDD (you can find them [here](http://blog.thedigitalcatonline.com/categories/tdd/)) testing requires to write some code that uses the functions and objects you are going to develop. This means that you need to isolate a given (external) function that is part of your public API and demonstrate that it works with standard inputs and in edge cases.
+正如在TDD的两个介绍性帖子（你可以在[这里](http://blog.thedigitalcatonline.com/categories/tdd/)找到他们）中已经强调过的，测试需要编写一些使用你将开发的函数和对象的代码。这意味着你需要隔离一个给定的（外部）函数，这个函数就是你的公共API的一部分，并证明对于标准输入，以及在边缘情况下，它都能正常工作。
 
-For example, if you are going to develop an object that stores percentages (such as for example poll results), you should test the following conditions: the class can store a standard percentage such as 42%, the class shall give an error if you try to store a negative percentage, the class shall give an error if you store a percentage greater than 100%.
+例如，如果你要开发一个存储百分比（例如投票结果）的对象，你应该测试以下条件：类可以存储标准的百分比，如42％；当你尝试存储一个负的百分比时，类应当给予你一个错误；如果存储的百分比大于100％，类应给予一个错误。
 
-Tests shall be _idempotent_ and _isolated_. Idempotent in mathematics and computer science identifies a process that can be run multiple times without changing the status of the system. Isolated means that a test shall not change its behaviour depending on previous executions of itself, nor depend on the previous execution (or missing execution) of other tests.
+测试应该是幂等和隔离的。数学和计算机科学中的幂等表示，一个过程可以在不改变系统状态的情况下多次运行。隔离是指，测试不应该基于它自身以前的执行来改变其行为，也不依赖于其他测试以前的执行（或缺少执行）来改变其行为。
 
-Such restrictions, which guarantee that your tests are not passing due to a temporary configuration of the system or the order in which they are run, can raise big issues when dealing with external libraries and systems, or with intrinsically mutable concepts such as time. In the testing discipline, such issues are mostly faced using mocks, that is objects that pretend to be other objects.
+这样的限制保证了你的测试并不因系统的一个临时配置或它们的运行顺序而通过，这在处理外部库和系统，或具有固有可变概念，例如时间时，会引发大的问题。在测试纪律中，使用mock大多数会面对这样的问题，也就是对象假装是其他对象。
 
-In this series of posts I am going to review the Python `mock` library and exemplify its use. I will not cover everything you may do with mock, obviously, but hopefully I'll give you the information you need to start using this powerful library.
+在这一系列文章中，我要审视Python的`mock`库，并对其使用进行示例。我不会涵盖mock的方方面面，显而易见，但我希望我可以给你开始使用这个功能强大的库所需的信息。
 
-## Installation
+## 安装
 
-First of all, mock is a Python library which development started around 2008. It was selected to be included in the standard library as of Python 3.3, which however does not prevent you to use other libraries if you prefer.
+首先，mock是一个Python库，它的开发起步于2008年左右。它被选定为列入Python 3.3的标准库中，但是如果你喜欢，这并不妨碍你使用其他库。
 
-Python 3 users, thus, are not required to take any step, while for Python 2 projects you are still required to issue a `pip install mock` to install it into the system or the current virtualenv.
+因此，Python 3的用户不需要采取任何步骤，而对于Python 2的项目，你仍然需要使用`pip install mock`以将其安装到系统或当前的virtualenv中。
 
-You may find the official documentation [here](https://docs.python.org/dev/library/unittest.mock.html). It is very detailed, and as always I strongly recommend taking your time to run through it.
+你可以在[这里](https://docs.python.org/dev/library/unittest.mock.html)找到官方文档。它非常详细，和往常一样，我强烈建议你花时间通读它。
 
-## Basic concepts
+## 基本概念
 
-A mock, in the testing lingo, is an object that simulates the behaviour of another (more complex) object. When you (unit)test an object of your library you need sometimes to access other systems your object want to connect to, but you do not really want to be forced to run them, for several reasons.
+mock，用测试行话来说，就是模拟另一个（更复杂）对象的行为的对象。当你（单位）测试库的对象时，你有时需要访问你的对象要连接到的其他系统，但出于几个原因，你并不是真的想被迫运行它们
 
-The first one is that connecting with external systems means having a complex testing environment, that is you are dropping the isolation requirement of you tests. If your object wants to connect with a website, for example, you are forced to have a running Internet connection, and if the remote website is down you cannot test your library.
+第一个是，与外部系统连接意味着具有一个复杂的测试环境，即你正在抛弃测试的隔离要求。如果你的对象要与网站连接，例如，你不得不拥有一个正在运行的Internet连接，如果远程站点关闭了，那么你无法测试你的库。
 
-The second reason is that the setup of an external system is usually slow in comparison with the speed of unit tests. We expect to run hundred of tests in seconds, and if we have to fetch information from a remote server for each of them the time easily increases by several orders of magnitude. Remember: having slow tests means that you cannot run them while you develop, which in turn means that you will not really use them for TDD.
+第二个原因是，与单元测试的速度相比，一个外部系统的安装通常比较慢。我们预计在几秒钟内运行成百个测试，如果要为它们每一个从远程服务器提取信息，那么时间容易以几个数量级增加。请记住：缓慢的测试意味着，当你开发的时候你不能运行它们，这反过来又意味着你不会真的将它们用于TDD。
 
-The third reason is more subtle, and has to to with the mutable nature of an external system, thus I'll postpone the discussion of this issue for the moment.
+第三个原因更微妙，并且与外部系统的可变性有关，所以我会暂时推迟这一问题的讨论。
 
-Let us try and work with a mock in Python and see what it can do. First of all fire up a Python shell or a [Jupyter Notebook](jupyter.org) and import the library 
+让我们试着在Python中使用mock，看看它可以做什么。首先，打开一个Python 终端或一个[Jupyter Notebook](jupyter.org)，并导入库
 ```py
 from unittest import mock
 ```
-If you are using Python 2 you have to install it and use
+
+如果你使用的是Python 2，那么你必须先安装它，然后使用
 ```py
 import mock
 ```
 
-The main object that the library provides is `Mock` and you can instantiate it without any argument
+该库提供的主对象是`Mock`，你可以无参对其实例化
 ```py
 m = mock.Mock()
 ```
-This object has the peculiar property of creating methods and attributes on the fly when you require them. Let us first look inside the object to take a glance of what it provides
+
+这个对象具有一个特殊特性，当你需要的时候，可以立即创建方法和属性。让我们首先看看对象内部，看看它为我们提供了什么东西：
 ```py
 >>> dir(m)
 ['assert_any_call', 'assert_called_once_with', 'assert_called_with', 'assert_has_calls', 'attach_mock', 'call_args', 'call_args_list', 'call_count', 'called', 'configure_mock', 'method_calls', 'mock_add_spec', 'mock_calls', 'reset_mock', 'return_value', 'side_effect']
 ```
 
-As you can see there are some methods which are already defined into the `Mock` object. Let us read a non-existent attribute
+正如你可以看见的，有一些方法，它们已经在`Mock`中定义了。让我们读取一个不存在的属性：
 ```py
 >>> m.some_attribute
 <Mock name='mock.some_attribute' id='140222043808432'>
@@ -57,29 +59,30 @@ As you can see there are some methods which are already defined into the `Mock` 
 ['assert_any_call', 'assert_called_once_with', 'assert_called_with', 'assert_has_calls', 'attach_mock', 'call_args', 'call_args_list', 'call_count', 'called', 'configure_mock', 'method_calls', 'mock_add_spec', 'mock_calls', 'reset_mock', 'return_value', 'side_effect', 'some_attribute']
 ```
 
-Well, as you can see this class is somehow different from what you are accustomed to. First of all its instances do not raise an `AttributeError` when asked for a non-existent attribute, but they happily return another instance of `Mock` itself. Second, the attribute you tried to access has now been created inside the object and accessing it returns the same mock object as before.
+好了，正如你可以看见的，这个类与那些你习惯使用的类有点不同。首先，当请求一个不存在的属性时，它的实例并不会引发`AttributeError`错误，而是欢快地返回`Mock`自身的另一个实例。其次，你试图访问的属性现在已经在对象内部创建完毕，对它进行访问会返回一个和之前相同的mock对象。
 ```py
 >>> m.some_attribute
 <Mock name='mock.some_attribute' id='140222043808432'>
 ```
 
-Mock objects are callables, which means that they may act both as attributes and as methods. If you try to call the mock it just returns you another mock with a name that includes parentheses to remarks its callable nature
+mock对象是可调用对象，这意味着它们既可以被当做属性，又可以被当做方法。如果你尝试调用该mock，那么它只是返回另一个mock，这个mock的名字包含了括号以表示它可调用。
 ```py
 >>> m.some_attribute()
 <Mock name='mock.some_attribute()' id='140247621475856'>
 ```
-As you can understand, such objects are the perfect tool to mimic other objects or systems, since they may expose any API without raising exceptions. To use them in tests, however, we need them to behave just like the original, which implies returning sensible values or performing operations.
 
-## Return value
+正如你所了解的，这样的对象是模仿其他对象或系统的完美工具，因为它们可以暴露任何API，而不会引发异常。然而，要在测试中使用它们，我们需要它们就像原来的那样，这意味着返回合理的值或者执行一些操作。
 
-The simplest thing a mock can do for you is to return a given value every time you call it. This is configured setting the `return_value` attribute of a mock object
+## 返回值
+
+mock可以为你做的最简单的事就是每次你调用它的时候给你返回一个给定值。这可以通过设置mock对象的`return_value`属性来设置。
 ```py
 >>> m.some attribute.return_value = 42
 >>> m.some attribute()
 42
 ```
 
-Now the object does not return a mock object any more, instead it just returns the static value stored in the `return_value` attribute. Obviously you can also store a callable such as a function or an object, and the method will return it, but it will not run it. Let me give you an example
+现在，这个对象不再返回mock对象了，而只是返回存储在`return_value`属性中的静态值。显然，你也可以保存一个可调用对象，例如一个函数或一个对象，如果是函数则会返回该函数，而不是运行该函数。让我给你举个例子：
 ```py
 >>> def print_answer():
 ...  print("42")
@@ -90,13 +93,13 @@ Now the object does not return a mock object any more, instead it just returns t
 <function print_answer at 0x7f8df1e3f400>
 ```
 
-As you can see calling `some_attribute()` just returns the value stored in `return_value`, that is the function itself. To return values that come from a function we have to use a slightly more complex attribute of mock objects called `side_effect`.
+正如你所看见的，调用`some_attribute()`只是返回存储在`return_value`中的值，也就是函数自身。要返回来自一个函数的值，我们必须使用mock的一个稍微复杂点的属性, `side_effect`。
 
-## Side effect
+## 副作用
 
-The `side_effect` parameter of mock objects is a very powerful tool. It accepts three different flavours of objects, callables, iterables, and exceptions, and changes its behaviour accordingly.
+mock对象的`side_effect`参数是一个非常强大的工具。它接受三种不同风格的对象，可调用对象，可迭代对象和异常，并且相应地改变自身的行为。
 
-If you pass an exception the mock will raise it
+如果你传递一个异常，那么mock将引发它
 ```py
 >>> m.some_attribute.side_effect = ValueError('A custom value error')
 >>> m.some_attribute()
@@ -109,7 +112,7 @@ Traceback (most recent call last):
 ValueError: A custom value error
 ```
 
-If you pass an iterable, such as for example a generator, or a plain list, tuple, or similar objects, the mock will yield the values of that iterable, i.e. return every value contained in the iterable on subsequent calls of the mock. Let me give you an example
+如果你传递一个可迭代对象，例如一个生成器，或者一个普通的列表，元组，或者类似的对象，mock将生成该可迭代对象的值，例如，在mock的后续调用中返回该可迭代对象包含的每一个值。让我给你举个例子
 ```py
 >>> m.some_attribute.side_effect = range(3)
 >>> m.some_attribute()
@@ -128,9 +131,9 @@ Traceback (most recent call last):
 StopIteration
 ```
 
-As promised, the mock just returns every object found in the iterable (in this case a `range` object) once at a time until the generator is exhausted. According to the iterator protocol (see [this post](blog/2013/03/25/python-generators-from-iterators-to-cooperative-multitasking/)) once every item has been returned the object raises the `StopIteration` exception, which means that you can correctly use it in a loop.
+正如所承诺的，mock只是一次返回在该可迭代对象中找到的一个对象（在这个例子中，是一个`range`对象），直到耗尽该生成器。根据迭代器协议(见[此文](blog/2013/03/25/python-generators-from-iterators-to-cooperative-multitasking/))，一旦所有的项都被返回了，该对象会引发`StopIteration`异常，这意味着你可以在一个循环中正确的使用它。
 
-The last and perhaps most used case is that of passing a callable to `side_effect`, which shamelessly executes it with its own same parameters. This is very powerful, especially if you stop thinking about "functions" and start considering "callables". Indeed, `side_effect` also accepts a class and calls it, that is it can instantiate objects. Let us consider a simple example with a function without arguments
+最后，也许是最常用的情况是，传递一个可调用对象给`side_effect`，这会无耻地使用它自身相同的参数来执行它。这是非常强大的，特别是当你停止思考“函数”，开始思考“可调用对象”时。事实上，`side_effect`也接受一个类，并调用它，也就是说，它可以实例化对象。让我们考虑一个无参函数的简单例子
 ```py
 >>> def print_answer():
 ...     print("42")       
@@ -139,7 +142,7 @@ The last and perhaps most used case is that of passing a callable to `side_effec
 42
 ```
 
-A slightly more complex example: a function with arguments
+一个稍微复杂一点的例子：一个带参函数
 ```py
 >>> def print_number(num):
 ...     print("Number:", num)
@@ -149,7 +152,7 @@ A slightly more complex example: a function with arguments
 Number: 5
 ```
 
-And finally an example with a class
+最后，一个使用函数的例子
 ```py
 >>> class Number(object):
 ...     def __init__(self, value):
@@ -165,13 +168,13 @@ And finally an example with a class
 Value: 26
 ```
 
-## Testing with mocks
+## 使用mock进行测试
 
-Now we know how to build a mock and how to give it a static return value or make it call a callable object. It is time to see how to use a mock in a test and what facilities do mocks provide. I'm going to use [pytest](http://pytest.org) as a testing framework. You can find a quick introduction to pytest and TDD [here](/categories/tdd/)).
+现在，我们知道了如何建立一个mock，以及如何传递给它一个静态返回值或者让它调用一个可调用对象。是时候看看如何在测试中使用mock以及mock提供了什么样的功能。我将使用[pytest](http://pytest.org)作为测试框架。你可以在[这里](/categories/tdd/))找到pytest和TDD的简单介绍。
 
-### Setup
+### 安装
 
-If you want to quickly setup a pytest playground you may execute this code in a terminal (you need to have Python 3 and virtualenv installed in your system) 
+如果你想要快速的安装一个pytest环境，可以在终端执行这个代码（要求系统中安装了Python 3和virtualenv）
 ```sh
 mkdir mockplayground
 cd mockplayground
@@ -187,29 +190,29 @@ touch tests/test_mock.py
 PYTHONPATH="." py.test
 ```
 
-The `PYTHONPATH` environment variable is an easy way to avoid having to setup a whole Python project to just test some simple code.
+`PYTHONPATH`环境变量是一个避免为了测试一些简单的代码而设置整个Python项目的简单的方法。
 
-### The three test types
+### 三种测试类型
 
-According to Sandy Metz we need to test only three types of messages (calls) between objects:
+根据Sandy Metz，我们只需要测试对象间三种类型的消息（调用）：
 
-*   Incoming queries (assertion on result)
-*   Incoming commands (assertion on direct public side effects)
-*   Outgoing commands (expectation on call and arguments)
+*   来电查询（对结果进行断言）
+*   来电命令 (对直接公开副作用的断言)
+*   去电命令 (调用和参数上的异常)
 
-You can see the original talk [here](https://www.youtube.com/watch?v=URSWYvyc42M) or read the slides [here](https://speakerdeck.com/skmetz/magic-tricks-of-testing-railsconf). The final table is shown in slide number 176.
+你可以在[这里](https://www.youtube.com/watch?v=URSWYvyc42M)看到原始通话，或在[这里](https://speakerdeck.com/skmetz/magic-tricks-of-testing-railsconf)阅读到幻灯片。最后的表在第176页幻灯片中。
 
-As you can see when dealing with external objects we are only interested in knowing IF a method was called and WHAT PARAMETERS the caller passed to the object. We are not testing if the remote object returns the correct result, this is faked by the mock, which indeed returns exactly the result we need.
+正如你可以看见的，当处理外部对象时，我们只对一个方法是否被调用以及调用者传递了哪些参数给该对象感兴趣。我们不测试远程对象是否返回正确的结果，这是由mock伪造的，它确实返回了我们所需要的结果。
 
-So the purpose of the methods provided by mock objects is to allow us to check what methods we called on the mock itself and what parameters we used in the call.
+所以，mock对象提供的方法的目的在于，允许我们检查我们在mock自身调用的方法以及我们在调用过程中使用的参数。
 
-### Asserting calls
+### 断言调用
 
-To show how to use Python mocks in testing I will follow the TDD methodology, writing tests first and then writing the code that makes the tests pass. In this post I want to give you a simple overview of the mock objects, so I will not implement a real world use case, and the code will be very trivial. In the second part of this series I will test and implement a real class, in order to show some more interesting use cases.
+为了展示如何在测试中使用Python的mock，我将遵循TDD方法，先编写测试，然后编写让这些测试通过的代码。在本文中，我想为你提供关于mock对象的一个简单概述，所以我不会实现一个真实世界用例，并且代码将非常简单。在这个系列的第二部分，我将测试和实现一个真正的类，以便展示一些更加有趣的用例。
 
-The first thing we are usually interested in when dealing with an external object is to know that a given method has been called on it. Python mocks provide the `assert_called_with()` method to check this condition.
+在处理一个外部对象时，我们通常感兴趣的第一件事是，知道一个给定方法被调用了。Python的mock提供了`assert_called_with()`方法来检查该条件。
 
-The use case we are going to test is the following. _We instantiate the `myobj.MyObj` class, which requires an external object. The class shall call the `connect()` method of the external object without any parameter._
+我们将测试的用例如下。 _实例化`myobj.MyObj`对象，它需要一个外部对象。该类会不带任何参数调用 外部对象的`connect()`方法。_
 ```py
 from unittest import mock
 import myobj
@@ -220,13 +223,13 @@ def test_instantiation():
     external_obj.connect.assert_called_with()
 ```
 
-The `myobj.MyObj` class, in this simple example, needs to connect to an external object, for example a remote repository or a database. The only thing we need to know for testing purposes is if the class called the `connect()` method of the external object without any parameter.
+在这个简单的例子中，`myobj.MyObj`类需要连接到一个外部对象，例如，一个远程仓库或一个数据库。对于此测试目的，我们需要知道的唯一一件事是，该类是否不带任何参数调用了外部对象的`connect()`方法。
 
-So the first thing we do in this test is to instantiate the mock object. This is a fake version of the external object, and its only purpose is to accept calls from the `MyObj` object under test and return sensible values. Then we instantiate the `MyObj` class passing the external object. We expect the class to call the `connect()` method so we express this expectation calling `external_obj.connect.assert_called_with()`.
+所以在这个测试中，我们要做的第一个件事是实例化mock对象。这是外部对象的一个伪造版本，它唯一的目的是在测试中接受`MyObj`对象的调用，然后返回合理的值。然后，我们实例化`MyObj`类，传递外部类。我们期望该类调用`connect()`方法，所以调用了`external_obj.connect.assert_called_with()`方法。
 
-What happens behind the scenes? The `MyObj` class receives the external object and somewhere is its initialization process calls the `connect()` method of the mock object and this creates the method itself as a mock object. This new mock records the parameters used to call it and the subsequent call to `assert_called_with()` checks that the method was called and that no parameters were passed.
+这个场景发生了什么事呢？`MyObj`类接收一个外部对象，这里，它的初始化过程会调用mock对象的`connect()`方法，而这会将方法本身创建为一个mock对象。这个新的mock记录调用它的参数，而接下来的`assert_called_with()`调用检查出该方法被调用了，并且并未传递任何参数。
 
-Running pytest the test obviously fails.
+运行pytest，测试明显失败。
 ```sh
 $ PYTHONPATH="." py.test
 ========================================== test session starts ==========================================
@@ -249,16 +252,16 @@ tests/test_mock.py:6: AttributeError
 $
 ```
 
-Putting this code in `myobj.py` is enough to make the test pass
+将这个代码放到`myobj.py`中就可以让测试通过了
 ```py
 class MyObj():
     def __init__(self, repo):
         repo.connect()
 ```
 
-As you can see, the `__init__()` method actually calls `repo.connect()`, where `repo` is expected to be a full-featured external object that provides a given API. In this case (for the moment) the API is just its `connect()` method. Calling `repo.connect()` when `repo` is a mock object silently creates the method as a mock object, as shown before.
+正如你所看见的，`__init__()`方法实际上会调用`repo.connect()`，这里，`repo`是一个全功能的外部对象，它提供一个给定的API。在这种情况下(目前)，该API只是它的`connect()`方法。当`repo`是一个mock对象时，调用`repo.connect()`会默默地作为mock对象创建该方法，如前所示。
 
-The `assert_called_with()` method also allows us to check the parameters we passed when calling. To show this let us pretend that we expect the `MyObj.setup()` method to call `setup(cache=True, max_connections=256)` on the external object. As you can see we pass a couple of arguments (namely `cache` and `max_connections`) to the called method, and we want to be sure that the call was exactly in this form. The new test is thus
+`assert_called_with()`方法还运行我们检查调用时传递的参数。为了说明这点，让我们假装预计`MyObj.setup()`方法在该外部对象上调用`setup(cache=True, max_connections=256)`。如你所见，我们传递了一对参数(即`cache`和`max_connections`)给被调用方法，然后我们想确保该调用确实是这种形式。新的测试是这样的
 ```py
 def test_setup():
     external_obj = mock.Mock()
@@ -267,7 +270,7 @@ def test_setup():
     external_obj.setup.assert_called_with(cache=True, max_connections=256)
 ```
 
-As usual the first run fails. Be sure to check this, it is part of the TDD methodology. You must have a test that DOES NOT PASS, then write some code that make it pass.
+像往常一样，第一次运行失败。确保检查这一点，因为这是TDD方法的一部分。你必须有一个DOES NOT PASS的测试，然后写一些代码使之通过。
 ```sh
 $ PYTHONPATH="." py.test
 ========================================== test session starts ==========================================
@@ -291,8 +294,7 @@ tests/test_mock.py:14: AttributeError
 $
 ```
 
-To show you what type of check the mock object provides let me implement a partially correct solution
-
+为了向你展示mock对象提供了什么类型的检查，我实现一个部分正确的解决方案
 ```py
 class MyObj():
     def __init__(self, repo):
@@ -303,22 +305,23 @@ class MyObj():
         self._repo.setup(cache=True)
 ```
 
-As you can see the external object has been stored in `self._repo` and the call to `self._repo.setup()` is not exactly what the test expects, lacking the `max_connections` parameter. Running pytest we obtain the following result (I removed most of the pytest output)
+如你所见，该外部对象已经被存储在`self._repo`中了，但是对`self._repo.setup()`的调用并不完全是测试所期望的，因为它缺少`max_connections`参数。运行pytest，我们得到了下述结果（我移除了大部分的pytest输出）
 ```
 E           AssertionError: Expected call: setup(cache=True, max_connections=256)
 E           Actual call: setup(cache=True)
 ```
 
-and you see that the error message is very clear about what we expected and what happened in our code.
+你可以看到，关于我们期望什么，以及我们的代码中发生了神马，错误消息是很清楚。
 
-As you can read in the official documentation, the `Mock` object also provides the following methods and attributes: `assert_called_once_with`, `assert_any_call`, `assert_has_calls`, `assert_not_called`, `called`, `call_count`. Each of them explores a different aspect of the mock behaviour concerning calls, make sure to check their description and the examples provided along.
+正如你可以在官方文档中读到的，`Mock`对象还提供下列方法和属性：`assert_called_once_with`, `assert_any_call`, `assert_has_calls`, `assert_not_called`, `called`, `call_count`。 它们每一个都涉及了关于调用mock行为的不同方面，一定要检查它们的描述和一起提供的例子。
 
-## Final words
 
-In this first part of the series I described the behaviour of mock objects and the methods they provide to simulate return values and to test calls. They are a very powerful tool that allows you to avoid creating complex and slow tests that depend on external facilities to run, thus missing the main purpose of tests, which is that of _continuously_ helping you to check your code.
+## 最后几句话
 
-In the next issue of the series I will explore the automatic creation of mock methods from a given object and the very important patching mechanism provided by the `patch` decorator and context manager.
+在本系列的第一部分，我描述了mock对象的行为，以及它们提供的模拟返回值和测试调用的方法。它们是非常强大的工具，可以让你避免创建依赖于外部设施运行的复杂而缓慢的测试，从而错过测试的主要目的，也就是不断帮助你检查你的代码。
 
-## Feedback
+在本系列的下一个问题中，我将探讨根据给定对象，mock方法的自动创建，以及通过`patch`装饰器和上下文管理器提供的非常重要的修补机制。
 
-Feel free to use [the blog Google+ page](https://plus.google.com/u/0/111444750762335924049) to comment the post. The [GitHub issues](http://github.com/TheDigitalCatOnline/thedigitalcatonline.github.com/issues) page is the best place to submit corrections.
+## 反馈
+
+随意使用[博客Google+页面](https://plus.google.com/u/0/111444750762335924049)来对本文发表评论。[GitHub issues](http://github.com/TheDigitalCatOnline/thedigitalcatonline.github.com/issues)页面是提交修改最好的地方。
