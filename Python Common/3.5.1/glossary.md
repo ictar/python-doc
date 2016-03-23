@@ -1,6 +1,8 @@
 # 词汇表
 原文地址：[Glossary](https://docs.python.org/3/glossary.html)
 
+---
+
 ## `>>>`
 默认的Python交互shell提示符。常见于交互式解释器中执行的代码示例。
 

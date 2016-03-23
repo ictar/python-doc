@@ -145,7 +145,7 @@ Django提供了一个丰富的框架，以帮助创建表格和操作表格数�
 * **应用**: [概述](https://docs.djangoproject.com/en/1.9/ref/applications/)
 * **异常**: [概述](https://docs.djangoproject.com/en/1.9/ref/exceptions/)
 * **django-admin 和 manage.py**: [概述](https://docs.djangoproject.com/en/1.9/ref/django-admin/) | [_Adding custom commands_](https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/)
-* **测试**: [简介](https://docs.djangoproject.com/en/1.9/topics/testing/) | [编写和运行测试](https://docs.djangoproject.com/en/1.9/topics/testing/overview/) |
+* **测试**: [简介](./topics/testing/在Django中测试.md) | [编写和运行测试](./topics/testing/编写和运行测试.md) |
 [_Included testing tools_](https://docs.djangoproject.com/en/1.9/topics/testing/tools/) |
 [高级主题](https://docs.djangoproject.com/en/1.9/topics/testing/advanced/)
 * **部署**: [概述](./howto/部署Django.md) | [_WSGI servers_](./howto/如何使用WSGI进行部署.md) |
