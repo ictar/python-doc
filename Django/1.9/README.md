@@ -96,8 +96,8 @@ Django有“视图(view)”的概念，用来封装负责处理用户请求并�
 [_Using mixins_](https://docs.djangoproject.com/en/1.9/topics/class-based-views/mixins/) |
 [API参考](https://docs.djangoproject.com/en/1.9/ref/class-based-views/) |
 [_Flattened index_](https://docs.djangoproject.com/en/1.9/ref/class-based-views/flattened-index/)
-* **高级**: [生成CSV](https://docs.djangoproject.com/en/1.9/howto/outputting-csv/) |
-[生成PDF](https://docs.djangoproject.com/en/1.9/howto/outputting-pdf/)
+* **高级**: [生成CSV](./howto/使用Django输出CSV.md) |
+[生成PDF](./howto/使用Django输出PDF.md)
 *   **Middleware:**
 [概述](./topics/http/中间件.md) |
 [内置中间件类](https://docs.djangoproject.com/en/1.9/ref/middleware/)

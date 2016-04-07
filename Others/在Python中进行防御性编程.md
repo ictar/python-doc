@@ -278,27 +278,17 @@ def main():
 如果在生产代码中启用，这个异常文件可能包含优秀的调试日志。它开启了挖掘日志数据很大的令人兴奋的可能性：
 
     *   发现用户正尝试我们不曾测试的特性的不同排列，或者甚至考虑，什么会导致新特性的增加，从而使得普通的用例更容易。
-    *   Find common errors due to a misunderstanding that users have about how
-the application works, which could lead to writing better user
-documentation.
+    *   由于用户对于应用程序的工作原理的误解而发现的常见错误，这可能导致写出更好的用户文档。
 
 4.  与断言更高级的组合
 
-You can also use assertions in tandem with your logging.  For example, you
-could run your application in the default debug mode then catch and
-log your `AssertionError` to a different file.  This could lead to even more
-data mining possibilities such as finding out an environmental assumption
-you have about the platform your running in.
+你还可以将断言和日志串联使用。例如，你可以在默认的debug模式下运行你的应用，然后捕抓记录`AssertionError`到一个不同的文件中。这可以导致更多的数据挖掘的可能，例如找到关于你正运行的平台的一个环境假设。
 
-These are just a few uses for logging in the context of Defensive
-Programming.  In fact, you could use logging to create low-fidelity
-solutions for all sorts of problems, which is another post all in its own.
-[2]
+这只是在防御性编程的情况下日志的几个用途。事实上，你可以使用日志为各种各样的问题创造低保真解决方案，这就是另一个文章的事了。[2]
 
 ### 日志的缺点
 
-Logging suffers from many of the same downsides as asserts.  However, logging's
-additional flexibility comes with additional baggage to consider.
+日志有着许多与断言相同的缺点。然而，伴随着需要额外考虑的东西，日志有其额外的灵活性。
 
 1.  Difficulty managing consistent levels
 
@@ -310,7 +300,7 @@ The best solution is to commit guidelines alongside your code in a
 style guide.  Then, there is some project-specific documentation for
 newcomers to refer to when adding log messages.
 
-2.  Design of multiple loggers
+2.  多个logger的设计
 
 The [logging module](http://docs.python.org/2/library/logging.html) is
 extremely flexible, but that flexibility comes at a cost.  Logging
