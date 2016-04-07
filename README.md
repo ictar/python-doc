@@ -16,5 +16,3 @@ translate python documents to Chinese for convenient reference
 - [Scrapy](./Scrapy) Scrapy相关文档
 - [Others](./Others) 其他一些没法分类的文档
 
-# 告假
-由于个人原因，上周pycoders weekly的几篇有意思的文文没有翻完，~~~~(>_<)~~~~ 我会努力在这周结束前更新上去的！！
