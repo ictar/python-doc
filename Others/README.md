@@ -63,3 +63,7 @@
 - [将Python用于地理空间数据处理](./将Python用于地理空间数据处理.md)
     
     本文带你感受一下，如何将Python这个可爱的语言用于地理空间数据处理……
+
+- [使用Python和Excel进行交互式数据分析](./使用Python和Excel进行交互式数据分析.md)
+
+    想要一个调用你自定义的Python代码的Excel工作表吗？或许xlwings可以帮助你……
