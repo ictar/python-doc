@@ -2,12 +2,12 @@
 
 ---
 
-[RPython](http://rpython.readthedocs.org/en/latest/) is a really nice translation framework that converts a (very) restricted subset of Python 2 to C code. Better yet, RPython will generate JITs for your interpreters. Although there are very good articles on how to write interpreters with RPython, I don't often find anything that describes the language itself. My goal with this post is to do just that: describe RPython itself. I'm going to leave out the things about the JITs; the RPython FAQ links to a good tutorial about that.
+[RPython](http://rpython.readthedocs.org/en/latest/)是一个非常好的翻译框架，它将一个（非常）有限的Python 2子集转换成C代码。更重要的是，RPython将为你的解释器生成JIT。虽然有非常棒的关于如何用RPython编写解释器的文章，但是我很少发现任何描述语言本身的文章。这篇文章的目的是能够做到这一点：描述RPython自身。我将不管关于JIT的东东；RPython FAQ链接了一个关于这个的很好的教程。
 
 
-## RPython enters and exits
+## RPython进入和退出
 
-Your RPython programs/interpreters will often begin like this:
+你的RPython程序/解释器往往是这样开始的：
 ```py
 def entry_point(argv):
     # this is your program's main function
@@ -18,19 +18,19 @@ def target(driver, args):
     return entry_point, None
 ```
 
-You'd run RPython kind of like this:
+你大概会像这样运行RPython：
 ```sh
 $ python path_to_pypy_source/rpython/bin/rpython -O0 my_program.py
 ```
 
-The `-O0` turns off all optimizations, which makes compile times _much_ faster while testing.
+`-O0`选项关闭了所有的优化，这使得在测试的时候，编译快得多。
 
-If you're lazy like me, you can define an alias:
+如果你像我一样懒，那么可以定义一个别名：
 ```sh
 $ alias rpython="python path_to_pypy_source/rpython/bin/rpython"
 ```
 
-The `target` function lets you set certain or check command-line arguments passed to RPython. For instance:
+`target`函数让你可以设置特定的，或者检查传递给RPython的命令行参数。例如：
 ```py
 def target(driver, args):
     # The default output file name for xyz.py is xyz-c
@@ -39,14 +39,14 @@ def target(driver, args):
     return entry_point, None
 ```
 
-I have _no_ clue what the `None` is for, though.
+虽然，我并没有关于`None`是用来干嘛的任何提示。
 
-**EDIT:** As Chris pointed out in the comments and Maciej Fijalkowski in an e-mail, the `None` represents the type of the arguments that are given to `entry_point`. See [rpython/translator/goal/targetrpystonex.py](https://bitbucket.org/pypy/pypy/src/tip/rpython/translator/goal/targetrpystonex.py?at=py3k) for an example.
+**编辑：** 正如Chris在评论中指出的，以及Maciej Fijalkowski在邮件中提到的，`None`表示了传递给`entry_point`的参数类型。以[rpython/translator/goal/targetrpystonex.py](https://bitbucket.org/pypy/pypy/src/tip/rpython/translator/goal/targetrpystonex.py?at=py3k)为例。
 
 
-## RPython is half-Python, half-not-Python, and Python
+## RPython是半Python的，半非Python的，以及Python的
 
-Notice that I said that `target` is run at compile time. While other Python translation frameworks, such as Shedskin and Cython, analyse the program's static AST, RPython analyses its bytecode. Here's an example:
+注意，我提到`target`是在编译时运行的。其他的Python翻译框架，例如Shedskin和Cython，分析程序的静态AST，而RPython则分析它的字节码。下面是一个例子：
 ```py
 print 'This is run during compile time!' # guess when this is run?
 
@@ -55,7 +55,7 @@ def entry_point(argv):
     return 0
 ```
 
-This has really cool implications. For one thing, RPython lazily compiles functions. For instance:
+这有非常酷的隐喻。一方面，RPython懒洋洋的编译函数。例如：
 ```py
 def f():
     # This is never compiled by RPython because 'f' is never called
@@ -69,7 +69,7 @@ def entry_point(argv):
     print g()
 ```
 
-That means we can do lots of compile-time computations:
+这意味着我们可以进行大量的编译时计算：
 ```py
 import sys
 
@@ -85,18 +85,18 @@ def entry_point(argv):
     return 0
 ```
 
-## RPython is statically-typed
+## RPython是静态类型的
 
-In short:
+简而言之：
 ```py
 def entry_point(argv):
     x = 123 # ok
     x = '456' # error!
 ```
 
-Notice that no variable annotations were needed. This is because RPython uses type inference.
+注意，不需要任何变量注释。这是因为RPython使用类型推断。
 
-RPython also performs compile-time null checking under certain situations:
+在某些情况下，RPython还执行编译时空校验：
 ```py
 def entry_point(argv):
     if len(argv) == 1:
@@ -110,13 +110,13 @@ def target(driver, args):
     return entry_point, None
 ```
 
-## RPython has confusing error messages
+## RPython具有混乱的错误信息
 
-Whenever an error occurs during compilation, most compilers will output something like:
+每当在编译时出现错误，大多数的编译器将会输出类似的信息：
 
 `error: myfile.whatever:22: variable 'xyz' may be 'null' when used here`
 
-Not RPython! This is what I get when I try to compile the above snippet:
+但是RPython不是这样的！这是当我尝试编译上面的代码片段时得到的：
 ```
 [translation:info] Error:
 [translation:info]    File "/media/ryan/stuff/pypy/rpython/translator/goal/translate.py", line 316, in main
@@ -170,21 +170,20 @@ Not RPython! This is what I get when I try to compile the above snippet:
 [translation:ERROR]
 ```
 
-Wow! RPython's exceptions generally go like this:
-
+哇！RPython的异常通常是这样的：
 
 ### FlowingError
 
-RPython can prove at compile-time that some run-time computation may fail. This usually means one of:
+RPython可以在编译时证明，一些运行时计算可能会失败。这通常意味着下述之一：
 
-*   You're referencing a variable you never defined (the error message will go something like `global variable 'x' is not defined`).
-*   You're trying to get the `len` of `None`.
+*   你引用了一个你从未定义的变量 (错误信息会像这样：`global variable 'x' is not defined`)。
+*   你试图取得`None`的`len`。
 
 ### UnionError
 
-A type conflict. Whenever you get this, RPython will show the internal types that caused the error.
+一个类型冲突。每当你得到这个错误时，RPython将显示引发这个错误的内部类型。
 
-Take this program:
+就拿这个程序来说：
 ```py
 def f(b):
     return 1 if b else None
@@ -197,7 +196,7 @@ def target(driver, args):
     return entry_point, None
 ```
 
-RPython gives this error message:
+RPython给出了这样的错误信息：
 ```
 [translation:info] Error:
 [translation:info]    File "/media/ryan/stuff/pypy/rpython/translator/goal/translate.py", line 316, in main
@@ -250,16 +249,16 @@ RPython gives this error message:
 [translation:ERROR]  --end--
 ```
 
-This tells us that the type conflict is between an integer and `None`. Also note that there are no absolute line numbers. RPython will sometimes show just the function where the error occurred (in this case, `f`) and the internal, simplified code that is near the cause of there error.
+这告诉我们，类型冲突是位于一个整数和`None`之间的。还要注意，没有绝对的行号。RPython有时会只显示错误出现的函数 (在这个例子中，是`f`)以及内部的，出现在错误原因旁边的简化代码。
 
-These errors often show much more info:
+这些错误通常显示更多信息：
 
-*   The integer is the constant `1`.
-*   It is non-negative (`nonneg=True`) but signed (`unsigned=False`).
+*   整数是常量`1`。
+*   它是非负数 (`nonneg=True`)，但却是有符号的 (`unsigned=False`)。
 
 ### BlockError
 
-This means that type inference couldn't succeed. Take this program:
+这意味着类型推断失败了。就拿这个程序来说：
 ```py
 import os
 
@@ -281,7 +280,7 @@ def target(driver, args):
     return entry_point, None
 ```
 
-This reads one or more numbers from <cite>stdin</cite> and prints the first one added to `2.3`. You may have noticed an error in the program. When compiling, this happens:
+这从标准输入中读取一个或多个数字，然后打印第一个数字加上`2.3`的和。你可能已经注意到程序中的一个错误。编译时，发生了下面的事：
 ```
 [translation:info] Error:
 [translation:info]    File "/media/ryan/stuff/pypy/rpython/translator/goal/translate.py", line 316, in main
@@ -317,26 +316,26 @@ This reads one or more numbers from <cite>stdin</cite> and prints the first one 
 [translation:ERROR]
 ```
 
-What?? What RPython means is that it can't infer the type of `data`. Why? Because somewhere in `rd` we put a plain `return`. In Python, this returns `None`. In RPython? It's an error.
+神马？RPython表达的是，它无法推断出`data`的类型。为嘛？因为在`rd`中的某个地方，我们放了一个普通的`return`。在Python中，这返回`None`。在RPython中呢？这是个错误。
 
-One gotcha about these errors is that they occur when the type problems surface. Notice that the error didn't occur in `rd`'s definition; it occurred when we tried to slice it. This can be a little odd until you get the hang of it.
+有关这些错误的一个小问题是，当类型问题出现时，它们发生了。注意，错误并未发生在`rd`的定义中；错误在我们试图对它切片时发生。这可能有点怪，直到你得到它的窍门。
 
 
 ### AssertionError
 
-Various meanings. Sometimes they have an error message; sometimes they don't. When they don't, your best bet is to go to the line in RPython source that raised the error and look for any helpful comments or try to figure out on your own.
+不同的含义。有时，它们有一个错误信息；但有时没有。当没有的时候，你最好的办法是找到引发该错误的RPython源代码的行那里，然后找找有没有用用的评论，或者尝试自己揣摩。
 
 
 ### AnnotatorError
 
-This may have various meanings, but it basically means that an error occurred while trying to annotate the types. The most common reason in my experience is an attribute error. For instance, this:
+这可能具有不同的含义，但它基本上意味着在试图注释类型的时候发生了一个错误。在我的经验中，最常见的原因是一个属性错误。例如，这个：
 ```py
 def entry_point(argv):
     print argv.x
     return 0
 ```
 
-Gives:
+得到：
 ```
 [translation:ERROR] AnnotatorError:
 [translation:ERROR]
@@ -364,12 +363,12 @@ Gives:
 [translation:ERROR]  --end--
 ```
 
-Also note the types again. Here, it's telling us it's a list (`SomeList`) of non-nullable strings (`listdef=&lt;[SomeString(no_nul=True)]&gt;`).
+再次注意到类型。这里，它告诉我们，它是一个非空字符串的列表(`SomeList`) (`listdef=<[SomeString(no_nul=True)]>`)。
 
 
-## RPython takes a hint
+## RPython接受一个提示
 
-For instance:
+例如：
 ```py
 class A(object):
     pass
@@ -389,7 +388,7 @@ def target(driver, args):
     return entry_point, None
 ```
 
-This gives:
+得到：
 ```
 [translation:ERROR] AnnotatorError:
 [translation:ERROR]
@@ -421,7 +420,7 @@ This gives:
 [translation:ERROR]  --end--
 ```
 
-The solution? You can use an assertion:
+解决方法呢？你可以使用断言：
 ```py
 def entry_point(argv):
     a = C() if len(argv) == 3 else B() # Ok; 'a' is of type A
@@ -430,7 +429,7 @@ def entry_point(argv):
     return 0
 ```
 
-Or an `if` statement:
+或者`if`语句：
 ```py
 def entry_point(argv):
     a = C() if len(argv) == 3 else B() # Ok; 'a' is of type A
@@ -441,14 +440,14 @@ def entry_point(argv):
     return 0
 ```
 
-## RPython drops you some neat info
+## RPython带给你一些巧妙的信息
 
-Notice that, when an error occurs, RPython drops you into an instance of [pdb](https://docs.python.org/2/library/pdb.html). This means you can inspect the variables of RPython's internals! This can come in handy for debugging the more spurious errors. You can inspect the various variables and see what RPython thinks things are.
+注意，当错误发生时，RPython会让你进入到[pdb](https://docs.python.org/2/library/pdb.html)的一个实例中。这意味着，你可以检测RPython的内部变量！这可以在调试更虚假的错误时派上用场。你可以检查各个变量，看看RPython如何理解它们。
 
 
-## RPython is polite
+## RPython是礼貌的
 
-Take this program:
+就拿这个程序来说：
 ```py
 def entry_point(argv):
     print argv[1]
@@ -458,7 +457,7 @@ def target(driver, args):
     return entry_point, None
 ```
 
-If you give it no arguments, it'll throw an `IndexError`, right? WRONG! If I build it without optimizations, it'll print `None`; if I use optimizations (`-O2`), it'll segfault. Why? See, it would be rude to throw an exception! After all, you asked it for the first argument. Therefore, it returns a safe value: `None`. However, when you build it with optimizations, RPython couldn't care less about your computers memory, so it happily...crashes. However, try this:
+如果你不提供任何参数，那么它会抛出一个`IndexError`，对吗？不是的！如果我在不优化的情况下构建它，那么它将打印出`None`；如果我使用优化 (`-O2`)，那么它会出现段错误。为嘛？你看，抛出异常是很粗鲁的。毕竟，你向它请求第一个参数。因此，它返回了一个安全值：`None`。然而，当你在不优化的情况下构建它，那么RPython一点儿都不在乎你的电脑内存，因此它高兴地……崩溃。然而，试试这个：
 ```py
 def entry_point(argv):
     try:
@@ -468,9 +467,9 @@ def entry_point(argv):
     return 0
 ```
 
-This will correctly print "Too few arguments!" if given no arguments. See, now that you put a `try` block around it, RPython knows you want an exception, so it'll throw one.
+如果为给定参数，那么这将正确的打印"Too few arguments!"。你看，现在你在它周围放置了一个`try`块，RPython知道你想要的是异常，所以它会抛出一个异常。
 
-However, take this:
+然而，看看这个：
 ```py
 def f(x): return x[1]
 
@@ -485,7 +484,7 @@ def target(driver, args):
     return entry_point, None
 ```
 
-This will segfault when build with `-O2`. But we put a `try` block! RPython analyses the function individually in this case, so it doesn't pick up the `try` block in `entry_point`. To circumvent this, put another `try` block around `f` that explicitly re-raises any errors:
+这在与`-O2`选项一起构建的时候，会出现段错误。但是，我们放了一个`try`块呀！在这种情况下，RPython单独分析该函数，所以它并不会考虑`entry_point`中的`try`块。为了规避这一点，请把另一个`try`块放到`f`中，让它显式的重新引发错误：
 ```py
 def f(x):
     try:
@@ -494,27 +493,27 @@ def f(x):
         raise
 ```
 
-## RPython is very restricted
+## RPython是非常受限的
 
-Here are a few things that don't work:
+这里有一些不能用的东东：
 
-*   Any builtins not found as `builtin_xxx` in [rpython/annotator/builtin.py](https://bitbucket.org/pypy/pypy/src/default/rpython/annotator/builtin.py).
-*   Printing unicode strings (use `print <span class="pre">string.encode('utf-8')`).
-*   Slicing any negative indices other than `-1`. If RPython can't prove an index isn't non-negative or `-1`, a compile-time error will be thrown. You can use an assertion (like `assert the_index &gt;= 0`; see the above section on hints).
-*   Most Python modules other than `os` and `math` (and maybe a few others).
-*   Sets.
-*   Multiple inheritance.
-*   Several `str` methods (such as `*just` and `zfill`). Some others work take slightly different argument counts.
-*   `with` blocks. Use `try..finally`.
-*   `sys.stdin`, `sys.stdout`, and `sys.stderr`.
-*   `raw_input`.
-*   Lots and lots and lots of other stuff!
+*   在[rpython/annotator/builtin.py](https://bitbucket.org/pypy/pypy/src/default/rpython/annotator/builtin.py)中，不能作为`builtin_xxx`发现任何内建。
+*   打印Unicode字符串(使用`print <span class="pre">string.encode('utf-8')`)。
+*   除了`-1`以外，使用任何复数索引进行切片。如果RPython不能证明一个索引不是非负的，或者`-1`，那么将会抛出一个运行时错误。你可以使用一个断言 (例如`assert the_index >= 0`；见上面的部分)。
+*   大多数Python模块，除了`os`和`math` (也许还有一些其他的)。
+*   集合。
+*   多重继承。
+*   一些`str`方法 (例如`*just`和`zfill`)。一些其他方法接受略有不同的参数个数。
+*   `with`块。使用`try..finally`。
+*   `sys.stdin`, `sys.stdout`, 和`sys.stderr`。
+*   `raw_input`。
+*   很多很多很多的其他东西！
 
-I believe `OrderedDict` works, but I'm not quite sure.
+我相信`OrderedDict`能用，但我不能肯定。
 
-Figuring some of the other restrictions is simply trial-and-error.
+搞清楚一些其他的限制仅仅是试错。
 
-For getting around `sys.std*`, you can use this function to read a line from `stdin`:
+要避免使用`sys.std*`，你可以使用这个函数来从`stdin`中读取一行：
 ```py
 import os
 
@@ -527,7 +526,7 @@ def readline():
         if res[-1] == '\n': return res[:-1]
 ```
 
-For reading all the lines in `stdin` into a list:
+要将`stdin`中所有的行读到一个列表中：
 ```py
 import os
 
@@ -540,7 +539,8 @@ def readlines():
         cur += buf
         if cur[-1] == '\n': res.append(cur[:-1])
 ```
-For reading the lines in stdin into a single string:
+
+要读取stdin中的行到一个单一字符串中：
 ```py
 import os
 
@@ -551,7 +551,8 @@ def readall():
         if not buf: return res
         res += buf
 ```
-For writing to stderr:
+
+要写入到stderr：
 ```py
 import os
 
@@ -565,16 +566,16 @@ def write(msg):
     os.write(1, msg)
 ```
 
-## RPython is fun!
+## RPython是有趣的！
 
-Maybe I'm weird, but RPython is still really cool. Once you get the hang of the oddities, everything else kind of starts to fall into place.
-
-
-## Need help?
-
-You can ask the [PyPy mailing list](https://mail.python.org/mailman/listinfo/pypy-dev). They helped me with several slip-ups while writing an interpreter in RPython.
+也许我是怪异的，但RPython确实很酷。一旦你获得了奇特的窍门，那么一切水到渠成。
 
 
-### Read the docs!
+## 需要帮助吗？
 
-Also, read through the [RPython](http://rpython.readthedocs.org/en/latest/) documentation. It's very exhaustive and mentions stuff that I can't in this short space.
+你可以问问[PyPy邮件列表](https://mail.python.org/mailman/listinfo/pypy-dev)。当在RPython中编写一个解释器时，他们帮助我处理了一些疏忽。
+
+
+### 阅读文档！
+
+此外，通读[RPython](http://rpython.readthedocs.org/en/latest/)文档。它非常详尽，并且提到了我在这篇短短的文章中无法提到的东东。
