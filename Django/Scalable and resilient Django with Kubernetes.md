@@ -2,188 +2,84 @@
 
 ---
 
-If things work out as you’ve envisioned, there will be a time in your
-webapp’s lifecycle when it’s serving a large number of users. By the
-time things get to this point, it’s ideal if you’ve architected your
-webapp to both _scale_ gracefully to meet this load, and also be
-_resilient_ to arbitrary failures of underlying compute resources.
+如果事情如你预想般工作，那么在你的webapp的生命周期中，它将会有服务于大量用户的时候。当事情已经走到了这一步，那么如果你已经将你的webapp架构成其规模可以优雅的满足这种负荷，同时对于底层计算资源的任意故障具有弹性，这将是很理想的。
 
-This article is about how you can use [Docker
-containers](https://www.docker.com/what-docker) and [Kubernetes](http://kubernetes.io/) to help
-your [Django](https://www.djangoproject.com) webapp achieve these architectural goals. While
-it meanders a bit through theory and philosophy, it does work up to a
-[concrete example](#practical-example-on-google-container-engine:d4c663f7b7e5088d61b55e9f2c9602ed) to help solidify concepts.
+这篇文章是关于你可以如何使用[Docker容器](https://www.docker.com/what-docker)以及[Kubernetes](http://kubernetes.io/)来帮助你的[Django](https://www.djangoproject.com) webapp来达到这些架构目标。虽然它在理论和理念上涉猎不多，但是它确实逐步完善一个[具体的例子](#practical-example-on-google-container-engine:d4c663f7b7e5088d61b55e9f2c9602ed)，以帮助巩固概念。
 
-## Caveats
+## 注意事项
 
-Before we get too deep into the weeds, I’d like to note that the ideas
-expressed in this piece don’t have anything particular to do with
-Django. I’ve simply chosen it as an example because it is a popular
-framework that I’m familiar with. It is straightforward to repurpose
-these principles for other software stacks.
+在我们深入之前，我想指出，在这篇文章中表达的想法与Django没有什么特别的关系。我选择Django作为例子，只是单纯因为它是一个我熟悉的流行框架。对其他软件栈而言，重新利用这些原则是直截了当的。
 
-I’d also like to point out that this article juggles many moving
-pieces — some quite immature. If you can avoid this level of
-complexity at the current stage of your webapp’s lifecycle, _you
-should_. Instead, focus your efforts on better understanding your
-users’ problems and testing whether your app solves them. No one is
-going to know or complain that you’re running your app on a single
-fragile server until enough people care to use your app regularly.
+我还想指出，这篇文章涉及了许多发展中的作品，它们中的一些相当不成熟。如果在你的webapp的生命周期的当前阶段中，你可以避免这种复杂度，那么_你应该避免_。相反，集中精力更好的理解用户的问题，以及测试你的应用是否解决了这些问题。除非足够多的人经常使用你的应用，否则没有人会知道或者抱怨你把你的应用运行在一个单一脆弱的服务器上。
 
-_No one._
+_没有人。_
 
-With that out of the way, let’s get started!
+有了这样的方式，那么就让我们开始吧！
 
-## There are some problems with traditional VM-based deployments
+## 传统的基于虚拟机（VM）的部署存在有些问题
 
-Let’s imagine that you’re working on a Django webapp that’s laid out
-in a fairly standard fashion: All your app’s data resides in a
-PostgreSQL database. The app itself is written in Django-flavoured
-Python, and is served up using the Gunicorn application server. And in
-front of all this, you have the NGINX web server acting both as a
-reverse proxy and a static content server.
+让我们来想象下，你正在做一个Django web应用，它以一种相当标准的形式进行布局：你所有的应用数据都保存在PostgreSQL服务器上。应用本身是用Django风格的Python编写的，并使用Gunicorn应用服务器。而在这一切之前，你使用NGINX web服务器，它即作为反向代理，又作为静态内容服务器。
 
   ![Layout of a non-trivial Django application.](/images/writing/kubernetes-django/standard-django-application.svg)
   <figcaption>Layout of a non-trivial Django application.</figcaption>
 
-When you’re first starting out with your app and you only have a
-handful of users, it makes perfect sense to run all these pieces on a
-single server. So you run up to your [favourite cloud
-provider](https://m.do.co/c/e3559ea013de), fire up a VPS running Debian or
-whatever, and install all these individual bits of software on the
-same machine.
+当你第一次开始了你的应用，并且只有少量用户时，它可以完美的将所有东东都运行在一台服务器上。所以你把应用跑在你[最喜欢的云服务提供商](https://m.do.co/c/e3559ea013de)在，启动一个VPS来运行Debian或其他什么操作系统，并在同一台机器上安装所有这些软件。
 
 
   ![All pieces making up the app on a single machine.](/images/writing/kubernetes-django/all-in-one-server.svg)
   <figcaption>All pieces making up the app on a single machine.</figcaption>
 
-Then, as your app starts to get more popular, you begin to work on
-scaling. At first, you follow the straightforward approach and simply
-provision larger and larger single machines to run your app on. This is
-called _vertical scaling_ and works well until you reach a few
-thousand users.
+然后，随着你的应用开始变得受欢迎，你开始进行扩展工作。搜寻，你遵循简单的方法，简单的提供越来越大的单一机器来运行你应用。这就是所谓的_垂直扩展(vertical scaling)_，它行之有效，知道应用拥有了上千个用户。
 
-And then your app gets _even more_ popular.
+接着，你的应用变得更受欢迎。
 
-Now you realise that if you were to split the components making up
-your app and put them on separate machines, you can scale the
-components independently. Meaning, for example, that you can run
-multiple instances of your Django app (called _horizontal scaling_) to
-handle your growing user base, while continuing to run your PostgreSQL
-server on only one (but potentially increasingly powerful) machine.
+现在，你意识到，如果你分开组成你应用的组件，然后将它们放在不同的机器上，那么你就可以独立地扩展组件。这意味着，例如，你可以运行Django应用的多个实例（称为_水平扩展(horizontal scaling)_）来处理不断增长的用户群，同时继续把你的PostgreSQL服务器运行在唯一一个（但可能日益强大的）机器上。
 
 
   ![Running many instances of the app, talking to a single database.](/images/writing/kubernetes-django/on-separate-servers.svg)
   <figcaption>Running many instances of the app, talking to a single database.</figcaption>
 
-This is actually a pretty good deployment solution (and it’s the basic idea
-underlying what we use today in practice at my [day job](https://edgefolio.com/company/),
-using [Ansible](https://www.ansible.com) to setup the servers), but it comes with its
-own set of inconveniences:
+其实，这是一个相当不错的部署方案(并且它的基本理念是我们今天在我的[日常工作](https://edgefolio.com/company/)中实践的基础，使用[Ansible](https://www.ansible.com)来设置服务器)，但它还有一些不便之处：
 
-1.  It’s annoying to provision, setup and keep up-to-date one server
-for each component. This is not the level at which you want to be
-thinking about the system.
+1.  为每个组件建立并保持最新的服务器是烦人的。这不是你想考虑的关于服务器的问题。
 
-2.  You generally have poor resource utilisation because each component
-doesn’t effectively use all that the server it’s running on has to
-offer. This is primarily because you’re often setup for peak load, not
-median load.
+2.  通常，你拥有较差的资源利用率，因为每一个组件都不能有效地使用它所运行在的服务必须提供的所有资源。这主要是因为你通常为高峰负载进行安装，而不是平均负载。
 
-3.  If you try to resolve (2) by running multiple components (e.g. both
-your app and database) on the same machine, then there’s nothing
-stopping one piece from clobbering the others. i.e. There is poor
-resource isolation within a given server.
+3.  如果你试图通过在同个机器上运行多个组件（例如，应用和数据库）来解决(2)，那么就没有办法阻止组件之间的资源抢占。例如，在一个给定服务器上的匮乏资源隔离。
 
 * * *
 
-So, what if we could shift our attention from managing servers to
-simply running the components of our app on a collection of computing
-resources? Furthermore, what if these components were well isolated
-from each other and efficiently used the resources they had at their
-disposal?
+所以，如果我们能够将我们的关注点从管理服务器转移到简单在计算资源的集合上运行我们的应用的组件呢？此外，如果这些组件之间很好的相互隔离，并且有效地利用它们所拥有的资源呢？
 
-Then our deployment picture might look more like the following, where
-the primary pieces we care about (the application components) are
-shown in orange. The actual nodes (physical or virtual machines) that
-the components run on are de-emphasised visually because we don’t care
-about the details. And we trust our underlying compute infrastructure
-to offer us some primitives such as persistent storage and load
-balancers (shown in green) that are common to any non-trivial webapp.
+然后，我们的部署图可能看起来更像下面这样，其中，我们关心的主要组件（应用组件）以橙色显示。组件运行的实际节点（物理机或虚拟机）在视觉上弱化了，因为我们不关心细节。并且，我们相信我们的基本计算基础架构为我们提供了一些基本功能，例如持久性存储和负载平衡器（以绿色显示）这些任何较重的web应用的常用功能。
 
 
   ![The application running on an abstract collection of resources.](/images/writing/kubernetes-django/scheduled-on-cluster.svg)
   <figcaption>The application running on an abstract collection of resources.</figcaption>
 
-This philosophical shift — [from _managing servers_ to simply
-_running components of our app_ ideally](http://queue.acm.org/detail.cfm?id=2898444) — is
-precisely the promise of container technology like [Docker](https://www.docker.com/)
-and cluster orchestration frameworks like
-[Kubernetes](http://kubernetes.io/). And in the practical [example that
-follows](#practical-example-on-google-container-engine:d4c663f7b7e5088d61b55e9f2c9602ed), we’ll see how these tools allow us to easily
-recreate the ideal deployment scenario shown above.
+这种理念的转变 — [从 _管理服务器_ 到简单理想地 _运行我们应用的组件_](http://queue.acm.org/detail.cfm?id=2898444) — 恰恰是容器技术，例如[Docker](https://www.docker.com/)，和集群业务流程框架，例如[Kubernetes](http://kubernetes.io/)，所要提供的。而在实际的[下面的例子](#practical-example-on-google-container-engine:d4c663f7b7e5088d61b55e9f2c9602ed)中，我们将看到这些工具如何让我们能够轻松地重新创建上面显示的理想部署方案。
 
-## So how exactly do Docker and Kubernetes help?
+## 所以，Docker和Kubernetes是如何行之有效的呢？
 
-You can colloquially think of [Docker](https://www.docker.com/) containers as [fat
-static binaries](https://en.wikipedia.org/wiki/Static_library) of your apps. They bundle your
-application code, the underlying libraries and all the necessary bits
-your app needs to run into a convenient package — one that can be
-run on a thin layer directly over the Linux kernel. What this means in
-practice is that you can take a container that you’ve built once and
-run it on different versions of Linux distributions, or entirely
-different Linux distributions. Everything should work seamlessly.
+你可以通俗地把[Docker](https://www.docker.com/)容器当做你的应用的[fat静态二进制文件](https://en.wikipedia.org/wiki/Static_library)。它们捆绑你的应用代码，底层库，以及你的应用程序需要运行的所有东东到一个便捷的包里，这个包可以直接的在Linux内核上的一个薄层之上运行。这在实践中意味着，你可以获得一个你已经构建了一次的容器，然后把它运行在不同版本的Linux发行版本上，或者完全不同的Linux发行版本上。所有这一切都应该无缝工作。
 
-Thus, by forming an atomic unit that can be built, tested and run
-anywhere, containers raise your level of concern above the specifics
-of the operating system, allowing you to focus on your
-app. Containers also offer resource isolation, meaning that if two of
-them are running side by side, each can only see and do what they’re
-supposed to.
+因此，通过形成一个可构建、测试已经随处运行的基本单元，容器将你的关注层次提高到操作系统的细节上，运行你关注自己的应用。容器还提供资源隔离，意味着如果其中两个并排运行，那么每一个都只能看到它应该看到的东东，以及做它应该做的事。
 
-This means our deployment journey can now be broken down into two
-coarse steps. The first is to take the different components of our app
-and package them into containers. The second is to run these on our
-computing resources — leveraging underlying computing primitives
-such as _load balancers_, and ensuring that the containers are
-properly networked.
+这意味着我们的部署之旅现在可以大略分成两个步骤。第一个步骤是得到我们的应用的不同组件，然后将它们打包到容器中。第二步是在我们的计算资源之上运行它们 —— 利用底层计算原语，例如_负载均衡器_，并确保容器正确联网。
 
-This second step is where [Kubernetes](http://kubernetes.io/docs/whatisk8s/) comes in.
+这里，第二步就是[Kubernetes](http://kubernetes.io/docs/whatisk8s/)的用武之地。
 
-Kubernetes is an open source system for managing clusters and
-deploying “containerised” applications. Kubernetes abstracts the
-underlying hardware (of your cloud provider or on-premises cluster),
-and presents a simple API that allows you to easily control it. You
-send this API some declarative state, e.g. “I’d like three copies of
-my Django app container running behind a load balancer, please,” and
-it ensures that the appropriate containers are scheduled on the nodes
-of your cluster. Furthermore, it monitors the situation and ensures
-that this state is maintained, allowing it to be robust to arbitrary
-changes in the system. This means, for example, that if a container is
-shut down prematurely because a node runs out of memory, Kubernetes
-will notice this and ensure another copy is restarted elsewhere.
+Kubernetes是一个用于管理集群和部署“容器化”应用的开源系统。Kubernetes抽象（你的云供应商或者本地集群的）底层硬件，并提供一个简单的API以允许你容易地控制它。你向这个API发送一些声明式状态，例如：“我想要我的Django应用容器的三个副本运行在负载均衡器之后，拜托了”，然后，它可以确保在你的集群的节点上安排适当的容器。另外，它监控状态，并确保维持此状态，允许其对系统中的任意修改保持健壮。例如，这意味着，如果一个容器因为节点内存耗尽而被过早关闭，Kubernetes会注意到这点，并确保重新启动其他位置的另一个副本。
 
-Kubernetes works by having agents that sit on each node of your
-cluster. These allow for things like running Docker containers (the
-_docker daemon_), making sure the desired state is maintained (the
-_kubelet_), and that the containers can talk to each other
-(_kube-proxy_). These agents listen to and synchronise with a
-centralised API server to ensure that the system is in the desired
-state.
+Kubernetes通过位于集群的每个节点上的代理来工作。这些代理允许一些行为，例如运行Docker容器 (_docker守护进程_)，确保维持需要的状态 (_kubelet_)，以及容器可以彼此交流 (_kube-proxy_)。这些代理监听及与一个集中的API服务器同步，以确保系统处于期望的状态。
 
 
   ![A simplified look at Kubernetes](/images/writing/kubernetes-django/kubernetes-architecture.svg)
   <figcaption>A simplified look at Kubernetes' architecture.</figcaption>
 
-The Kubernetes API exposes a collection of cluster configuration
-resources that we can modify to express the state we want our cluster
-to be in. The API offers a standard REST interface, allowing us to
-interact with it in a multitude of ways. In the upcoming example,
-we’re going to be using a thin command line client called `kubectl` to
-communicate with the API server.
+Kubernetes API暴露了集群配置资源集合，我们可以修改以表达我们希望我们的集群所处的状态。该API提供给了一个标准的REST接口，允许我们以以多种方式与它进行交互。在即将到来的例子中，我们将使用一个瘦命令行客户端，名为`kubectl`，来与API服务器进行通信。
 
-While the API [offers numerous primitives](http://kubernetes.io/kubernetes/third_party/swagger-ui/) to work
-with, here are a few that are important for our example today:
+虽然该API[提供大量原语](http://kubernetes.io/kubernetes/third_party/swagger-ui/)以供使用，但是这里还是有一些对于我们今天的例子重要的东西：
 
 *   **Pods** are a collection of closely coupled containers that are
 scheduled together on the same node, allowing them to share volumes
@@ -207,7 +103,7 @@ If this all seems a bit too abstract at the moment, do not fret. We’re
 now going to jump into an example that demonstrates how these bits
 work in practice to help us deploy our Django app.
 
-## Practical example on Google Container Engine
+## 谷歌容器引擎（Google Container Engine）上的应用实例
 
 The example application that we’re going to be focusing on is a simple
 blog application.
@@ -249,7 +145,7 @@ version of your Django app to another with no downtime.
     managed version of Kubernetes called [Google Container Engine](https://cloud.google.com/container-engine/)
     (GKE).
 
-        1.  Create an account on Google Cloud Platform and update your
+    1.  Create an account on Google Cloud Platform and update your
     billing information.
     2.  Install the [command line interface](https://cloud.google.com/sdk/).
     3.  Create a project (that we’ll refer to henceforth as
@@ -269,66 +165,66 @@ version of your Django app to another with no downtime.
     gcloud container clusters get-credentials demo
     kubectl get nodes
     ```
-    ### Create and publish Docker containers
+### 创建及发布Docker容器
 
-    For this example, we’ll be using [Docker Hub](https://hub.docker.com/)
-    to host and deliver our containers. And since we’re not working with
-    any sensitive information, we’ll expose these containers to the
-    public.
+For this example, we’ll be using [Docker Hub](https://hub.docker.com/)
+to host and deliver our containers. And since we’re not working with
+any sensitive information, we’ll expose these containers to the
+public.
 
-    #### PostgreSQL
+#### PostgreSQL
 
-    Build the container, remembering to use your own username on Docker
-    Hub instead of `hnarayanan`:
-    ```sh
-    cd containers/database
-    docker build -t hnarayanan/postgresql:9.5 .
-    ```
-
-    You can check it out locally if you want:
-    ```sh
-    docker run --name database -e POSTGRES_DB=app_db -e POSTGRES_PASSWORD=app_db_pw -e POSTGRES_USER=app_db_user -d hnarayanan/postgresql:9.5
-    # Echoes $PROCESS_ID to the screen
-    docker exec -i -t $PROCESS_ID bash
-    ```
-
-    Push it to a repository:
+Build the container, remembering to use your own username on Docker
+Hub instead of `hnarayanan`:
 ```sh
-    docker login
-    docker push hnarayanan/postgresql:9.5
-```
-    #### Django app running within Gunicorn
-
-    Build the container:
-```sh
-    cd containers/app
-    docker build -t hnarayanan/djangogirls-app:1.2-orange .
+cd containers/database
+docker build -t hnarayanan/postgresql:9.5 .
 ```
 
-    Push it to a repository:
-
-   ` docker push hnarayanan/djangogirls-app:1.2-orange`
-
-    We’re going to see how to perform rolling updates later in this
-    example. For this, let’s create an alternative version of our app that
-    simply has a different header colour, build a new container app and
-    push that too to the container repository.
+You can check it out locally if you want:
 ```sh
-   cd containers/app
-    emacs blog/templates/blog/base.html
-
-    # Add the following just before the closing </head> tag
-        <style>
-          .page-header {
-            background-color: #ac4142;
-          }
-        </style>
-
-    docker build -t hnarayanan/djangogirls-app:1.2-maroon .
-    docker push hnarayanan/djangogirls-app:1.2-maroon`
+docker run --name database -e POSTGRES_DB=app_db -e POSTGRES_PASSWORD=app_db_pw -e POSTGRES_USER=app_db_user -d hnarayanan/postgresql:9.5
+# Echoes $PROCESS_ID to the screen
+docker exec -i -t $PROCESS_ID bash
 ```
 
-### Deploy these containers to the Kubernetes cluster
+Push it to a repository:
+```sh
+docker login
+docker push hnarayanan/postgresql:9.5
+```
+#### 在Gunicorn中运行Django app
+
+Build the container:
+```sh
+cd containers/app
+docker build -t hnarayanan/djangogirls-app:1.2-orange .
+```
+
+Push it to a repository:
+
+` docker push hnarayanan/djangogirls-app:1.2-orange`
+
+We’re going to see how to perform rolling updates later in this
+example. For this, let’s create an alternative version of our app that
+simply has a different header colour, build a new container app and
+push that too to the container repository.
+```sh
+cd containers/app
+emacs blog/templates/blog/base.html
+
+# Add the following just before the closing </head> tag
+    <style>
+      .page-header {
+        background-color: #ac4142;
+      }
+    </style>
+
+docker build -t hnarayanan/djangogirls-app:1.2-maroon .
+docker push hnarayanan/djangogirls-app:1.2-maroon`
+```
+
+### 部署这些容器到Kubernetes集群
 
 #### PostgreSQL
 
@@ -357,7 +253,7 @@ kubectl get svc
 kubectl describe svc database
 ```
 
-#### Django app running within Gunicorn
+#### 在Gunicorn中运行Django app
 
 We begin with three app pods (copies of the orange app container)
 talking to the single database.
@@ -462,7 +358,7 @@ kubectl scale rc app-orange --replicas=0
 kubectl delete rc app-orange
 ```
 
-### Cleaning up
+### 清理
 
 After you’re done playing around with this example, remember to
 cleanly discard the compute resources we spun up for it.
@@ -471,7 +367,7 @@ gcloud container clusters delete demo
 gsutil -m rm -r gs://demo-assets
 ```
 
-## In conclusion
+## 总结
 
 This article covered a lot of ground. We first motivated the need for
 containers and cluster orchestration frameworks in general. We then
@@ -516,7 +412,7 @@ where we’re turning our attention from _managing servers_ to simply
 _running components of our app_. And this level of abstraction feels
 just right.
 
-## Selected references and further reading
+## 选定的参考和进一步阅读
 
 1.  [Linux Containers: Parallels, LXC, OpenVZ, Docker and
 More](http://aucouranton.com/2014/06/13/linux-containers-parallels-lxc-openvz-docker-and-more/)

@@ -71,3 +71,17 @@
 - [RPython的魔力](./RPython的魔力.md)
 
     RPython是个翻译器，一个编译时运行的翻译器。本文关注与RPython本身，主要说明了其特性及相关错误。
+
+- Henry Kupty的函数式编程扫盲系列
+
+    - [了解函数式编程背后的属性：单子(Monad)](./了解函数式编程背后的属性：单子(Monad).md)
+    
+        本文讲解了函数式编程中的单子，及其三大法则。
+
+- [在Python中使用Behave来开始行为测试](./在Python中使用Behave来开始行为测试.md)
+
+    本文通过讲述一个21点的例子，借助Python中的Behave库，带你体验什么是BDD，行为驱动开发。
+
+- [使用gdb调试CPython进程](./使用gdb调试CPython进程.md)
+
+    想在不重启应用的情况下调试CPython应用？此时pdb可无用武之地哦~ 所以，试试gdb吧！
