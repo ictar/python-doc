@@ -2,14 +2,9 @@
 
 ---
 
-In my [last article](https://stefan.sofa-rockers.org/2015/04/22/testing-coroutines/), I showed how pytest’s fixture system and plug-in
-infrastructure can help you with writing cleaner and better tests.  Fixtures
-allow you to create a clean event loop instance for every test case.  The
-plug-in system allows you to write test functions that are actually asyncio
-coroutines.  While I was working on that articel, _Tin Tvrtkovic_ created the
-plug-in [pytest-asyncio](https://pypi.python.org/pypi/pytest-asyncio).
+在我[上一篇文章中](https://stefan.sofa-rockers.org/2015/04/22/testing-coroutines/)，我显示了pytest的Fixture系统和插入式基础架构是如何帮你编写更加干净优秀的测试的。Fixture允许你为每个测试用例创建一个干净的事件循环实例。而插入式系统允许你编写实际上市asyncio协程的测试函数。在我写那篇文章时，_Tin Tvrtkovic_ 创建了插入式[pytest-asyncio](https://pypi.python.org/pypi/pytest-asyncio)。
 
-In short, it lets you do this:
+总之，它让你可以这样：
 ```py
 import asyncio
 import time
@@ -24,7 +19,7 @@ def test_coro(event_loop):
     assert after - before >= 0.1
 ```
 
-Instead of this:
+来取代这样：
 ```py
 import asyncio
 import time
@@ -42,24 +37,15 @@ def test_coro():
         loop.close()
 ```
 
-So using _pytest-asyncio_ clearly improves your test (and there is even more,
-what this plug-in does!).
+因此，使用_pytest-asyncio_显然改善你的测试 (当然，这个插件还能做更多东西！)。
 
-While I have been working on [aiomas](https://aiomas.readthedocs.org), some additional requirements came up
-that were not so easily covered.  What _aiomas_ basically does is adding three
-layers of abstraction around the asyncio transports:
+在我努力做[aiomas](https://aiomas.readthedocs.org)时，一些无法简单涵盖的额外需求出现了。_aiomas_基本上做的是在asyncio传输周围增加三个抽象层：
 
-1.  The _channel_ layer lets you send JSON or MsgPack encoded messages in
-a request-reply manner.  This layer uses a custom protocol that works with
-different kinds of transports: TCP sockets, Unix domain sockets and custom
-transport called _local queue_.
-2.  The _RPC_ layer creates a remote-procedure-call system on top of the
-_channel_ layer.
-3.  The _agent_ layer (for multi-agent systems) hides even more of the
-networking-related stuff and lets you basically write classes that call
-methods of other classes over a network connection.
+1.  _channel_层允许你以一种请求-应答方式发送JSON或者MsgPack编码消息。这一层使用了与不同种类的传输一起工作的自定义协议：TCP套接字，Unix域套接字和名为_本地队列_的自定义传输。
+2.  _RPC_层在_channel_层之上创建了一个远程过程调用系统。
+3.  _agent_层（为多代理系统）隐藏了更多的网络相关的东西，并基本上让你编写那些通过网络连接调用其他类方法的类。
 
-Here is a simple example of how the _channel_ layer works:
+这里是_channel_层如何工作的一个简单例子：
 ```py
 import aiomas
 
@@ -89,50 +75,41 @@ server.close()
 aiomas.run(server.wait_closed())
 ```
 
-## Requirements for our tests
+## 对于我们的测试的要求
 
-So with this in mind, I had the following requirements for my tests:
+所以，考虑到这一点，对于我的测试，我有以下要求：
 
-1.  I need a clean event loop instance for every test.
+1.  对于每个测试，我需要一个干净的事件循环实例。
 
-    This can be solved with the `event_loop` fixture provided by
-_pytest-asyncio_.
+    这可以使用_pytest-asyncio_提供的`event_loop`来解决。
 
-2.  Every test should be run with every transport available (TCP socket, Unix
+2.  每一个测试都应该使用一个可用的传输来运行 (TCP socket, Unix
 domain socket, …).
 
-    This could in theory be solved with the `pytest.mark.parametrize()`
-decorator (but not in my case as we will see later).
+    这在理论上可以使用`pytest.mark.parametrize()`装饰器解决 (稍后我们会看到，在我的例子中并不是这样的)。
 
-3.  Every test needs a client coroutine.  Ideally, this would be the test itself.
+3.  每一个测试需要一个客户端协程。理想情况下，这将是测试本身。
 
-    _pytest-asyncio’s_ `pytest.mark.asyncio` decorator solves this.
+    _pytest-asyncio的_ `pytest.mark.asyncio`装饰器解决了这个问题。
 
-4.  Every test needs a server with a custom callback for client connections.
-Servers must be cleanly shut down no matter what the outcome of the test is.
+4.  每个测试需要一个带有与客户端连接相对应的自定义回调的服务器。不管测试输出是什么，都必须彻底关闭服务器
 
-    It would seem that a fixture would do the job, but every server needs a test
-specific callback for handling client connections.  This makes it a lot harder.
+    看起来一个fixture可以做到这点，但每个服务器都需要一个特定测试回调来处理客户端连接。这使得它困难得多。
 
-5.  I don’t want any “address already in use” errors if one test fails badly.
+5.  如果一个测试失败了，我不希望看到任何“address already in use”错误。
 
-    _pytest-asyncio’s_ `unused_tcp_port` fixture comes to help.
+    _pytest-asyncio的_`unused_tcp_port`fixture可以一用。
 
-6.  I don’t want to use `loop.run_until_complete()` all the time.
+6.  我不想一直使用`loop.run_until_complete()`。
 
-    Again, the `pytest.mark.asyncio` decorator solves this.
+    再次，`pytest.mark.asyncio`装饰器解决了这个问题。
 
-To wrap up what remains to be solved:  Every test needs at least two fixtures
-(one for the event loop, one for the address type), but I want to combine them
-as a single fixture.  Creating a fixture for setting up a server would also be
-nice, but how can we do this?
+总结有待解决的问题：每个测试都需要至少两个fixture（一个用于事件循环，另一个用于地址类型），但我想将它们结合成一个单一的fixture。为建立服务器创建一个fixture也是不错的，但如何才能做到这一点呢？
 
 
-## Our first approach
+## 第一个种方法
 
-The first thing we can do is to wrap the loop and the address type in
-a fixture.  We’ll call it _ctx_ (short for _test context_).  With fixture
-parameters, it is also easy to create one fixture instance for every address type:
+我们能做的第一件事是将循环和地址类型都放在一个fixture中。我们将称其为_ctx_(_测试上下文(test context)_的缩写)。使用fixture参数，也可以容易地为每个地址类型创建一个fixture实例：
 ```py
 import tempfile
 import py
@@ -168,7 +145,7 @@ def short_tmpdir():
         yield py.path.local(tdir)
 ```
 
-This lets us write our tests like this:
+这让我们这样编写我们的测试：
 ```py
 import aiomas
 
@@ -197,28 +174,19 @@ async def test_channel(ctx):
     assert results == ['ohai', 'cya']
 ```
 
-This works already very nicely and every test using the `ctx` fixture is run
-once for every address type.
+This works already very nicely and every test using the 这已经工作良好，而且使用`ctx`fixture的每个测试都为每个地址类型运行一次。
 
-However, two problems remain:
+然而，有两个问题仍然存在：
 
-1.  Our `ctx` fixture always requires an unused TCP port _and_ a temporary
-directory – although we only need one of both in each case.
-2.  Setting up the server (and closing it) also involves some code which will be
-the same for every test and should thus be moved into a fixture.  However,
-a `server` fixture won’t work directly, because every server needs a test
-specific callback as you can see in the line where we create the server
-(`server = await ...`).  But without a `server` fixture, we can’t have
-a tear-down method for it …
+1.  我们的`ctx`fixture总是需要一个未使用的TCP端口以及一个临时目录 —— 虽然在每种情况下，我们只需要其中之一。
+2.  建立服务器 (和关闭它) 也涉及一些代码，这些代码对于每个测试都是一样的，因此应该被移到一个fixture中。然而，一个`server`fixture并不直接工作，因为每个服务器需要一个指定测试的回调，正如你在我们创建服务器的那一行(`server = await ...`)可以看到的。但没有`server`fixture，对此我们就无法拆除……
 
-Let’s see how we can tackle these issues.
+让我们看看我们如何能够解决这些问题。
 
 
-## Approach number two
+## 第二种方法
 
-The first problem can be solved by using the `getfuncargvalue()` method of
-the _request_ object that our fixture receives.  Using this method, we can
-manually call a fixture function:
+第一个问题可以通过我们的fixture接收的_request_对象的`getfuncargvalue()`方法来解决。使用这个方法，我们可以手工调用一个fixture函数：
 ```py
 @pytest.fixture(params=['tcp', 'unix'])
 def ctx(request, event_loop):
@@ -237,12 +205,7 @@ def ctx(request, event_loop):
     return ctx
 ```
 
-To help with issue number two, we can extend our `Context` class that is
-passed into every test.  We add a method
-`Context.start_server(client_handler)` that we can call from within our
-tests.  We also add a finalize/teardown part to our `ctx` fixture that will
-close the server once we are done.  And while we are at it, we’ll also create
-some more shortcut functions:
+要解决第二个问题，我们可以扩展传递给每个测试的`Context`类。我们添加一个方法`Context.start_server(client_handler)`，在我们的测试中，我们可以调用这个方法。我们还添加了一个finalize/teardown部分到我们的`ctx` fixture中，一旦完成了，它将关闭服务器。而我们还需要创建一些快捷功能：
 ```py
 import asyncio
 import tempfile
@@ -316,8 +279,7 @@ def ctx(request, event_loop):
                               return_exceptions=True))
 ```
 
-With this extra functionality, our test case becomes a lot shorter, easier to
-read, and more reliable:
+使用这个额外的功能，我们的测试用例变得短得多，容易读得多，并且更加可靠：
 ```py
 import aiomas
 
@@ -340,6 +302,4 @@ async def test_channel(ctx):
     assert results == ['ohai', 'cya']
 ```
 
-The `ctx` fixture (and the associated `Context` class) is indeed not the
-shortest fixture I ever wrote, but it helped me to remove approx. 200 lines of
-boilerplate code from my tests (apart from making them more readable and maintainable).
+`ctx` fixture (和相关的`Context`类)确实不是我写过的最短的fixture，但它帮助我从我的测试中移除了约200行的样板文件代码（除了让它们更加可读和可维护）。

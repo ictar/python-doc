@@ -39,3 +39,7 @@
 - [Python 201 – 什么是双端队列(deque)](./Python 201 – 什么是双端队列(deque).md)
 
     作为collections模块中的一员，双端队列(deque)是一个能够实现栈和队列的。本文介绍了关于它的一些基本知识。
+
+- [高级asyncio测试](./高级asyncio测试.md)
+
+	本文介绍了如何使用pytest-asyncio和fixture进行高级的asyncio测试。

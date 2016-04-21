@@ -10,19 +10,22 @@
     
     使用Twilio Lookup来对电话号码进行常规操作，例如验证有效性，获取运营商信息等。有更多更好的想法，不要忘记联系原作者进行分享~~
 
-- [用Python玩转Worcester Wave恒温器-第一部分](./用Python玩转Worcester Wave恒温器-第一部分.md)
+- 用Python玩转Worcester Wave恒温器
 
-    智能家居盛行的现在，你也可以控制自己的家电。如果你的电器支持移动app控制，那么不知道如何踏出hack the life的第一步，可以看看这篇文章，或许你可以有一种新思路……
+    * [第一部分](./用Python玩转Worcester Wave恒温器-第一部分.md)
 
-- [用Python玩转Worcester Wave恒温器-第二部分](./用Python玩转Worcester Wave恒温器-第二部分.md)
+        智能家居盛行的现在，你也可以控制自己的家电。如果你的电器支持移动app控制，那么不知道如何踏出hack the life的第一步，可以看看这篇文章，或许你可以有一种新思路……
 
-    紧接着第一部分，我们看看如何用starttls-mitm进行合法的中间人攻击以破解app和服务器之间加密的通信，看看如何使用反编译器反编译apk以获得消息中的信息加密算法以进行逆向，最终获得完整的明文交互信息……
+    * [第二部分](./用Python玩转Worcester Wave恒温器-第二部分.md)
 
-- [用Python玩转Worcester Wave恒温器-第三部分](./用Python玩转Worcester Wave恒温器-第三部分.md)
-    
-    收尾章节。我们可以看到如何利用破解出来的信息达到实际的控制。并且，作者还在Github上分享了他的源代码！
+        紧接着第一部分，我们看看如何用starttls-mitm进行合法的中间人攻击以破解app和服务器之间加密的通信，看看如何使用反编译器反编译apk以获得消息中的信息加密算法以进行逆向，最终获得完整的明文交互信息……
+
+    * [第三部分](./用Python玩转Worcester Wave恒温器-第三部分.md)
+        
+        收尾章节。我们可以看到如何利用破解出来的信息达到实际的控制。并且，作者还在Github上分享了他的源代码！
 
 - [psutil 4.0.0以及如何获得Python中“真正的”进程内存和环境](./psutil 4.0.0以及如何获得Python中“真正的”进程内存和环境.md) 
+    
     描述如何用psutil 4.0.0获得“真正的”进程内存度量以及进程环境变量的一些信息。
 
 - [Python依赖关系分析](./Python依赖关系分析.md) 
