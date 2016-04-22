@@ -88,3 +88,7 @@
 - [使用gdb调试CPython进程](./使用gdb调试CPython进程.md)
 
     想在不重启应用的情况下调试CPython应用？此时pdb可无用武之地哦~ 所以，试试gdb吧！
+
+- [使用Python Newspaper构建Read It Later应用](./使用Python Newspaper构建Read It Later应用.md)
+
+    Python + Tweet + Newspaper + Flask ≈ Pocket？是哒，你可以看看怎么来做到。P.S. 表示对博主的2016年的52个技术系列很感兴趣呢，已收藏~~

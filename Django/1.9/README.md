@@ -233,7 +233,7 @@ Django还提供了多种通常在Web应用程序开发过程中需要的工具�
 [自定义验证](https://docs.djangoproject.com/en/1.9/topics/auth/customizing/) |
 [API参考](https://docs.djangoproject.com/en/1.9/ref/contrib/auth/)
 *   [缓存](https://docs.djangoproject.com/en/1.9/topics/cache/)
-*   [日志](https://docs.djangoproject.com/en/1.9/topics/logging/)
+*   [日志](./topics/logging/) 0%
 *   [发送电子邮件](https://docs.djangoproject.com/en/1.9/topics/email/)
 *   [联合订阅(RSS/Atom)](https://docs.djangoproject.com/en/1.9/ref/contrib/syndication/)
 *   [分页](https://docs.djangoproject.com/en/1.9/topics/pagination/)
