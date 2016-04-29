@@ -92,3 +92,8 @@
 - [使用Python Newspaper构建Read It Later应用](./使用Python Newspaper构建Read It Later应用.md)
 
     Python + Tweet + Newspaper + Flask ≈ Pocket？是哒，你可以看看怎么来做到。P.S. 表示对博主的2016年的52个技术系列很感兴趣呢，已收藏~~
+
+
+- [Python lambda的源代码](./Python lambda的源代码.md)
+
+    这是一篇关于如何显示lambda源代码的hack……

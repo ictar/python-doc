@@ -4,7 +4,7 @@
 
 They might not be delivering our mail ([or our burritos](http://tacocopter.com/)) yet, but drones
 are now simple, small, and affordable enough that they can be considered a toy. You can
-even customize and program some of them via handy dandy Application Programming Interfaces ([APIs](https://www.quora.com/What-is-an-API-4))!
+even customize and program some of them via handy dandy Application Programming Interfaces ([API](https://www.quora.com/What-is-an-API-4))!
 The Parrot AR Drone has an API that lets you control not only the drone's movement but also stream video and images from its camera.
 In this post, I'll show you how you can use Python and node.js to build a drone that
 moves all by itself.
@@ -13,7 +13,7 @@ moves all by itself.
 
 Hold onto your butts.
 
-### The Project
+### 项目
 
 So given that I'm not a drone, or a machine vision professional, I'm going to have
 to keep things simple. For this project, I'm going to **teach my drone how to follow
@@ -24,9 +24,9 @@ given my time and budget constraints it's a good place to start! In the meantime
 
 ![](http://blog.yhat.com/static/img/terminator.jpg)
 
-No neural net processors here, just node.js and Python.
+这里没有神经网络处理器，只有Node.js和Python。
 
-### The Drone
+### 无人机
 
 When I opened my drone on Christmas morning I wasn't entirely sure what I was going
 to do with it, but one thing was for certain: This thing was cool. The [AR Drone 2.0](http://ardrone2.parrot.com/) (I know
@@ -38,7 +38,7 @@ Combine that with 2 cameras--one front and one bottom, and you've got yourself t
 
 ![](http://blog.yhat.com/static/img/ar-drone.png)
 
-### Programming your drone
+### 对你的无人机进行编程
 
 What sets the AR Drone apart is that it's old (in drone years)--it was first released in 2012. This
 might seem like a bad thing BUT since we're trying to program this gizmo, it's actually
@@ -174,7 +174,7 @@ Is the red dot a coincidence? Think again...
   </div>
 </div>
 
-### Stitching things together
+### 把一切拼接在一起
 
 Ok here comes the tricky part. We've got our little node.js script that can control
 the drone's navigation, and we've got the python bit that can detect where red things
@@ -312,21 +312,20 @@ in the lecture hall was different than in our office and as a result, the red di
 quite get filtered the same way. Despite the less than stellar performance, it was
 still a lot of fun!
 
-### Resources
+### 资源
 
-Want to learn more about programming your own drone? Here are some great resources
-for getting started:
+想了解更多关于无人机编程吗？这里是用于开始的一些重要资源：
 
-*   [NodeCopter](http://www.nodecopter.com/) - JS community for drones. Not really active anymore, but has some great getting started guides.
-*   [node-ar-drone](https://github.com/felixge/node-ar-drone) - Node library for programming your drone.
-*   [Parrot AR Drone 2.0](http://www.amazon.com/Parrot-Drone-Quadricopter-Edition-Orange/dp/B007HZLLOK) - Buy it here.
-*   [OpenCV](http://opencv.org/) - Info for using OpenCV.
-*   [scikit-image](http://scikit-image.org/) - Higher level, more ML focused computer vision library.
-*   [dronestream](https://github.com/bkw/node-dronestream) - Realtime video feed for Parrot AR 2.0.
+*   [NodeCopter](http://www.nodecopter.com/) - 无人机的JS社区。不再活跃了，但是有一些很棒的入门指南。
+*   [node-ar-drone](https://github.com/felixge/node-ar-drone) - 编程无人机的Node库。
+*   [Parrot AR Drone 2.0](http://www.amazon.com/Parrot-Drone-Quadricopter-Edition-Orange/dp/B007HZLLOK) - 在这里买。
+*   [OpenCV](http://opencv.org/) - 使用OpenCV的信息。
+*   [scikit-image](http://scikit-image.org/) - 更高层次，更关注于ML的计算版本库。
+*   [dronestream](https://github.com/bkw/node-dronestream) - Parrot AR 2.0的实时视频订阅。
 
-Also, here's a [link](https://github.com/yhat/semi-autonomous-drone) to the repo if you want my code. 
+还有，如果你想要我的代码，这是到仓库的[链接](https://github.com/yhat/semi-autonomous-drone)。
 
 
   <iframe width="420" height="315" src="https://www.youtube.com/embed/2fWr6CBARMw" frameborder="0" allowfullscreen=""></iframe>
 
-One for the road.
+醉酒驾车
