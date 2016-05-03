@@ -30,23 +30,23 @@ Python的一点历史：在讨论[在Python 2.3中添加布尔类型](https://do
 something() is False  # Too restrictive.
 ```
 
-这在技术上并不像前面的例子那样是错误的，因为`False`是一个单子 —— 就像`None`和`True`一样 —— 这意味着，实际上`False`只有一个实例可以用来比较。但是这样做的问题在于，它带来了不必要的限制。幸好Python是[鸭子类型(duck typing)](https://en.wikipedia.org/wiki/Duck_typing)的庞大的支持者，tying down any API specifically to only `True` or `False` is frowned upon as it locks an API to a specific type. If for some reason the API changed to return values of a different type but has the same boolean interpretation then this code would suddenly break. Instead of directly checking for `False`, the code should have simply checked for false value:
+这在技术上并不像前面的例子那样是错误的，因为`False`是一个单子 —— 就像`None`和`True`一样 —— 这意味着，实际上`False`只有一个实例可以用来比较。但是这样做的问题在于，它带来了不必要的限制。幸好Python是[鸭子类型(duck typing)](https://en.wikipedia.org/wiki/Duck_typing)的庞大的支持者，不赞成将任何API的类型指定为`True`或者`False`，因为它将一个API锁定为指定的类型。假若出于某些原因，该API变成返回了另一种类型的值，但具有相同的布尔解释，那么，这个代码会突然崩溃。取代直接检查`False`的是，该代码应该简单检查假值：
 
 ```python
 not something()  # Just right.
 ```
 
-And this extends to other types as well, so don’t do `spam == []` if you care if something is empty, simply do `not spam` in case the API that gave you the value for `spam` suddenly starts returning tuples instead of lists.
+然后，这也可以扩展到其他类型。如果你关心某样东西是否是空的，那么不要`spam == []`，而是`not spam`，以防万一那个返回`spam`值的API突然开始返回元祖，而不是列表。
 
-About the only time you might legitimately find the need to use `is` in day-to-day code is with `None`. Sometimes you might come across an API where `None` has special meaning, in which case you should use `is None` to check for that specific value. For example, modules in Python have a [`__package__`属性](https://docs.python.org/3/reference/import.html#__package__) which stores a string representing what package the module belongs to. The trick is that top-level modules — i.e., modules that are not contained in a package — have `__package__` set to the empty string which is false but is a valid value, but there is a need to have a value represent not knowing what `__package__` should be set to. In that instance, `None` is used to represent “I don’t know”. This allows the [code that calculates what package a module belongs to](https://github.com/python/cpython/blob/d0ffca8d6aa055300f7361e4bea2d4def0fca571/Lib/importlib/_bootstrap.py#L1031) to use:
+而你在日复一日的代码中唯一可能合理使用`is`的时候是，和`None`一起使用。有时，你可能会碰到一个API，其中，`None`具有特殊含义，在这种情况下，你应该使用`is None`来检查那个特殊值。例如，Python中的模块具有一个[`__package__`属性](https://docs.python.org/3/reference/import.html#__package__)，它存储了一个表示该模块属于哪个包的字符串。诀窍是，顶层模块，例如，不被包含在一个包中的那些模块，它们的`__package__`值为空字符串，这是假的，但却是一个有效值，但需要有一个值表示不知道`__package__`应该被设为什么值。在这种情况下，`None`被用来表示“我不知道”。这允许[计算一个模块属于哪个包的代码](https://github.com/python/cpython/blob/d0ffca8d6aa055300f7361e4bea2d4def0fca571/Lib/importlib/_bootstrap.py#L1031)使用：
 
 ```python
 package is None  # OK when you need an "I don't know" value.
 ```
 
-to detect if the package name isn’t known (`not package` would incorrectly think that `''` represented that as well). Do make sure to not overuse this kind of use of `None`, though, as a false value tends to meet the need of representing “I don’t know”.
+来检查是否包名未知 (`not package`会错误的认为`''`也表示这个意思)。但请务必确保不滥用`None`的这种用法，因为false值趋向于满足表示“我不知道”的需要。
 
-另一点建议是，在我们自己的类中定义`__bool__()`之前三思而后行。While you should definitely define the method on classes representing containers (to help with that “empty if false” concept), in all cases you should&nbsp;stop and think about whether it truly makes sense to define the method. While it may be tempting to use `__bool__()` to represent some sort of state of an object, the ramifications can be surprisingly far-reaching as it means suddenly people have to start explicitly checking for some special value like `None`&nbsp;which represents whether an API returned an actual value or not instead of simply relying on all object defaulting to being true. As an example of how defining `__bool__()` can be surprising, see the [Python issue](https://bugs.python.org/issue13936) where there was a multi-year discussion over how defining `datetime.time()` to be false at midnight but true for all other values was a mistake and how best to fix it (in the end the implementation of `__bool__()` was [removed in Python 3.5](https://docs.python.org/3/whatsnew/3.5.html#changes-in-the-python-api)).
+另一点建议是，在我们自己的类中定义`__bool__()`之前三思而后行。虽然你应该明确的定义表示容器的类的方法（以助于“若为假，则为空”的概念），但是在任何情况下，你都应该停下来想想定义该方法是否真的有意义。虽然使用`__bool__()`来表示一个对象的某种状态可能是很诱人的，但是后果会出奇的影响深远，因为它意味着，突然让人不得不开始明确检查一些特殊值，例如`None`，这表示一个API是否返回一个实际值，而不是简单的依赖着所有的对象默认都为值这种条件。作为定义`__bool__()`为嘛可能是令人惊讶的一个例子，见[Python issue](https://bugs.python.org/issue13936)，这里有一个多年的讨论，该讨论关于怎样定义`datetime.time()`在午夜的时候为false，其他时候都为true是错误的，以及最好如何修复这个错误 (最后， [在Python 3.5中移除](https://docs.python.org/3/whatsnew/3.5.html#changes-in-the-python-api)了`__bool__()`的实现)。
 
 在面对一个可能的false值时，如果你发现自己需要提供一个特定的默认值，那么使用`or`将是有帮助的。`and`和`or`都不返回一个特定的布尔值，而是返回第一个确定为true值的值。对于`or`，如果它的第一个值是true，则返回第一个值，否则返回第二个值，无论第二个值是什么。这意味着，如果像这样：
 
