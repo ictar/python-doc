@@ -43,3 +43,7 @@
 - [高级asyncio测试](./高级asyncio测试.md)
 
 	本文介绍了如何使用pytest-asyncio和fixture进行高级的asyncio测试。
+
+- [惯用Python：布尔表达式](./惯用Python：布尔表达式.md)
+
+	关于python中布尔值一些更深入一点的讨论以及注意事项……
