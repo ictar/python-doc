@@ -93,7 +93,6 @@
 
     Python + Tweet + Newspaper + Flask ≈ Pocket？是哒，你可以看看怎么来做到。P.S. 表示对博主的2016年的52个技术系列很感兴趣呢，已收藏~~
 
-
 - [Python lambda的源代码](./Python lambda的源代码.md)
 
     这是一篇关于如何显示lambda源代码的hack……
@@ -101,3 +100,5 @@
 - [使用Python构建一个（半）自动无人机](./使用Python构建一个（半）自动无人机.md)
 
     无人机盛行的当下，想看看如何用node.js和python对其进行编程，做一些好玩的事情吗？看看作者如何玩玩这一big toy吧！（搞得我也想玩了，但是无人机还是有点贵呢……）
+
+- [如何在Python中创建绿噪音](./如何在Python中创建绿噪音.md)

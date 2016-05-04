@@ -25,3 +25,5 @@ translate python documents to Chinese for convenient reference
 ## 无法归类的
 - [Others](./Others) 其他一些没法分类的文档
 
+# 辅助工具
+- ` html2text {url} > '{name}.md'`
