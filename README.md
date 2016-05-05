@@ -22,6 +22,18 @@ translate python documents to Chinese for convenient reference
 ## DevOps工具
 - Fabric: [中文版](http://fabric-chs.readthedocs.org/zh_CN/chs/) | [英文版](http://docs.fabfile.org/en/1.11/index.html)
 
+## 测试
+- [Testing](./Testing) 测试相关
+
+## 硬件
+- [Hardware](./Hardware)	硬件相关，物联网，无人机等……
+
+## 科学计算和数据分析
+- [Science and Data Analysis](./Science and Data Analysis)
+
+## 函数式编程
+- [Functional Programming](./Functional Programming)
+
 ## 无法归类的
 - [Others](./Others) 其他一些没法分类的文档
 
