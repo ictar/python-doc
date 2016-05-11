@@ -14,6 +14,8 @@
 - [使用矩阵分解找到相似歌曲](./使用矩阵分解找到相似歌曲.md)
 
 	本文一步步指导如何使用几个不同的矩阵分解算法来计算相关的艺术家。代码使用Python编写的，使用[Pandas](http://pandas.pydata.org/)和[SciPy](https://www.scipy.org/)来进行计算，使用[D3.js](https://d3js.org/)来交互式可视化结果。
+	
+	> 这篇文章的样式惨不忍睹，建议还是跟原文一起对着看……
 
 - [Python中的并行处理](./Python中的并行处理.md)
 
