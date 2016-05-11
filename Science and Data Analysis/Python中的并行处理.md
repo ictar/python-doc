@@ -1,9 +1,6 @@
 原文：[Parallel Processing in Python](http://homes.cs.washington.edu/~jmschr/lectures/Parallel_Processing_in_Python.html)
 
 ---
-<!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- End of mathjax configuration -->
 
 简而言之，并行处理将一个任务分发到多个CPU上，使其工作得更快或更有效率。在大数据的背景下，这通常意味着通过将任务分发到多个CPU上可以加速复杂分析，以及通过增加额外数量的核可以提高加速边界。这是比较容易的，因为大数据上的大多数任务是令人尴尬的平行，这意味着拥有虚度可以被容易地分发到多个核的独立任务。例如，矩阵-矩阵乘法对于大矩阵来说，可能是耗时的。然而，每个行-列点积是彼此独立的，因此可以在不需要与核心中间任务通信的情况下分发到一个核上。这对于并行计算而言是很棒的。
 
@@ -1427,3 +1424,6 @@ EM took 46.3202970028s
 
 我希望这是一个在Python中使用multi-
 processing和multi-threading的方式的有用的介绍。我很想听听你对本教程的任何意见或反馈。
+
+(Ele注：github对公式的支持不好，目前还没确定有啥漂亮的方法可以显示。所以，看得到漂亮公式的人，人品棒棒哒！！)
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
