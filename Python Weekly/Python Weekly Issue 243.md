@@ -10,17 +10,17 @@
 
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/711a53fa-d9a3-4b1d-897c-853ccb078c96.png)](https://software.intel.com/en-us/intel-sdp-home)
 
-想要在不需要自己构建的情况下活动高性能Python吗？Join the [ Intel® Distribution for Python* 2017](https://software.intel.com/en-us/python-distribution) Beta and experience NumPy/SciPy performance through native libraries like Intel® Math Kernel Library and enhanced threading, easy access to Numba, Cython, data analytics, and conda.
+想要在不需要自己构建的情况下活动高性能Python吗？加入[Intel® Distribution for Python* 2017 Beta](https://software.intel.com/en-us/python-distribution)，通过诸如Intel® Math Kernel库和增强线程体验NumPy/SciPy性能，方便的访问Numba, Cython, data analytics和conda。
 
 # 文章，教程和讲座
 
 [Episode #57: Python performance from the inside-out at Intel](https://talkpython.fm/episodes/show/57/python-performance-from-the-inside-out-at-intel)
 
-When you think about the performance of your software, there is nothing more low level and fundamental than how your code executes on the CPU itself. Many of us study and try to understand how to maximize performance at this low level. But few are in a position to define what happens at this level. This week you'll meet David Stewart, manager in the Intel Data Center Software Technology group at Intel. We'll discuss the wide variety of work Intel is doing in open source and Python.
+当你考虑你的软件性能时，还有什么比让代码在CPU自身执行更低水平了呢？我们中许多人学习，并试图了解如何在这个低层次最大化性能。但很少人有资格去定义在这个层次发生了什么。本周，你将见到David Stewart，Intel数据中心软件技术小组的经历。我们将谈谈Intel在开源和Python方面正在进行的各种工作。
 
 [Number plate recognition with Tensorflow](http://matthewearl.github.io/2016/05/06/cnn-anpr/)
 
-本文表明，使用相当少的代码(~800行)，是有可能构建一个ANPR系统，而不需要导入任何特定域的库，and with very little domain-specific knowledge.
+本文表明，使用相当少的代码(~800行)，以及非常少的特定领域的知识，是有可能构建一个ANPR系统，而不需要导入任何特定域的库。
 
 [你需要学习写Python装饰器的5个原因](https://www.oreilly.com/ideas/5-reasons-you-need-to-learn-to-write-python-decorators)
 
@@ -28,11 +28,11 @@ When you think about the performance of your software, there is nothing more low
 
 [Podcast.__init__ 第56集 - 跟Lazar和Zheng谈谈洋葱物联网(Onion IoT)](http://pythonpodcast.com/onion-iot.html)
 
-One of the biggest new trends in technology is the Internet of Things and one of the driving forces is the wealth of new sensors and platforms that are being continually introduced. In this episode we spoke with the founder and head engineer of one such platform named Onion. The Omega board is a new hardware platform that runs OpenWRT and lets you configure it using a number of languages, not least of which is Python.
+技术上的最大趋势之一是物联网，而驱动力之一则是正不断推出的新的传感器和平台。在这一集中，我们与名为Onion的这样一个平台的创始人和首席工程师进行对话。Omega开发板是一个新的硬件平台，它运行OpenWRT，并且允许你使用不同的语言进行配置，其中最重要的就是Python。
 
 [部署Django + Python 3 + PostgreSQL到AWS Elastic Beanstalk](https://realpython.com/blog/python/deploying-a-django-app-and-postgresql-to-aws-elastic-beanstalk/)
 
-The following is a soup to nuts walkthrough of how to set up and deploy a Django application, powered by Python 3, and PostgreSQL to Amazon Web Services (AWS) all while remaining sane
+下面是一个完整的说明，展示了如何设置和部署一个基于Python 3和PostgreSQL搭建的Django应用，到亚马逊网络服务(AWS)上。
 
 [在Python中使用pandas进行更简单的数据分析 (视频系列)](http://www.dataschool.io/easier-data-analysis-with-pandas/)
 
@@ -40,7 +40,7 @@ The following is a soup to nuts walkthrough of how to set up and deploy a Django
 
 [你认为Python中什么是比它本应该的更难？](https://www.reddit.com/r/Python/comments/4if7wj/what_do_you_think_is_more_difficult_in_python/)
 
-[Pretty fast word2vec with Numba](https://d10genes.github.io/blog/2016/05/03/word2vec/)
+[使用了Numba的相当快的word2vec](https://d10genes.github.io/blog/2016/05/03/word2vec/)
 
 [分析Last.fm收听历史](http://geoffboeing.com/2016/05/analyzing-lastfm-history/)
 
@@ -102,7 +102,7 @@ sqlitebiter是一个CLI工具，用来从CSV/JSON/Excel/Google-Sheets创建一�
 
 [FeatherDuster](https://github.com/nccgroup/featherduster) 
 
-FeatherDuster is a tool  for breaking crypto which tries to make the process of identifying and exploiting weak cryptosystems as easy as possible. Cryptanalib is the moving parts behind FeatherDuster, and can be used independently of FeatherDuster
+FeatherDuster是一个用于破解加密的工具，它试图让识别和利用弱密码系统尽可能的简单。Cryptanalib是FeatherDuster中的一个移动部件，并且可以独立于FeatherDuster使用。
 
 [Toil](https://github.com/BD2KGenomics/toil) 
 
@@ -110,7 +110,7 @@ Toil是一个可扩展的，高效跨平台管道管理系统，完全用Python�
 
 [Growler](https://github.com/pyGrowler/Growler)
 
-Growler is a web framework built atom asyncio, the asynchronous library described in PEP 3156 and added to the standard library in python 3.4. It takes a cue from the Connect &amp; Express frameworks in the nodejs ecosystem, using a single application object and series of middleware to process HTTP requests. The custom chain of middleware provides an easy way to implement complex applications.
+Growler是一个web框架，建立在原子asyncio，这个在PEP 3156中描述，并且添加到python 3.4中的标准库的异步库。它从nodejs生态中的Connect Express框架中获得灵感，使用一个单一的应用对象和一系列的中间价来处理HTTP请求。自定义的中间件链提供了一种简单的方式，以实现复制应用。
 
 [pur](https://github.com/alanhamlett/pip-update-requirements)
 
@@ -118,7 +118,7 @@ Growler is a web framework built atom asyncio, the asynchronous library describe
 
 [deer](https://github.com/VinF/deer)
 
-DeeR is a python library for Deep Reinforcement. It is build with modularity in mind so that it can easily be adapted to any need. It provides many possibilities out of the box (prioritized experience replay, double Q-learning, etc). Many different environment examples are also provided (some of them using OpenAI gym).
+DeeR是一个用于Deep Reinforcement的Python库。它的构建考虑到了模块化，因此可以很容易地适应任何需要。它提供了许多可能性默认项（优先体验重播，双Q学习，等等）。还提供了许多不同的环境范例（它们中的一些使用OpenAI gym）。
 
 [gitsome](https://github.com/donnemartin/gitsome)
 
@@ -128,12 +128,12 @@ DeeR is a python library for Deep Reinforcement. It is build with modularity in 
 
 [MicroPython 1.8](https://github.com/micropython/micropython/releases/tag/v1.8)
 
-This release marks the first general release of official ESP8266 support within the MicroPython code base. The ESP8266 port has many improvements and additions, including: websocket and webrepl modules, deep-sleep mode, reading on UART, enhanced I2C support, enhanced network configuration, full sequence of start-up scripts (built-in _boot.py, boot.py and main.py), improved filesystem support with automatic flash-size detection as well as documentation and a tutorial.
+此版本标志着MicroPython代码库中的官方ESP8266支持的第一个通用版本。ESP8266串口拥有许多改进和补充，其中包括：websocket和webrepl模块，深度睡眠模式，UART读取，增强I2C支持，增强网络配置，启动脚本的完整序列（内置_boot.py, boot.py和main.py），带有自动flash-size检测以及文档教程的改善的文件系统支持。
 
 [Pandas 0.18.1](http://pandas.pydata.org/pandas-docs/version/0.18.1/whatsnew.html#v0-18-1-may-3-2016)
 
-This is a minor bug-fix release from 这是0.18.0的一个错误修复小版本，包含了大量的bug修复，以及一些新特性，增强功能，和性能改进。
+这是0.18.0的一个错误修复小版本，包含了大量的bug修复，以及一些新特性，增强功能，和性能改进。
 
 # 近期活动和网络研讨会
 
-[PyHou Meetup May 2016 - Houston, TX](http://www.meetup.com/python-14/events/226999479/)
+[PyHou Meetup May 2016 - 休斯顿，德克萨斯](http://www.meetup.com/python-14/events/226999479/)
