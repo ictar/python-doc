@@ -18,13 +18,15 @@
 
 当你考虑你的软件性能时，还有什么比让代码在CPU自身执行更低水平了呢？我们中许多人学习，并试图了解如何在这个低层次最大化性能。但很少人有资格去定义在这个层次发生了什么。本周，你将见到David Stewart，Intel数据中心软件技术小组的经历。我们将谈谈Intel在开源和Python方面正在进行的各种工作。
 
-[Number plate recognition with Tensorflow](http://matthewearl.github.io/2016/05/06/cnn-anpr/)
+[使用Tensorflow进行车牌识别](http://matthewearl.github.io/2016/05/06/cnn-anpr/)
 
 本文表明，使用相当少的代码(~800行)，以及非常少的特定领域的知识，是有可能构建一个ANPR系统，而不需要导入任何特定域的库。
 
 [你需要学习写Python装饰器的5个原因](https://www.oreilly.com/ideas/5-reasons-you-need-to-learn-to-write-python-decorators)
 
 装饰器可以大大放大你所写的代码的积极影响。
+
+[中文版](../Others/你需要学习编写Python装饰器的五大理由.md)
 
 [Podcast.__init__ 第56集 - 跟Lazar和Zheng谈谈洋葱物联网(Onion IoT)](http://pythonpodcast.com/onion-iot.html)
 
