@@ -34,6 +34,11 @@ translate python documents to Chinese for convenient reference
 ## 函数式编程
 - [Functional Programming](./Functional Programming)
 
+## 资源
+- [Python Weekly](./Python Weekly)
+- Pycoder's Weekly    
+	* 中文版：[蟒周刊](http://weekly.pychina.org/)
+
 ## 无法归类的
 - [Others](./Others) 其他一些没法分类的文档
 
