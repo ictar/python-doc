@@ -150,22 +150,16 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
 ## 自定义图
 
-Now that we’ve made a basic first plot, we can move on to creating a more
-customized second plot. We’ll make a basic histogram, then modify it to add
-labels and other information.
+现在，我们已经有了第一个基本的图，可以继续创建第二个更个性化的图了。我们会绘制一张基本的直方图，然后修改它，以添加标签及其他信息。
 
-One of the things we can look at is the age of the user accounts that are
-tweeting. We’ll be able to find if there differences in when the accounts of
-users who tweet about Trump and when the accounts of users who tweet about
-Clinton were created. One candidate having more user accounts created recently
-might imply some kind of manipulation of Twitter with fake accounts.
+我们可以看的事情之一就是发微博的用户账号年龄。我们可以找到发关于Trump的微博的用户账号和发关于Clinton的微博的用户账号的创建时间之间是否有区别。拥有更多最近创建的用户账号的候选人可能意味着使用假账号进行某种Twitter操纵。
 
-In the code below, we’ll:
+在下面的代码中，我们会：
 
-  * Convert the `created` and `user_created` columns to the Pandas datetime type.
-  * Create a `user_age` column that is the number of days since the account was created.
-  * Create a histogram of user ages.
-  * Show the histogram.
+  * 将`created`和`user_created`列转换成Pandas datetime类型。
+  * 创建一个`user_age`列，表示从该账号创建后至今的天数。
+  * 创建用户年龄直方图。
+  * 显示该直方图。
 
 ```python
 
@@ -183,25 +177,21 @@ In the code below, we’ll:
 
 ### 添加标签
 
-We can add titles and axis labels to matplotlib plots. The common methods with
-which to do this are:
+我们可以添加标题和轴标签到matplotlib图中。完成这件事的通用方法是：
 
-  * [plt.title](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.title) – adds a title to the plot.
-  * [plt.xlabel](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.xlabel) – adds an x-axis label.
-  * [plt.ylabel](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.ylabel) – adds a y-axis label.
+  * [plt.title](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.title) – 添加标题到图上。
+  * [plt.xlabel](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.xlabel) – 添加x轴标签。
+  * [plt.ylabel](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.ylabel) – 添加y轴标签。
 
-Since all of the methods we discussed before, like `bar` and `hist`,
-automatically create a Figure and a single Axes object inside the figure,
-these labels will be added to the Axes object when the method is called.
+由于我们之前讨论到的所有方法，像`bar`和`hist`，都会在figure中自动创建一个Figure和一个Axes对象，因此当调用该方法时，这些标签将会被添加到Axes对象上。
 
-We can add labels to our previous histogram using the above methods. In the
-code below, we’ll:
+我们可以用上面的方法添加标签到我们之前的直方图上。在下面的代码中，我们会：
 
-  * Generate the same histogram we did before.
-  * Draw a title onto the histogram.
-  * Draw an x axis label onto the histogram.
-  * Draw a y axis label onto the histogram.
-  * Show the plot.
+  * 生成我们之前完成的相同的直方图。
+  * 画一个标题到该直方图。
+  * 画一个x轴标签到该直方图上。
+  * 画一个y轴标签到该直方图上。
+  * 显示该图。
 
 ```python
 
