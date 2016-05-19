@@ -407,30 +407,21 @@ Twitter有默认的个人资料背景颜色，我们或许应该移除它，这�
 
 ## 绘制情绪
 
-We generated sentiment scores for each tweet using
-[TextBlob](http://textblob.readthedocs.io/en/dev/), which are stored in the
-`polarity` column. We can plot the mean value for each candidate, along with
-the standard deviation. The standard deviation will tell us how wide the
-variation is between all the tweets, whereas the mean will tell us how the
-average tweet is.
+我们使用[TextBlob](http://textblob.readthedocs.io/en/dev/)，为每条推特生成情绪分值，存储在`polarity`列中。我们可以为每个候选人绘制平均值以及标准偏差。标准偏差将会告诉我们在所有的推特之间，变化有多宽，而平均值将会告诉我们平均推特是什么样子的。
 
-In order to do this, we can add 2 Axes to a single Figure, and plot the mean
-of `polarity` in one, and the standard deviation in the other. Because there
-are a lot of text labels in these plots, we’ll need to increase the size of
-the generated figure to match. We can do this with the `figsize` option in the
-`plt.subplots` method.
+要这样做，我们可以添加2个Axes到单个Figure上，然后在一个中绘制`polarity`平均值，在另一个中绘制标准偏差。由于在这些图中，有大量的文本标签，因此我们将需要增加生成的图像的大小来匹配。我们可以使用`plt.subplots`方法中的`figsize`选项来做到这点。
 
-The code below will:
+下面的代码将会：
 
-  * Group tweets by candidate, and compute the mean and standard deviation for each numerical column (including `polarity`).
-  * Create a Figure that’s `7` inches by `7` inches, with 2 Axes objects, arranged vertically.
-  * Create a bar plot of the standard deviation the first Axes object. 
-    * Set the tick labels using the [set_xticklabels](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_xticklabels) method, and rotate the labels `45` degrees using the `rotation` argument.
-    * Set the title.
-  * Create a bar plot of the mean on the second Axes object. 
-    * Set the tick labels.
-    * Set the title.
-  * Show the plot.
+  * 根据候选人将推特进行分组，对于每个数值列（包括`polarity`），计算平均值和标准方差。
+  * 创建一个`7`x`7`英寸的Figure，带2个Axes对象，垂直排列。
+  * 在第一个Axes对象上创建标准偏差的柱状图。
+    * 使用[set_xticklabels](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_xticklabels)方法设置刻度标记，使用`rotation`参数旋转标签`45`度。
+    * 设置标题。
+  * 在第二个Axes对象上创建均值的柱状图。
+    * 设置刻度标记。
+    * 设置标题。
+  * 显示该图。
 
 ```python
 
@@ -457,21 +448,17 @@ The code below will:
 
 ## 生成并排条形图
 
-We can plot tweet length by candidate using a bar plot. We’ll first split the
-tweets into `short`, `medium`, and `long` tweets. Then, we’ll count up how
-many tweets mentioning each candidate fall into each group. Then, we’ll
-generate a bar plot with bars for each candidate side by side.
+我们可以使用柱状图绘制根据候选人分组的推特长度。首先将推特分成`short`, `medium`, 和`long`推特。然后计算提到每个候选人的推特落到每个组的个数。接着，生成并排每个候选人的条的柱状图。
 
 ### 生成tweet长度
 
-To plot the tweet lengths, we’ll first have to categorize the tweets, then
-figure out how many tweets by each candidate fall into each bin.
+要绘制推特长度，我们首先必须对这些推特进行分类，然后找出关于每个候选人的推特落入到每个箱中的个数。
 
-In the code below, we’ll:
+下面的代码中，我们将：
 
-  * Define a function to mark a tweet as `short` if it’s less than `100` characters, `medium` if it’s `100` to `135` characters, and `long` if it’s over `135` characters.
-  * Use `apply` to generate a new column `tweet_length`.
-  * Figure out how many tweets by each candidate fall into each group.
+  * 定义一个函数，如果推特长度小于`100`个字符，将其标记为`short`；如果在`100`到`135`个字符之间，将其标记为`medium`；如果超过`135`个字符，将其标记为`long`。
+  * 使用`apply`来生成一个新的列`tweet_length`。
+  * 找出关于每个候选人的推特落入到每个组中的个数。
 
 ```python
 
@@ -492,24 +479,19 @@ In the code below, we’ll:
 
 ### 绘图
 
-Now that we have the data we want to plot, we can generate our side by side
-bar plot. We’ll use the `bar` method to plot the tweet lengths for each
-candidate on the same axis. However, we’ll use an offset to shift the bars to
-the right for the second and third candidates we plot. This will give us three
-category areas, `short`, `medium`, and `long`, with one bar for each candidate
-in each area.
+现在，我们有了想要绘制的数据了，可以生成并排柱状图了。我们将使用`bar`方法来在相同的轴上，为每个候选人绘制推特长度。然而，我们将使用一个偏移量来将所绘制的第二个和第三个候选人的条向右偏移。这将为我们提供三个分类区域，`short`, `medium`, 和`long`，每个区域中，每个候选人有一个条。
 
-In the code below, we:
+下面的代码中，我们：
 
-  * Create a Figure and a single Axes object.
-  * Define the `width` for each bar, `.5`.
-  * Generate a sequence of values, `x`, that is `0`, `2`, `4`. Each value is the start of a category, such as `short`, `medium`, and `long`. We put a distance of `2` between each category so we have space for multiple bars.
-  * Plot `clinton` tweets on the Axes object, with the bars at the positions defined by `x`.
-  * Plot `sanders` tweets on the Axes object, but add `width` to `x` to move the bars to the right.
-  * Plot `trump` tweets on the Axes object, but add `width * 2` to `x` to move the bars to the far right.
-  * Set the axis labels and title.
-  * Use `set_xticks` to move the tick labels to the center of each category area.
-  * Set tick labels.
+  * 创建一个Figure和一个Axes对象。
+  * 为每个条定义`width`，`.5`。
+  * 生成值序列`x`，即`0`, `2`, `4`。每个值是一个分类，例如`short`, `medium`, 和`long`，的起始。我们设置每个分类之间的距离为`2`，这样多个条之间就有空间了。
+  * 在Axes对象上绘制`clinton`推特，条位于`x`定义的位置上。
+  * 在Axes对象上绘制`sanders`推特，但是添加`width`到`x`上，使得条移动到右方。
+  * 在Axes对象上绘制`trump`推特，但是添加`width * 2`到`x`上，使得条移动到更右方。
+  * 设置轴标签和标题。
+  * 使用`set_xticks`将刻度标记移动到每个分类区域的中心。
+  * 设置刻度标记。
 
 ```python
 
@@ -532,20 +514,16 @@ In the code below, we:
 
 ## 下一步
 
-We’ve learned quite a bit about how matplotlib generates plots, and gone
-through a good bit of the dataset. If you want to read more about how
-matplotlib plots internally, read
-[this](http://matplotlib.org/users/artists.html).
+我们已经学到了很多关于matplotlib生成图的知识，以及仔细好好看了该数据集。如果你想要阅读更多关于matplotlib内部如何绘制的内容，阅读[这里](http://matplotlib.org/users/artists.html)。
 
-You can make quite a few plots next:
+接下来，你可以绘制很多的图：
 
-  * Analyze user descriptions, and see how description length varies by candidate.
-  * Explore time of day – do supporters of one candidate tweet more at certain times?
-  * Explore user location, and see which states tweet about which candidates the most.
-  * See what kinds of usernames tweet more about what kinds of candidates. 
-    * Do more digits in usernames correlate with support for a candidate?
-    * Which candidate has the most all caps supporters?
-  * Scrape more data, and see if the patterns shift.
+  * 分析用户描述，看看描述长度怎样因候选人而不同。
+  * 浏览当天时间 —— 某个候选人的支持者在某个特定时间会发更多推特吗？
+  * 探索用户位置，看看哪个州发关于哪个候选人最多的推特。
+  * 看看什么样子的用户名发关于哪个候选人最多的推特。
+    * 用户名中更多的数字是否与某个候选人相关联？
+    * 哪个候选人拥有最多的全大写用户名的支持者？
+  * 抓取更多的数据，看看模式是否转变。
 
-Hope this matplotlib tutorial was helpful, if you do any interesting analysis
-with this data please leave a comment and link below - we’d love to know!
+希望这个matplotlib教程有用，如果你对这个数据做了任何好玩的分析，在下面（Ele注：去原文哈）留言吧 —— 我们很想知道！
