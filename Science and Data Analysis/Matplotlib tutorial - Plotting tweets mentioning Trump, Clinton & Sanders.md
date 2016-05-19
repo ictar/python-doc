@@ -8,9 +8,9 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
 在这个matplotlib教程中，我们将介绍该库的基本知识，并看看如何进行一些中间可视化。
 
-我们将使用包含将近240,000条关于Hillary Clinton, Donald Trump, 和Bernie Sanders，目前所有美国总统候选人的微博的数据集。
+我们将使用包含将近240,000条关于Hillary Clinton, Donald Trump, 和Bernie Sanders，目前所有美国总统候选人的推特的数据集。
 
-该数据是从Twitter Streaming API拉过来的，而所有240,000条微博的csv文件可以在[这里](https://s3.amazonaws.com/dqdata/tweets.csv)下载。如果你想自己爬取更多数据，那么你可以看看[这里](https://github.com/dataquestio/twitter-scrape)的爬虫代码。
+该数据是从Twitter Streaming API拉过来的，而所有240,000条推特的csv文件可以在[这里](https://s3.amazonaws.com/dqdata/tweets.csv)下载。如果你想自己爬取更多数据，那么你可以看看[这里](https://github.com/dataquestio/twitter-scrape)的爬虫代码。
 
 ## 使用Pandas探索Tweets
 
@@ -39,26 +39,26 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 下面是该数据中重要列的简要说明：
 
   * `id` – 在数据库中行的id（这并不重要）。
-  * `id_str` – Twitter上微博的id。
-  * `user_location` – 微博用户在他们的Twitter信息中指定的位置。
-  * `user_bg_color` – 微博用户简介的背景色。
-  * `user_name` – 微博用户的Twitter用户名。
-  * `polarity` – 微博的情感，从`-1`到`1`。`1`表示非常积极，`-1`表示非常消极。
-  * `created` – 微博发送时间
-  * `user_description` – 微博用户在其简介中指定的描述。
-  * `user_created` – 微博账号创建时间。
-  * `user_follower` – 该微博的关注人数。
-  * `text` – 微博的文本。
-  * `subjectivity` – 微博的主观性和客观性。`0`表示非常可观，`1`表示非常主观。
+  * `id_str` – Twitter上推特的id。
+  * `user_location` – 推特用户在他们的Twitter信息中指定的位置。
+  * `user_bg_color` – 推特用户简介的背景色。
+  * `user_name` – 推特用户的Twitter用户名。
+  * `polarity` – 推特的情感，从`-1`到`1`。`1`表示非常积极，`-1`表示非常消极。
+  * `created` – 推特发送时间
+  * `user_description` – 推特用户在其简介中指定的描述。
+  * `user_created` – 推特账号创建时间。
+  * `user_follower` – 该推特的关注人数。
+  * `text` – 推特的文本。
+  * `subjectivity` – 推特的主观性和客观性。`0`表示非常可观，`1`表示非常主观。
 
 ### 生成候选人列
 
-我们可以用这个数据集进行的最有趣的事情包括，比较关于一个候选人的微博和另一个候选人的微博。例如，我们可以比较关于Donald Trump的微博的客观性和关于Bernie Sanders的微博的客观性。
+我们可以用这个数据集进行的最有趣的事情包括，比较关于一个候选人的推特和另一个候选人的推特。例如，我们可以比较关于Donald Trump的推特的客观性和关于Bernie Sanders的推特的客观性。
 
-为了完成这个任务，我们首先需要生成一个列，该列表示每条微博提到了哪个候选人。在下面的代码中，我们将：
+为了完成这个任务，我们首先需要生成一个列，该列表示每条推特提到了哪个候选人。在下面的代码中，我们将：
 
   * 创建一个函数，查找在一段文字中，哪个候选人的名字出现了。
-  * 在DataFrames之上使用[apply](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.apply.html)方法来生成一个名为`candidate`的新列，该列包括该微博提到了哪个（些）候选人。
+  * 在DataFrames之上使用[apply](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.apply.html)方法来生成一个名为`candidate`的新列，该列包括该推特提到了哪个（些）候选人。
 
 ```python
 
@@ -82,7 +82,7 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
   * 创建一个[Figure](http://matplotlib.org/api/figure_api.html)来绘制图。
   * 创建一个或多个[Axes](http://matplotlib.org/api/axes_api.html)对象来绘制该图。
-  * 作为一个图像，显示该figure，以及其中的任何图。
+  * 作为一个图像，显示该图表，以及其中的任何图。
 
 由于其灵活性，你可以在matplotlib中把多个图绘制在一张图片中。每一个Axes对象表示一张图，例如一个柱状图或直方图。
 
@@ -103,9 +103,9 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
 ### 绘制柱状图
 
-一旦我们导入了matplotlib，我们就可以绘制一张关于每个候选人被提到的微博数的柱状图。为了完成这点，我们将：
+一旦我们导入了matplotlib，我们就可以绘制一张关于每个候选人被提到的推特数的柱状图。为了完成这点，我们将：
 
-  * 使用Pandas [Series](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.html)上的[value_counts](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.value_counts.html)函数来统计每个候选人有多少条提及他的微博。
+  * 使用Pandas [Series](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.html)上的[value_counts](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.value_counts.html)函数来统计每个候选人有多少条提及他的推特。
   * 使用`plt.bar`来创建一个柱状图。我们将传递取值从`0`到`candidate`列的唯一值数目的数字列表，作为x轴输入，把计数当成y轴输入。
   * 显示计数，从而我们拥有更多关于每一个柱子表示什么的上下文信息。
 
@@ -134,9 +134,9 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
 ![](https://www.dataquest.io/blog/images/matplotlib/tweet_counts.png)
 
-关于Trump的微博比关于Sanders或者Clinton的微博多得惊人！
+关于Trump的推特比关于Sanders或者Clinton的推特多得惊人！
 
-你可能注意到，我们并没有创建Figure或者任何Axes对象。这是因为调用`plt.bar`会自动设置一个Figure和一个Axes对象，表示该柱状图。调用[plt.show](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.show)方法会显示当前figure中的任何东西。在这种情况下，它显示一个包含了一个柱状图的图像。
+你可能注意到，我们并没有创建Figure或者任何Axes对象。这是因为调用`plt.bar`会自动设置一个Figure和一个Axes对象，表示该柱状图。调用[plt.show](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.show)方法会显示当前图表中的任何东西。在这种情况下，它显示一个包含了一个柱状图的图像。
 
 在[pyplot](http://matplotlib.org/api/pyplot_api.html)模块中，matplotlib有一些方法可以使得创建常见类型的图更快和更方便，因为它们自动创建一个Figure和一个Axes对象。最广泛使用的是：
 
@@ -152,7 +152,7 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
 现在，我们已经有了第一个基本的图，可以继续创建第二个更个性化的图了。我们会绘制一张基本的直方图，然后修改它，以添加标签及其他信息。
 
-我们可以看的事情之一就是发微博的用户账号年龄。我们可以找到发关于Trump的微博的用户账号和发关于Clinton的微博的用户账号的创建时间之间是否有区别。拥有更多最近创建的用户账号的候选人可能意味着使用假账号进行某种Twitter操纵。
+我们可以看的事情之一就是发推特的用户账号年龄。我们可以找到发关于Trump的推特的用户账号和发关于Clinton的推特的用户账号的创建时间之间是否有区别。拥有更多最近创建的用户账号的候选人可能意味着使用假账号进行某种Twitter操纵。
 
 在下面的代码中，我们会：
 
@@ -206,21 +206,18 @@ Python有多种可视化库，包括[seaborn](https://stanford.edu/~mwaskom/soft
 
 ### 绘制叠加柱状图
 
-The current histogram does a nice job of telling us the account age of all
-tweeters, but it doesn’t break it down by candidate, which might be more
-interesting. We can leverage the additional options in the `hist` method to
-create a stacked histogram.
+现在的直方图可以很好的告诉我们所有的推特账户的注册年龄，但是它并没有根据候选人进行分类，这可能会更有趣。我们可以在`hist`放中添加额外的选项，以创建一个叠加柱状图。
 
-In the below code, we’ll:
+在下面的代码中，我们会：
 
-  * Generate three Pandas series, each containing the `user_age` data only for tweets about a certain candidate.
-  * Make a stacked histogram by calling the `hist` method with additional options. 
-    * Specifying a list as the input will plot three sets of histogram bars.
-    * Specifying `stacked=True` will stack the three sets of bars.
-    * Adding the `label` option will generate the correct labels for the legend.
-  * Call the [plt.legend](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.legend) method to draw a legend in the top right corner.
-  * Add a title, x axis, and y axis labels.
-  * Show the plot.
+  * 生成三个Pandas series，每个只包含关于某个特定的候选人的推特的`user_age`数据。
+  * 通过调用`hist`方法，并添加额外的选项创建一个叠加直方图。
+    * 指定一个列表作为输入将绘制三组柱状图。
+    * 指定`stacked=True`将叠加这三个条的集合。
+    * 增加`label`选项将为图例生成正确的标签。
+  * 调用[plt.legend](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.legend)方法来在右上角绘制一个图例。
+  * 添加标题，x轴和y轴标签。
+  * 显示该图。
 
 ```python
 
@@ -246,13 +243,9 @@ In the below code, we’ll:
 
 ### 注释直方图
 
-We can take advantage of matplotlibs ability to draw text over plots to add
-annotations. Annotations point to a specific part of the chart, and let us add
-a snippet describing something to look at.
+我们可以利用matplotlibs在图上绘制文本的能力来添加注释。注释指向图表的特定部分，让我们一个片段来描述一些东东。
 
-In the code below, we’ll make the same histogram as we did above, but we’ll
-call the [plt.annotate](http://matplotlib.org/api/pyplot_api.html#matplotlib.p
-yplot.annotate) method to add an annotation to the plot.
+在下面的代码中，我们会创建和上面一样的直方图，但是会调用[plt.annotate](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.annotate)方法来添加注释到图中。
 
 ```python
 
@@ -275,49 +268,32 @@ yplot.annotate) method to add an annotation to the plot.
 
 ![](https://www.dataquest.io/blog/images/matplotlib/user_ages_annotated.png)
 
-Here’s a description of what the options passed into `annotate` do:
+下面是传给`annotate`的选项的行为描述：
 
-  * `xy` – determines the `x` and `y` coordinates where the arrow should start.
-  * `xytext` – determines the `x` and `y` coordinates where the text should start.
-  * `arrowprops` – specify options about the arrow, such as color.
+  * `xy` – 确定`x`和`y`坐标中箭头应该从哪里开始。
+  * `xytext` – 确定`x`和`y`坐标中文本应该从哪里开始。
+  * `arrowprops` – 指定箭头相关的选项，例如颜色。
 
-As you can see, there are significantly more tweets about Trump then there are
-about other candidates, but there doesn’t look to be a significant difference
-in account ages.
+正如你所见的，关于Trump的推特明显比其他候选人更多，但是在账号注册年龄上，看不出显著的差异。
 
 ## 多个子图
 
-So far, we’ve been using methods like `plt.bar` and `plt.hist`, which
-automatically create a Figure object and an Axes object. However, we can
-explicitly create these objects when we want more control over our plots. One
-situation in which we would want more control is when we want to put multiple
-plots side by side in the same image.
+目前为止，我们使用了一些方法，像`plt.bar`和`plt.hist`，它们会自动创建一个Figure对象和一个Axes对象。然而，当我们想获得关于图的更多控制时，我们可以显式创建这些对象。我们可能想要更多控制的场景之一是，当我们想要在同张图上并排放置多个图表。
 
-We can generate a Figure and multiple Axes objects by calling the [plt.subplot
-s](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.subplots)
-methods. We pass in two arguments, `nrows`, and `ncols`, which define the
-layout of the Axes objects in the Figure. For example, `plt.subplots(nrows=2,
-ncols=2)` will generate ` 2x2` grid of Axes objects. `plt.subplots(nrows=2,
-ncols=1)` will generate a `2x1` grid of Axes objects, and stack the two Axes
-vertically.
+通过调用[plt.subplots](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.subplots)方法，我们可以生成一个Figure和多个Axes对象。传递两个参数，`nrows`和`ncols`，它们定义在Figure中Axes对象的布局。例如，`plt.subplots(nrows=2, ncols=2)`会生成` 2x2`网格的Axes对象。`plt.subplots(nrows=2, ncols=1)`会生成`2x1`网格的Axes对象，然后将这两个Axes对象垂直堆积在一起。
 
-Each Axes object supports most of the methods from `pyplot`. For instance, we
-could call the `bar` method on an Axes object to generate a bar chart.
+每个Axes对象支持`pyplot`中的大多数方法。例如，我们可以在一个Axes对象上调用`bar`方法来生成一个柱状图。
 
 ### 提取颜色
 
-We’ll generate `4` plots that show the amount of the colors red and blue in
-the Twitter background colors of users tweeting about Trump. This may show if
-tweeters who identify as Republican are more likely to put red in their
-profile.
+我们将生成`4`张图，用来那些发关于Trump推特的用户的Twitter背景色中的红色和蓝色的数量。这可能显示，确定为共和党派的推特用户是否更倾向于在他们的个人资料中使用红色。
 
-First, we’ll generate two columns, `red` and `blue`, that tell us how much of
-each color is in each tweeter’s profile background, from `0` to `1`.
+首先，我们要生成两列，`red`和`blue`，用来表示在每个推特用户的个人资料背景中，每种颜色的多少，从`0`到`1`。
 
-In the code below, we’ll:
+在下面的代码中，我们将：
 
-  * Use the `apply` method to go through each row in the `user_bg_color` column, and extract how much red is in it.
-  * Use the `apply` method to go through each row in the `user_bg_color` column, and extract how much blue is in it.
+  * 使用`apply`方法来遍历`user_bg_color`列中的每一行，然后提取其中的红色总数。
+  * 使用`apply`方法来遍历`user_bg_color`列中的每一行，然后提取其中的蓝色总数。
 
 ```python
 
@@ -329,24 +305,22 @@ In the code below, we’ll:
 
 ### 创建图
 
-Once we have the data setup, we can create the plots. Each plot will be a
-histogram showing how many tweeters have a profile background containing a
-certain amount of blue or red.
+一旦我们拥有了数据，我们就可以创建图。每张图将会是一个直方图，用以显示个人资料背景包含特定数量的蓝色或红色的推特用户数。
 
-In the below code, we:
+在下面的代码中，我们：
 
-  * Generate a Figure and multiple Axes with the `subplots` method. The axes will be returned as an array.
-  * The axes are returned in a 2x2 [NumPy](http://www.numpy.org/) array. We extract each individual Axes object by using the [flat](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.ndarray.flat.html) property of arrays. This gives us `4` Axes objects we can work with.
-  * Plot a histogram in the first Axes using the [hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist) method.
-  * Set the title of the first Axes to `Red in all backgrounds` using the [set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title) method. This performs the same function as `plt.title`.
-  * Plot a histogram in the second Axes using the [hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist) method.
-  * Set the title of the second Axes to `Red in Trump tweeters` using the [set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title) method.
-  * Plot a histogram in the third Axes using the [hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist) method.
-  * Set the title of the third Axes to `Blue in all backgrounds` using the [set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title) method. This performs the same function as `plt.title`.
-  * Plot a histogram in the fourth Axes using the [hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist) method.
-  * Set the title of the fourth Axes to `Blue in Trump tweeters` using the [set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title) method.
-  * Call the [plt.tight_layout](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.tight_layout) method to reduce padding in the graphs and fit all the elements.
-  * Show the plot.
+  * 使用`subplots`方法生成一个Figure和多个Axes。Axes将作为数组返回。
+  * Axes在一个2x2 [NumPy](http://www.numpy.org/)数组中返回。通过使用数组的[flat](http://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.ndarray.flat.html)属性，提取每个Axes对象。这为我们提供了`4`个Axes对象用以工作。
+  * 使用[hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist)方法在第一个Axes中绘制一个直方图。
+  * 使用[set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title)方法，设置第一个Axes的标题为`Red in all backgrounds`。这与`plt.title`功能一致。
+  * 使用[hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist)方法在第二个Axes中绘制一个直方图。
+  * 使用[set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title)方法，设置第二个Axes的标题为`Red in Trump tweeters`。
+  * 使用[hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist)方法在第三个Axes中绘制一个直方图。
+  * 使用[set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title)方法，设置第三个Axes的标题为`Blue in all backgrounds`。这与`plt.title`功能一致。
+  * 使用[hist](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.hist)方法在第四个Axes中绘制一个直方图。
+  * 使用[set_title](http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.set_title)方法，设置第四个Axes标题为`Blue in Trump tweeters`。
+  * 调用[plt.tight_layout](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.tight_layout)方法来减少图间的填充并调整所有元素。
+  * 显示该图。
 
 ```python
 
@@ -373,11 +347,9 @@ In the below code, we:
 
 ### 移除共同的背景色
 
-Twitter has default profile background colors that we should probably remove
-so we can cut through the noise and generate a more accurate plot. The colors
-are in hexadecimal format, where `#000000` is black, and `#ffffff` is white.
+Twitter有默认的个人资料背景颜色，我们或许应该移除它，这样才能通过消除噪音，以生成一个更准确的图。该演示是十六进制格式的，其中，`#000000`是黑色，而`#ffffff`是白色。
 
-Here’s how to find the most common colors in background colors:
+下面是如何查找背景颜色中的最常见的颜色：
 
 ```python
 
@@ -396,13 +368,11 @@ Here’s how to find the most common colors in background colors:
     
 ```
 
-Now, we can remove the three most common colors, and only plot out users who
-have unique background colors. The code below is mostly what we did earlier,
-but we’ll:
+现在，我们可以删除三种最常见的颜色，然后只画出那些有唯一背景颜色的用户。下面的代码大多数我们之前做过的，但是我们会：
 
-  * Remove `C0DEED`, `000000`, and `F5F8FA` from `user_bg_color`.
-  * Create a function with out plotting logic from the last chart inside.
-  * Plot the same `4` plots from before without the most common colors in `user_bg_color`.
+  * 从`user_bg_color`中移除`C0DEED`, `000000`, 和`F5F8FA`。
+  * 创建一个函数，不在最后一个图表中绘制逻辑。
+  * 绘制和前面`4`个图一样的图，除了`user_bg_color`中最常见的颜色。
 
 ```python
 
@@ -432,9 +402,8 @@ but we’ll:
 
 ![](https://www.dataquest.io/blog/images/matplotlib/bg_colors_sel.png)
 
-As you can see, the distribution of blue and red in background colors for
-users that tweeted about Trump is almost identical to the distribution for all
-tweeters.
+
+正如你所看到的，发布关于Trump的推特的用户的背景颜色中，红色和蓝色的分布几乎与所有推特用户的分布相同。
 
 ## 绘制情绪
 

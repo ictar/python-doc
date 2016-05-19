@@ -22,6 +22,8 @@ translate python documents to Chinese for convenient reference
 ## DevOps工具
 - Fabric: [中文版](http://fabric-chs.readthedocs.org/zh_CN/chs/) | [英文版](http://docs.fabfile.org/en/1.11/index.html)
 
+- [Glances](https://github.com/nicolargo/glances)
+
 ## 测试
 - [Testing](./Testing) 测试相关
 
