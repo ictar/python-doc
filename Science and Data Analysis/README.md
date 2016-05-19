@@ -20,3 +20,7 @@
 - [Python中的并行处理](./Python中的并行处理.md)
 
 	虽然像C, Java, 和R这样的语言允许相当容易地进行并行处理，但对于Python程序员来说，因为全局解释锁（GIL）的存在，这却没那么容易。幸好作为pythoner的我们，也并非一筹莫展！
+
+- [Matplotlib教程 - 绘制提到Trump, Clinton & Sanders的推特](./Matplotlib教程 - 绘制提到Trump, Clinton & Sanders的推特.md)
+
+	一篇手把手教你的Matplotlib教程，是一篇很不错的learn-by-doing的数据分析文章！！

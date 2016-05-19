@@ -9,3 +9,7 @@
 - [使用Kubernetes使Django应用变得可扩展并具有弹性](./使用Kubernetes使Django应用变得可扩展并具有弹性.md)
 
 	想要使你的webapp架构成其规模可以优雅的满足大量用户，同时对于底层计算资源的任意故障具有弹性吗？说不定Kubernetes可以帮助你
+
+- [Django, ELB健康检查和持续交付](./Django, ELB健康检查和持续交付.md)
+
+	

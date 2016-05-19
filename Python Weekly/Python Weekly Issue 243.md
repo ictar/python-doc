@@ -46,7 +46,9 @@
 
 [分析Last.fm收听历史](http://geoffboeing.com/2016/05/analyzing-lastfm-history/)
 
-[Django, ELB健康检查和持续交付](http://tech.octopus.energy/2016/05/05/django-elb-health-checks.html)
+[Django, ELB健康检查和持续交付](http://tech.octopus.energy/2016/05/05/django-elb-health-checks.html) 
+
+[中文版](../Django/Django, ELB健康检查和持续交付.md)
 
 [Python, Postgres, SQLAlchemy, 和PGA Tour Stats](https://bigishdata.com/2016/05/08/python-postgres-sqlalchemy-and-pga-tour-stats/)
 
