@@ -22,7 +22,7 @@ translate python documents to Chinese for convenient reference
 ## DevOps工具
 - Fabric: [中文版](http://fabric-chs.readthedocs.org/zh_CN/chs/) | [英文版](http://docs.fabfile.org/en/1.11/index.html)
 
-- [Glances](https://github.com/nicolargo/glances)
+- [Glances](https://github.com/nicolargo/glances)：[中文版](http://glances-zh.readthedocs.io/en/latest/) | [英文版](https://glances.readthedocs.io/en/latest/)
 
 ## 测试
 - [Testing](./Testing) 测试相关
@@ -44,5 +44,8 @@ translate python documents to Chinese for convenient reference
 ## 无法归类的
 - [Others](./Others) 其他一些没法分类的文档
 
+# [小黑屋](./raw)
+里面关着生肉和半生肉
+
 # 辅助工具
-- ` html2text {url} > '{name}.md'`
+- ` html2text --mark-code {url} > '{name}.md'`

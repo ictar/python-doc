@@ -14,7 +14,7 @@
 
 # 文章，教程和讲座
 
-[Episode #57: Python performance from the inside-out at Intel](https://talkpython.fm/episodes/show/57/python-performance-from-the-inside-out-at-intel)
+[Episode #57: Intel中由内而外的Python性能](https://talkpython.fm/episodes/show/57/python-performance-from-the-inside-out-at-intel)
 
 当你考虑你的软件性能时，还有什么比让代码在CPU自身执行更低水平了呢？我们中许多人学习，并试图了解如何在这个低层次最大化性能。但很少人有资格去定义在这个层次发生了什么。本周，你将见到David Stewart，Intel数据中心软件技术小组的经历。我们将谈谈Intel在开源和Python方面正在进行的各种工作。
 

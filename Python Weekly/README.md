@@ -3,3 +3,4 @@
 本目录是Python Weekly的中译版，从Issue 243开始。
 
 - [Issue 243](./Python Weekly Issue 243.md)
+- [Issue 244](./Python Weekly Issue 244.md)
