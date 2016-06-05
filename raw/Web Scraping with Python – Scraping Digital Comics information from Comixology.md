@@ -1,30 +1,3 @@
-[ ![](http://0.gravatar.com/avatar/f450c214808965f494b965d438ba780e?s=100&d=mm
-&r=g) ](http://felipegalvao.com.br/blog)
-
-# [Felipe Galvão](http://felipegalvao.com.br/blog "View all posts by Felipe
-Galvão" )
-
-##
-
-## Published
-
-## [maio 24, 2016](http://felipegalvao.com.br/blog/2016/05/24/web-scraping-
-with-python-scraping-digital-comics-information-from-comixology/ "Web Scraping
-with Python - Scraping Digital Comics information from Comixology" )
-
-Skip to content
-
-  * [Data Science / Analysis with Python - Basics](http://felipegalvao.com.br/blog/data-science-analysis-with-python-basics/)
-  * [Ciência / Análise de Dados com Python - Básico](http://felipegalvao.com.br/blog/ciencia-de-dados-com-python-basico/)
-  * [Contatos / Contact Me](http://felipegalvao.com.br/blog/contatos-contact-me/)
-
-##  [Felipe Galvão](http://felipegalvao.com.br/blog "View all posts by Felipe
-Galvão" ) in [Python (English)](http://felipegalvao.com.br/blog/category
-/python-english/ "View all posts in Python \(English\)" ) |  [maio 24,
-2016](http://felipegalvao.com.br/blog/2016/05/24/web-scraping-with-python-
-scraping-digital-comics-information-from-comixology/ "Web Scraping with Python
-- Scraping Digital Comics information from Comixology" )
-
 原文：[Web Scraping with Python - Scraping Digital Comics information from Comixology](http://felipegalvao.com.br/blog/2016/05/24/web-scraping-with-python-scraping-digital-comics-information-from-comixology/)
 
 ---
@@ -136,8 +109,7 @@ examples:
 //div | Select all the div elements in the document.  
 ---|---  
 /html | Select the root element html.  
-html//p | Select any p element inside the html element, no matter where they
-are.  
+html//p | Select any p element inside the html element, no matter where they are.  
 html/div | Select the div elements that are children of the html element.  
   
 You can also combine elements and attributes for the selection. To extract the
@@ -146,10 +118,8 @@ features that we will use the most. Let's see:
 
 //@class | Select all the class attributes in the document.  
 ---|---  
-//div[@class='style-div']/p | Select all the p elements that are children of
-div elements with a class value of "style-div".  
-//p[@id='p-paragraph']/text() | Select the text inside each p element with an
-id value of "p-paragraph".  
+//div[@class='style-div']/p | Select all the p elements that are children of div elements with a class value of "style-div".  
+//p[@id='p-paragraph']/text() | Select the text inside each p element with an id value of "p-paragraph".  
   
 I uploaded a simple HTML file so we can construct the code in Python and check
 these examples in practice. The address of the page is:
