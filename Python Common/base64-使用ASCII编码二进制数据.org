@@ -179,6 +179,6 @@ Base85相关函数使用扩展的字母表,其在编码空格时比base64更有�
 Python 中包含了两种实现方法: b85encode()实现了Git和Mercurial中使用的版本,而a85encode()实现了Ascii85的变体,该变体用于PDF文件中.
 * Local Variables Setting
 # Local Variables:
-# org-babel-default-header-args:python: ((:results . "output") (:exports . "code") (:cache))
+# org-babel-default-header-args:python: ((:results . "output") (:exports . "both") (:cache))
 # org-babel-python-command: "python3"
 # End:
