@@ -2,32 +2,26 @@
 
 ---
 
-In July we are travelling for a weekend to a mystery location. Some tips we
-have received:
+七月份的时候，我们要到一个神秘的地方旅行一个周末。我们收到了一些（关于这个神秘地点的）提示：
 
-  * Three times an 'd' and three times an 'e' in the locations' name.
-  * A good two hours travel eastwards from a given starting location (Heusden), which means it is in Germany.
-  * Look at the lines between Worms, Koblenz, Aarlen, and Malmedy.
-  * The symbols in the heraldic shield of the location refer to [Saint Jude](https://en.wikipedia.org/wiki/Jude_the_Apostle) and [Saint Simon](https://en.wikipedia.org/wiki/Simon_the_Zealot).
+  * 这个地点名字里有3个'd'和3个'e'。
+  * 从一个给定的起始点(Heusden)向东旅行需要花2个小时的实际，这意味着它在德国境内。
+  * 看看在Worms, Koblenz, Aarlen, 和Malmedy之间的路线。
+  * 该地的纹章盾中的符号指向[Saint Jude](https://en.wikipedia.org/wiki/Jude_the_Apostle) 和[Saint Simon](https://en.wikipedia.org/wiki/Simon_the_Zealot)。
 
-To take a _very_ calculated guess at the location, we will
+要对这个地点进行一个_极具_计算性的猜测，我们要
 
-  1. Get all the German location names and their coordinates from [Open Street Map](https://www.openstreetmap.org/) (OSM).
-  2. Filter the names on triple a's and triple e's.
-  3. Calculate the effective driving time from the starting location to each of the matching locations using the webservice of the [Open Source Routing Machine](http://project-osrm.org/) (OSRM).
-  4. Select those below 3h driving time, and near the intersection of the lines drawn from the four given cities.
-  5. Look a the heraldic shields of the remaining locations.
+  1. 从[Open Street Map](https://www.openstreetmap.org/) (OSM)中获得所有的德国地名及其坐标。
+  2. 过滤掉名字不含3个d和3个e的。
+  3. 使用[开源路由机(Open Source Routing Machine)](http://project-osrm.org/) (OSRM)的web服务计算从起始点到每个匹配地点的有效驾驶时间。
+  4. 选取那些低于3小时驾驶时间，以及在给定的四个城市的交界处附近的地点。
+  5. 看看所得结果的纹章盾。
 
-## 1\. Get all the German placenames from OSM¶
+## 1. 从OSM获取所有的德国地名
 
-To get a dump of OSM location names into Pandas for analysis, there is a very
-useful Github repository [OSMNames](https://github.com/geometalab/OSMNames)
-with Docker files and some scripts. It uses OSM data-dumps from [Geofabrik](http://nbviewer.jupyter.org/gist/mhermans/download.geofabrik.de/index.html), in
-our case the data available for
-[Germany](http://download.geofabrik.de/europe/germany.html).
+要将OSM地名转存储到Pandas以备分析，有一个非常有用的Github仓库[OSMNames](https://github.com/geometalab/OSMNames)，它带有Docker文件和一些脚本。它使用来自[Geofabrik](http://nbviewer.jupyter.org/gist/mhermans/download.geofabrik.de/index.html)的OSM数据转储，在我们的例子中，该数据适用于[德国](http://download.geofabrik.de/europe/germany.html)。
 
-We clone the Github repository and download the entire OSM-dataset for
-Germany:
+我们克隆Github仓库并下载整个关于德国的OSM数据集：
 
 ```python
 
@@ -38,8 +32,7 @@ Germany:
     
 ```
 
-Then we load the OSM-database dump using Docker to get our environment in a
-pinch, and export the German location names
+然后，使用Docker加载该OSM数据集转储，以在必要时获取我们的环境，并导出德国地名。
 
 ```python
 
@@ -51,8 +44,7 @@ pinch, and export the German location names
     
 ```
 
-For analysis, create a Python virtual environment, and install the required
-libraries with pip.
+为了进行分析，创建一个Python虚拟环境，并使用pip安装所需库。
 
 ```python
 
@@ -62,15 +54,14 @@ libraries with pip.
     
 ```
 
-Launch an interactive IPython notebook, you can download and re-run the one
-you are reading.
+加载一个交互式IPython notebook，你可以下载并重新运行所读取的那个。
 
 ```python
 
     ipython notebook
 ```
 
-## 2\. Filter all the place names with triple 'a' and triple 'e'¶
+## 2. 过滤所有不带3个'd'和3个'e'的地名
 
 In [1]:
 
@@ -380,7 +371,7 @@ In [15]:
     
 ```
 
-## 3\. Get the driving distance to all matches from OSRM¶
+## 3. 从OSRM中获取到所有匹配项的驾驶距离
 
 In [16]:
 
@@ -508,25 +499,21 @@ Seidfeld (Sauerland) | 191.1 | 109.9 | 180.5 | 63.9 | 0.0 | 63.8 | 179.3
 Siedlung Denrodtstraße | 171.1 | 90.6 | 160.1 | 47.2 | 62.5 | 0.0 | 132.0  
 Heusden | 131.8 | 118.6 | 133.3 | 137.4 | 175.3 | 132.4 | 0.0  
   
-## 4\. Plot the crossing lines¶
+## 4. 绘制交叉线
 
-Used R Leaflet for convenience, plus screenshot. Outer points are Worms,
-Koblenz, Aarlen, and Malmedy. Inner points are **Deudesfeld** and
-**Niederstadtfeld**, the rest are not that close to the intersection.
+为了方便，使用R Leaflet，加上截图。外部的点是Worms,
+Koblenz, Aarlen, 和Malmedy。里面的点是**Deudesfeld**和**Niederstadtfeld**，剩下的是不那么靠近交叉处的点。
 
 ![Image of Yaktocat](https://s33.postimg.org/kk7l6rc7z/germany_locations_lines.png)
 
-## 5\. Verify the heraldic shiels of the final matches¶
+## 5. 确认最终匹配的纹章盾
 
-The shield of [Deudesfeld](https://de.wikipedia.org/wiki/Deudesfeld) contains
-an axe and a woodcutters hatchet:
+[Deudesfeld](https://de.wikipedia.org/wiki/Deudesfeld)的盾牌包含一个斧头和一个樵夫斧头：
 
 ![Deudesfeld Weapon](https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wappen_von_Deudesfeld.png/140px-Wappen_von_Deudesfeld.png)
 
-A common attribute of Jude is an axe, given his death at the end of one. Simon
-is commonly depicted with a saw (sawn in half), or other woodworking tools
-such as a hatchet.
+Jude的共同属性是斧头，因为他死于其。Simon通常用锯（半锯），或者其他木工工具，例如斧，来描绘。
 
-## Final verdict:¶
+## 最终判决
 
 **Deudesfeld**
