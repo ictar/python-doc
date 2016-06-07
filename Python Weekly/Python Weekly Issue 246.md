@@ -33,6 +33,8 @@ SortedContainers在大规模上运行得相当好。本文在理论和实践层�
 
 [带django教程的Facebook聊天机器人，又名笑话机器人](https://codeexperiments.quora.com/Facebook-chat-bot-aka-joke-bot-with-django-tutorial) 
 
+[中文版](../Django/带django教程的Facebook聊天机器人，又名笑话机器人.md)
+
 [使用人工智能来评估手写数学公式](http://www.willforfang.com/computer-vision/2016/4/9/artificial-intelligence-for-handwritten-mathematical-expression-evaluation)
 
 [使用Python的动力系统：Wilson和Cowan模型](http://martinosorb.github.io/blog/2016/05/26/wilsoncowan.html)

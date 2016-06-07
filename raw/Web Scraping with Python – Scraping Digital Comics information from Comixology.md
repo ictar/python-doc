@@ -1,52 +1,24 @@
-[ ![](http://0.gravatar.com/avatar/f450c214808965f494b965d438ba780e?s=100&d=mm
-&r=g) ](http://felipegalvao.com.br/blog)
-
-# [Felipe Galvão](http://felipegalvao.com.br/blog "View all posts by Felipe
-Galvão" )
-
-##
-
-## Published
-
-## [maio 24, 2016](http://felipegalvao.com.br/blog/2016/05/24/web-scraping-
-with-python-scraping-digital-comics-information-from-comixology/ "Web Scraping
-with Python - Scraping Digital Comics information from Comixology" )
-
-Skip to content
-
-  * [Data Science / Analysis with Python - Basics](http://felipegalvao.com.br/blog/data-science-analysis-with-python-basics/)
-  * [Ciência / Análise de Dados com Python - Básico](http://felipegalvao.com.br/blog/ciencia-de-dados-com-python-basico/)
-  * [Contatos / Contact Me](http://felipegalvao.com.br/blog/contatos-contact-me/)
-
-##  [Felipe Galvão](http://felipegalvao.com.br/blog "View all posts by Felipe
-Galvão" ) in [Python (English)](http://felipegalvao.com.br/blog/category
-/python-english/ "View all posts in Python \(English\)" ) |  [maio 24,
-2016](http://felipegalvao.com.br/blog/2016/05/24/web-scraping-with-python-
-scraping-digital-comics-information-from-comixology/ "Web Scraping with Python
-- Scraping Digital Comics information from Comixology" )
 
 原文：[Web Scraping with Python - Scraping Digital Comics information from Comixology](http://felipegalvao.com.br/blog/2016/05/24/web-scraping-with-python-scraping-digital-comics-information-from-comixology/)
 
 ---
 
-## Introduction
+## 简介
 
 Well, after having talked about the previous analysis that I did about
-Comixology in the [previous post in this
-series](http://felipegalvao.com.br/blog/2016/05/01/comixology-analise-de-
-quadrinhos-digitais-parte-1-analise-do-site-para-web-scraping/), we'll now
+Comixology in the [previous post in this series](http://felipegalvao.com.br/blog/2016/05/01/comixology-analise-de-quadrinhos-digitais-parte-1-analise-do-site-para-web-scraping/), we'll now
 talk about the web scraping with Python, the code itself. As we have already
 talked about, we will use requests to make requests to web pages and lxml with
 Xpath for parsing and information extraction from the desired pages. Let's go.
 
-## Starting to write the code
+## 开始写代码
 
 To start the conversation, we will import the necessary libraries, requests
 and, from lxml, the html function. To access the HTML parts, we will use
 Xpath. So, let's talk about Xpath before we move on to the code. I'll try to
 keep it short.
 
-## Xpath: What it is and how to use it
+## Xpath：它是什么以及如何使用它
 
 Xpath is a query language used to extract content from XML / HTML documents.
 It can be used to extract information form nodes and attributes, being very
@@ -224,7 +196,7 @@ something that does not exist in the document, an empty list is returned.
 And now that we saw this simple example, let's move on to something more
 complex and fun.
 
-## Returning to the code
+## 回到代码
 
 Now that we know what Xpath is about, let's use it to extract the Comixology
 website itself. For web scraping with Xpath, one of our best friends will be
@@ -232,14 +204,12 @@ the "Inspect Element" feature from Chrome or Firefox. It will allow us to see
 the source code and the HTML structure and path for a certain element in the
 page.
 
-Let's move on to the Publishers section on Comixology. ([click
-here](https://www.comixology.com/browse-publisher)). We will extract our code
+Let's move on to the Publishers section on Comixology. ([点击这里](https://www.comixology.com/browse-publisher)). We will extract our code
 defining the function and creating an empty list which will hold the Publisher
 links that we will extract. As we talked on the first post, we will define the
 page quantity manually (4 pages, so, we will have a for page in range (1,5)),
 and we will pass through each of them. If we go to the site and change to the
-next page, we will see that the link becomes: https://www.comixology.com
-/browse-publisher?publisherList_pg=2. If we change it back to the first page,
+next page, we will see that the link becomes: https://www.comixology.com/browse-publisher?publisherList_pg=2. If we change it back to the first page,
 the final part of the link turn back to 1. The first pages of the code will be
 as following:
 
@@ -282,10 +252,7 @@ class "list FeaturedPublisherList", items from the All Publishers table are in
 a div that has the class "list publisherList". Let's make our Xpath sentence
 going from there:
 
-[![comixology_2_1-publishers](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_1-publishers-
-1024x925.jpg)](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_1-publishers.jpg)
+[![comixology_2_1-publishers](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_1-publishers-1024x925.jpg)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_1-publishers.jpg)
 
 Now, I'll create a Xpath string for the extraction of the elements, going from
 the div with the class that we just saw (//div[@class="list publisherList"]),
@@ -385,8 +352,7 @@ you will have them on the list returned by the function. First part, concluded
 🙂
 
 I'll take this time to talk about a library that will help us in this task,
-which is the Pickle package ([to know more about it, click
-here](https://wiki.python.org/moin/UsingPickle)). This library will allow us
+which is the Pickle package ([想了解更多，点击这里](https://wiki.python.org/moin/UsingPickle)). This library will allow us
 to export data to files, to load them back later on. In this first moment,
 this will not seem very useful, since this extraction function runs very fast
 and does not take much time to be completed, because there are only 4 pages to
@@ -444,28 +410,19 @@ possible cases: A - when the publisher has only one page, B - when there is a
 small number of pages (like, from 2 to more or less 10), C - when a publisher
 has a great number of pages. See in the image:
 
-[![A - Publisher with 1 page](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_2-publisher_no_pages-
-300x238.png)](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_2-publisher_no_pages.png)
+[![A - Publisher with 1 page](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_2-publisher_no_pages-300x238.png)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_2-publisher_no_pages.png)
 
 A - Publisher with 1 page
 
 |
 
-[![B - Publisher with few pages](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_3-publisher_few_pages-
-208x300.png)](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_3-publisher_few_pages.png)
+[![B - Publisher with few pages](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_3-publisher_few_pages-208x300.png)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_3-publisher_few_pages.png)
 
 B - Publisher with few pages
 
 |
 
-[![C - Publisher with many pages](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_4-publisher_many_pages-
-228x300.png)](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_4-publisher_many_pages.png)
+[![C - Publisher with many pages](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_4-publisher_many_pages-228x300.png)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_4-publisher_many_pages.png)
 
 C - Publisher with many pages  
   
@@ -484,10 +441,7 @@ available, the Publisher has only one page of Series. Simple, isn't it? Well,
 let's inspect some elements to see how we are going to build the Xpath
 sentence, and then we can go to the code:
 
-[![Path to quantity of Series](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_5-series_pages-
-1024x469.jpg)](http://felipegalvao.com.br/blog/wp-
-content/uploads/2016/05/comixology_2_5-series_pages.jpg)
+[![Path to quantity of Series](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_5-series_pages-1024x469.jpg)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_5-series_pages.jpg)
 
 Path to quantity of Series
 
@@ -651,7 +605,7 @@ export periodically our data in order to avoid that.
     pickle.dump(series_links, open("series_links.p","wb"))
 ```
 
-## From series to Comics
+## 从series到Comics
 
 Now, we have to take one more step to go through Series links and extract
 links for the comics itself. Prepare yourselves, cause the execution of this
@@ -693,11 +647,7 @@ perform this extraction code. We will inspect the element to understand the
 structure that contains the links that we want, and then, via XPath, we will
 see if this structure exists:
 
-[![Comixology - Series - Collected Editions
-div](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05
-/comixology_2_X-series_collected-
-1024x351.jpg)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05
-/comixology_2_X-series_collected.jpg)
+[![Comixology - Series - Collected Editions div](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_X-series_collected-1024x351.jpg)](http://felipegalvao.com.br/blog/wp-content/uploads/2016/05/comixology_2_X-series_collected.jpg)
 
 Comixology - Series - Collected Editions div
 
@@ -1177,7 +1127,7 @@ And the final part of the function will be like this:
 And finally, to the last step! The extraction of information from each comic
 link.
 
-## The last step: extraction of information from comics
+## 最后一步：从comics提取信息
 
 The last step is relatively simple. We'll have to go into each comic link and
 extract all the information that is possible from these links. One of the
@@ -1508,7 +1458,7 @@ there is a clear element that contains this number. Let's see:
 And so, we complete the information gathering functions. Now, let's set a few
 things so that they all get linked.
 
-## Final Touches
+## 最后的润色
 
 We will need three more functions. The first will simply join the comics of
 the links, which are scattered in files, in a single list. The second function
