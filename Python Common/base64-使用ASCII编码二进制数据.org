@@ -1,0 +1,184 @@
+#+TITLE: base64-使用ASCII编码二进制数据
+#+AUTHOR: lujun9972
+#+CATEGORY: Python Common
+#+DATE: [2016-06-07 二 19:04]
+#+OPTIONS: ^:{}
+
+base64, base32, base16 和 base85 编码函数将8位字符转换为ASCII码的可打印字符, 这样可以让那些只支持ASCII的系统(例如SMTP)也可以传输任意二进制数据,代价是需要使用更多的比特来表示. 
+base后面的数字表示每次编码时使用的字母长度. 
+除了这些函数之外,还有URL安全的变体其使用的字母与原函数会有少许变化.
+
+* Base64的编码函数
+下面是一个编码文本的例子
+#+BEGIN_SRC python :tangle base64_b64encode.py
+  # base64_b64encode.py
+
+  import base64
+  import textwrap
+
+  # Load this source file and strip the header.
+  with open("base64_b64encode.py", 'r', encoding='utf-8') as input:
+      raw = input.read()
+      initial_data = raw.split('#end_pymotw_header')[1]
+
+  byte_string = initial_data.encode('utf-8')
+  encoded_data = base64.b64encode(byte_string)
+
+  num_initial = len(byte_string)
+
+  # There will never be more than 2 padding bytes.
+  padding = 3 - (num_initial % 3)
+
+  print('{} bytes before encoding'.format(num_initial))
+  print('Expect {} padding bytes'.format(padding))
+  print('{} bytes after encoding\n'.format(len(encoded_data)))
+  print(encoded_data)
+#+END_SRC
+
+#+RESULTS:
+: 394 bytes before encoding
+: Expect 2 padding bytes
+: 528 bytes after encoding
+: 
+: b'JylbMV0KCmJ5dGVfc3RyaW5nID0gaW5pdGlhbF9kYXRhLmVuY29kZSgndXRmLTgnKQplbmNvZGVkX2RhdGEgPSBiYXNlNjQuYjY0ZW5jb2RlKGJ5dGVfc3RyaW5nKQoKbnVtX2luaXRpYWwgPSBsZW4oYnl0ZV9zdHJpbmcpCgojIFRoZXJlIHdpbGwgbmV2ZXIgYmUgbW9yZSB0aGFuIDIgcGFkZGluZyBieXRlcy4KcGFkZGluZyA9IDMgLSAobnVtX2luaXRpYWwgJSAzKQoKcHJpbnQoJ3t9IGJ5dGVzIGJlZm9yZSBlbmNvZGluZycuZm9ybWF0KG51bV9pbml0aWFsKSkKcHJpbnQoJ0V4cGVjdCB7fSBwYWRkaW5nIGJ5dGVzJy5mb3JtYXQocGFkZGluZykpCnByaW50KCd7fSBieXRlcyBhZnRlciBlbmNvZGluZ1xuJy5mb3JtYXQobGVuKGVuY29kZWRfZGF0YSkpKQpwcmludChlbmNvZGVkX2RhdGEpCg=='
+
+b64函数只接受byte字符串,因此unicode格式的字符串必须首先被编码成UTF-8格式的byte字符串. 上面代码的输出结构显示,UTF-8格式的源字符串是394个字节,而转成BASE64格式后扩展为528个字节了.
+
+* Base64的解码函数
+b64decode() 将编码后的字符串转换回源格式, 方法是每次截取4个字节然后根据检查表将之转换成原始的3个字节的字符串.
+#+BEGIN_SRC python
+  # base64_b64decode.py
+
+  import base64
+
+  encoded_data = b'VGhpcyBpcyB0aGUgZGF0YSwgaW4gdGhlIGNsZWFyLg=='
+  decoded_data = base64.b64decode(encoded_data)
+  print('Encoded :', encoded_data)
+  print('Decoded :', decoded_data)
+#+END_SRC
+
+#+RESULTS:
+: Encoded : b'VGhpcyBpcyB0aGUgZGF0YSwgaW4gdGhlIGNsZWFyLg=='
+: Decoded : b'This is the data, in the clear.'
+
+编码的过程是每次从输入中读取24个比特(即3个字节),然后将这24个比特平均划分成4个字节,这4个字节就是转码后的输出结果.
+上面的例子中,输出结果最后插入了=号,这是因为原始字符串中的比特数并不能被24整除.
+
+b64decode()函数返回的结果是一个byte字符串. 若其结果已知是文本,则可以将该byte字符串转换为unicode对象. 然而,base64常常用于编码二进制数据,因此不能总是认为解码的结果就是文本.
+
+* URL-safe Variations
+
+由于莫的base64编码字母中包含了+和/, 而这两个字母存在于URL中, 因此常常需要使用其他字母来代替这两个字母.
+#+BEGIN_SRC python
+  # base64_urlsafe.py
+
+  import base64
+
+  encodes_with_pluses = b'\xfb\xef'
+  encodes_with_slashes = b'\xff\xff'
+
+  for original in [encodes_with_pluses, encodes_with_slashes]:
+      print('Original         :', repr(original))
+      print('Standard encoding:',
+            base64.standard_b64encode(original))
+      print('URL-safe encoding:',
+            base64.urlsafe_b64encode(original))
+      print()
+#+END_SRC
+
+#+RESULTS:
+: Original         : b'\xfb\xef'
+: Standard encoding: b'++8='
+: URL-safe encoding: b'--8='
+: 
+: Original         : b'\xff\xff'
+: Standard encoding: b'//8='
+: URL-safe encoding: b'__8='
+: 
+
+可以看到,结果中的+替换成了-,/替换成了_. 其他字母不变.
+
+* 其他的编码函数
+
+除了Base64以外,该模块还提供了函数以Base85, Base32或 Base16 (hex)格式编码数据.
+#+BEGIN_SRC python
+  # base64_base32.py
+
+  import base64
+
+  original_data = b'This is the data, in the clear.'
+  print('Original:', original_data)
+
+  encoded_data = base64.b32encode(original_data)
+  print('Encoded :', encoded_data)
+
+  decoded_data = base64.b32decode(encoded_data)
+  print('Decoded :', decoded_data)
+#+END_SRC
+
+#+RESULTS:
+: Original: b'This is the data, in the clear.'
+: Encoded : b'KRUGS4ZANFZSA5DIMUQGIYLUMEWCA2LOEB2GQZJAMNWGKYLSFY======'
+: Decoded : b'This is the data, in the clear.'
+
+Base32字母表包含了ASCII字符集中的26个大写字母以及2到7的数字.
+
+Base16函数则使用16进制字母来表示数据.
+#+BEGIN_SRC python
+  # base64_base16.py
+
+  import base64
+
+  original_data = b'This is the data, in the clear.'
+  print('Original:', original_data)
+
+  encoded_data = base64.b16encode(original_data)
+  print('Encoded :', encoded_data)
+
+  decoded_data = base64.b16decode(encoded_data)
+  print('Decoded :', decoded_data)
+#+END_SRC
+
+#+RESULTS:
+: Original: b'This is the data, in the clear.'
+: Encoded : b'546869732069732074686520646174612C20696E2074686520636C6561722E'
+: Decoded : b'This is the data, in the clear.'
+
+每次编码的字节数越少,编码后的结果就越大.
+
+Base85相关函数使用扩展的字母表,其在编码空格时比base64更有效率.
+#+BEGIN_SRC python
+  # base64_base85.py
+
+  import base64
+
+  original_data = b'This is the data, in the clear.'
+  print('Original    : {} bytes {!r}'.format(
+      len(original_data), original_data))
+
+  b64_data = base64.b64encode(original_data)
+  print('b64 Encoded : {} bytes {!r}'.format(
+      len(b64_data), b64_data))
+
+  b85_data = base64.b85encode(original_data)
+  print('b85 Encoded : {} bytes {!r}'.format(
+      len(b85_data), b85_data))
+
+  a85_data = base64.a85encode(original_data)
+  print('a85 Encoded : {} bytes {!r}'.format(
+      len(a85_data), a85_data))
+#+END_SRC
+
+#+RESULTS:
+: Original    : 31 bytes b'This is the data, in the clear.'
+: b64 Encoded : 44 bytes b'VGhpcyBpcyB0aGUgZGF0YSwgaW4gdGhlIGNsZWFyLg=='
+: b85 Encoded : 39 bytes b'RA^~)AZc?TbZBKDWMOn+EFfuaAarPDAY*K0VR9}'
+: a85 Encoded : 39 bytes b'<+oue+DGm>FD,5.A79Rg/0JYE+EV:.+Cf5!@<*t'
+
+有许多Base85编码函数的变体. 像Mercurial, git以及 PDF file 中使用的都是不同的变体. 
+Python 中包含了两种实现方法: b85encode()实现了Git和Mercurial中使用的版本,而a85encode()实现了Ascii85的变体,该变体用于PDF文件中.
+* Local Variables Setting
+# Local Variables:
+# org-babel-default-header-args:python: ((:results . "output") (:exports . "code") (:cache))
+# org-babel-python-command: "python3"
+# End:
