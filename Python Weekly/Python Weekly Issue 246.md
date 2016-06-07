@@ -29,7 +29,11 @@ SortedContainers在大规模上运行得相当好。本文在理论和实践层�
 
 [使用Pandas, Docker和OS(R)M，猜测神秘的旅游地点](http://nbviewer.jupyter.org/gist/mhermans/8c32eea0d5ec29e6b4329acbe7f0d3de)
 
+[中文版](../Science and Data Analysis/使用Pandas, Docker和OS(R)M来猜测神秘的旅行地.md)
+
 [带django教程的Facebook聊天机器人，又名笑话机器人](https://codeexperiments.quora.com/Facebook-chat-bot-aka-joke-bot-with-django-tutorial) 
+
+[中文版](../Django/带django教程的Facebook聊天机器人，又名笑话机器人.md)
 
 [使用人工智能来评估手写数学公式](http://www.willforfang.com/computer-vision/2016/4/9/artificial-intelligence-for-handwritten-mathematical-expression-evaluation)
 
