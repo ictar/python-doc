@@ -1,4 +1,5 @@
 #+TITLE: base64-使用ASCII编码二进制数据
+#+URL: https://pymotw.com/3/base64/
 #+AUTHOR: lujun9972
 #+CATEGORY: Python Common
 #+DATE: [2016-06-07 二 19:04]
