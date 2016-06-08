@@ -5,37 +5,39 @@
 #+DATE: [2016-06-07 二 19:04]
 #+OPTIONS: ^:{}
 
-First. The question is moot. It's a programming language. It's good for programming.
-When I push back, folks try to produce languages which exist only in certain pigeon holes.
+首先,上述问题是无意义的. Python是一门编程语言,当然它擅长于编程咯.
 
-"You know. PHP is for web and JavaScript runs in the browser. What's Python for?"
+When I push back, 人们常常为了一个特定的目的而发明一门语言.
 
-The PHP and JavaScript examples aren't helpful. That doesn't narrow the domain of problems for which Python is appropriate. It only shows that some languages have narrow domains.
+"你知道的. PHP是专为web而生的, JavaScript则仅仅在浏览器中执行. 那么Python是用来作什么的?"
 
-"You know. Objective-C and Swift are for iOS. What's the predominant place Python is used?"
+举PHP和JavaScript的例子并没有什么意义. 这两个例子并不意味着Python只适用于解决Web领域的问题,它们只能说明PHP和JavaScript只适用于Web领域的开发.
 
-Python also runs on iOS. I don't know if it has suitable bindings for building apps. If it does, that doesn't change my answer. It's good for programming.
+"你知道的. Objective-C 和 Swift 运行在 iOS上. 那么Python主要运行在哪个平台上呢?"
 
-"Java is used mainly for web apps, right? What about Python?"
+Python也可以运行在iOS上. 我不确定用Python创建app是否足够便利, 但即使足够便利, 我的答案也不会变: Python擅长于编程.
 
-Okay. At this point, the question has slipped from moot to ignorant.
+"Java主要用于搭建web app对吧? 那么Python呢?"
 
-Can we just set that aside? Can we move on?
+好吧. 到了这一步, 这个问题已经不仅仅是无聊了,简直就是愚蠢.
 
-If you want some useful insight, start here:
+我简直不想对这个问题做出回答.
+
+若你想知道这个问题的答案,请阅读下面的链接:
 
 http://web.eecs.umich.edu/~bchandra/courses/papers/Wirth_Design.pdf
 
-Yes, it's an essay from 1974. Parts of it are a little old-fashioned, but a lot of it is still rock-solid. For example, the idea of strongly-typed pointers is considered more-or-less standard now. It was debatable then. And Wirth's opinion continues to drive language design.
+是的,这是一篇1974年写的文章,里面的有些观点已经有些过时了, 但是其中大部分的观点依然有用. 
+例如,虽然有争议,但强类型指针的设计已经几乎成为业界标准了. Wirth的观点依然影像着程序语言的设计.
 
-Page 28 has the key points: features of a programming language. Enumerated by the inventor of Pascal, Modula, Oberon, and other languages too numerous to recall.
+该文的第28页中,Pascal,Modula,Oberon以及其他程序语言的发明人列举了一个程序语言的特征列表. 
 
-Some of the list is a little dated. "...different character sets...," for example, has been superseded by Unicode.
+列表中的某些特征已经过时了,例如关于多字符集的描述,由于Unicode的出现已经不重要了
 
-Also, the list is focused on compiled languages. Python is a dynamic language. It's interpreted. Yes, there's a compiler, but that's mostly an optimization of the source code. If you replace "compiler" with "run-time", the list stands up as a description of good languages.
+另外,这张特征列表也仅仅是针对编译语言来说的. 而Python是一门动态语言,它是解释型的. 虽然Python也有一个编译器,但是它的作用基本上也只是优化源代码而已. 若你将列表中的"编译器"替代为"运行时",则这个列表所描述的就是一个好语言应该具有哪些特性.
 
-I like this list because it helps characterize why Python works out so well. And why many other languages are also pretty good. It points up the reason why quirky languages like JavaScript (or even Ruby) are suspicious. Some of the points about efficiency are important topics for further discussion.
+我喜欢这张列表因为它能解释Python以及其他许多语言为什么如此优秀.  它也解释了为什么像JavaScript(甚至也包括Ruby)这样的语言看起来那么奇怪. 此外,其中一些关于效率的观点are important topics for further discussion.
 
-I often have to remind folks who work with Big Data that most of our processing is I/O bound. Python waits for the database somewhat more efficiently than Java. Why does Python wait more efficiently? Because it uses less memory. Sometimes this is a win.
+我常常提醒哪些搞大数据的家伙,处理大数据时最影响效率的地方在于I/O. Python在等待数据库结果时要比java稍微有效率一些. 为什么会这样呢? 这是因为Python消耗的内存更少.
 
-Let's not ask silly questions about a general-purpose language. Instead, let's benchmark solutions, and compare tangible performance numbers using real code.
+我们不要再提关于通用语言的愚蠢问题了. 我们所要做的是对各解决方案作基准测试.然后基于实际的代码来对比性能.
