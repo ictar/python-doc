@@ -1,5 +1,5 @@
 #+TITLE: 为什么用python重写shell-script
-#+URL: http://Fslott-softwarearchitect.blogspot.com%2F2016%2F06%2Fwhy-rewrite-shell-script-in-python.html
+#+URL: http://slott-softwarearchitect.blogspot.com/2016/06/why-rewrite-shell-script-in-python.html
 #+AUTHOR: lujun9972
 #+CATEGORY: Python Common
 #+DATE: [2016-06-07 二 19:04]
@@ -7,35 +7,34 @@
 
 Here's the actual quote:
 #+BEGIN_QUOTE
-    Why would you need to rewrite a working script in python ? 
-    Was there any business direction towards this ?
+    什么情况下你会需要用python重写工作脚本呢? 是否有任何商业上的原因?
 #+END_QUOTE
 
-This was an unexpected response. And unwelcome. I guess I called their baby ugly.
+我的回答可能让人厌恶.
 
-The short answer is that the shell script language is perhaps one of the worst programming languages ever invented. Okay. I suppose it's better than whitespace. Okay it's better than many others. See https://en.wikipedia.org/wiki/Esoteric_programming_language
+简单来说,我认为shell脚本语言恐怕是有史以来最糟糕的编程语言. 好吧,我想它比[[https://en.wikipedia.org/wiki/Whitespace_(programming_language)][whitespace]] 之类的其他语言(参见:https://en.wikipedia.org/wiki/Esoteric_programming_language )还是要好点的. 
 
-The longer answer is this:
+详细来说,有下面几个理由:
 
-+ There are (at least) three ksh scripts involved, two of which are over 1,000 lines long. It's not perfectly clear precisely what's involved. It's ksh. Code could come from a variety of places through very obscure paths; e.g. the source command and it's synonym, ..
-+ There are no comments other than #!/usr/bin/ksh and a few places where code is commented out. Without explanation.
-+ There is no other documentation. The author had sent a email describing the github repo. The repo lacked a README. It took two tries to get them to understand that any email describing a repo should have been the README in the repo. There is barely even a command-line synopsis. (Eventually, I found it in the parser for command-line options.)
-+ No tests of any kind.
++ 我手头上的项目中(至少)有三个ksh脚本是相互引用的,其中有两个脚本操作了1000行. 而且我还不是特别清楚他们之间的引用关系. 这是ksh. 所引用的代码可能来自任何莫名其妙的地方；例如source命令以及它的同义词`.'命令.
++ 脚本中,除了#!/usr/bin/ksh外,没有任何注释. 而且有些地方的代码被注释掉了但是没有写明为什么要注释掉.
++ 没有任何参考文档. 作者虽然有写过一封email来描述github仓库,但这个仓库本身缺少README. 很难让他们明白在仓库添加README的重要性. 仓库中甚至缺少命令行说明. (最终我是通过查看命令行选项的解析器来推测出该说明的)
++ 没有任何的测试.
 
-The last point is the one that I find shocking. And I find it shocking on a regular basis.
+最后一点尤其让我震惊. And I find it shocking on a regular basis.
 
-Folks are able and willing to write 1,000's of lines of shell script without a single unit test, integration test, system test, performance test, anything test. How do they know if this works? Why am I supposed to trust it?
+人们可能会并且原因编写一个上千行的脚本而不带任何单元测试, 集成测试, 系统测试, 性能测试甚至是任意一种测试. 我不能理解他们怎么知道这个脚本到底是否能正常工作? 我该如何相信这个脚本?
 
-More importantly, how can I meaningfully wrap this into a RESTful API if I'm not even sure what the command-line interface really is? It's the shell. It could use environment variables that are otherwise undocumented. They would be discovered when they cause a crash at run time. Crashes that become an HTTP 500 status code and a traceback error message in the web log.
+更重要的是,在都不知道命令行接口的情况,我怎么可能将之包装成一个RESTful API呢? shell还可能使用未说明的环境变量,这可能导致程序在运行时崩溃. 程序崩溃会引发一个HTTP 500 状态码的错误,并在日志中记录下错误信息.
 
-The "business direction" sounds like an attempt to trump the technical discussion with a business consideration like "cost" or "benefit". It should be pretty self-evident that 1,000's of lines of shell script code is technical debt.
+"商务导向"尝试从商务上成本与收益的角度来讨论技术方案. 从这个角度来说,这种1000行的shell脚本代码很明显是一种技术负债.
 
-The minimally viable replacement will probably be a similarly-sized of Python script that mindlessly mirrors the original shell script. It's sometimes quite hard to tell what purpose a shell function really serves. The endless use (and re-use) of global variables can make state change hard to follow. Also, the use of temporary files which are parsed (and reparsed) as a way to set state is a serious problem.
+最简单的解决方式恐怕就是使用类似的Python脚本来翻写原shell脚本了. 有时很难看懂一个shell函数到底是干嘛用的. 不停的使用(或重用)全局变量使得很难追踪程序状态的变更. 另外,使用临时文件作为设置状态的一种方式也是个很严重的问题.
 
-What's important is that the various OS services used by the shell script are mockable. Which means that each of the 100 or so individual functions within the script can be tested in isolation. Once that's out of the way, refactoring becomes plausible.
+重要的是,shell脚本中所用到的那些OS服务都是可仿真的. 这意味着这百来个函数可以单独的进行测试. 一旦完成了重写,重构也变得简单了.
 
-Let's savor those words for a moment: Tested. In. Isolation.
+让我们再回味一下这些单词: 可以 独立 测试
 
-Ahhh.
+哈哈哈.
 
-The better replacement is (I think) about 250 lines of Python -- perhaps less -- that perform the real 8-step process that we're automating. Getting rid of bash language cruft is challenging, but essential.
+最终重写的结果是只需250行或更少的python代码. 而且能实时地自动执行8个步骤. 摆脱垃圾的bash语言很有挑战性,但是却是必须的.
