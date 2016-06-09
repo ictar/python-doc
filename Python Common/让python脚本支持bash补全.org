@@ -1,0 +1,105 @@
+#+TITLE: 让python脚本支持bash补全
+#+URL: http://blog.endpoint.com/2016/04/adding-bash-completion-to-python-script.html
+#+AUTHOR: lujun9972
+#+CATEGORY: Python Common
+#+DATE: [2016-06-09 四 20:18]
+#+OPTIONS: ^:{}
+
+Bash有一项很有用的功能,就是当你在终端输入一个命令后,按两下 =<TAB>= 就会列出该命令支持的所有可能参数.
+
+在Liquid Galaxy软件中心,我们有一个脚本,可以让我们以ssh的方式通过一个特定隧道连接到我们的其中一个装置上. 这个脚本本身很复杂,但是大多数时候使用方法很简单. 下面这行命令可以让我通过一个特定的代理服务器连接到Liquid Galaxy上的机器.
+#+BEGIN_SRC sh
+  lg-ssh szymon
+#+END_SRC
+
+其中 =szymon= 为我的LG的名字, 是从我的chef节点定义文件中抽取出来的.
+
+该脚本还支持许多的其他参数,例如:
+#+BEGIN_SRC sh
+  lg-ssh --chef-directory --ssh-identity --ssh-tunnel-port
+#+END_SRC
+
+脚本支持的参数有两种格式: 一种是简单的字符串,还有一种是以--开头的参数
+
+为了让该python脚本支持bash补全,首先需要先写一个简单的python脚本来列出所有的chef node名称.
+#+BEGIN_SRC python
+  #!/usr/bin/env python
+
+  from sys import argv
+  import os
+  import json
+
+  if __name__ == "__main__":
+      pattern = ""
+      if len(argv) == 2:
+          pattern = argv[1]
+
+      chef_dir = os.environ.get('LG_CHEF_DIR', None)
+      if not chef_dir:
+          exit(0)
+      node_dirs = [os.path.join(chef_dir, "nodes"),
+                   os.path.join(chef_dir, "dev_nodes")]
+      node_names = []
+
+      for nodes_dir in node_dirs:
+          for root, dirs, files in os.walk(nodes_dir):
+              for f in files:
+                  try:
+                      with open(os.path.join(root, f), 'r') as nf:
+                          data = json.load(nf)
+                          node_names.append(data['normal']['liquid_galaxy']['support_name'])
+                  except:
+                      pass
+
+      for name in node_names:
+          print name
+#+END_SRC
+
+然后还需要一种方法来获取python脚本支持的所有选项. 我们可以通过下面这行代码实现:
+#+BEGIN_SRC sh
+  $LG_CHEF_DIR/repo_scripts/lg-ssh.py --help | grep '  --' | awk {'print $1'}
+#+END_SRC
+
+最后通过一个简单的bash脚本来整合上面两个脚本.
+#+BEGIN_SRC sh
+  _lg_ssh()
+  {
+      local cur prev opts node_names
+      COMPREPLY=()
+      cur="${COMP_WORDS[COMP_CWORD]}"
+      prev="${COMP_WORDS[COMP_CWORD-1]}"
+      opts=`$LG_CHEF_DIR/repo_scripts/lg-ssh.py --help | grep '  --' | awk {'print $1'}`
+      node_names=`python $LG_CHEF_DIR/repo_scripts/node_names.py`
+
+      if [[ ${cur} == -* ]] ; then
+          COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+          return 0
+      fi
+
+      COMPREPLY=( $(compgen -W "${node_names}" -- ${cur}) )
+  }
+
+  complete -F _lg_ssh lg-ssh
+  complete -F _lg_ssh lg-scp
+  complete -F _lg_ssh lg-ssh.py
+#+END_SRC
+
+最后,我们只需要在当前bash session中使用source命令加载该文件即可. 因此,我把下面这行添加到 =~/.bashrc= 中.
+#+BEGIN_SRC sh
+  source $LG_CHEF_DIR/repo_scripts/lg-ssh.bash-completion
+#+END_SRC
+
+至此,只要在终端中按两下 =<TAB>= 就会列出所有的补全选项了.
+#+BEGIN_EXAMPLE
+  $ lg-ssh 
+  Display all 129 possibilities? (y or n)
+  ... and here go all 129 node names ...
+
+  $ lg-ssh h
+  ... and here go all node names beginning with 'h' ...
+
+  $ lg-ssh --
+  .. and here go all the options beginning with -- ...
+#+END_EXAMPLE
+
+该实现最大的好处在于,任何对python script的修改或chef node名称的修改,都会自动反映出来.
