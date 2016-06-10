@@ -1,0 +1,72 @@
+#+TITLE: 如何创建记录异常日志的装饰器
+#+URL: http://www.blog.pythonlibrary.org/2016/06/09/python-how-to-create-an-exception-logging-decorator/
+#+AUTHOR: lujun9972
+#+CATEGORY: Python Common
+#+DATE: [2016-06-10 五 15:41]
+#+OPTIONS: ^:{}
+
+有一天,我突然想要创建一个用于捕获并记录一场的装饰器. 我在[[https://gist.github.com/diosmosis/1148066][Github]] 上发现一个颇为复杂的例子,该例子启发了我,并让我写下了以下代码:
+#+BEGIN_SRC python
+  # exception_decor.py
+  import logging
+
+  def create_logger():
+      """
+      Creates a logging object and returns it
+      """
+      logger = logging.getLogger("example_logger")
+      logger.setLevel(logging.INFO)
+      # create the logging file handler
+      fh = logging.FileHandler("/path/to/test.log")
+      fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+      formatter = logging.Formatter(fmt)
+      fh.setFormatter(formatter)
+      # add handler to logger object
+      logger.addHandler(fh)
+      return logger
+
+  def exception(function):
+      """
+      A decorator that wraps the passed in function and logs 
+      exceptions should one occur
+      """
+      def wrapper(*args, **kwargs):
+          logger = create_logger()
+          try:
+              return function(*args, **kwargs)
+          except:
+              # log the exception
+              err = "There was an exception in  "
+              err += function.__name__
+              logger.exception(err)
+          # re-raise the exception
+          raise
+      return wrapper
+#+END_SRC
+
+在这段代码中,定义了两个函数. 地一个函数创建并返回了一个logging对象. 第二个函数为我们的装饰器函数,其中我们将传入的函数包裹进一个try/except中,并使用logger记录下任何产生的异常. 同时你还会发现,我还记录下了产生异常的函数名.
+
+现在让我们测试一下这个装饰器. 创建一个新Python脚本并添加以下代码. 请确保这个新Python脚本与上面创建装饰器的脚本在同一个目录下.
+#+BEGIN_SRC python
+  from exception_decor import exception
+   
+  @exception
+  def zero_divide():
+      1 / 0
+   
+  if __name__ == '__main__':
+      zero_divide()
+#+END_SRC
+
+当你在命令行中运行该代码后,你会发现多除了一个日志文件,其内容为:
+#+BEGIN_EXAMPLE
+  2016-06-09 08:26:50,874 - example_logger - ERROR - There was an exception in  zero_divide
+  Traceback (most recent call last):
+    File "/home/mike/exception_decor.py", line 29, in wrapper
+      return function(*args, **kwargs)
+    File "/home/mike/test_exceptions.py", line 5, in zero_divide
+      1 / 0
+  ZeroDivisionError: integer division or modulo by zero
+#+END_EXAMPLE
+
+我觉得这份代码很方便,我希望你们大家也会觉得有用.
