@@ -45,6 +45,8 @@ ensembles可以为你的数据集提供一个精度的飞跃。在这篇文章�
 
 [记录每天数以百万计的请求以及需要采取哪些措施](http://engineering.hackerearth.com/2015/02/26/logging-millions-requests-what-it-takes/)
 
+[中文版](../Others/记录每天数以百万计的请求以及需要采取哪些措施.md)
+
 [构建一个数据科学文件夹：用数据讲故事](https://www.dataquest.io/blog/data-science-portfolio-project/)
 
 [误植域名编程语言包管理器](http://incolumitas.com/2016/06/08/typosquatting-package-managers/)
