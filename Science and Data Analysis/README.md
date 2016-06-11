@@ -24,3 +24,13 @@
 - [Matplotlib教程 - 绘制提到Trump, Clinton & Sanders的推特](./Matplotlib教程 - 绘制提到Trump, Clinton & Sanders的推特.md)
 
 	一篇手把手教你的Matplotlib教程，是一篇很不错的learn-by-doing的数据分析文章！！
+
+<<<<<<< HEAD
+- [使用Pandas, Docker和OS(R)M来猜测神秘的旅行地](./使用Pandas, Docker和OS(R)M来猜测神秘的旅行地.md)
+
+	如果你准备去某个神秘的地方玩，关于这个地方有几点提示，那么可以看看如何利用Pandas, Docker和OS(R)M科学有效的进行排除猜测。
+=======
+- [使用BigQuery和TensorFlow进行需求预测](./使用BigQuery和TensorFlow进行需求预测.md)
+
+	在本notebook中，我们将开发一个机器学习模型，用于预测对纽约的出租汽车需求。
+>>>>>>> pw_245

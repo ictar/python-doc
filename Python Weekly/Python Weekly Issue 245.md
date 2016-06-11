@@ -24,6 +24,8 @@ PyConIE 2016的建议征集现已开放。格式将由两个座谈轨迹和两�
 
 在这个notebook上，我们将开发一个机器学习模型来预测纽约的出租车需求。
 
+[中文版](../Science and Data Analysis/使用BigQuery和TensorFlow进行需求预测.md)
+
 [Episode #60：使用Ufora将Python缩放到1000个内核上](https://talkpython.fm/episodes/show/60/scaling-python-to-1000-s-of-cores-with-ufora)
 
 之前，在这个节目上，你听过我谈论到关于缩放Python和Python性能。但在这一集，我将带给你一个非常有趣的项目，对于某一类的应用，它将提高Python性能的上限。你将见到来自Ufora的Braxton McKee。他们开发了一个全新的Python运行时环境，该运行时环境关注于跨1000个CPU内核和甚至GPU，来水平扩展Python应用。他们将其称之为“为数据科学编译，自动并行的python”。

@@ -49,3 +49,12 @@ translate python documents to Chinese for convenient reference
 
 # 辅助工具
 - ` html2text --mark-code {url} > '{name}.md'`
+
+# 如何贡献
+- fork project and commit pull requests
+    * 全文翻译必须在文章开头加上原文地址
+- add/edit wiki
+- report/fix issue
+
+# 贡献者
+- [lujun9972](https://github.com/lujun9972)
