@@ -70,3 +70,74 @@
 #+END_EXAMPLE
 
 我觉得这份代码很方便,我希望你们大家也会觉得有用.
+
+UPDATE: 一个热心的读者提出，将代码泛化成从外界传递一个logger对象到装饰器会更好些. 那么然我们来看看如何实现它!
+
+* 传递logger到我们的装饰器中
+首先，将原始的代码中的logging代码拆到自己的模块中。 假设放到文件exception_logger.py中. 下面是源代码：
+#+BEGIN_SRC python
+  # exception_logger.py
+  import logging
+  def create_logger():
+      """
+      Creates a logging object and returns it
+      """
+      logger = logging.getLogger("example_logger")
+      logger.setLevel(logging.INFO)
+      # create the logging file handler
+      fh = logging.FileHandler(r"/path/to/test.log")
+      fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+      formatter = logging.Formatter(fmt)
+      fh.setFormatter(formatter)
+      # add handler to logger object
+      logger.addHandler(fh)
+      return logger
+  logger = create_logger()
+#+END_SRC
+
+然后我们修改装饰器代码，使之接受一个logger为参数并保存为exception_decor.py
+#+BEGIN_SRC python
+  # exception_decor.py
+ 
+  import functools
+ 
+ 
+  def exception(logger):
+      """
+      A decorator that wraps the passed in function and logs 
+      exceptions should one occur
+ 
+      @param logger: The logging object
+      """
+ 
+      def decorator(func):
+ 
+          def wrapper(*args, **kwargs):
+              try:
+                  return func(*args, **kwargs)
+              except:
+                  # log the exception
+                  err = "There was an exception in  "
+                  err += func.__name__
+                  logger.exception(err)
+ 
+              # re-raise the exception
+              raise
+          return wrapper
+      return decorator
+#+END_SRC
+
+你会发现我们定义了多层嵌套的函数。 请看仔细并理解其中的意思。 最后，我们需要修改一下测试的代码：
+#+BEGIN_SRC python
+  from exception_decor import exception
+  from exception_logger import logger
+ 
+  @exception(logger)
+  def zero_divide():
+      1 / 0
+ 
+  if __name__ == '__main__':
+      zero_divide()
+#+END_SRC
+
+代码中，我们导入了装饰器和logger对象。 然后我们将装饰器作用于要记录的函数，并且我们给该装饰器传递了一个logger对象。 你运行该测试代码后，会发现产生了与第一个测试相同的文件.
