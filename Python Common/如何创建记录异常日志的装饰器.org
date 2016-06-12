@@ -5,7 +5,7 @@
 #+DATE: [2016-06-10 五 15:41]
 #+OPTIONS: ^:{}
 
-有一天,我突然想要创建一个用于捕获并记录一场的装饰器. 我在[[https://gist.github.com/diosmosis/1148066][Github]] 上发现一个颇为复杂的例子,该例子启发了我,并让我写下了以下代码:
+有一天,我突然想要创建一个用于捕获并记录异常的装饰器. 我在[[https://gist.github.com/diosmosis/1148066][Github]] 上发现一个颇为复杂的例子,该例子启发了我,并让我写下了以下代码:
 #+BEGIN_SRC python
   # exception_decor.py
   import logging
@@ -44,7 +44,7 @@
       return wrapper
 #+END_SRC
 
-在这段代码中,定义了两个函数. 地一个函数创建并返回了一个logging对象. 第二个函数为我们的装饰器函数,其中我们将传入的函数包裹进一个try/except中,并使用logger记录下任何产生的异常. 同时你还会发现,我还记录下了产生异常的函数名.
+在这段代码中,定义了两个函数. 第一个函数创建并返回了一个logging对象. 第二个函数为我们的装饰器函数,其中我们将传入的函数包裹进一个try/except中,并使用logger记录下任何产生的异常. 同时你还会发现,我还记录下了产生异常的函数名.
 
 现在让我们测试一下这个装饰器. 创建一个新Python脚本并添加以下代码. 请确保这个新Python脚本与上面创建装饰器的脚本在同一个目录下.
 #+BEGIN_SRC python
@@ -58,7 +58,7 @@
       zero_divide()
 #+END_SRC
 
-当你在命令行中运行该代码后,你会发现多除了一个日志文件,其内容为:
+当你在命令行中运行该代码后,你会发现多出了一个日志文件,其内容为:
 #+BEGIN_EXAMPLE
   2016-06-09 08:26:50,874 - example_logger - ERROR - There was an exception in  zero_divide
   Traceback (most recent call last):

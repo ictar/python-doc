@@ -13,7 +13,7 @@
 
 让我们开始吧.
 
-首先,从Python标准哭中导入并查看一下随机模块包含了那些内容
+首先,从Python标准库中导入并查看一下随机模块包含了哪些内容
 #+BEGIN_SRC python
   import random
   dir(random)
