@@ -33,6 +33,9 @@ translate python documents to Chinese for convenient reference
 ## 科学计算和数据分析
 - [Science and Data Analysis](./Science and Data Analysis)
 
+## 自然语言处理
+- [NLP](./NLP)
+
 ## 函数式编程
 - [Functional Programming](./Functional Programming)
 
