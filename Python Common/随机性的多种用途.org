@@ -1,0 +1,169 @@
+#+TITLE: 随机性的多种用途
+#+URL: http://jugad2.blogspot.jp/2016/06/the-many-uses-of-randomness.html
+#+AUTHOR: lujun9972
+#+CATEGORY: Python Common
+#+DATE: [2016-06-10 五 14:42]
+#+OPTIONS: ^:{}
+
+[[https://en.wikipedia.org/wiki/Random_number_generation][计算机随机数生成器 ]](RNGs)[fn:1] 有很多用途. 最近在教授一次程序课时,我演示了随机数的一种用法,本来我觉得这是很普遍的一种用法,结果居然有一位参与者对这种用法表示很惊奇. 这件事情使得我意识到,对于许多初学者,甚至有些富有经验的程序员来说,恐怕对于随机数的很多用法都不是很熟悉.
+
+因此我想到了写这篇博客, 这里我会演示随机数的一些用法. 这里的例子使用的是python语言,但是其原理和概念也可以被借用于其他编程语言--只要它也能产生随机数.
+
+注意: 所有关于随机数的使用方法,都无需用到什么高深的数学知识.
+
+让我们开始吧.
+
+首先,从Python标准库中导入并查看一下随机模块包含了哪些内容
+#+BEGIN_SRC python
+  import random
+  dir(random)
+#+END_SRC
+
+#+RESULTS:
+: 
+: ['BPF', 'LOG4', 'NV_MAGICCONST', 'RECIP_BPF', 'Random', 'SG_MAGICCONST', 'SystemRandom', 'TWOPI', 'WichmannHill', '_BuiltinMethodType', '_MethodType', '__all__', '__builtins__', '__doc__', '__file__', '__name__', '__package__', '_acos', '_ceil', '_cos', '_e', '_exp', '_hashlib', '_hexlify', '_inst', '_log', '_pi', '_random', '_sin', '_sqrt', '_test', '_test_generator', '_urandom', '_warn', 'betavariate', 'choice', 'division', 'expovariate', 'gammavariate', 'gauss', 'getrandbits', 'getstate', 'jumpahead', 'lognormvariate', 'normalvariate', 'paretovariate', 'randint', 'random', 'randrange', 'sample', 'seed', 'setstate', 'shuffle', 'triangular', 'uniform', 'vonmisesvariate', 'weibullvariate']
+
+我们可以看到,该模块中包含了许多函数以及包括重要数学常量(例如_e为数学常量e,_pi为数学常量pi. 这两个常量也可以在math模块中找到,分别为math.e和math.pi)在内的其他属性.
+
+在本篇博文中,我需要展示的是random()函数的一些使用方法. 该函数是random模块中最基础的几个函数之一. 也许在以后的博文中,我还会接着演示其他函数及其在其他领域的使用方式.
+
+让我们来输出一下random函数的文档说明字符串:
+#+BEGIN_SRC python
+  print random.random.__doc__
+#+END_SRC
+
+#+RESULTS:
+: random() -> x in the interval [0, 1).
+
+可以看到,该函数返回一个处于半闭区间[0,1)的随机浮点数, 即随机的一个x,满足0.0<=x<1.0
+
+下面是一个名为fn_random.py的程序,演示了random()函数的一些用法:
+#+BEGIN_SRC python :session "none"
+  from __future__ import print_function
+
+  # fn_random.py
+  # A program showing various uses of the "random" function 
+  # from the "random" module of Python's standard library.
+  # Author: Vasudev Ram - https://vasudevram.github.io
+  # Copyright 2016 Vasudev Ram
+
+  from random import random
+  from random import getstate, setstate
+
+  print("Ex. 1. Plain calls to random():")
+  print("Gives 10 random float values in the interval [0, 1).")
+  for i in range(10):
+      print(random())
+
+  print()
+
+  print("Ex. 2. Calls to random() scaled by 10:")
+  print("Gives 10 random float values in the interval [0, 10).")
+  for i in range(10):
+      print(10.0 * random())
+
+  print()
+
+  print("Ex. 3. Calls to random() scaled by 10 and offset by -5:")
+  print("Gives 10 random float values in the interval [-5, 5).")
+  for i in range(10):
+      print(10.0 * random() - 5.0)
+
+  print()
+
+  print("Ex. 4. Calls to random() scaled by 20 and offset by 40:")
+  print("Gives 10 random float values in the interval [40, 60).")
+  for i in range(10):
+      print(20.0 * random() + 40.0)
+#+END_SRC
+
+下面是该程序的运行输出:
+#+BEGIN_EXAMPLE
+  python fn_random.py
+
+  Ex. 1. Plain calls to random():
+  Gives 10 random float values in the interval [0, 1).
+  0.978618769308
+  0.429672807728
+  0.807873374428
+  0.00775248310523
+  0.367435959496
+  0.452718276649
+  0.15952248582
+  0.183989787263
+  0.240112681717
+  0.873556193781
+
+  Ex. 2. Calls to random() scaled by 10:
+  Gives 10 random float values in the interval [0, 10).
+  8.66851830984
+  8.06203422551
+  6.68791916223
+  6.83023335837
+  2.28298961244
+  5.06491614858
+  9.27404238781
+  2.30473573581
+  7.62983863372
+  7.18179372151
+
+  Ex. 3. Calls to random() scaled by 10 and offset by -5:
+  Gives 10 random float values in the interval [-5, 5).
+  4.28960887925
+  -1.48913007202
+  -0.534170376124
+  3.36741617894
+  -3.50802287142
+  1.46218930484
+  -3.37237288568
+  -2.49675571636
+  -3.56593768859
+  -1.49924682779
+
+  Ex. 4. Calls to random() scaled by 20 and offset by 40:
+  Gives 10 random float values in the interval [40, 60).
+  56.4292882009
+  40.888150119
+  56.867782498
+  58.3162130934
+  41.642982556
+  40.8419833357
+  52.3684662857
+  45.3000297458
+  43.1515262997
+  52.1129658036
+#+END_EXAMPLE
+
+上面的程序演示了如何通过乘法和加法将random()返回的原本处于0到1之间的值,转换为其他区间的值.
+
+注意上面程序中4个部分输出的值都是完全不一样的,即使将乘法和加法的运算因素算在内也是完全不同的. 例如,第二个部分输出的值并不都是第一个部分输出值的10倍--虽然从代码上看,第二部分与第一部分唯一不同点就在于乘以了一个10.
+产生这个结果的原因是因为,随机数是通过遍历一个很长的序列来产生的,即序列前10个值作为第一部分代码的输出,而后10个值作为第二部分代码的输出.
+
+若我们希望四个部分所产生的随机数一样怎么办呢(不算上乘法与加法造成的差异)?例如在有些科学与统计实验中,需要不断重复同一样的数据. 一个很直观的办法就是将第一次产生的随机数保持下来,然后在之后的代码中使用保存下来的这些随机数.
+
+但是通过模块中的getstate()和setstate()函数,我们也能实现这一点.
+
+首先将这一行放在Ex.1的代码前.
+#+BEGIN_SRC python
+state = random.getstate()
+#+END_SRC
+
+然后将下行放在Ex.2到Ex.4的代码前.
+Then put this line:
+#+BEGIN_SRC python
+random.setstate(state)
+#+END_SRC
+
+然后你会很神奇的发现,四个部分的代码所生成的随机数是一样的(不算上乘法与加法造成的差异).
+
+在以后的博文中,我还会展示随机数的其他用法,例如可以用来对字符串做一些事情,敬请期待吧.
+
+* Footnotes
+
+[fn:1] 严格来说,这些都是尾随机数(PRNGs),但是为了简便,让我们就认为是真正的随机数吧.
+
+* Local Variables Setting
+# Local Variables:
+# org-babel-default-header-args:python: ((:session . "random") (:results . "output") (:exports . "both") (:cache))
+# org-babel-python-command: "python3"
+# End:
