@@ -36,6 +36,9 @@ translate python documents to Chinese for convenient reference
 ## 自然语言处理
 - [NLP](./NLP)
 
+## 机器学习
+- [Machine Learning](./Machine Learning)
+
 ## 函数式编程
 - [Functional Programming](./Functional Programming)
 
