@@ -37,6 +37,8 @@ ensembles可以为你的数据集提供一个精度的飞跃。在这篇文章�
 
 在本教程中，我们将提出几个简单但是有效的方法，你可以只用很少的训练样本就可以构建一个强大的图像分类器 —— 只需你想要识别的每个类中几百或几千图片。
 
+[中文版](../Machine Learning/使用非常少的数据构建强大的图像分类模型.md)
+
 [Python大肆宣传调查结果](https://www.linkedin.com/pulse/python-hype-survey-results-experience-any-drastic-decline-brian-ray)
 
 任何时候，Python的受欢迎程度都将不会经历任何极具下降。
