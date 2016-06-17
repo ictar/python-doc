@@ -7,3 +7,4 @@
 - [Issue 245](./Python Weekly Issue 245.md)
 - [Issue 246](./Python Weekly Issue 246.md)
 - [Issue 247](./Python Weekly Issue 247.md)
+- [Issue 248](./Python Weekly Issue 248.md)
