@@ -8,13 +8,12 @@
 
 [![](https://gallery.mailchimp.com/72f68dcee17c92724bc7822fb/images/a7efe9e7-ad6c-40b1-88e4-aad1f91af194.png)](http://hrd.cm/1OcLAGQ)
 
-**Python**开发者有需求市场，所以不应该是公司像你申请吗？在Hired，这就是它如何运作的。仅需一次申请，就可获得来自像Uber, Square, 和Facebook这样的公司的5+个工作offer。[今天就加入Hired吧](http://hrd.cm/1OcLAGQ)，一旦你获得一份工作，就可以得到**$1,000红利**！
+**Python**开发者有需求市场，所以不应该是公司向你申请吗？在Hired，这就是它如何运作的。仅需一次申请，就可获得来自像Uber, Square, 和Facebook这样的公司的5+个工作offer。[今天就加入Hired吧](http://hrd.cm/1OcLAGQ)，一旦你获得一份工作，就可以得到**$1,000红利**！
 
 # 新闻
 
 [PyCon JP 2016征集建议](https://pycon.jp/2016/en/talks/cfp/)
 
-Please apply even if you’re not using Python regularly, as long as you’re involved in the broader Python community.
 今年再次，从2016年9月20日到22日，我们将在日本举行最大的Python开发者聚会 —— PyCon JP 2016。PYCON JP团队的所有成员希望能吸引多样化的演讲者和主题。与去年一样，我们正在为我们的谈话部分（长度30或45分钟）、广告部分和快速演讲部分征集建议。即使你不经常使用Python，但只要你参与到更广泛的Python社区中，那么请申请！
 
 
@@ -66,8 +65,7 @@ Please apply even if you’re not using Python regularly, as long as you’re in
 
 [设置深度学习硬件时的注意事项](http://www.pyimagesearch.com/2016/06/13/considerations-when-setting-up-deep-learning-hardware/)
 
-[Python中一个简单的基于内容的推荐引擎](http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html)
-
+[Python中一个简单的基于内容的推荐引擎](http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html) ([中文版](../Science and Data Analysis/Python中一个简单的基于内容的推荐引擎.md))
 
 # 本周的Python工作
 

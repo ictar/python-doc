@@ -32,3 +32,5 @@
 - [使用BigQuery和TensorFlow进行需求预测](./使用BigQuery和TensorFlow进行需求预测.md)
 
 	在本notebook中，我们将开发一个机器学习模型，用于预测对纽约的出租汽车需求。
+
+- [Python中一个简单的基于内容的推荐引擎](Python中一个简单的基于内容的推荐引擎.md)
