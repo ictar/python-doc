@@ -61,7 +61,7 @@
 
 [用变分推理估计PyMC3中的神经网络](http://twiecki.github.io/blog/2016/06/01/bayesian-deep-learning/)
 
-[在Python中实现你自己的推荐系统](http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-your-own-recommender-systems-in-python-2) 
+[在Python中实现你自己的推荐系统](http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-your-own-recommender-systems-in-python-2) [../Science and Data Analysis/在Python中实现你自己的推荐系统.md]
 
 [设置深度学习硬件时的注意事项](http://www.pyimagesearch.com/2016/06/13/considerations-when-setting-up-deep-learning-hardware/)
 
