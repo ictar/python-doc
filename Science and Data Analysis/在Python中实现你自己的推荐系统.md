@@ -244,7 +244,7 @@
     
 ```
 
-草草解决只有相对较少为人所知的问题是非常容易出现的过度拟合。SVD可能会非常缓慢，并且计算成本比较高。更近期的工作通过应用交替最小二乘或随机梯度下降最小化平方误差，并使用正则项以防止过 ​​度拟合。你可以看到我们之前的一个关于随机梯度下降的[教程]((<http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-logistic-regression-classifier-trained-by-gradient-descent-4>)，以获取更多详细信息。用于CF的交替最小二乘和随机梯度下降的方法将在未来的教程中介绍。
+草草解决只有相对较少为人所知的问题是非常容易出现的过度拟合。SVD可能会非常缓慢，并且计算成本比较高。更近期的工作通过应用交替最小二乘或随机梯度下降最小化平方误差，并使用正则项以防止过 ​​度拟合。你可以看到我们之前的一个关于随机梯度下降的[教程](http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-logistic-regression-classifier-trained-by-gradient-descent-4)，以获取更多详细信息。用于CF的交替最小二乘和随机梯度下降的方法将在未来的教程中介绍。
 
 总结一下：
 
