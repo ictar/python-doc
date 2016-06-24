@@ -41,7 +41,7 @@
 
 确保你的代码是安全是一项艰巨的任务。在这一集里，我们与Eric Brown, Travis McPeak, 和Tim Kelsey聊聊他们关于Bandit库的工作，Bandit是一个静态分析引擎，它可以帮助你在应用部署到生产之前找到潜在的漏洞。我们讨论了它是如何工作的，如何基于你的应用量身打造，以及为什么要创建它。听一听，然后开始扫描你的项目吧！
 
-[Scrapy技巧：2016年六月版](https://blog.scrapinghub.com/2016/06/22/scrapy-tips-from-the-pros-june-2016/)
+[Scrapy技巧：2016年六月版](https://blog.scrapinghub.com/2016/06/22/scrapy-tips-from-the-pros-june-2016/) [中文版](../Scrapy/Scrapinghub的Scrapy技巧系列/Scrapy技巧：2016年六月版.md)
 
 在单页应用以及每页具有大量AJAX请求的时代，很多网站已经用花哨的无限滚动机制取代了“前一个/下一个”分页按钮。使用这种技术的网站每当用户滚动到页面的底部的时候加载新项（想想微博，Facebook，谷歌图片）。这篇文章介绍了如何以一种非常直接的方式，从无限滚动页面上抓取数据。
 
