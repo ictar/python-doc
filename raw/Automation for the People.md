@@ -17,7 +17,7 @@ impression that the command line interface was nothing but a dying remnant of ti
 My journey to some semblance of automation is filled with pitfalls and embarassing tales
 of my own incompetence, and I hope to share these tales with you. 
 
-## Bash Scripting
+## bash脚本编程
 
 One of the pitfalls of interacting with a command-line system is that every complicated
 interaction takes an equally complicated command to invoke - and for commands that I might
@@ -210,12 +210,9 @@ to handle all of their fiddly installation steps by hand.
 
 ## Ansible
 
-Fabric is great, but there are a few things it doesn't do particularly well.
+Fabric很棒，但有几件事它做的没那么漂亮。
 
-While debugging the Fabric tasks, I'd run
-the tasks on the same server again and again and again, and each time it would
-start from the beginning and run the whole script. If there was a slow step, 
-it could add hours to my debugging process. 
+在调试Fabric任务时，我在同一个服务器一遍又一遍的运行任务，而每一次它都会从头开始，运行整个脚本。如果有一个步骤很慢，那么它将会拖慢我的调试过程。
 
 Which meant that I would just comment out large chunks of my scripts as I worked
 on them, testing out the "head" of the script while I left the tail commented
@@ -253,7 +250,7 @@ Ansible also contains, amongst other things, a full-featured
 templating system for creating configuration files, and a password
 store with two-way encryption to stash important configuration credentials. 
 
-Ansible solves a lot of problems.
+Ansible解决了很多问题。
 
 ## Invoke
 
@@ -309,11 +306,11 @@ rest of the application.
 Invoke has many more features, but covering them all would be beyond the scope
 of this already over-long blog post.
 
-## Conclusion
+## 结论
 
 Clearly, my journey towards repeatable, useful project automation still
 has a long way to go, but I've definitely found some very useful tools
-in the intersection between `invoke` and `ansible`. 
+in the intersection between `invoke`和`ansible`. 
 
 We get all of the composability of Python, all of the practicality 
 of Ansible, and all of the convenience of a task runner. 
@@ -321,11 +318,10 @@ of Ansible, and all of the convenience of a task runner.
 ## P.S.
 
 One final gripe: Invoke supports Python 3 beautifully, but Ansible is still
-tied to the Python Dark Ages of Python 2, so in order to run both Invoke and
-Python together, we must accept an inferior Python.
+tied to the Python Dark Ages of Python 2, so in order to run both Invoke和Python together, we must accept an inferior Python.
 
-Darn it. 
+该死。 
 
 ## P.P.S.
 
-As far as I can tell, Javascript doesn't have anything like this. The closest I can find is `gulp`. Am I going to have to settle for `gulp`? Yegh. 
+据我所知，Javascript没有像这样的东东。我能找到最接近的东西是`gulp`。难道我将不得不满足于`gulp`吗？Yegh. 
