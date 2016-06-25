@@ -45,7 +45,7 @@
 
 在单页应用以及每页具有大量AJAX请求的时代，很多网站已经用花哨的无限滚动机制取代了“前一个/下一个”分页按钮。使用这种技术的网站每当用户滚动到页面的底部的时候加载新项（想想微博，Facebook，谷歌图片）。这篇文章介绍了如何以一种非常直接的方式，从无限滚动页面上抓取数据。
 
-[教程：手把手教你构建一个基本的Facebook聊天机器人](https://blog.hartleybrody.com/fb-messenger-bot/)
+[教程：手把手教你构建一个基本的Facebook聊天机器人](https://blog.hartleybrody.com/fb-messenger-bot/) [中文版](../Others/教程：手把手教你构建一个基本的Facebook聊天机器人.md)
 
 在本教程中，我将告诉你如何在python中构建你自己的Facebook Messenger聊天机器人。我们会使用Flask进行一些基本的web请求处理，然后我们将部署该应用到Heroku。
 
