@@ -55,7 +55,7 @@
 
 [使用OpenCV检测图像中的猫](http://www.pyimagesearch.com/2016/06/20/detecting-cats-in-images-with-opencv/)
 
-[为人民服务的自动化](https://gist.github.com/classam/9e07a36aa63624ca2dda75a1367a53c6)
+[我的自动化之旅：为人民服务的自动化](https://gist.github.com/classam/9e07a36aa63624ca2dda75a1367a53c6) [中文版](../Others/我的自动化之旅：为人民服务的自动化.md)
 
 [你最喜爱的Python怪癖是啥？](https://www.reddit.com/r/Python/comments/4oje6w/whats_your_favorite_python_quirk/)
 
