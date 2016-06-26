@@ -41,11 +41,11 @@
 
 确保你的代码是安全是一项艰巨的任务。在这一集里，我们与Eric Brown, Travis McPeak, 和Tim Kelsey聊聊他们关于Bandit库的工作，Bandit是一个静态分析引擎，它可以帮助你在应用部署到生产之前找到潜在的漏洞。我们讨论了它是如何工作的，如何基于你的应用量身打造，以及为什么要创建它。听一听，然后开始扫描你的项目吧！
 
-[Scrapy技巧：2016年六月版](https://blog.scrapinghub.com/2016/06/22/scrapy-tips-from-the-pros-june-2016/)
+[Scrapy技巧：2016年六月版](https://blog.scrapinghub.com/2016/06/22/scrapy-tips-from-the-pros-june-2016/) [中文版](../Scrapy/Scrapinghub的Scrapy技巧系列/Scrapy技巧：2016年六月版.md)
 
 在单页应用以及每页具有大量AJAX请求的时代，很多网站已经用花哨的无限滚动机制取代了“前一个/下一个”分页按钮。使用这种技术的网站每当用户滚动到页面的底部的时候加载新项（想想微博，Facebook，谷歌图片）。这篇文章介绍了如何以一种非常直接的方式，从无限滚动页面上抓取数据。
 
-[教程：手把手教你构建一个基本的Facebook聊天机器人](https://blog.hartleybrody.com/fb-messenger-bot/)
+[教程：手把手教你构建一个基本的Facebook聊天机器人](https://blog.hartleybrody.com/fb-messenger-bot/) [中文版](../Others/教程：手把手教你构建一个基本的Facebook聊天机器人.md)
 
 在本教程中，我将告诉你如何在python中构建你自己的Facebook Messenger聊天机器人。我们会使用Flask进行一些基本的web请求处理，然后我们将部署该应用到Heroku。
 
@@ -55,7 +55,7 @@
 
 [使用OpenCV检测图像中的猫](http://www.pyimagesearch.com/2016/06/20/detecting-cats-in-images-with-opencv/)
 
-[为人民服务的自动化](https://gist.github.com/classam/9e07a36aa63624ca2dda75a1367a53c6)
+[我的自动化之旅：为人民服务的自动化](https://gist.github.com/classam/9e07a36aa63624ca2dda75a1367a53c6) [中文版](../Others/我的自动化之旅：为人民服务的自动化.md)
 
 [你最喜爱的Python怪癖是啥？](https://www.reddit.com/r/Python/comments/4oje6w/whats_your_favorite_python_quirk/)
 
