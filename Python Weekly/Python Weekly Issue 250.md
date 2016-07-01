@@ -9,7 +9,7 @@
  
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/6a426b27-541e-4bd7-b621-23ccdc662301.jpg)](http://www.amazon.com/gp/product/B0185367JQ/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B0185367JQ&amp;linkCode=as2&amp;tag=mymerch-20&amp;linkId=OLIXWD4WZ5X6FFHD)
 
-嘿，Python粉，你想要表达你对**Python**的爱吗？那么，[点击这里](http://www.amazon.com/gp/product/B0185367JQ/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B0185367JQ&amp;linkCode=as2&amp;tag=mymerch-20&amp;linkId=OLIXWD4WZ5X6FFHD)，获取你对T恤，骄傲地穿上它吧。
+嘿，Python粉，你想要表达你对**Python**的爱吗？那么，[点击这里](http://www.amazon.com/gp/product/B0185367JQ/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B0185367JQ&amp;linkCode=as2&amp;tag=mymerch-20&amp;linkId=OLIXWD4WZ5X6FFHD)，获取你的T恤，骄傲地穿上它吧。
 
 
 # 文章，教程和讲座
