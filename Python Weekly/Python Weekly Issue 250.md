@@ -30,7 +30,7 @@ Armin Ronacher是Python软件生态圈的一个多产贡献者，他创造了诸
 
 本文展示了如何使用Plotly和Python，在3D中绘制客户服务指标。
 
-[分析权力游戏图表](http://www.lyonwj.com/2016/06/26/graph-of-thrones-neo4j-social-network-analysis/)
+[分析权力游戏图表](http://www.lyonwj.com/2016/06/26/graph-of-thrones-neo4j-social-network-analysis/) | [中文版](../Science and Data Analysis/分析权力游戏图表.md)
 
 [使用Python探索NFL选秀](http://savvastjortjoglou.com/nfl-draft.html)
 
