@@ -10,3 +10,4 @@
 - [Issue 248](./Python Weekly Issue 248.md)
 - [Issue 249](./Python Weekly Issue 249.md)
 - [Issue 250](./Python Weekly Issue 250.md)
+- [Issue 251](./Python Weekly Issue 251.md)
