@@ -21,3 +21,6 @@
 
     无人机盛行的当下，想看看如何用node.js和python对其进行编程，做一些好玩的事情吗？看看作者如何玩玩这一big toy吧！（搞得我也想玩了，但是无人机还是有点贵呢……）
 
+- [旅程中带着Ipad Pro和Raspberry Pi备份照片](./旅程中带着Ipad Pro和Raspberry Pi备份照片.md)
+
+	很久以来，Lenin都一直在寻求找到一个理想的旅行照片备份解决方法。然后他发现，Ipad Pro+Raspberry Pi是个不错的方案。
