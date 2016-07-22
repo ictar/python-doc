@@ -37,7 +37,7 @@
 
 [我勒个去，怎样构建一个Django, Django REST Framework, Angular 1.1.x和Webpack项目？](http://gregblogs.com/how-the-do-i-build-a-django-django-rest-framework-angular-1-1-x-and-webpack-project/)
 
-[使用str.encode和threads冻结你的Python](https://blog.sqreen.io/freeze-python-str-encode-threads/)
+[使用str.encode和threads冻结你的Python](https://blog.sqreen.io/freeze-python-str-encode-threads/) [中文版](../Others/使用str.encode和threads冻结你的Python.md)
 
 [预览用于AWS的Python无服务器微框架](https://medium.com/@raiderrobert/how-to-make-a-webhook-receiver-in-django-1ce260f4efff)
 

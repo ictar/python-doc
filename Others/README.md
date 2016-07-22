@@ -93,3 +93,7 @@
 - [实用Python：EAFP VS. LBYL](./实用Python：EAFP VS. LBYL.md)
 
     你在本文中应该获得的关键是，EAFP在Python中是一种合法的编码风格，并且当其有意义时，你应该随意使用它。
+
+- [使用str.encode和threads冻结你的Python](./使用str.encode和threads冻结你的Python.md)
+
+    导入锁与线程的爱恨情仇，又一个使用Python 3的理由。
