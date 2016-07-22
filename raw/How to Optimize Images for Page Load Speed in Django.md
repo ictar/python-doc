@@ -6,16 +6,12 @@ Getting websites to load quickly is a consistent battle, as page sizes have
 ballooned over time. Back in 2011, we were dealing with sites that were
 averaging 700KB in size, and thought to be a bit extreme.
 
-Now we’re dealing with sites that are routinely 2MB or higher. [That is the
-size of Doom](http://www.wired.com/2016/04/average-webpage-now-size-original-
-doom/), a video game from the mid 90s.
+Now we’re dealing with sites that are routinely 2MB or higher. [这是Doom的大小](http://www.wired.com/2016/04/average-webpage-now-size-original-doom/), a video game from the mid 90s.
 
 The main driver of most of this bloat is images. In June 2011, the average
-site had 480KB of images, and [now the average is 1.4MB](http://httparchive.or
-g/trends.php?s=All&minlabel=Jun+15+2011&maxlabel=Jun+15+2016).  
+site had 480KB of images, and [现在平均是1.4MB](http://httparchive.org/trends.php?s=All&minlabel=Jun+15+2011&maxlabel=Jun+15+2016).  
   
-![](https://s3.amazonaws.com/twc-
-worthwhile/uploads/zinnia/2016/07/11/graph.png)
+![](https://s3.amazonaws.com/twc-worthwhile/uploads/zinnia/2016/07/11/graph.png)
 
 Clearly, images are the main performance killer. But clients and their users
 routinely demand experiences that force software developers to come up with
@@ -36,22 +32,17 @@ display it at the maximum resolution we could get.
 For instance, when a user uploads a 6016 x 3376 image that is 7MB, you really
 shouldn’t serve that same resolution back to any user. That’s because the
 highest common size you could possibly get is 2560x1440, 1% of market
-[according to w3
-schools](http://www.w3schools.com/browsers/browsers_resolution_higher.asp).
-Realistically, your upper maximum ought to be 1920x1080, because [that browser
-has the most market share
-(18%)](http://www.w3schools.com/browsers/browsers_display.asp) of a large
+[根据w3 schools](http://www.w3schools.com/browsers/browsers_resolution_higher.asp).
+Realistically, your upper maximum ought to be 1920x1080, because [that browser has the most market share (18%)](http://www.w3schools.com/browsers/browsers_display.asp) of a large
 size.
 
-For the Django community, a popular package for reducing image size is [Sorl-
-thumbnail](https://github.com/mariocesar/sorl-thumbnail). It can help by
+For the Django community, a popular package for reducing image size is [Sorl-thumbnail](https://github.com/mariocesar/sorl-thumbnail). It can help by
 generating and then caching server side an appropriately sized image.
 
 ##### Installation and Settings Configuration
 
 You can get the code for the latest stable release using 'pip'. (As always,
-for a real project, be sure to use a [requirements
-file](https://devcenter.heroku.com/articles/python-pip) and
+for a real project, be sure to use a [requirements file](https://devcenter.heroku.com/articles/python-pip) and
 [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/), which
 are just good python practices in general.)
 
@@ -109,8 +100,7 @@ this import at 1920px wide based on the Browser stats we’ve already looked at.
 
 This following basic approach is the worst performer, and I would consider it
 an anti-pattern. But  it happens to be similar to how the Sorl docs address
-using their library: <http://sorl-
-thumbnail.readthedocs.io/en/latest/examples.html#template-examples>
+using their library: <http://sorl-thumbnail.readthedocs.io/en/latest/examples.html#template-examples>
 
 recipes/templates/recipes/detail.html
 
@@ -136,8 +126,7 @@ get to it.
 The Srcset and Sizes approach is a great way to let the browser pick what it
 wants. It’s relatively simple to implement, but if you start reading through
 the implementation and wondering why I don’t use the Picture element for
-increased control with media queries, I recommend that you read [the Srcset
-and sizes article](http://ericportis.com/posts/2014/srcset-sizes/) by Eric
+increased control with media queries, I recommend that you read [the Srcset and sizes article](http://ericportis.com/posts/2014/srcset-sizes/) by Eric
 Portis on why you shouldn’t go down that path.
 
 For your ease of drop-in use, I’ve demonstrated several popular CSS frameworks
@@ -358,8 +347,7 @@ breakpoints
 ##### What about django-flexible-images?
 
 If you’ve looked around the Django community for solutions, you may have come
-across [django-flexible-images](https://github.com/lewiscollard/django-
-flexible-images). It looks really awesome because it is relatively simple to
+across [django-flexible-images](https://github.com/lewiscollard/django-flexible-images). It looks really awesome because it is relatively simple to
 implement it:
 
 Install it via pip.
@@ -466,8 +454,7 @@ Follow the next few steps:
 
 ##### Installation and Config in Django
 
-We’re going to use `[django-storages](https://github.com/jschneier/django-
-storages)` to help us handle connecting to this S3 bucket we’ve just created.
+We’re going to use `[django-storages](https://github.com/jschneier/django-storages)` to help us handle connecting to this S3 bucket we’ve just created.
 It’s a nice wrapper around `[boto](https://github.com/boto/boto)` for
 connecting. So install that too.
 
@@ -501,9 +488,7 @@ http://developer.yahoo.com/performance/rules.html#expires
 # ######### END AMAZON S3 CONFIGURATION`
 
 Everything on this configuration you see above is important in getting your S3
-storage to work. (For details on using  AWS_QUERYSTRING_AUTH, [read the AWS
-docs](http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-
-requests.html). For the AWS_HEADERS configuration setting, however, that
+storage to work. (For details on using  AWS_QUERYSTRING_AUTH, [read the AWS docs](http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html). For the AWS_HEADERS configuration setting, however, that
 constant is the important one for improving performance. If you’re in a
 situation where your content is mostly static and never updates, you’ll want
 to set the Expires and Cache-Control values to the really distant future, as I

@@ -3,42 +3,20 @@ gil-and-pyston/ "Python, the GIL, and Pyston" )
 
 ---
 
-Lately, I've been thinking a bit about supporting parallelism in Pyston --
-this has been on my "wish list" for a long time.  The state of parallelism in
-CPython is a bit of a sore subject, since the GIL ("global interpreter lock")
-essentially enforces single-threaded execution.  It should be noted that a GIL
-is not specific to CPython: other implementations such as PyPy have one
-(though PyPy have their STM efforts to get rid of theirs), and runtimes for
-other languages also have them.  Technically, a GIL is a feature of an
-implementation, not of a language, so it seems like implementations should be
-free to use non-GIL-based strategies.
+最近，我一直在思考Pyston中对并行的支持 —— 这在我的“愿望清单”里待了很长一段时间。CPython中的并行状态是个痛点，因为GIL（“全局解释锁”）基本上是强制单线程执行的。应当指出的是，GIL并非CPython特有的：其他实现，例如PyPy，也有（虽然PyPy有他们自己的STM努力来摆脱它），而其他语言运行时也有。从技术上讲，GIL是实现的一个特性，而不是一种语言，因此看起来，实现应该可以自由地使用基于非GIL的策略。
 
-The tricky part with "using non-GIL-based strategies" is that we still have to
-provide the correct semantics for the language.  And, as I'll go into in more
-detail, there are a number of GIL-derived semantics that have become part of
-the Python language, and must be respected by compatible implementations
-whether or not they actually use a GIL.  Here are a couple of the issues that
-I've been thinking about:
+“使用非基于GIL的策略”最棘手的部分是，我们仍然必须为语言提供正确的语义。而且，随着我进一步深入，有一些GIL衍生的语义已经成为了Python语言的一部分，并且无论它们是否实际上使用了GIL，都必须兼容实现。这里有一些我一直在思考的问题：
 
-### Issue #1: data structure thread-safety
+### 问题1：数据结构线程安全
 
-Imagine you have two Python threads, which both try to append an item onto a
-list.  Let's say the list starts empty, and the threads try to append "1" and
-"2", respectively:
+想象一下，你有两个Python线程，它们都试图往一个列表追加一个项。比方说，一开始该列表是空的，而线程分别试图追加"1"和"2"：
 
 ```python
-
     l = []
-
     def thread1():
-
         l.append(1)
-
     def thread2():
-
-        l.append(2)
-
-    
+        l.append(2)    
 ```
 
 What are the allowable contents of the list afterwards?  Clearly "[1, 2]" and
@@ -62,7 +40,7 @@ locking/synchronization overhead.  A GIL, while somewhat distasteful,
 certainly does a good job of providing thread safety while keeping lock
 overheads low.
 
-### Issue #2: memory model
+### 问题2：内存模型
 
 This is something that most Python programmers don't think about because we
 don't have to, but the "memory model" specifies the potential ways one thread
@@ -70,31 +48,19 @@ is allowed to observe the effects of another thread.  Let's say we have one
 thread that runs:
 
 ```python
-
     a = b = 0
-
     def thread1():
-
         global a, b
-
         a = 1
-
-        b = 2
-
-    
+        b = 2    
 ```
 
 And then we have a second thread:
 
 ```python
-
-    def thread2()
-
+    def thread2():
         print b
-
-        print a
-
-    
+        print a    
 ```
 
 What is thread2 allowed to print out?  Since there is no synchronization, it
@@ -121,7 +87,7 @@ ourselves off immediate-deallocation when GC'd implementations started coming
 around.  I feel like the memory model, though, is more entrenched and harder
 to change, and that's not to say we even should.
 
-### Issue #3: C extensions
+### 问题3：C扩展
 
 One of the goals of Pyston is to support unmodified CPython C extensions;
 unfortunately, this poses a pretty big parallelism problem.  For Python code,
@@ -138,7 +104,7 @@ default) run C extension code sequentially.
 
 
 
-### Potential implementation strategy: GRWL
+### 潜在实现策略：GRWL
 
 So there's certainly quite a few constraints that have to be met by any
 threading implementation, which would easily and naturally be met by using a
@@ -179,7 +145,7 @@ conclusion is that a GIL provides an unbeatable effort-reward tradeoff.
 
 
 
-### Update: benchmarks
+### 更新：基准
 
 So I spent some time tweaking some things; the first change was that I
 replaced the choice of mutex implementation.  The default glibc pthread mutex
@@ -205,20 +171,12 @@ baseline, a GIL version, and a GRWL version.  I ran it on a couple different
 microbenchmarks:
 
 ```python
-
                                      unsafe  GIL    GRWL
-
     raytrace.py [single threaded]    12.3s   12.3s  12.8s
-
     contention_test.py, 1 thread     N/A     3.4s   4.0s
-
     contention_test.py, 2 threads    N/A     3.4s   4.3s
-
     uncontended_test.py, 1 thread    N/A     3.0s   3.1s
-
-    uncontended_test.py, 2 threads   N/A     3.0s   3.6s
-
-    
+    uncontended_test.py, 2 threads   N/A     3.0s   3.6s    
 ```
 
 So... things are getting better, but even on the uncontended test, which is
