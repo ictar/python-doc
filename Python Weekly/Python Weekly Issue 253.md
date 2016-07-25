@@ -39,7 +39,7 @@
 
 关于如何通过优化图像来提高网页页面加载的Django和Python技巧和窍门。
 
-[Scrapy技巧：2016年七月版](https://blog.scrapinghub.com/2016/07/20/scrapy-tips-from-the-pros-july-2016/)
+[Scrapy技巧：2016年七月版](https://blog.scrapinghub.com/2016/07/20/scrapy-tips-from-the-pros-july-2016/) | [中文版](../Scrapy/Scrapinghub的Scrapy技巧系列/Scrapy技巧：2016年七月版.md)
 
 Scrapy被设计成可扩展的，并且组件之间松耦合。你可以使用自己的中间件或者pipeline来轻松扩展Scrapy的功能。这使得Scrapy社区可以轻松地开发新的插件来提高现有功能，而无需对Scrapy自身进行修改。在这篇文章中，我们将向你展示如何利用DeltaFetch插件来运行增量爬取。
 
