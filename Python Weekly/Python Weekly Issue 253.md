@@ -35,7 +35,7 @@
 
 本文演示了如何使用Deep-Q学习算法和Keras一起来玩FlappyBird。这篇文章旨在针对那些对强化学习有兴趣的新人。
 
-[在Django中，如何为提高页面加载速度优化图像](https://worthwhile.com/blog/2016/07/11/django-page-load-speed/)
+[在Django中，如何为提高页面加载速度优化图像](https://worthwhile.com/blog/2016/07/11/django-page-load-speed/) | [中文版](../Django/在Django中，如何为提高页面加载速度优化图像.md)
 
 关于如何通过优化图像来提高网页页面加载的Django和Python技巧和窍门。
 
