@@ -19,7 +19,7 @@
 
 # 文章，教程和讲座
 
-[对超过1M的酒店点评进行机器学习，发现有趣的洞察](https://blog.monkeylearn.com/machine-learning-1m-hotel-reviews-finds-interesting-insights/)
+[对超过1M的酒店点评进行机器学习，发现有趣的见解](https://blog.monkeylearn.com/machine-learning-1m-hotel-reviews-finds-interesting-insights/) | [中文版](../Machine Learning/对超过1M的酒店点评进行机器学习，发现有趣的见解.md)
 
 本文中，我们将涵盖可以如何使用这些机器学习模型来分析数百万条来自于TripAdvisor的点评，然后比较人们对不同城市的酒店的感受，来学习各种有趣的事情。
 
