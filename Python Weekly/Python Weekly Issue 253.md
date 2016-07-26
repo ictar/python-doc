@@ -19,7 +19,7 @@
 
 # 文章，教程和讲座
 
-[对超过1M的酒店点评进行机器学习，发现有趣的洞察](https://blog.monkeylearn.com/machine-learning-1m-hotel-reviews-finds-interesting-insights/)
+[对超过1M的酒店点评进行机器学习，发现有趣的见解](https://blog.monkeylearn.com/machine-learning-1m-hotel-reviews-finds-interesting-insights/) | [中文版](../Machine Learning/对超过1M的酒店点评进行机器学习，发现有趣的见解.md)
 
 本文中，我们将涵盖可以如何使用这些机器学习模型来分析数百万条来自于TripAdvisor的点评，然后比较人们对不同城市的酒店的感受，来学习各种有趣的事情。
 
@@ -35,11 +35,11 @@
 
 本文演示了如何使用Deep-Q学习算法和Keras一起来玩FlappyBird。这篇文章旨在针对那些对强化学习有兴趣的新人。
 
-[在Django中，如何为提高页面加载速度优化图像](https://worthwhile.com/blog/2016/07/11/django-page-load-speed/)
+[在Django中，如何为提高页面加载速度优化图像](https://worthwhile.com/blog/2016/07/11/django-page-load-speed/) | [中文版](../Django/在Django中，如何为提高页面加载速度优化图像.md)
 
 关于如何通过优化图像来提高网页页面加载的Django和Python技巧和窍门。
 
-[Scrapy技巧：2016年七月版](https://blog.scrapinghub.com/2016/07/20/scrapy-tips-from-the-pros-july-2016/)
+[Scrapy技巧：2016年七月版](https://blog.scrapinghub.com/2016/07/20/scrapy-tips-from-the-pros-july-2016/) | [中文版](../Scrapy/Scrapinghub的Scrapy技巧系列/Scrapy技巧：2016年七月版.md)
 
 Scrapy被设计成可扩展的，并且组件之间松耦合。你可以使用自己的中间件或者pipeline来轻松扩展Scrapy的功能。这使得Scrapy社区可以轻松地开发新的插件来提高现有功能，而无需对Scrapy自身进行修改。在这篇文章中，我们将向你展示如何利用DeltaFetch插件来运行增量爬取。
 
