@@ -97,3 +97,6 @@
 - [使用str.encode和threads冻结你的Python](./使用str.encode和threads冻结你的Python.md)
 
     导入锁与线程的爱恨情仇，又一个使用Python 3的理由。
+
+- [Python, GIL, 和Pyston](./Python, GIL, 和Pyston.md)
+

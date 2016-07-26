@@ -45,7 +45,7 @@ Scrapy被设计成可扩展的，并且组件之间松耦合。你可以使用�
 
 [映射瑞典小镇名字的原子部分](http://maxberggren.se/2016/07/14/atomic-parts-of-town-names/)
 
-[Python, GIL, 和Pyston](http://blog.kevmod.com/2014/06/python-the-gil-and-pyston/)
+[Python, GIL, 和Pyston](http://blog.kevmod.com/2014/06/python-the-gil-and-pyston/) [中文版](../Others/Python, GIL, 和Pyston.md)
 
 [SciPy 2016视频](https://www.youtube.com/playlist?list=PLGB9meziqbzpRP7mVyihOihNzm_J2Kx9I)
 
