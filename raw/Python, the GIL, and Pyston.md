@@ -42,10 +42,7 @@ overheads low.
 
 ### 问题2：内存模型
 
-This is something that most Python programmers don't think about because we
-don't have to, but the "memory model" specifies the potential ways one thread
-is allowed to observe the effects of another thread.  Let's say we have one
-thread that runs:
+有一些大多数Python程序员不用考虑的东西（因为他们不必考虑），但是“内存模型”指定了允许一个线程观察另一个线程影响的潜在方式。比方说，我们有一个线程运行：
 
 ```python
     a = b = 0
@@ -55,7 +52,7 @@ thread that runs:
         b = 2    
 ```
 
-And then we have a second thread:
+然后，我们有第二个线程：
 
 ```python
     def thread2():
