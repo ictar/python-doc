@@ -19,3 +19,9 @@
 - [在Django中，如何为提高页面加载速度优化图像](./在Django中，如何为提高页面加载速度优化图像.md)
 
 	关于如何通过优化图像来提高网页页面加载的Django和Python技巧和窍门。
+
+- [Django Channels和Celery示例](./Django Channels和Celery示例.md)
+
+	在本教程中，我将探讨如何建立一个Django Channels项目来与Celery协同工作，以及在任务开始和结束的时候，即时通知。Django Channels使用WebSockets来启用服务器和浏览器客户端之间的双向通信。假设读者已经熟悉如何建立一个普通的Django项目，我们将只覆盖Channels和Celery相关的部分。
+
+- [如何扩展Django User模型](./如何扩展Django User模型.md)
