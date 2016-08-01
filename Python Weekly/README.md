@@ -13,3 +13,4 @@
 - [Issue 251](./Python Weekly Issue 251.md)
 - [Issue 252](./Python Weekly Issue 252.md)
 - [Issue 253](./Python Weekly Issue 253.md)
+- [Issue 254](./Python Weekly Issue 254.md)

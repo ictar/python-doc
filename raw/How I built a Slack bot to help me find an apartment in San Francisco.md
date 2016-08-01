@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 原文：[How I built a Slack bot to help me find an apartment in San Francisco](https://www.dataquest.io/blog/apartment-finding-slackbot/)
 
 ---
