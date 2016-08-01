@@ -9,7 +9,7 @@
 
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/7394541b-6b55-4fde-8756-6b7547029f1b.png)](https://hired.com/?utm_source=newsletters&amp;utm_medium=pythonweekly&amp;utm_campaign=q3-16)
 
-You're on the cutting edge of technology, why job hunt like it's '90s? [Try Hired today](https://hired.com/?utm_source=newsletters&amp;utm_medium=pythonweekly&amp;utm_campaign=q3-16) and have 4,000+ top companies compete for the chance to interview you. Offers come with upfront salary &amp; equity, and our career coaches always have your back. (No pushy recruiters here!) 
+你处在技术最前沿，但是找工作怎么还像90年代那样呢？[今天，就试试Hired吧](https://hired.com/?utm_source=newsletters&amp;utm_medium=pythonweekly&amp;utm_campaign=q3-16)，让4,000+家顶级公司争夺面试你的机会。和录用一起的，有预付薪资和股票，并且我们的职业教练会一直等着你回来（这里没有太过头的招聘人员！）
 
 
 # 文章，教程和讲座
@@ -18,7 +18,7 @@ You're on the cutting edge of technology, why job hunt like it's '90s? [Try Hire
 
 你有博客吗？在上面，你写了多少篇文章呢？你有没有发现一直写作，或者开始进行一些技术写作很难呢？本周，我们或许可以帮助你解决这些问题。
 
-[如何扩展Django User Model](http://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html)
+[如何扩展Django User Model](http://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html) | [中文版](../Django/如何扩展Django User模型.md)
 
 本教程介绍了一些策略，你可以用它们来简单的扩展默认的Django User Model，这样，你就无需一切从头开始。
 
@@ -30,7 +30,7 @@ You're on the cutting edge of technology, why job hunt like it's '90s? [Try Hire
 
 [愚蠢的Python技巧：滥用显式self](https://medium.com/@hwayne/stupid-python-tricks-abusing-explicit-self-53d46b72e9e0)
 
-[Django Channels和Celery示例](http://vincenttide.com/blog/1/django-channels-and-celery-example/)
+[Django Channels和Celery示例](http://vincenttide.com/blog/1/django-channels-and-celery-example/) [中文版](../Django/Django Channels和Celery示例.md)
 
 [为Numpy编写类型桩](http://www.machinalis.com/blog/writing-type-stubs-for-numpy/)
 
@@ -39,21 +39,21 @@ You're on the cutting edge of technology, why job hunt like it's '90s? [Try Hire
 
 # 本周Python工作
 
-[Awesome Python Developer at Phrasee](http://jobs.pythonweekly.com/jobs/awesome-python-developer/)
+[Phrasee招聘棒棒哒的Python开发者](http://jobs.pythonweekly.com/jobs/awesome-python-developer/)
 
-You are an awesome developer who “gets sh*t done” and gets it done well. You’ll have responsibility for everything from specifying and coding (we’ll spring for Red Bulls if it helps), through to testing and deployment. And of course, bug fixes (not that there are ever bugs, right?!?).
+你是一个棒棒哒的开发者，能让事情完成，并且干得漂亮。你将负责所有的事情，从具体说明到编码（我们将提供红牛，如果它有用的话），以及测试和部署。当然，还有错误修复（总会有些bug的，是吧？！？）。
 
-[Game Backend Developer at Kwalee](http://jobs.pythonweekly.com/jobs/game-backend-developer/)
+[Kwalee招聘游戏后端开发者](http://jobs.pythonweekly.com/jobs/game-backend-developer/)
 
-As our Senior Games Server Programmer, we need you to deliver high quality, innovative and extremely fun mobile games. You will help lead the design and architecture of our servers and implement server features to robustly support millions of mobile games players. The systems you create will perform excellently and reliably, whilst being secure and scalable. Your code will need to be demonstrably of the highest quality.
+作为我们的资深游戏服务器开发者，我们需要你提供高质量、新颖且非常有趣的手机游戏。你将帮助领导我们的服务器的设计和架构，实现服务器特性以达到健壮的支持数百万的手机游戏玩家。你创造的系统要出色且可靠，同时又是安全可扩展的。你的代码需要具备最高质量。
 
-[Software Engineer at The Texas Tribune](http://jobs.pythonweekly.com/jobs/software-engineer-15/)  
+[The Texas Tribune招聘软件工程师](http://jobs.pythonweekly.com/jobs/software-engineer-15/)  
 
-You will be part of a team that is constantly improving our newsroom’s systems (including a Django CMS and its interaction with external APIs), as well as prototyping new tools. We use a modern workflow (including Docker, HTTPS, and Grunt), and you will always have a new challenge to take on. Your typical day’s work might include revamping a Django app, troubleshooting a MailChimp API import, downing some chips and guacamole in the newsroom, helping a reporter with a CMS issue, or planning for a new feature on the site.
+你将成为不断提高我们新闻编辑室系统（包括一个Django CMS及其与外部API的交互）和原型新工具的团队的一员，我们使用现代的工作流（包括Docker, HTTPS, 和Grunt），而你将总是要接受新的挑战。你典型的一天的工作可能包括改造一个Django app，对一个MailChimp API导入进行故障排除，帮助记者处理CMS问题，或者为网站计划一个新特性。
 
 [Canopy Innovations招聘全栈开发者](http://jobs.pythonweekly.com/jobs/full-stack-developer-4/)
 
-We’re seeking a Full Stack Developer with solid Python and/or Rails experience to join our small, tight-knit team as we build the next generation of tools that help healthcare providers communicate across language barriers and elevate the quality of care for non-English speaking patients. 
+我们正在寻找具有可靠Python及/或者Rails经验的全栈开发者，加入我们小而关系密切的团队，帮助我们构建有助于医疗保健机构跨越语言障碍沟通，提升非英语系病人的照顾质量的下一代工具。
 
 
 # 好玩的项目，工具和库
