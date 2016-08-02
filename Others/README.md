@@ -100,3 +100,6 @@
 
 - [Python, GIL, 和Pyston](./Python, GIL, 和Pyston.md)
 
+- [我是如何构建一个Slack机器人来帮助我在San Francisco找房子的](./我是如何构建一个Slack机器人来帮助我在San Francisco找房子的.md)
+
+    我们将逐步看看每一块是如何构建的，以及如何使用这个最终的Slack机器人来帮助我们找到一间公寓。

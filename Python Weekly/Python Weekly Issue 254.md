@@ -22,7 +22,7 @@
 
 本教程介绍了一些策略，你可以用它们来简单的扩展默认的Django User Model，这样，你就无需一切从头开始。
 
-[我是如何构建一个Slack机器人来帮助我在San Francisco找房子的](https://www.dataquest.io/blog/apartment-finding-slackbot/)
+[我是如何构建一个Slack机器人来帮助我在San Francisco找房子的](https://www.dataquest.io/blog/apartment-finding-slackbot/) | [中文版](../Others/我是如何构建一个Slack机器人来帮助我在San Francisco找房子的.md)
 
 [机器学习很好玩！第四部分：使用深度学习进行面部识别](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78)
 
