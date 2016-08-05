@@ -2,7 +2,7 @@
 
 ---
 
-In Ruby, you define a method like this:
+在Ruby中，这样定义一个方法：
 
 ```ruby
 class Foo
@@ -12,37 +12,37 @@ class Foo
 end
 ```
 
-In Python, you define it like this:
+在Python中，这样定义一个方法：
 
 ```python
 class Foo:
     def bar(self, baz): # What's self doing there?
         return baz # Not even using it
 ```
-That “explicit self” is the subject of many, many, many discussions, and tons of people find it really confusing. I want to provide a brief explanation, as well as find some ways to abuse that explicit self that you should never, ever do. Ready? Let’s go.
+这个“显式self”是许多许多许多讨论的主题，而大量的人觉得它相当令人困惑。我想提供一个简短的解释，并且找到一些你永远不应该做的滥用显式self的方式。准备好了吗？那就开始吧。
 
-# Instance Methods Are Weird
+# 奇怪的实例方法
 
-Let’s define the following class:
+让我们定义以下类：
 
 ```python
 class Number:
     def __init__(self, x: int) -> None:
         self.x = x
         self.minus = lambda y: self.x - y # we'll come back to this
-def plus(self, y: int) -> int:
+    def plus(self, y: int) -> int:
         return self.x + y
 one = Number(1)
 ```
 
-What’s one.plus(2)? That’s pretty easy:
+one.plus(2)是什么？那相当简单：
 
 ```python
 >>> print(one.plus(2))
 3
 ```
 
-But what if we do Number.plus(one, 2)?
+但如果是Number.plus(one, 2)呢？
 
 ```python
 >>> print(Number.plus(one, 2)) # ???
@@ -50,6 +50,7 @@ But what if we do Number.plus(one, 2)?
 ```
 
 Here, plus is a “bound method”. The object doesn’t *furious air quotes* really have a method called ‘plus’. Instead, “one.plus(N)” is a shorthand for “Number.plus(one, N)”, the “unbound method”. With that in mind, it’s pretty obvious why self is needed: plus is a class method that takes two parameters: the object we’re using, and the number we’re adding.
+这里，plus是一个“绑定方法”。
 
 It’s a little more complicated than that (Python 3 simplifies things a bit), but that’s a pretty useful lie that makes it a lot easier to work out the logic here. Let’s provide a slightly more complex example:
 
@@ -74,7 +75,7 @@ AttributeError: type object 'Number' has no attribute 'minus'
 
 Boom.
 
-# Callback Hell
+# 回调地狱
 
 Quick aside before the really stupid stuff. Recall that in Python, functions are first class objects. That means that you can pass functions to other functions like any other kind of object. This means you can do the following:
 
@@ -90,7 +91,7 @@ The function we pass in is the bound method of our object. This means that when 
 
 (Aside on the aside: you should probably check out Javascript anyway, because object prototyping is really close to what we’re doing with unbound methods and JS uses prototyping much more openly and explicitly.)
 
-# The Really Stupid Stuff
+# 真正愚蠢的东西
 
 Okay, back on track. We’ve seen that if you create a new unbound method, it adds a bound method to all existing objects. It also works with modification: change the unbound method and you change all the bound methods. This means you can dynamically adjust a class based on the runtime. For example, if you’re getting a ton of calls to a particular method, you can start caching it.
 
@@ -122,7 +123,7 @@ None
 
 One object throwing an error triggered improved logging on a completely different one. There’s a few extremely specific cases where manipulating unbound methods might be a good idea. Practically, though, don’t do this in production code. Programming is hard enough as it is. You don’t need your method definitions changing underneath you.
 
-# Summary
+# 总结
 
 When you define an instance method on a class, it creates a corresponding “bound” method on the object. This aliases to the unbound method on the class.
 If you define an instance method directly on the object, there’s no corresponding unbound method on the class.
@@ -131,7 +132,7 @@ You can use this to dynamically modify classes.
 Don’t.
 No really, don’t.
 
-# Further Reading
+# 进一步阅读
 
 * [Python method objects](https://docs.python.org/3/tutorial/classes.html#method-objects)
 * [Prototyping in Javascript](http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/)
