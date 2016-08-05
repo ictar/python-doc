@@ -19,7 +19,7 @@ process.
 Before we go into the implementation detail, let's look at the simple API
 usage first:
 
-[code]
+```python
 
     from tornado import template
     
@@ -36,7 +36,7 @@ usage first:
     t = template.Template(PAGE_HTML)
     print t.generate(username='John', job_list=['engineer'])
     
-[/code]
+```
 
 Here the user's name will be dynamic in the page html, so are a list of jobs.
 You can install `tornado` and run the code to see the output.
@@ -51,13 +51,13 @@ as it is, it also needs to handle the dynamic pieces with the given context
 and produce the right string result. So basically a template engine is just
 one Python function:
 
-[code]
+```python
 
     def template_engine(template_string, **context):
         # process here
         return result_string
     
-[/code]
+```
 
 During the processing procedure, the template engine has two phases:
 
@@ -80,18 +80,18 @@ As said above, we now need to parse the template string, and the parsing tool
 in tornado template module compiles templates to Python code. Our parsing tool
 is simply one Python function that does Python code generation:
 
-[code]
+```python
 
     def parse_template(template_string):
         # compilation
         return python_source_code
     
-[/code]
+```
 
 Before we get to the implementation of `parse_template`, let's see the code it
 produces, here is an example template source string:
 
-[code]
+```python
 
     <html>
       Hello, {{ username }}!
@@ -102,12 +102,12 @@ produces, here is an example template source string:
       </ul>
     </html>
     
-[/code]
+```
 
 Our `parse_template` function will compile this template to Python code, which
 is just one function, the simplified version is:
 
-[code]
+```python
 
     def _execute():
         _buffer = []
@@ -123,7 +123,7 @@ is just one function, the simplified version is:
         _buffer.append('\n  </ul>\n</html>\n')
         return ''.join(_buffer)
     
-[/code]
+```
 
 Now our template is parsed into a function called `_execute`, this function
 access all context variables from global namespace. This function creates a
@@ -132,7 +132,7 @@ put in a local name `_tmp`, looking up a local name is much faster than
 looking up a global. There are other optimizations that can be done here,
 like:
 
-[code]
+```python
 
     _buffer.append('hello')
     
@@ -140,7 +140,7 @@ like:
     # faster for repeated use
     _append_buffer('hello')
     
-[/code]
+```
 
 Expressions in `{{ ... }}` are evaluated and appended to the string buffer
 list. In the tornado template module, there is no restrictions on the
@@ -155,14 +155,14 @@ template string and later we can use it to render a given context. We only
 need to compile once and you can cache the template object anywhere, the
 simplified version of constructor:
 
-[code]
+```python
 
     class Template(object):
         def __init__(self, template_string):
             self.code = parse_template(template_string)
             self.compiled = compile(self.code, '<string>', 'exec')
     
-[/code]
+```
 
 The `compile` will compile the _source_ into a code object. We can execute it
 later with an `exec` statement. Now let's build the `parse_template` function,
@@ -174,7 +174,7 @@ for us as we consume the template file. We need to start from the begining and
 keep going ahead to find some special notations, the `_TemplateReader` will
 keep the current position and give us ways to do it:
 
-[code]
+```python
 
     class _TemplateReader(object):
         def __init__(self, text):
@@ -216,13 +216,13 @@ keep the current position and give us ways to do it:
         def __str__(self):
             return self.text[self.pos:]
     
-[/code]
+```
 
 To help with generating the Python code, we need the `_CodeWriter` class, this
 class writes lines of codes and manages indentation, also it is one Python
 context manager:
 
-[code]
+```python
 
     class _CodeWriter(object):
         def __init__(self):
@@ -252,11 +252,11 @@ context manager:
         def __str__(self):
             return self.buffer.getvalue()
     
-[/code]
+```
 
 In the begining of the `parse_template`, we create one template reader first:
 
-[code]
+```python
 
     def parse_template(template_string):
         reader = _TemplateReader(template_string)
@@ -265,7 +265,7 @@ In the begining of the `parse_template`, we create one template reader first:
         file_node.generate(writer)
         return str(writer)
     
-[/code]
+```
 
 Then we pass the reader to the `_parse` function and produces a list of nodes.
 All of there nodes are the child nodes of the template file node. We create
@@ -274,7 +274,7 @@ and we return the generated Python code. The `_Node` class would handle the
 Python code generation for a specific case, we will see it later. Now let's go
 back to our `_parse` function:
 
-[code]
+```python
 
     def _parse(reader, in_block=None):
         body = _ChunkList([])
@@ -304,32 +304,32 @@ back to our `_parse` function:
                     continue
                 break
     
-[/code]
+```
 
 We loop forever to find a template directive in the remaining file, if we
 reach the end of the file, we append the text node and exit, otherwise, we
 have found one template directive.
 
-[code]
+```python
 
             # Append any text before the special token
             if curly > 0:
                 body.chunks.append(_Text(reader.consume(curly)))
     
-[/code]
+```
 
 Before we handle the special token, we append the text node if there is static
 part.
 
-[code]
+```python
 
             start_brace = reader.consume(2)
     
-[/code]
+```
 
 Get our start brace, if should be `'{{'` or `'{%'`.
 
-[code]
+```python
 
             # Expression
             if start_brace == "{{":
@@ -343,12 +343,12 @@ Get our start brace, if should be `'{{'` or `'{%'`.
                 body.chunks.append(_Expression(contents))
                 continue
     
-[/code]
+```
 
 The start brace is `'{{'` and we have an expression here, just get the
 contents of the expression and append one `_Expression` node.
 
-[code]
+```python
 
             # Block
             assert start_brace == "{%", start_brace
@@ -374,7 +374,7 @@ contents of the expression and append one `_Expression` node.
             else:
                 raise ParseError("unknown operator: %r" % operator)
     
-[/code]
+```
 
 We have a block here, normally we would get the block body recursively and
 append a `_ControlBlock` node, the block body should be a list of nodes. If we
@@ -382,15 +382,15 @@ encounter an `{% end %}`, the block ends and we exit the function.
 
 It is time to find out the secrets of `_Node` class, it is quite simple:
 
-[code]
+```python
 
     class _Node(object):
         def generate(self, writer):
             raise NotImplementedError()
     
-[/code]
+```
 
-[code]
+```python
 
     class _ChunkList(_Node):
         def __init__(self, chunks):
@@ -400,11 +400,11 @@ It is time to find out the secrets of `_Node` class, it is quite simple:
             for chunk in self.chunks:
                 chunk.generate(writer)
     
-[/code]
+```
 
 A `_ChunkList` is just a list of nodes.
 
-[code]
+```python
 
     class _File(_Node):
         def __init__(self, body):
@@ -417,11 +417,11 @@ A `_ChunkList` is just a list of nodes.
                 self.body.generate(writer)
                 writer.write_line("return ''.join(_buffer)")
     
-[/code]
+```
 
 A `_File` node write the `_execute` function to the CodeWriter.
 
-[code]
+```python
 
     class _Expression(_Node):
         def __init__(self, expression):
@@ -441,12 +441,12 @@ A `_File` node write the `_execute` function to the CodeWriter.
             if value:
                 writer.write_line('_buffer.append(%r)' % value)
     
-[/code]
+```
 
 The `_Text` and `_Expression` node are also really simple, just append what
 you get from the template source.
 
-[code]
+```python
 
     class _ControlBlock(_Node):
         def __init__(self, statement, body=None):
@@ -458,7 +458,7 @@ you get from the template source.
             with writer.indent():
                 self.body.generate(writer)
     
-[/code]
+```
 
 For a `_ControlBlock` node, we need to indent and write our child node list
 with the indentation.
@@ -467,7 +467,7 @@ Now let's get back to the rendering part, we render a context by using the
 `generate` method of `Template` object, the `generate` function just call the
 compiled Python code:
 
-[code]
+```python
 
     def generate(self, **kwargs):
         namespace = {}
@@ -476,7 +476,7 @@ compiled Python code:
         execute = namespace["_execute"]
         return execute()
     
-[/code]
+```
 
 The `exec` function executes the compiled code object in the given global
 namespace, then we grab our `_execute` function from the global namespace and
@@ -495,14 +495,3 @@ you are interested:
   * Whitespace controls
   * Escaping
   * More template directives
-
-tags: [tornado](https://fengsp.github.io/blog/2016/8/how-a-template-engine-
-works/) [template](https://fengsp.github.io/blog/2016/8/how-a-template-engine-
-works/) [python](https://fengsp.github.io/blog/2016/8/how-a-template-engine-
-works/)
-
-(C) Copyright 2016 by Shipeng Feng.
-
-Content licensed under the Creative Commons attribution-noncommercial-
-sharealike License.
-
