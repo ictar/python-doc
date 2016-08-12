@@ -2,22 +2,13 @@
 
 ---  
 
-I have used template engines for a long time and finally have some time to
-find out how a template engine works.
+我已经使用模板引擎很长一段时间了，现在终于有时间来了解一下模板引擎是如何工作的。
 
-### Introduction
+### 概述
 
-Briefly, a template engine is a tool that you can use to do programming tasks
-involving a lot of textual data. The most common usage is HTML generation in
-web applications. Specifically in Python, we have a few options right now if
-you want one template engine, like [jinja](http://jinja.pocoo.org/) or
-[mako](http://www.makotemplates.org/). Here we are going to find out how a
-template engine works by digging in the template module of the tornado web
-framework, it is a simple system so we can focus on the basic ideas of the
-process.
+简单地说，模板引擎是一个工具，你可以用它来进行涉及到很多的文本数据的编程任务。最常见的用法是Web应用程序中的HTML生成。尤其是在Python中，如果你想要使用一个模板引擎，那么现在我们有几种选择，例如[jinja](http://jinja.pocoo.org/)或者[mako](http://www.makotemplates.org/)。在这里，我们要通过深入tornado web框架的template模块，找出一个模板引擎是如何工作的，这是一个简单的系统，这样我们就可以专注于过程的基本思路。
 
-Before we go into the implementation detail, let's look at the simple API
-usage first:
+进入实现细节之前，让我们首先来看看简单的API使用：
 
 ```python
 
@@ -38,18 +29,11 @@ usage first:
     
 ```
 
-Here the user's name will be dynamic in the page html, so are a list of jobs.
-You can install `tornado` and run the code to see the output.
+这里，用户名在PAGE_HTML中是动态的，工作列表也是。你可以安装`tornado`，然后运行代码来看看输出。
 
-### Implementation
+### 实现
 
-If we look at the `PAGE_HTML` closely, we could easily find out that a
-template string has two parts, the static literal text part and the dynamic
-part. We use special notation to distinguish the dynamic part. In the whole,
-the template engine should take the template string and output the static part
-as it is, it also needs to handle the dynamic pieces with the given context
-and produce the right string result. So basically a template engine is just
-one Python function:
+如果我们进一步看看`PAGE_HTML`，那我们很容易就可以发现，一个模板字符串有两个部分，静态文本部分和动态部分。我们使用特殊标记来区分开动态部分。总的来说，模板引擎应该接受模板字符串，然后原样输出静态部分，它还需要利用给定的上下文来处理动态部分，然后生成正确的字符串结果。所以，基本上，一个模板引擎就是一个Python函数：
 
 ```python
 
@@ -59,26 +43,16 @@ one Python function:
     
 ```
 
-During the processing procedure, the template engine has two phases:
+在处理过程中，模板引擎有两个阶段：
 
-  * _parsing_
-  * _rendering_
+  * _解析_
+  * _渲染_
 
-The parsing stage takes the template string and produces something that could
-be rendered. Consider the template string as source code, the parsing tool
-could be either a programming language interpreter or a programming language
-compiler. If the tool is an interpreter, parsing produces a data structure,
-the rendering tool will walk through the structure and produces the result
-text. The Django template engine parsing tool is an interpreter. Otherwise,
-parsing produces some executable code, the rendering tool does nothing but
-executes the code and produces the result. The Jinja2, Mako and Tornado
-template module are all using a compiler as parsing tool.
+解析阶段接受模板字符串，然后生成可以渲染的结果。将模板字符串想成源代码的话，解析工具可以是一个编程语言解释器或者编程语言编译器。如果工具是解释器，那么解析会生成一个数据结构，而渲染工具将会根据这个结构来生成结果文本。Django模板引擎解析工具就是这么一个解释器。另外，解析生成一些可执行代码，那么渲染工具仅仅执行代码并生成结果。Jinja2, Mako和Tornado的template模块都使用编译器作为解析工具。
 
-### Compiling
+### 编译
 
-As said above, we now need to parse the template string, and the parsing tool
-in tornado template module compiles templates to Python code. Our parsing tool
-is simply one Python function that does Python code generation:
+如上所述，现在，我们需要解析模板字符串，而tornado的template模块中的解析工具将模板编译成Python代码。我们的解析工具只是一个Python函数，它生成Python代码：
 
 ```python
 
@@ -88,8 +62,7 @@ is simply one Python function that does Python code generation:
     
 ```
 
-Before we get to the implementation of `parse_template`, let's see the code it
-produces, here is an example template source string:
+在我们进入`parse_template`的实现之前，让我们看看它所生成的代码，下面是一个样例模板源字符串：
 
 ```python
 
@@ -104,8 +77,7 @@ produces, here is an example template source string:
     
 ```
 
-Our `parse_template` function will compile this template to Python code, which
-is just one function, the simplified version is:
+我们的`parse_template`函数将把这个模板编译成Python代码，它仅仅是一个函数，简化版本如下：
 
 ```python
 
@@ -125,12 +97,7 @@ is just one function, the simplified version is:
     
 ```
 
-Now our template is parsed into a function called `_execute`, this function
-access all context variables from global namespace. This function creates a
-list of strings and join them together as the result string. The `username` is
-put in a local name `_tmp`, looking up a local name is much faster than
-looking up a global. There are other optimizations that can be done here,
-like:
+现在，我们的模板被解析到一个名为`_execute`的函数中，该函数访问全局命名空间的所有上下文变量。该函数创建一个字符串列表，然后将它们连在一起变成结果字符串。`username`位于局部变量`_tmp`中，查询局部变量比查询全局变量快得多。这里，还可以做一些其他的优化，例如：
 
 ```python
 
@@ -142,18 +109,11 @@ like:
     
 ```
 
-Expressions in `{{ ... }}` are evaluated and appended to the string buffer
-list. In the tornado template module, there is no restrictions on the
-expressions you can include in your statements, if and for blocks get
-translated exactly into Python.
+`{{ ... }}`中的字符串被分析附加到字符串缓冲列表中。在tornado template模块中，对你的语句中可以包含的表达式并无限制，if和for块直接被转换成Python。
 
-### The Code
+### 代码
 
-Let's see the real implementation now. The core interface that we are using is
-the `Template` class, when we create one `Template` object, we compile the
-template string and later we can use it to render a given context. We only
-need to compile once and you can cache the template object anywhere, the
-simplified version of constructor:
+现在，让我们看看实际实现。我们所使用的核心接口是`Template`类，当我们创建一个`Template`对象时，会对模板字符串进行编译，接着可以用它来渲染一个给定的上下文。我们仅需一次编译，就可以把该模板对象缓存起来，构造器的简化版本如下：
 
 ```python
 
@@ -254,7 +214,7 @@ context manager:
     
 ```
 
-In the begining of the `parse_template`, we create one template reader first:
+在`parse_template`的开头，我们首先创建一个模板读取器：
 
 ```python
 
@@ -318,8 +278,7 @@ have found one template directive.
     
 ```
 
-Before we handle the special token, we append the text node if there is static
-part.
+在我们处理了特殊的token后，如果有静态部分，则将其附加到文本节点。
 
 ```python
 
@@ -327,7 +286,7 @@ part.
     
 ```
 
-Get our start brace, if should be `'{{'` or `'{%'`.
+获取起始括号，它应该是`'{{'`或者`'{%'`。
 
 ```python
 
@@ -345,8 +304,7 @@ Get our start brace, if should be `'{{'` or `'{%'`.
     
 ```
 
-The start brace is `'{{'` and we have an expression here, just get the
-contents of the expression and append one `_Expression` node.
+起始括号是`'{{'`，说明这里有一个表达式，仅需获取表达式内容，然后附加一个`_Expression`节点。
 
 ```python
 
@@ -402,7 +360,7 @@ It is time to find out the secrets of `_Node` class, it is quite simple:
     
 ```
 
-A `_ChunkList` is just a list of nodes.
+一个`_ChunkList`仅是一个节点列表。
 
 ```python
 
@@ -419,7 +377,7 @@ A `_ChunkList` is just a list of nodes.
     
 ```
 
-A `_File` node write the `_execute` function to the CodeWriter.
+`_File`节点将`_execute`函数写入到CodeWriter。
 
 ```python
 
@@ -478,20 +436,15 @@ compiled Python code:
     
 ```
 
-The `exec` function executes the compiled code object in the given global
-namespace, then we grab our `_execute` function from the global namespace and
-call it.
+`exec`函数在给定的全局命名空间内执行编译好的代码，然后，从全局命名空间内抓取`_execute`函数，然后调用它。
 
-### Next
+### 下一步
 
-So that's all, compile the template to Python function and execute it to get
-result. The tornado template module has more features than we've discussed
-here, but we already know well about the basic idea, you can find out more if
-you are interested:
+就是这样啦，将模板编译成Python函数，然后执行以获取结果。tornado的template模块比我们这里讨论的特性要多得多，但我们已经了解到了基本思想，如果感兴趣的话，你可以发现更多：
 
-  * Template inheritance
-  * Template inclusion
-  * More control logic like else, elif, try, etc
-  * Whitespace controls
-  * Escaping
-  * More template directives
+  * 模板继承
+  * 模板包含
+  * 更多控制逻辑，例如else, elif, try, 等等
+  * 空格控制
+  * 转义
+  * 更多模板指令
