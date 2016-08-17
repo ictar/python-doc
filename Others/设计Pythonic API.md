@@ -1,76 +1,59 @@
-Toggle navigation [noamelf](http://noamelf.com/)
+原文：[Designing Pythonic APIs](http://noamelf.com/2016/08/05/designing-pythonic-apis/)
 
-  * [Home](http://noamelf.com/)
-  * [About](http://noamelf.com/about/)
-  * [Talks](http://noamelf.com/talks/)
+---
 
-# Designing Pythonic APIs
+当编写一个包（库）的时候，为它提供一个良好的API，几乎与它的功能本身一样重要（好吧，至少你想要让别人使用），但怎么才算一个良好的API呢？在这篇文章中，我将尝试通过比较Requests和Urllib（Python标准库的一部分）在一些经典的HTTP场景的使用，从而提供关于这个问题的一些见解，并看看为什么Requests已经成为了Python用户中的事实上的标准。
 
-Posted by noamelf on August 5, 2016
+* 在我们的探究过程中，我们会使用**Python 3.5**和**Requests 2.10.0**。
 
-# Designing Pythonic APIs
+** 此博文是我上周的一个本地Python聚会（[PywebIL](http://www.meetup.com/PyWeb-IL/events/232724175/) ）上的演讲的改编。你可以[在这里](http://noamelf.com/designing-pythonic-apis-talk)找到幻灯片。
 
-_Learning from Kenneth Reitz’s [Requests](http://docs.python-
-requests.org/en/master/)_
+## _requests_ vs. _urllib_
 
-When writing a package (library), providing it with a good API, is almost as
-important as its functionality itself (well, at least if you want some
-adoption), but what makes a good API? In this post, I’ll try to provide some
-insights on that question by comparing _Requests_ and _Urllib_ (part of
-Python’s standard library) in a few typical HTTP usage scenarios and see why
-_Requests_ has become the de facto standard among Python users.
+### 用例1：发送一个GET请求
 
-* Throughout our investigation we’ll be using **Python 3.5** and **Requests 2.10.0**.
-
-** This blog post is an adaptation of a talk I gave at our local Python meetup - [PywebIL](http://www.meetup.com/PyWeb-IL/events/232724175/) \- last week. You can find the slides [here](http://noamelf.com/designing-pythonic-apis-talk).
-
-## _Requests_ vs. _Urllib_
-
-### Use case #1: sending a GET request
-
-[code]
+```python
 
     import urllib.request
     urllib.request.urlopen('http://python.org/')
     
-[/code]
+```
 
-[code]
+```python
 
     <http.client.HTTPResponse at 0x7fdb08b1bba8>
     
-[/code]
+```
 
-[code]
+```python
 
     import requests
     requests.get('http://python.org/')
     
-[/code]
+```
 
-[code]
+```python
 
     <Response [200]>
     
-[/code]
+```
 
-#### Explicit (API endpoints) is better than implicit
+#### 显式(API端点)优于隐式
 
-  * Notice how requests is more concise (hence, clear) about what it will do.
-  * _Urllib_ is getting told implicitly to send a GET request since it didn’t receive a `data` argument
-  * _Requests_ function name explicitly mark what it will do.
+  * 注意到requests对于它要做的事更简洁（因此，更清晰）。
+  * _urllib_被看成隐式发送GET请求，因为它并不接受一个`data`参数
+  * _requests_函数明确表明它要做什么。
 
-#### Helpful object representation
+#### 有用的对象表示
 
-  * _Requests_ returns a helpful string with the request status code when examining it (this done by implementing the `__repr__()` method).
-  * _Urllib_ just returns the default (unclear) object representation
+  * 当检查它的时候，_requests_返回了一个带有请求状态码的帮助字符串 (通过实现`__repr__()`方法来完成)。
+  * _urllib_仅仅返回默认的（不清晰的）对象表示
 
-#### Code snippet
+#### 代码片段
 
-([requests/api.py](https://github.com/kennethreitz/requests/blob/v2.10.0/reque
-sts/api.py)):
+([requests/api.py](https://github.com/kennethreitz/requests/blob/v2.10.0/requests/api.py)):
 
-[code]
+```python
 
     def request(method, url, **kwargs):
         with sessions.Session() as session:
@@ -83,52 +66,51 @@ sts/api.py)):
     def post(url, data=None, json=None, **kwargs):
         return request('post', url, data=data, json=json, **kwargs)
     
-[/code]
+```
 
-  * All the HTTP verbs follow a similar flow prior to sending, hence there is a the `request()` main flow function.
-  * Implementing a “helper function” for each verb that calls `request()`, enables the explicitness we are looking for.
+  * 所有的HTTP动作在发送之前都遵循相同的流程，因此，有一个`request()`主流程函数。
+  * 为每个调用`request()`的动作实现一个“辅助函数”，启用我们正在寻找的明确性。
 
-### Use case #2: getting a request status code
+### 用例2：获取请求状态码
 
-[code]
+```python
 
     import urllib.request
     r = urllib.request.urlopen('http://python.org/')
     r.getcode()
     
-[/code]
+```
 
-[code]
+```python
 
     200
     
-[/code]
+```
 
-[code]
+```python
 
     import requests
     r = requests.get('http://python.org/')
     r.status_code
     
-[/code]
+```
 
-[code]
+```python
 
     200
     
-[/code]
+```
 
-#### No need for getters and setters
+#### 无需getter和setter
 
-  * Accessing an object property as an actual property (and not a method call) makes the code a little clearer.
-  * If you come from other OOP language (hmmm… Java), you might be tempted to use getters and setters to allow future changes to the object’s properties. No need for that in Python, just use the [`@property`](http://www.programiz.com/python-programming/property) decorator.
+  * 将对象属性作为实际属性访问（而不是进行方法调用）让代码更清晰些。
+  * 如果你是从其他OOP语言过来的 (嗯…… Java)，那么你可能会使用getter和setter，从而允许未来对对象属性进行改变。在Python中不需要这样，仅需使用[`@property`](http://www.programiz.com/python-programming/property)装饰器。
 
-#### Code snippet
+#### 代码片段
 
-[http/client.py](https://github.com/python/cpython/blob/3.5/Lib/http/client.py
-#L737):
+[http/client.py](https://github.com/python/cpython/blob/3.5/Lib/http/client.py#L737):
 
-[code]
+```python
 
     class HTTPResponse(io.BufferedIOBase):
     
@@ -137,13 +119,13 @@ sts/api.py)):
         def getcode(self):
             return self.status
     
-[/code]
+```
 
-  * _Urllib_ (or actually _http_) is using a “getter” to return a class property.
+  * _urllib_ (或实际上是_http_)使用一个“getter”来返回类属性。
 
-### Use case #3: encoding, sending and decoding a POST request
+### 用例3：编码、发送和解码POST请求
 
-[code]
+```python
 
     import urllib.parse
     import urllib.request
@@ -157,9 +139,9 @@ sts/api.py)):
     body = response.read().decode()
     json.loads(body)
     
-[/code]
+```
 
-[code]
+```python
 
     import requests
     
@@ -169,17 +151,16 @@ sts/api.py)):
     response = requests.post(url, data=data)
     response.json()
     
-[/code]
+```
 
-#### Easy access to common functionality
+#### 轻松访问常用功能
 
-  * _Requests_ provides an out-of-the-box experience for the encoding of the data and loading the JSON response while in _Urllib_ you have to implement those parts yourself.
-  * When designing your API think: how will my package be commonly use? What plugs can I add to make that usage easier?
+  * _requests_为数据编码和加载JSON响应提供了一个开箱即用体验，然而在_urllib_中，你必须自己实现这些部分。
+  * 在设计你的API时考虑：我的包被用的频率多高？我可以添加什么插件，从而使得使用更容易？
 
-On the same note, _Requests_ also provides an elegant way to send JSON
-content:
+同时注意，_requests_还提供了一种优雅的方式来发送JSON内容：
 
-[code]
+```python
 
     import requests
     
@@ -189,14 +170,13 @@ content:
     response = requests.post(url, json=data)
     response.json()
     
-[/code]
+```
 
-### Use case #4: sending authenticated request
+### 用例4：发送鉴权请求
 
-The following creates persistence credentials for HTTP requests, and sends a
-request:
+下面为HTTP请求创建了持久性凭证，然后发送请求：
 
-[code]
+```python
 
     import urllib.request
     
@@ -209,9 +189,9 @@ request:
     opener = urllib.request.build_opener(handler)
     opener.open(gh_url)
     
-[/code]
+```
 
-[code]
+```python
 
     import requests
     
@@ -219,34 +199,32 @@ request:
     session.auth = ('user', 'pswd')
     session.get('https://api.github.com/user')
     
-[/code]
+```
 
-But what if we just want to do a single HTTP call? Do we need all that code?
-_Requests_ have you covered here:
+但如果我们只是想进行一次HTTP调用呢？我们需要所有的代码吗？这里，_requests_允许你这样：
 
-[code]
+```python
 
     import requests
     
     requests.get('https://api.github.com/user', auth=('user', 'pswd'))
     
-[/code]
+```
 
-#### Provide possibilities for simple and advanced usage
+#### 为简单和高级使用提供可能性
 
-  * _Requests_ allow concise usage, when sending a single request, and a more verbose one for multiple requests.
-  * Don’t make the user go through a lengthy process when he needs a simple use case.
+  * 当发送单个请求，和为多个请求发送一个更详细的请求时，_requests_允许简洁使用。
+  * 当用户需要一个简单的用例时，不要让他经过一个漫长的过程。
 
-#### Prefer Python data types over self-made ones
+#### 比起自己创建一个，更喜欢使用Python数据类型
 
-  * _Requests_ usage of Python’s data structures makes it very easy to use. No need to get to know internal _Requests_ packages.
+  * _requests_对Python数据结构的使用使得它非常容易使用。没有必要去了解内部的_requests_包。
 
-#### Libraries code
+#### 库代码
 
-[requests/models.py](https://github.com/kennethreitz/requests/blob/v2.10.0/req
-uests/models.py#L488):
+[requests/models.py](https://github.com/kennethreitz/requests/blob/v2.10.0/requests/models.py#L488):
 
-[code]
+```python
 
     def prepare_auth(self, auth, url=''):
         """Prepares the given HTTP auth data."""
@@ -258,21 +236,21 @@ uests/models.py#L488):
                 # special-case basic HTTP auth
                 auth = HTTPBasicAuth(*auth)
     
-[/code]
+```
 
-  * _Requests_ internally converts the `(user,pass)` tuple to an authentication class.
+  * _requests_在内部将`(user,pass)`元组转换成一个鉴权类。
 
-### Use case #5: handling errors
+### 用例5：处理错误
 
-[code]
+```python
 
     from urllib.request import urlopen
     response = urlopen('http://www.httpbin.org/geta')
     response.getcode()
     
-[/code]
+```
 
-[code]
+```python
 
     ---------------------------------------------------------------------------
     
@@ -334,32 +312,32 @@ uests/models.py#L488):
     
     HTTPError: HTTP Error 404: NOT FOUND
     
-[/code]
+```
 
-[code]
+```python
 
     import requests
     r = requests.get('http://www.httpbin.org/geta')
     r.status_code
     
-[/code]
+```
 
-[code]
+```python
 
     404
     
-[/code]
+```
 
-#### Let the user choose how to handle errors
+#### 让用户选择如何处理错误
 
-  * Some programmers prefer exceptions, some prefer checks.
-  * In some situations a check is much more elegant and sometimes it’s the other way around.
-  * It’s good to let your users to choose what to use when.
-  * Defaulting to return codes allow that, while defaulting to `exceptions` do not.
+  * 有些程序员喜欢异常，而有些喜欢检查。
+  * 在某些情况下，检查更优雅，而有时正好相反。
+  * 让你的用户根据实际情况选择使用哪个比较好。
+  * 默认返回代码允许这样，而默认`exceptions`并不会。
 
-Usage examples:
+使用示例：
 
-[code]
+```python
 
     from urllib.request import urlopen
     from urllib.error import URLError, HTTPError
@@ -371,15 +349,15 @@ Usage examples:
     else:
         print('All good')
     
-[/code]
+```
 
-[code]
+```python
 
     Page not found
     
-[/code]
+```
 
-[code]
+```python
 
     from requests.exceptions import HTTPError
     import requests
@@ -390,15 +368,15 @@ Usage examples:
         if e.response.status_code == 404:
             print('Page not found')
     
-[/code]
+```
 
-[code]
+```python
 
     Page not found
     
-[/code]
+```
 
-[code]
+```python
 
     import requests
     r = requests.get('http://www.httpbin.org/geta')
@@ -407,43 +385,17 @@ Usage examples:
     elif r.status_code == requests.codes.not_found:
         print('Page not found')
     
-[/code]
+```
 
-[code]
+```python
 
     Page not found
     
-[/code]
+```
 
-That’s it for now. I learned quite a bit preparing this talk/post, and I hope
-you did too reading it. I’ll be glad to hear your comments down bellow or on
-Twitter (@noamelf).
+目前就是这样了。在准备这个演讲/文章的过程中，我学到了很多（Ele注，在翻译的时候我也学到了很多，O(∩_∩)O~），我希望你也读读它。我会很高兴在下面或者在Twitter (@noamelf)上看到你的评论（Ele注：欢迎去原文评论哈）。
 
-##### Update (August 8th, 2016)
+##### 更新 (2016年8月8日)
 
-If you end up wondering how come there is such a stark usability difference
-between Requests and Urllib like many, including myself, do. Nick Coghlan
-shares his wide perspective on the subject, in a [comment
-bellow](http://noamelf.com/2016/08/05/designing-pythonic-
-apis/#comment-2823855721) and a following blog post (with the self-explanatory
-title): [what problem does it
-solve?](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-
-solve.html).
-
-* * *
-
-Please enable JavaScript to view the [comments powered by
-Disqus.](https://disqus.com/?ref_noscript)
-
-  * [&lt;- Previous Post](http://noamelf.com/2016/03/18/api-and-microservices-management-with-kong/ "API and Microservices Management with Kong" )
-
-* * *
-
-  * [ __ __ ](http://noamelf.com/feed.xml)
-  * [ __ __ ](https://twitter.com/noamelf)
-  * [ __ __ ](https://www.facebook.com/noamelf)
-  * [ __ __ ](https://github.com/noamelf)
-  * [ __ __ ](mailto:noamelf@gmail.com)
-
-Copyright (C) Noam Elfanbaum 2016
+如果你像许多人，包括我自己一样，最终好奇为什么在Requests和Urllib之间有如此鲜明的差异。Nick Coghlan在[下面的注释](http://noamelf.com/2016/08/05/designing-pythonic-apis/#comment-2823855721)和下面的一篇博文(标题自解释): [它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html)(Ele注：刚好翻译了这篇的[中文版](./Requests vs. urllib：它解决了什么问题？.md))中分享了它关于这个问题的广阔的视角。
 
