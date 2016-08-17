@@ -397,5 +397,5 @@
 
 ##### 更新 (2016年8月8日)
 
-如果你像许多人，包括我自己一样，最终好奇为什么在Requests和Urllib之间有如此鲜明的差异。Nick Coghlan在[下面的注释](http://noamelf.com/2016/08/05/designing-pythonic-apis/#comment-2823855721)和下面的一篇博文(标题自解释): [它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html)中分享了它关于这个问题的广阔的视角。
+如果你像许多人，包括我自己一样，最终好奇为什么在Requests和Urllib之间有如此鲜明的差异。Nick Coghlan在[下面的注释](http://noamelf.com/2016/08/05/designing-pythonic-apis/#comment-2823855721)和下面的一篇博文(标题自解释): [它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html)(Ele注：刚好翻译了这篇的[中文版](./Requests vs. urllib：它解决了什么问题？.md))中分享了它关于这个问题的广阔的视角。
 

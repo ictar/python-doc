@@ -51,7 +51,7 @@
 
 [使用TensorFlow中的深度学习进行图像修复](http://bamos.github.io/2016/08/09/deep-completion/)
 
-[Requests vs. urllib：它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html) 
+[Requests vs. urllib：它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html)  | [中文版](../Others/Requests vs. urllib：它解决了什么问题？.md)
 
 [EuroPython 2016年视频集](https://www.youtube.com/playlist?list=PL8uoeex94UhE3FDvjacSlHFffoNEoPzzm)
 
