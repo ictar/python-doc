@@ -2,22 +2,14 @@
 
 ---
 
-The real world is messy, and so too is its data. So messy, that a [recent
-survey](http://visit.crowdflower.com/data-science-report.html) reported data
-scientists spend 60% of their time cleaning data. Unfortunately, 57% of them
-also find it to be the least enjoyable aspect of their job.
+真实世界是杂乱的，它的数据也是。那么凌乱，[最近的一项调查](http://visit.crowdflower.com/data-science-report.html)显示，数据科学家花费60%的时间在清理数据。不幸的是，他们中57%还觉得这是他们工作中最不愉快的方面。
 
-Cleaning data may be time-consuming, but lots of tools have cropped up to make
-this crucial duty a little more bearable. The Python community offers a host
-of libraries for making data orderly and legible—from styling DataFrames to
-anonymizing datasets.
+清理数据可能是耗时的，但是很多工具已经出现，让这个重要的任务惬意一点。Python社区提供了众多库，用来让数据有序清晰，从具有风格的DataFrame到匿名数据集。
 
 Let us know which libraries you find useful—we're always looking to prioritize
-which libraries to add to [Mode Python
-Notebooks](https://about.modeanalytics.com/python/).
+which libraries to add to [Mode Python Notebooks](https://about.modeanalytics.com/python/).
 
-![Scrub that Data](https://blog.modeanalytics.com/images/post-images/python-
-data-cleaning-libraries.png) _Too bad cleaning isn't as fun for data
+![Scrub that Data](https://blog.modeanalytics.com/images/post-images/python-data-cleaning-libraries.png) _Too bad cleaning isn't as fun for data
 scientists as it is for this little guy._
 
 ## Dora
@@ -36,8 +28,7 @@ and—you guessed it—data cleaning. Cleansing functions include:
 ## datacleaner
 
 Surprise, surprise, datacleaner cleans your data—but only once it's in a
-[pandas DataFrame](https://community.modeanalytics.com/python/tutorial/pandas-
-dataframe/). From creator Randy Olson: “datacleaner is not magic, and it won't
+[pandas DataFrame](https://community.modeanalytics.com/python/tutorial/pandas-dataframe/). From creator Randy Olson: “datacleaner is not magic, and it won't
 take an unorganized blob of text and automagically parse it out for you.”
 
 It will, however, drop rows with missing values, replace missing values with
@@ -51,8 +42,7 @@ DataFrames are fundamental to analysis in Python, it's worth checking out.
 ## PrettyPandas
 
 DataFrames are powerful, but they don't produce the kind of tables you'd want
-to show your boss. PrettyPandas makes use of the [pandas Style
-API](http://pandas.pydata.org/pandas-docs/stable/style.html) to transform
+to show your boss. PrettyPandas makes use of the [pandas Style API](http://pandas.pydata.org/pandas-docs/stable/style.html) to transform
 DataFrames into presentation-worthy tables. Create summaries, add styling, and
 format numbers, columns, and rows. Added bonus: robust, easy-to-read
 [documentation](http://prettypandas.readthedocs.io/en/latest/).
