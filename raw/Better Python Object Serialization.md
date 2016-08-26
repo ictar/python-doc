@@ -1,15 +1,6 @@
-# [Hynek Schlawack](https://hynek.me/)
+原文：[Better Python Object Serialization](https://hynek.me/articles/serialization/)
 
-## Pythonista, Gopher, C hacker, JavaScript dabbler, and speaker from
-Berlin/Germany.
-
-  * [About Me](https://hynek.me/about/)
-  * [Articles](https://hynek.me/articles)
-  * [Talks](https://hynek.me/talks/)
-
-# Better Python Object Serialization
-
-22 August 2016
+---
 
 The Python standard library is full of underappreciated gems. One of them
 allows for simple and elegant function dispatching based on argument types.
@@ -18,11 +9,11 @@ JSON in web APIs and structured logs.
 
 Who hasn’t seen it:
 
-[code]
+```python
 
     TypeError: datetime.datetime(...) is not JSON serializable
     
-[/code]
+```
 
 While this shouldn’t be a big deal, it is. The `json` module – that inherited
 its API from `simplejson` – offers two ways to serialize objects:
@@ -40,7 +31,7 @@ support for new types is not provided for. Your single `default()` fallback
 has to know about all custom types you want to serialize. Which means you
 either write functions like:
 
-[code]
+```python
 
     def to_serializable(val):
         if isinstance(val, datetime):
@@ -56,7 +47,7 @@ either write functions like:
             }
         return str(val)
     
-[/code]
+```
 
 Which is painful since you have to add serialization for all objects in one
 place2.
@@ -99,7 +90,7 @@ legacy Python versions).
 Put simply, you define a default function and then register additional
 versions of that functions depending on the type of the first argument:
 
-[code]
+```python
 
     from datetime import datetime
     from functools import singledispatch
@@ -114,18 +105,18 @@ versions of that functions depending on the type of the first argument:
         """Used if *val* is an instance of datetime."""
         return val.isoformat() + "Z"
     
-[/code]
+```
 
 Now you can call `to_serializable()` on `datetime` instances too and single
 dispatch will pick the correct function:
 
-[code]
+```python
 
     >>> json.dumps({"msg": "hi", "ts": datetime.now()},
     ...            default=to_serializable)
     '{"ts": "2016-08-20T13:08:59.153864Z", "msg": "hi"}'
     
-[/code]
+```
 
 This gives you the power to put your serializers wherever you want: along with
 the classes, in a separate module, or along with JSON-related code? _You_
@@ -154,27 +145,3 @@ P.S. Of course there’s also a `*multiple*dispatch` on
   2. Although as you can see it’s manageable with `attrs`; maybe [you should use `attrs`](https://glyph.twistedmatrix.com/2016/08/attrs.html)! ↩︎
   3. Unfortunately the API Pyramid uses is currently [undocumented](https://github.com/zopefoundation/zope.interface/issues/41) after being transplanted from [`zope.component`](https://docs.zope.org/zope.component/). ↩︎
   4. I’ve been told the original incentive for adding single dispatch to the standard library was a more elegant reimplementation of [`pprint`](https://docs.python.org/3.5/library/pprint.html) (that never happened). ↩︎
-
-__
-
-[ __ Twitter ](http://twitter.com/share?text=Better%20Python%20Object%20Serial
-ization&url=https%3a%2f%2fhynek.me%2farticles%2fserialization%2f "Share on
-Twitter" ) [ __ Facebook ](https://www.facebook.com/sharer/sharer.php?u=https%
-3a%2f%2fhynek.me%2farticles%2fserialization%2f "Share on Facebook" ) [ __
-Google+ ](https://plus.google.com/share?url=https%3a%2f%2fhynek.me%2farticles%
-2fserialization%2f "Share on Google+" )
-
-#### Hynek Schlawack
-
-In ♥︎ with Python &amp; networks. Occasionally cheating with Go. OSS
-mercenary, blogger, speaker, PSF fellow, coder of mayhem.
-
-__ Berlin/Germany
-
-[__ Twitter](https://twitter.com/hynek "Twitter" )  [__
-GitHub](https://github.com/hynek "GitHub" )  [__
-RSS](https://hynek.me/index.xml "RSS" ) (C) 2016 Hynek Schlawack  
-All Rights Reserved • [Impressum](https://hynek.me/imprint/)
-
-![](https://stats.ox.cx/piwik.php?idsite=2)
-

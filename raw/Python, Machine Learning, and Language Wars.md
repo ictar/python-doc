@@ -1,22 +1,6 @@
-[sebastianraschka](http://sebastianraschka.com/)
+原文：[Python, Machine Learning, and Language Wars - A Highly Subjective Point of View](http://sebastianraschka.com/blog/2015/why-python.html)
 
-[About](http://sebastianraschka.com/about/)
-[Books](http://sebastianraschka.com/books.html)
-[Elsewhere](http://sebastianraschka.com/elsewhere.html)
-[Projects](http://sebastianraschka.com/projects.html)
-[Resources](http://sebastianraschka.com/resources.html)
-[Blog](http://sebastianraschka.com/blog/index.html) [Machine Learning
-FAQ](http://sebastianraschka.com/faq/index.html)
-
-|  [__[RSS]](http://sebastianraschka.com/rss_feed.xml)  
----|---  
-  
-# Python, Machine Learning, and Language Wars
-
-## - A Highly Subjective Point of View
-
-Aug 24, 2015  
-by Sebastian Raschka
+---
 
 Oh god, another one of those subjective, pointedly opinionated click-bait
 headlines? Yes! Why did I bother writing this? Well, here is one of the most
@@ -583,12 +567,4 @@ than CPython (barring using code that’s not bytecode and calls to C/Fortran
 libraries), and has a number of concepts that I am really missing in Python
 now, like Option[T], the implicit modifier, non-crap map/reduce/filter, non-
 crap lambdas, etc.
-
-[__ ](http://sebastianraschka.com/email.html) [ __
-](https://twitter.com/rasbt) [__ ](https://github.com/rasbt) [__
-](https://linkedin.com/in/sebastianraschka) [__
-](https://plus.google.com/u/0/+SebastianRaschka)
-[**Q**](https://www.quora.com/profile/Sebastian-Raschka-1)
-
-(C) 2013-2016 Sebastian Raschka
 

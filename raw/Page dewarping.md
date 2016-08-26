@@ -1,12 +1,6 @@
-[ Needlessly complex ](https://mzucker.github.io/)
+原文：[Page dewarping](https://mzucker.github.io/2016/08/15/page-dewarping.html)
 
-[About](https://mzucker.github.io/about/)
-
-Why do it by hand if you can code it in just quadruple the time?
-
-# Page dewarping
-
-Aug 15, 2016
+---
 
 Flattening images of curled pages, as an optimization problem.
 
@@ -316,6 +310,4 @@ much spelled out in this document, so I’ll just slap a link here on the
 knows – maybe I’ll refer back to this project again the next time I teach
 [computer vision](http://www.swarthmore.edu/NatSci/mzucker1/e27_s2016/)…
 
-Please enable JavaScript to view the [comments powered by
-Disqus.](https://disqus.com/?ref_noscript)
 
