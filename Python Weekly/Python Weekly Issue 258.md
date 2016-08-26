@@ -25,9 +25,9 @@
 
 这篇文章重温Tensorflow上的RNNs的使用最佳实践，特别是在官网上没有得到很好记录的特性。
 
-[Lists和Tuples大对决](http://nedbatchelder.com/blog/201608/lists_vs_tuples.html)
+[Lists和Tuples大对决](http://nedbatchelder.com/blog/201608/lists_vs_tuples.html) | [中文版](../Others/Lists和Tuples大对决.md)
 
-常见的Python初学者问题：列表和元组之间有何区别？答案是，有两个不同的差异，以及两者之复杂的相互作用。还有就是技术差异和文化差异。
+常见的Python初学者问题：列表和元组之间有何区别？答案是，有两个不同的差异，以及两者之复杂的相互作用。这就是技术差异和文化差异。
 
 [Podcast.__init__ 第71集 - 和Radim Řehůřek聊聊Gensim](https://podcastinit.com/radim-rehurek-gensim.html)
 
