@@ -125,17 +125,18 @@ One object throwing an error triggered improved logging on a completely differen
 
 # 总结
 
-When you define an instance method on a class, it creates a corresponding “bound” method on the object. This aliases to the unbound method on the class.
-If you define an instance method directly on the object, there’s no corresponding unbound method on the class.
-Modifying the unbound method will also change all existing bound methods.
-You can use this to dynamically modify classes.
-Don’t.
-No really, don’t.
+当你定义一个类上的实例方法时，它创建了该对象上的一个对应的“绑定”方法。这是类上的非绑定方法的别名。如果你直接在对象上定义实例方法，那么类上就没有对应的非绑定方法。
+
+修改非绑定方法也会改变所有现有的绑定方法。你可以用它来动态修改类。
+
+不要。
+
+真的，不要。
 
 # 进一步阅读
 
-* [Python method objects](https://docs.python.org/3/tutorial/classes.html#method-objects)
-* [Prototyping in Javascript](http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/)
-* [Static, class, and abstract methods](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods) (also has an important note on how Py2 is a little more complicated)
-* [Callback hell](http://callbackhell.com/)
-* [A rebuttal to callback hell](http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth)
+* [Python method对象](https://docs.python.org/3/tutorial/classes.html#method-objects)
+* [Javascript中的原型](http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/)
+* [静态、类和抽象方法](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods) (还有一个关于Py2是如何有点复杂的重要注解)
+* [回调地狱](http://callbackhell.com/)
+* [回调地狱的一个反证](http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth)

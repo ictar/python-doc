@@ -41,7 +41,7 @@
 
 这篇文章讨论了参数化学习和线性分类的基础知识。虽然简单，但是线性分类可以被看成更高级的机器学习算法基本构架模块，自然扩展到神经网络和卷积神经网络。
 
-[使用Python和LLVM的，用于TensorFlow计算图形的JIT本地代码生成](http://blog.christianperone.com/2016/08/jit-native-code-generation-for-tensorflow-computation-graphs-using-python-and-llvm/)
+[使用Python和LLVM的，用于TensorFlow计算图形的JIT本地代码生成](http://blog.christianperone.com/2016/08/jit-native-code-generation-for-tensorflow-computation-graphs-using-python-and-llvm/) [中文版](../Science and Data Analysis/用于格式化和数据清理的便捷Python库.md)
 
 [Python JIT来了](https://lwn.net/Articles/691070/)
 
