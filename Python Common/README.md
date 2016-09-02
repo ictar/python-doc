@@ -55,3 +55,7 @@
 - [Lists和Tuples大对决](./Lists和Tuples大对决.md)
 
     常见的Python初学者问题：列表和元组之间有何区别？答案是，有两个不同的差异，以及两者之复杂的相互作用。这就是技术差异和文化差异。
+
+- [解释python中的*args和**kwargs](./解释python中的*args和**kwargs.md)
+
+    我发现，大多数的Python新手程序员很难搞清楚\*args和\*\*kwargs魔术变量。所以，它们是什么呢？
