@@ -119,3 +119,5 @@
 - [Requests vs. urllib：它解决了什么问题？](./Requests vs. urllib：它解决了什么问题？.md)
 
 - [更好的Python对象序列化方法](./更好的Python对象序列化方法.md)
+
+- [使用列表推导式实现zip](./使用列表推导式实现zip.md)
