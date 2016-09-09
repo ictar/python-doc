@@ -40,7 +40,7 @@ Dictobject.c是Python的dict对象背后的模块。它非常常用，但有一�
 
 本文展示了如何使用pandas timeseries和ggplot来分析iPhone步数数据。
 
-[Python项目中的Makefiles](http://krzysztofzuraw.com/blog/2016/makefiles-in-python-projects.html)
+[Python项目中的Makefiles](http://krzysztofzuraw.com/blog/2016/makefiles-in-python-projects.html) | [中文](../Others/Python项目中的Makefiles.md)
 
 在Python项目中，你需要像makefile这种东西吗？
 
