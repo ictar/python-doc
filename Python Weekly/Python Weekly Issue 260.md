@@ -24,7 +24,7 @@ GeoViews是一个新的Python库，它使得探索和可视化地理，气象，
 
 我们今天的客人是Michael Cuthbert，MIT的音乐方面的副教授，以及Music21项目的主要研究者，而Music21项目是我们讨论的重点。Music21是一个让音乐分析方便有趣的Python库。它支持与诸如MIDI, MusicXML, Lilypond等等流行格式的集成。它也与Elvis项目集成良好，允许用户导入大量的音乐，便于分析。Music21是音乐家和类似的机器学习研究人员探索音乐中模式和结构的一个很好的平台。
 
-[使用预测算法追踪实时健康趋势](http://blog.algorithmia.com/predictive-algorithms-track-real-time-health-trends/)
+[使用预测算法追踪实时健康趋势](http://blog.algorithmia.com/predictive-algorithms-track-real-time-health-trends/) | [中文](../Machine Learning/使用预测算法追踪实时健康趋势.md)
 
 在这个教程中，我们将构建一个实时健康显示面板，用来追踪一个人的血压读数，进行时间序列分析，然后使用预测算法绘制时间趋势。本教程是使用时间序列算法和预测API来创建你个人健康显示面板的起点。
 

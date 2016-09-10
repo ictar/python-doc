@@ -2,15 +2,12 @@
 
 ---
 
-Dictobject.c is the module behind Python's dict object. This is SO frequently
-used, and there are a few little-known tidbits that are useful to understand
-for optimal performance.
+Dictobject.c是Python的dict对象背后的模块。它非常常用，但有一些鲜为人知的秘密，这些秘密对于了解最佳性能非常有用。
 
 # Introducing the Deep Exploration Series on Python
 
 This post is the first in a series intended to dig deep into the Python
-interpreter. Python is a mature language, with [commits](https://github.com/py
-thon/cpython/commit/b5e5004ae8f54d7d5ddfa0688fc8385cafde0e63) dating back to
+interpreter. Python is a mature language, with [commits](https://github.com/python/cpython/commit/5e5004ae8f54d7d5ddfa0688fc8385cafde0e63) dating back to
 August 1990. Along the way, the developers have evolved a series of
 [processes](https://docs.python.org/devguide/) for contributing that allow
 them to move relatively quickly with few issues/errors.  
@@ -30,8 +27,7 @@ the commit logs.
 If you've never seen it before, git provides a really nice feature to view the
 commit history of a single file. This article is brought to you in part by:
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
@@ -47,8 +43,7 @@ historical accounting of interesting tidbits as well as an overview of the
 modern implementation of the dict algorithm. (If you find any inaccuracies or
 errata, please send me a note. )
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
@@ -95,16 +90,12 @@ ocohbs-7d17?sb=9525224&cb=1473380134&rds=)
 
 ID: 9525224
 
-A dict is a generalization of a [mapping
-type](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict).
+A dict is a generalization of a [mapping type](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict).
 They've been around forever, but a dict is still the only instance of them in
 Python according to the official documentation. You can actually find
-[conflicting documentation](https://docs.python.org/3/glossary.html#term-
-mapping), though, which I tend to agree with. If a mapping is defined as an
-object that maps immutable keys to values, then [collections.OrderedDict](http
-s://github.com/python/cpython/blob/master/Lib/collections/__init__.py#L71) and
-[collections.defaultdict](https://github.com/python/cpython/blob/master/Module
-s/_collectionsmodule.c#L2152-L2194) also qualify.  
+[conflicting documentation](https://docs.python.org/3/glossary.html#term-mapping), though, which I tend to agree with. If a mapping is defined as an
+object that maps immutable keys to values, then [collections.OrderedDict](https://github.com/python/cpython/blob/master/Lib/collections/__init__.py#L71) and
+[collections.defaultdict](https://github.com/python/cpython/blob/master/Modules/_collectionsmodule.c#L2152-L2194) also qualify.  
 
 Early on, there was a mappingobject.c file that was actually _renamed_
 dictobject.c.
@@ -134,18 +125,14 @@ by far) under most circumstances, and the implementation is simpler.
 
 In fact, you can see the performance difference very clearly:
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
 [**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/12/12/asset/buzzfeed-prod-fastlane01/sub-
-buzz-5763-1471020782-3.png)
+static/static/2016-08/12/12/asset/buzzfeed-prod-fastlane01/sub-buzz-5763-1471020782-3.png)
 
-@amon on [stackexchange.com](http://stackexchange.com) / Via [programmers.stac
-kexchange.com](http://programmers.stackexchange.com/questions/234793/why-does-
-python-use-hash-table-to-implement-dict-but-not-red-black-tree)
+@amon on [stackexchange.com](http://stackexchange.com) / Via [programmers.stackexchange.com](http://programmers.stackexchange.com/questions/234793/why-does-python-use-hash-table-to-implement-dict-but-not-red-black-tree)
 
 ID: 9424191
 
@@ -169,14 +156,11 @@ bit of terminology:
 
   5. **entry:** a hash and a key-value pair occupying a _slot_
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
-[**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/12/13/asset/buzzfeed-prod-fastlane01/sub-
-buzz-5777-1471021204-6.png)
+[**View this image ›**](https://img.buzzfeed.com/buzzfeed-static/static/2016-08/12/13/asset/buzzfeed-prod-fastlane01/sub-buzz-5777-1471021204-6.png)
 
 ID: 9424228
 
@@ -187,9 +171,7 @@ non-NULL keys -- i.e., dummy keys + entries); _ma_used_ (the number of non-
 NULL, non-dummy keys); and _ma_size,_ a prime number representing the size
 (memory allocated) of the underlying table.
 
-At the core of Python's lookup algorithm is a method called "[lookmapping](htt
-ps://github.com/python/cpython/blob/50eefde432319edd1b2b659278a01baa872ef22f/O
-bjects/dictobject.c#L121)." Guido describes it in his commit as:
+At the core of Python's lookup algorithm is a method called "[lookmapping](https://github.com/python/cpython/blob/50eefde432319edd1b2b659278a01baa872ef22f/Objects/dictobject.c#L121)." Guido describes it in his commit as:
 
 > The basic lookup function used by all operations. This is essentially
 Algorithm D from Knuth Vol. 3, Sec. 6.4. Open addressing is preferred over
@@ -218,12 +200,9 @@ slot 0? It's as simple as jumping forward some number of slots according to
 will find its home n times incr away, where n is the number of collisions that
 have occurred up to that point.
 
-![Deep Exploration Into Python: Let's Review The Dict Module](data:image/gif;b
-ase64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
+![Deep Exploration Into Python: Let's Review The Dict Module](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
-[**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/15/13/asset/buzzfeed-prod-fastlane01/anigif_sub-
-buzz-11878-1471282935-4.gif)
+[**View this image ›**](https://img.buzzfeed.com/buzzfeed-static/static/2016-08/15/13/asset/buzzfeed-prod-fastlane01/anigif_sub-buzz-11878-1471282935-4.gif)
 
 ID: 9437550
 
@@ -239,12 +218,9 @@ worst. The major difference is the allocation overhead. In chaining, we have
 the additional operation of allocating an element on the heap for every
 collision that occurs during an insert operation.
 
-![Deep Exploration Into Python: Let's Review The Dict Module](data:image/gif;b
-ase64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
+![Deep Exploration Into Python: Let's Review The Dict Module](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
-[**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/29/12/asset/buzzfeed-prod-fastlane03/anigif_sub-
-buzz-7855-1472489190-8.gif)
+[**View this image ›**](https://img.buzzfeed.com/buzzfeed-static/static/2016-08/29/12/asset/buzzfeed-prod-fastlane03/anigif_sub-buzz-7855-1472489190-8.gif)
 
 ID: 9525941
 
@@ -259,12 +235,9 @@ together in the table, we end up with a situation called "clustering."
 Clusters can make it likely there will be more than usual collisions over a
 range of keys and are, hence, typically undesirable.
 
-![Deep Exploration Into Python: Let's Review The Dict Module](data:image/gif;b
-ase64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
+![Deep Exploration Into Python: Let's Review The Dict Module](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
-[**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/29/12/asset/buzzfeed-prod-fastlane02/anigif_sub-
-buzz-5038-1472489859-1.gif)
+[**View this image ›**](https://img.buzzfeed.com/buzzfeed-static/static/2016-08/29/12/asset/buzzfeed-prod-fastlane02/anigif_sub-buzz-5038-1472489859-1.gif)
 
 Erratta: As user ggchappell on reddit points out; the incr formula here should
 be (3 * hash + 1) % 8.
@@ -276,18 +249,14 @@ Python's actual probe formula at the onset was as shown above: (3 * hash + 1)
 cluster and very poor lookup performance.  
 
 OK. But really. What's the problem? Well, on January 16, 1997, Guido wrote
-[this gem](https://github.com/python/cpython/commit/99304174680d4c724476dad300
-ae7fc638842bf0), with an acknowledgement that the core algorithm behind the
+[this gem](https://github.com/python/cpython/commit/99304174680d4c724476dad300ae7fc638842bf0), with an acknowledgement that the core algorithm behind the
 dict lookup must be AFAP.
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
-[**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/15/17/asset/buzzfeed-prod-fastlane01/sub-
-buzz-20269-1471297074-2.png?resize=720:135)
+[**View this image ›**](https://img.buzzfeed.com/buzzfeed-static/static/2016-08/15/17/asset/buzzfeed-prod-fastlane01/sub-buzz-20269-1471297074-2.png?resize=720:135)
 
 ID: 9439483
 
@@ -296,8 +265,7 @@ Clearly, at this time, it was not.
 In modern implementations of GCC and clang, you'll find the modulo operation
 is optimized. But once upon a time, it actually broke down to this formula:
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
@@ -309,15 +277,13 @@ ID: 9439503
 
 …which is _three_ _operations in one_. Wow! To get away from this and move
 toward fewer, faster operations, Guido (with help from other contributors)
-committed a [new lookup algorithm implementing the Galois Field](https://githu
-b.com/python/cpython/commit/9c97b78659267b5757ca102c86478445a824a875) for
+committed a [new lookup algorithm implementing the Galois Field](https://github.com/python/cpython/commit/9c97b78659267b5757ca102c86478445a824a875) for
 randomized lookups. This decreased the collision rate substantially.
 
 As a side note: In Python, the modulo operation is _still_ a little slower
 than the bitwise &amp; (which provides similar functionality).  
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
@@ -329,8 +295,7 @@ ID: 9439542
 
 Anyway, after the Galois Field, there were a series of minor changes to the
 lookmapping method that resulted in a 100% speed improvement. Have a look at
-[the commit](https://github.com/python/cpython/commit/e28e383d8555b576a8a8a1b2
-428adedb76bfc6aa). It's very _Death by a Thousand Cuts_.  
+[the commit](https://github.com/python/cpython/commit/e28e383d8555b576a8a8a1b2428adedb76bfc6aa). It's very _Death by a Thousand Cuts_.  
 
 For those of you having trouble picking out what was changed, they
 
@@ -348,8 +313,7 @@ One set in particular resulted in all entries landing in the same slot. That's
 the set defined by [i &lt;&lt; 16 for i in range(20000)]. Consider the
 following commit message from the cpython project:
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
@@ -367,8 +331,7 @@ incorporate more bits of the hash value with each subsequent collision.
 
 I suppose the team thought this was a little difficult to understand. I'm not
 sure why, but a month later, on June 1, 2001, the polynomial division approach
-was stripped out for a [pretty simple recurrent function](https://github.com/p
-ython/cpython/commit/81673fb5ca25e17a1c1b806c06b046669a566a88).
+was stripped out for a [pretty simple recurrent function](https://github.com/python/cpython/commit/81673fb5ca25e17a1c1b806c06b046669a566a88).
 
 To quote the comments in dictobject.c: At this point, the first half of
 collision resolution is to visit table indices via this recurrence…
@@ -386,8 +349,7 @@ j = (5*j) + 1 + perturb;
 perturb >>= PERTURB_SHIFT;  
 The next table index is just j % 2**i
 
-[**View this embed ›**](https://embed.contagiousmedia.com/embed/sub/item-
-ocokkk-7d17?sb=9526024&cb=1473380134&rds=)
+[**View this embed ›**](https://embed.contagiousmedia.com/embed/sub/item-ocokkk-7d17?sb=9526024&cb=1473380134&rds=)
 
 ID: 9526024
 
@@ -415,21 +377,17 @@ You might expect the two 4-element dicts to take longer because of the
 overhead associated with creating two separate containers. That happens not to
 be the case. Consider the following code:
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
-[**View this image ›**](https://img.buzzfeed.com/buzzfeed-
-static/static/2016-08/26/16/asset/buzzfeed-prod-fastlane03/sub-
-buzz-9789-1472243847-1.png?resize=720:323)
+[**View this image ›**](https://img.buzzfeed.com/buzzfeed-static/static/2016-08/26/16/asset/buzzfeed-prod-fastlane03/sub-buzz-9789-1472243847-1.png?resize=720:323)
 
 ID: 9517271
 
 The output appears as
 
-![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAIC
-RAEAOw==)
+![](data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)
 
 [ ](javascript:;)
 
