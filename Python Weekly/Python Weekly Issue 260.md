@@ -36,7 +36,7 @@ GeoViews是一个新的Python库，它使得探索和可视化地理，气象，
 
 Dictobject.c是Python的dict对象背后的模块。它非常常用，但有一些鲜为人知的秘密，这些秘密对于了解最佳性能非常有用
 
-[分析iPhone步数数据](http://blog.yhat.com/posts/phone-steps-timeseries.html)
+[分析iPhone步数数据](http://blog.yhat.com/posts/phone-steps-timeseries.html) | [中文](../Science and Data Analysis/分析iPhone步数数据.md)
 
 本文展示了如何使用pandas timeseries和ggplot来分析iPhone步数数据。
 
