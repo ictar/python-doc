@@ -121,3 +121,7 @@
 - [更好的Python对象序列化方法](./更好的Python对象序列化方法.md)
 
 - [使用列表推导式实现zip](./使用列表推导式实现zip.md)
+
+- [Python项目中的Makefiles](/Python项目中的Makefiles.md)
+    
+    在Python项目中，你需要像makefile这种东西吗？
