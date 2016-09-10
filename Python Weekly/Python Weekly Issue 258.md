@@ -33,9 +33,9 @@
 
 能够了解一段文本的上下文通常被认为是人工智能领域。然而，主题建模和语义分析可以用来让计算机确定不同的消息和文章是否是关于同样的事情。本周，我们和Radim Řehůřek聊聊他关于GenSim的工作，GenSim是一个Python库，用来进行非结构化文本的无监督分析，并应用机器学习模型到自然语言理解的问题上。
 
-[页面扫描](https://mzucker.github.io/2016/08/15/page-dewarping.html)
+[页面扭曲矫正](https://mzucker.github.io/2016/08/15/page-dewarping.html)
 
-一篇显示了如何扁平化弯曲页面上的图像的文章。
+一篇显示了如何扁平化扭曲页面上的图像的文章。
 
 [Python中的线性分类介绍](http://www.pyimagesearch.com/2016/08/22/an-intro-to-linear-classification-with-python/)
 
