@@ -32,7 +32,7 @@ GeoViews是一个新的Python库，它使得探索和可视化地理，气象，
 
 当前关于房租租赁的数据源，例如人口普查或商业数据库，关注大型公寓，它们并不反映近期的市场活动或者美国租赁市场的全概貌。为了填补这个缺失，我们收集，清理，分析，映射，并可视化一千一百万个Craigslist房租租赁房源。数据揭示了美国大城市住房市场内以及跨大城市住房市场的细粒度空间和时间模式。我们发现，一些大城市地区只有个位数百分比的低于公平市场租金的房源。自愿地理信息的非传统来源为规划人员提供当前在替代来源，例如人口普查数据，缺失的租赁和住房特征的实时的，局部尺度评估。
 
-[深度探索Python: 让我们审查dict模块](https://www.buzzfeed.com/andrewkelleher/deep-exploration-into-python-lets-review-the-dict-module)
+[深度探索Python: 让我们审查dict模块](https://www.buzzfeed.com/andrewkelleher/deep-exploration-into-python-lets-review-the-dict-module) | [中文](../Python Common/深度探索Python：让我们审查dict模块.md)
 
 Dictobject.c是Python的dict对象背后的模块。它非常常用，但有一些鲜为人知的秘密，这些秘密对于了解最佳性能非常有用
 

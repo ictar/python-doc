@@ -59,3 +59,7 @@
 - [解释python中的*args和**kwargs](./解释python中的*args和**kwargs.md)
 
     我发现，大多数的Python新手程序员很难搞清楚\*args和\*\*kwargs魔术变量。所以，它们是什么呢？
+
+- [深度探索Python：让我们审查dict模块](./深度探索Python：让我们审查dict模块.md)
+
+    Dictobject.c是Python的dict对象背后的模块。它非常常用，但有一些鲜为人知的秘密，这些秘密对于了解最佳性能非常有用
