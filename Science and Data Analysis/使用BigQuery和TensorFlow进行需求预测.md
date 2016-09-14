@@ -120,9 +120,6 @@ In [30]:
 
 ##  天气数据
 
-We suspect that weather influences how often people use a taxi. Perhaps
-someone who'd normally walk to work would take a taxi if it is very cold or
-rainy.
 我们怀疑天气影响人们使用出租车的频率。也许在极冷或阴雨的情况下，那些通常走路去上班会乘坐出租车。
 
 Google用户[Felipe Hoffa](https://twitter.com/felipehoffa)已经公开他从美国国家海洋和大气管理局做出的气象观测到BigQuery中。让我们使用该数据集，并找到对应纽约La Guardia机场的站号。

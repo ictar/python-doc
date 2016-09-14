@@ -43,6 +43,8 @@
 
 - [使用Python探索NFL选秀](使用Python探索NFL选秀.md)
 
+- [用于格式化和数据清理的便捷Python库](./用于格式化和数据清理的便捷Python库.md)
+
 - [分析iPhone步数数据](./分析iPhone步数数据.md)
 
 	本文展示了如何使用pandas timeseries和ggplot来分析iPhone步数数据。

@@ -33,15 +33,15 @@
 
 能够了解一段文本的上下文通常被认为是人工智能领域。然而，主题建模和语义分析可以用来让计算机确定不同的消息和文章是否是关于同样的事情。本周，我们和Radim Řehůřek聊聊他关于GenSim的工作，GenSim是一个Python库，用来进行非结构化文本的无监督分析，并应用机器学习模型到自然语言理解的问题上。
 
-[页面扫描](https://mzucker.github.io/2016/08/15/page-dewarping.html)
+[页面扭曲矫正](https://mzucker.github.io/2016/08/15/page-dewarping.html)
 
-一篇显示了如何扁平化弯曲页面上的图像的文章。
+一篇显示了如何扁平化扭曲页面上的图像的文章。
 
 [Python中的线性分类介绍](http://www.pyimagesearch.com/2016/08/22/an-intro-to-linear-classification-with-python/)
 
 这篇文章讨论了参数化学习和线性分类的基础知识。虽然简单，但是线性分类可以被看成更高级的机器学习算法基本构架模块，自然扩展到神经网络和卷积神经网络。
 
-[使用Python和LLVM的，用于TensorFlow计算图形的JIT本地代码生成](http://blog.christianperone.com/2016/08/jit-native-code-generation-for-tensorflow-computation-graphs-using-python-and-llvm/)
+[使用Python和LLVM的，用于TensorFlow计算图形的JIT本地代码生成](http://blog.christianperone.com/2016/08/jit-native-code-generation-for-tensorflow-computation-graphs-using-python-and-llvm/) [中文版](../Science and Data Analysis/用于格式化和数据清理的便捷Python库.md)
 
 [Python JIT来了](https://lwn.net/Articles/691070/)
 
