@@ -2,30 +2,23 @@
 
 ---
 
-From Development to Deployment
+从开发到部署
 
-  这里是目录！！！
+[TOC]
 
-There have been a few recent articles reflecting on the current status of the
-Python packaging ecosystem from an end user perspective, so it seems
-worthwhile for me to write-up my perspective as one of the lead architects for
-that ecosystem on how I characterise the overall problem space of software
-publication and distribution, where I think we are at the moment, and where
-I'd like to see us go in the future.
+最近已经有一些文章从最终用户的角度反映Python包生态圈的现状，因此，作为该生态圈的主架构师之一，对我来说，值得从我的角度写写我如何描述软件出版发行的整体问题空间，此刻我认为我们所处的境地，以及我所希望看到的未来的发展。
 
-For context, the specific articles I'm replying to are:
+作为背景，我回复的具体文章是：
 
   * [Python Packaging is Good Now](https://glyph.twistedmatrix.com/2016/08/python-packaging.html) (Glyph Lefkowitz)
-  * [Conda: Myths and Misconceptions](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) (Jake VanderPlas)
-  * [Python Packaging at PayPal](https://www.paypal-engineering.com/2016/09/07/python-packaging-at-paypal/) (Mahmoud Hashemi)
+  * [Conda：神话和误解](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) (Jake VanderPlas)
+  * [PayPal的Python Packaging](https://www.paypal-engineering.com/2016/09/07/python-packaging-at-paypal/) (Mahmoud Hashemi)
 
 These are all excellent pieces considering the problem space from different
 perspectives, so if you'd like to learn more about the topics I cover here, I
 highly recommend reading them.
 
-## [My core software ecosystem design
-philosophy](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id1)
+## [我的核心软件生态设计理念](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id1)
 
 Since it heavily influences the way I think about packaging system design in
 general, it's worth stating my core design philosophy explicitly:
@@ -41,26 +34,20 @@ commercial market (think operating system vendor controlled application
 stores, especially for mobile devices).
 
 While we're unlikely to ever pursue the specific design documented in the rest
-of the PEP (hence the "Deferred" status), the "[Development, Distribution, and
-Deployment of Python Software](https://www.python.org/dev/peps/pep-0426
-/#development-distribution-and-deployment-of-python-software)" section of PEP
+of the PEP (hence the "Deferred" status), the "[Development, Distribution, and Deployment of Python Software](https://www.python.org/dev/peps/pep-0426/#development-distribution-and-deployment-of-python-software)" section of PEP
 426 provides additional details on how this philosophy applies in practice.
 
 I'll also note that while I now work on software supply chain management
 tooling at Red Hat, that _wasn't_ the case when I first started actively
-participating in the upstream Python packaging ecosystem [design
-process](https://lwn.net/Articles/580399/). Back then I was working on Red
+participating in the upstream Python packaging ecosystem [design process](https://lwn.net/Articles/580399/). Back then I was working on Red
 Hat's main [hardware integration testing system](https://beaker-project.org/),
 and growing increasingly frustrated with the level of effort involved in
 integrating new Python level dependencies into Beaker's RPM based development
 and deployment model. Getting actively involved in tackling these problems on
 the Python upstream side of things then led to also getting more actively
-involved in addressing them on the [Red Hat downstream
-side](http://www.slideshare.net/ncoghlan_dev/developing-in-python-on-red-hat-
-platforms-devnation-2016).
+involved in addressing them on the [Red Hat downstream side](http://www.slideshare.net/ncoghlan_dev/developing-in-python-on-red-hat-platforms-devnation-2016).
 
-## [The key conundrum](http://www.curiousefficiency.org/posts/2016/09/python-
-packaging-ecosystem.html#id2)
+## [关键难题](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id2)
 
 When talking about the design of software packaging ecosystems, it's very easy
 to fall into the trap of only considering the "direct to peer developers" use
@@ -130,9 +117,7 @@ This means that things get significantly more complex once we start wanting to
 use and depend on components written in languages other than Python, so that's
 the broader context I'll consider next.
 
-## [Platform management or plugin
-management?](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id3)
+## [平台管理或者插件管理？](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id3)
 
 When it comes to handling the software distribution problem in general, there
 are two main ways of approaching it:
@@ -197,8 +182,7 @@ system integration pipeline:
   * Publishing and consuming Python software with pip is a matter of "bring your own Python runtime". This has the benefit that you _can_ readily bring your own runtime (and manage it using whichever tools make sense for your use case), but also has the downside that you _must_ supply your own runtime (which can sometimes prove to be a significant barrier to entry for new Python users, as well as being a pain for cross-platform environment management).
   * Like Linux system package managers before it, conda takes away the requirement to supply your own Python runtime by providing one for you. This is great if you don't have any particular preference as to which runtime you want to use, but if you _do_ need to use a different runtime for some reason, you're likely to end up fighting against the tooling, rather than having it help you. (If you're tempted to answer "Just add another interpreter to the pre-integrated set!" here, keep in mind that doing so without the aid of a runtime independent plugin manager like pip acts as a _multiplier_ on the platform level integration testing needed, which can be a significant cost even when it's automated)
 
-## [Where do we go next?](http://www.curiousefficiency.org/posts/2016/09
-/python-packaging-ecosystem.html#id4)
+## [接下来，要做什么？](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id4)
 
 In case it isn't already clear from the above, I'm largely happy with the
 respective niches that pip and conda are carving out for themselves as a
@@ -211,9 +195,7 @@ Python redistributors, as well as to reduce barriers to entry for
 participation in the ecosystem in general, so I'll go over some of the key
 areas I see for potential improvement.
 
-### [Sustainability and the bystander
-effect](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id5)
+### [可持续发展与旁观者效应](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id5)
 
 It's not a secret that the core PyPA infrastructure (PyPI, pip, twine,
 setuptools) is [nowhere near as well-funded](https://caremad.io/posts/2016/05
@@ -274,9 +256,7 @@ mind - see [Making PyPI security independent of
 SSL/TLS](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
 ecosystem.html#making-pypi-security-independent-of-ssl-tls)).
 
-### [Migrating PyPI to
-pypi.org](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id6)
+### [将PyPI迁移到pypi.org](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id6)
 
 An instance of the new PyPI implementation (Warehouse) is up and running at
 <https://pypi.org/> and connected directly to the production PyPI database, so
@@ -290,9 +270,7 @@ switched over to using it.
 Getting at least this step appropriately funded and a clear project management
 plan in place is the main current focus of the PSF's Packaging Working Group.
 
-### [Making the presence of a compiler on end user systems
-optional](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id7)
+### [使得编译器的存在在终端用户系统上可选](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id7)
 
 Between the `wheel` format and the `manylinux1` usefully-distro-independent
 ABI definition, this is largely handled now, with `conda` available as an
@@ -307,9 +285,7 @@ correctly generate platform level dependencies when converting Python projects
 to downstream package formats like those used by conda and Linux system
 package managers.
 
-### [Bootstrapping dependency management tools on end user
-systems](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id8)
+### [在终端用户的系统上引导依赖管理工具](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id8)
 
 With pip being bundled with recent versions of CPython (including CPython 2.7
 maintenance releases), and pip (or a variant like upip) also being bundled
@@ -325,9 +301,7 @@ the same level of political coordination across multiple groups that was
 needed to establish pip as the lowest common denominator approach to
 dependency management for Python applications.
 
-### [Making the use of distutils and setuptools
-optional](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id9)
+### [让distutils和setuptools的使用可选optional](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id9)
 
 As mentioned above, distutils was designed ~18 years ago as a common interface
 for Linux distributions to build Python projects, while setuptools was
@@ -366,9 +340,7 @@ and `easy_install`, as well as defining a declarative approach to invoking the
 build system rather than having to run `setup.py` with the relevant distutils
 &amp; setuptools flags.
 
-### [Making PyPI security independent of
-SSL/TLS](http://www.curiousefficiency.org/posts/2016/09/python-packaging-
-ecosystem.html#id10)
+### [使得PyPI的安全独立于SSL/TLS](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id10)
 
 PyPI currently relies entirely on SSL/TLS to protect the integrity of the link
 between software publishers and PyPI, and between PyPI and software consumers.
@@ -393,8 +365,7 @@ provides the security guarantees of the system-as-designed.
 Accordingly, this isn't a project that can realistically be pursued until the
 underlying sustainability problems have been suitably addressed.
 
-### [Automating wheel creation](http://www.curiousefficiency.org/posts/2016/09
-/python-packaging-ecosystem.html#id11)
+### [自动化wheel创建](http://www.curiousefficiency.org/posts/2016/09/python-packaging-ecosystem.html#id11)
 
 While redistributors will generally take care of converting upstream Python
 packages into their own preferred formats, the Python-specific wheel format is

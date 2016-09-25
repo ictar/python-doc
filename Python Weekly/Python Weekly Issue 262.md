@@ -19,7 +19,7 @@
 
 深度学习、廉价硬件和目标识别大冒险。
   
-[压缩和增强手写笔记](https://mzucker.github.io/2016/09/20/noteshrink.html)  
+[压缩和增强手写笔记](https://mzucker.github.io/2016/09/20/noteshrink.html)  | [中文版](../Image Processing/压缩和增强手写笔记.md)
 
 这篇文章将向你展示如何写个程序来清理手写笔记扫描件，同时减少文件大小。
   
