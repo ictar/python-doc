@@ -39,7 +39,7 @@ Sandstorm.io是一个创新平台，旨在让自托管应用对于普通人来�
 
 最近已经有一些文章从最终用户的角度反映Python包生态圈的现状，因此，作为该生态圈的主架构师之一，对我来说，值得从我的角度写写我如何描述软件出版发行的整体问题空间，此刻我认为我们所处的境地，以及我所希望看到的未来的发展。
   
-[使用Python，分析23AndMe数据，获取遗传起源](http://online.cambridgecoding.com/notebooks/cca_admin/genetic-ancestry-analysis-python)  
+[使用Python，分析23AndMe数据，获取遗传起源](http://online.cambridgecoding.com/notebooks/cca_admin/genetic-ancestry-analysis-python)  | [中文](../Science and Data Analysis/使用Python，分析23AndMe数据，获取遗传起源.md)
 
 你的DNA包含了关于你的主线，易患疾病以及复杂特性，包括身高、体重、五官和行为等丰富的信息。使用来自23andMe，一家直接面向消费者的遗传学公司，的公众可获取数据，我们将展示如何确定在网上找到的来自23andMe的一份匿名样本的祖先。
   
