@@ -11,7 +11,7 @@
   
 # 文章，教程和讲座
   
-[用Python进行股票市场数据分析概述 (第一部分)](https://ntguardian.wordpress.com/2016/09/19/introduction-stock-market-data-python-1/)  
+[用Python进行股票市场数据分析概述 (第一部分)](https://ntguardian.wordpress.com/2016/09/19/introduction-stock-market-data-python-1/)  | [中文](../Science and Data Analysis/用Python进行股票市场数据分析概述 (第一部分).md)
 
 这篇文章是使用Python进行股票数据分析系列的两部分中的第一个部分，基于我在Utah大学为MATH 3900（数据科学）课题提供的一个讲座。在这些文章中，我会讨论到基础知识，例如使用pandas从Yahoo! Finance获取数据，可视化股票数据，移动均值，制定一个移动平均交叉策略，回测和基准。最后的一篇文章会包含实际问题。这第一篇文章讨论的主题到介绍移动均值。
   
