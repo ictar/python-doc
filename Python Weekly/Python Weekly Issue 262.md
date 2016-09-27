@@ -11,7 +11,7 @@
   
 # 文章，教程和讲座
   
-[用Python进行股票市场数据分析概述 (第一部分)](https://ntguardian.wordpress.com/2016/09/19/introduction-stock-market-data-python-1/)  
+[用Python进行股票市场数据分析概述 (第一部分)](https://ntguardian.wordpress.com/2016/09/19/introduction-stock-market-data-python-1/)  | [中文](../Science and Data Analysis/用Python进行股票市场数据分析概述 (第一部分).md)
 
 这篇文章是使用Python进行股票数据分析系列的两部分中的第一个部分，基于我在Utah大学为MATH 3900（数据科学）课题提供的一个讲座。在这些文章中，我会讨论到基础知识，例如使用pandas从Yahoo! Finance获取数据，可视化股票数据，移动均值，制定一个移动平均交叉策略，回测和基准。最后的一篇文章会包含实际问题。这第一篇文章讨论的主题到介绍移动均值。
   
@@ -19,7 +19,7 @@
 
 深度学习、廉价硬件和目标识别大冒险。
   
-[压缩和增强手写笔记](https://mzucker.github.io/2016/09/20/noteshrink.html)  
+[压缩和增强手写笔记](https://mzucker.github.io/2016/09/20/noteshrink.html)  | [中文版](../Image Processing/压缩和增强手写笔记.md)
 
 这篇文章将向你展示如何写个程序来清理手写笔记扫描件，同时减少文件大小。
   
@@ -39,7 +39,7 @@ Sandstorm.io是一个创新平台，旨在让自托管应用对于普通人来�
 
 最近已经有一些文章从最终用户的角度反映Python包生态圈的现状，因此，作为该生态圈的主架构师之一，对我来说，值得从我的角度写写我如何描述软件出版发行的整体问题空间，此刻我认为我们所处的境地，以及我所希望看到的未来的发展。
   
-[使用Python，分析23AndMe数据，获取遗传起源](http://online.cambridgecoding.com/notebooks/cca_admin/genetic-ancestry-analysis-python)  
+[使用Python，分析23AndMe数据，获取遗传起源](http://online.cambridgecoding.com/notebooks/cca_admin/genetic-ancestry-analysis-python)  | [中文](../Science and Data Analysis/使用Python，分析23AndMe数据，获取遗传起源.md)
 
 你的DNA包含了关于你的主线，易患疾病以及复杂特性，包括身高、体重、五官和行为等丰富的信息。使用来自23andMe，一家直接面向消费者的遗传学公司，的公众可获取数据，我们将展示如何确定在网上找到的来自23andMe的一份匿名样本的祖先。
   

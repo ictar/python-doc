@@ -42,6 +42,9 @@ translate python documents to Chinese for convenient reference
 ## 函数式编程
 - [Functional Programming](./Functional Programming)
 
+## 图像处理
+- [Image Processing](./Image Processing)
+
 ## 资源
 - [Python Weekly](./Python Weekly)
 - Pycoder's Weekly    
