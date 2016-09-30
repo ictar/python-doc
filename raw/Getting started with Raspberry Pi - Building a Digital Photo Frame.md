@@ -152,67 +152,70 @@ Arduino是一个开源的微控制器，有I/O引脚来控制其他电子产品�
 
 *   **数码相框**
 
-    数码相框并非新玩意；Digital photo frames are nothing new; you probably remember the crappy versions years ago where you stuck an SD card in to play your photos. Well times have changed and tons of connected digital photo frames are on the market now. There's the $299 [Electric Objects EO1](https://www.electricobjects.com/), the $999+ [Klio](http://www.klioart.com/) and the $445+ [Meural digital canvas](https://meural.com/). So now lots of folks have turned to the Pi to build their own versions, including me (at the very bottom of this post!).
+    数码相框并非新玩意；你可能还记得多年前的那个蹩脚的版本，那时，你将SD卡插进去来播放你的照片。嗯，时代已经变了，现在，市场上有大量的连接数码相框。有$299的[Electric Objects EO1](https://www.electricobjects.com/)，$999+的[Klio](http://www.klioart.com/)和$445+的[Meural数字画布](https://meural.com/)。因此现在，大量的人都转向Pi来构建他们自己的版本，包括我（在这篇文章的最底部）。
 
     ![digital picture frame](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-rpi-photo-frame-DSC00138-750.jpg)
 
 *   **魔镜**
 
-    Smart mirrors are probably the most popular Raspberry Pi project in existence right now. They bring memories of futuristic movie interfaces and are relatively simple to build, especially with a large community developing them and [releasing software](https://github.com/MichMich/MagicMirror "Magic Mirror 2 the open source modular smart mirror platform") to drive them. In a nutshell: put a display running a full-page browser with a dark UI displaying info like news, weather or whatever is important to you behind a 2-way mirror and hang it in your house somewhere. There are lots of guides about this online: [1](https://www.reddit.com/r/raspberry_pi/comments/3oktfu/magic_mirror_how_to/ "Magic Mirror how to"), [2](http://michaelteeuw.nl/post/83188136918/magic-mirror-part-v-installing-the-raspberry-pi&#10; "Magic Mirror: Part V - Installing the Raspberry Pi"), [3](http://innate.cc/ "Smart Mirror Mini Form Factor Update"), [4](http://blog.dylanjpierce.com/raspberrypi/magicmirror/tutorial/2015/12/27/build-a-magic-mirror.html), [5](https://medium.com/@maxbraun/my-bathroom-mirror-is-smarter-than-yours-94b21c6671ba).
+    魔镜可能是当下现存最受欢迎的树莓派项目。它们带来了你对未来电影界面的回忆，并且很简单就可以建立起来，特别是有一个大社区在开发它们，并且[发布软件](https://github.com/MichMich/MagicMirror "Magic Mirror 2 the open source modular smart mirror platform")来驱动它们。简而言之：将一个运行着使用黑色UI，并展示新闻、天气或者任何对你来说重要的东西的全页面浏览器的显示器放在双面镜后，然后把它挂在家里的某个地方。网上有许多关于它的指南：[1](https://www.reddit.com/r/raspberry_pi/comments/3oktfu/magic_mirror_how_to/ "Magic Mirror how to")，[2](http://michaelteeuw.nl/post/83188136918/magic-mirror-part-v-installing-the-raspberry-pi&#10; "Magic Mirror: Part V - Installing the Raspberry Pi")，[3](http://innate.cc/ "Smart Mirror Mini Form Factor Update")，[4](http://blog.dylanjpierce.com/raspberrypi/magicmirror/tutorial/2015/12/27/build-a-magic-mirror.html)，[5](https://medium.com/@maxbraun/my-bathroom-mirror-is-smarter-than-yours-94b21c6671ba)。
 
     ![smart/magic mirror](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-smart-mirror.jpg)
     ![smart/magic mirror](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-max-smart-mirror.jpg)
-    Probably the [most popular magic mirror build](https://medium.com/@maxbraun/my-bathroom-mirror-is-smarter-than-yours-94b21c6671ba). This one was done with a Fire TV Android stick since the creator couldn't find a Pi Zero in stock at the time. Same concept though.
+
+    也许是[最流行的魔镜构建](https://medium.com/@maxbraun/my-bathroom-mirror-is-smarter-than-yours-94b21c6671ba)。这是用一个Fire电视Android棒完成的，因为创造者在当时买不到Pi Zero。但是是相同的概念。
     
-*   Roll your own motion detecting Dropcam [with motionEyeOS](https://github.com/ccrisan/motioneyeos/wiki "motionEyeOS is a Linux distribution that turns a single-board computer into a video surveillance system.")
-*   [创建一个闹钟](https://georgecushen.com/spotify-alarm-clock-raspberry-pi-ubuntu-linux/ "Wake Up with Spotify Alarm Clock for Raspberry Pi") that plays music from Spotify
-*   Setup your own VPN server with [PiVPN (OpenVPN)](http://www.pivpn.io) for when you're not at home and connect to unsecure coffee shop Wi-Fi networks.*   Build your own [portable Pi Desktop computer](https://learn.adafruit.com/10-raspberry-pi-desktop) or [tablet](http://francescopochetti.com/pipad-build-tablet-raspberry-pi/):
+*   [使用motionEyeOS](https://github.com/ccrisan/motioneyeos/wiki "motionEyeOS is a Linux distribution that turns a single-board computer into a video surveillance system.")，运转你自己的运动检测Dropcam
+*   [创建一个闹钟](https://georgecushen.com/spotify-alarm-clock-raspberry-pi-ubuntu-linux/ "Wake Up with Spotify Alarm Clock for Raspberry Pi")，让它播放来自Spotify的音乐
+*   使用[PiVPN (OpenVPN)](http://www.pivpn.io)设置你自己的VPN服务器，当你不在家，并且连接到不安全的咖啡厅的Wi-Fi网络时，你可以用它。
+*   构建你自己的[便携式Pi台式电脑](https://learn.adafruit.com/10-raspberry-pi-desktop)或者[平板](http://francescopochetti.com/pipad-build-tablet-raspberry-pi/)：
 
     ![Portable Pi Desktop computer](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-adafruit-pidesktop.jpg)
     ![Portable Pi tablet computer](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-tablet-project.jpg)
-*   [Build a document scanner](http://www.instructables.com/id/Raspberry-Pi-Based-Document-Scanner-With-Automatic/ "Raspberry Pi Document Scanner With Automatic Upload to Dropbox") that automatically uploads to Dropbox
-*   Home theater PC with OpenElec, OSMC, Kodi, [RasPlex](https://github.com/RasPlex/RasPlex/releases "Rasplex is a community driven port of Plex Home Theater for the Raspberry Pi") or even [Android TV](https://github.com/peyo-hd/device_brcm_rpi3 "Android TV for Raspberry Pi 3") ([see video](https://www.youtube.com/watch?v=NMDf5thqoMk "Raspberry Pi 3 Running Android Tv OS and N64 , SNES emulator test"))
-*   Create an ["Onion Pi" Tor proxy](https://learn.adafruit.com/onion-pi/overview "Make a Raspberry Pi into a Anonymizing Tor Proxy")
-*   Setup an Ad blocker for your whole network with [Pi Hole](https://pi-hole.net/)
-*   Program your own Pi-based robot with the [GoPiGo robot kit](http://www.dexterindustries.com/GoPiGo/):
+
+*   [构建一个文档扫描仪](http://www.instructables.com/id/Raspberry-Pi-Based-Document-Scanner-With-Automatic/ "Raspberry Pi Document Scanner With Automatic Upload to Dropbox")，它自动上传文档到Dropbox。
+*   连接OpenElec, OSMC, Kodi, [RasPlex](https://github.com/RasPlex/RasPlex/releases "Rasplex is a community driven port of Plex Home Theater for the Raspberry Pi")或者甚至是[Android TV](https://github.com/peyo-hd/device_brcm_rpi3 "Android TV for Raspberry Pi 3")的家庭影院电脑 ([见视频](https://www.youtube.com/watch?v=NMDf5thqoMk "Raspberry Pi 3 Running Android Tv OS and N64 , SNES emulator test"))。
+*   创建一个["洋葱Pi" Tor代理](https://learn.adafruit.com/onion-pi/overview "Make a Raspberry Pi into a Anonymizing Tor Proxy")
+*   使用[Pi Hole](https://pi-hole.net/)为你的整个网络设置广告拦截
+*   使用[GoPiGo机器人套件](http://www.dexterindustries.com/GoPiGo/)编程你自己的基于Pi的机器人：
 
     ![gopigo robot kit](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-gopigo-robot.jpg)
 
-*   DIY plant automatic watering system: [1](http://www.instructables.com/id/Automatic-Plant-Watering-and-Soil-Moisture-Sensing/ "Automatic Plant Watering and Soil Moisture Sensing"), [2](http://www.instructables.com/id/Raspberry-Pi-Irrigation-Controller/ "Raspberry Pi Irrigation Controller"), [3](https://hackaday.io/project/2711-autonomous-watering-system "Autonomous watering system"), [4](https://blog.serverdensity.com/automatically-watering-your-plants-with-sensors-a-pi-and-webhooks/)
-*   Make a [personal voice assistant](http://www.instructables.com/id/Raspberri-Personal-Assistant/?ALLSTEPS)
-*   Make a [portable gaming console](http://www.instructables.com/id/Raspberry-Pi-Portable-Games-Console/step6/Assembling-the-Console/), [Porta Pi Arcade system](http://www.instructables.com/id/Build-your-own-Mini-Arcade-Cabinet-with-Raspberry-/) or [Game Boy Zero](https://www.raspberrypi.org/blog/game-boy-zero/ "Game Boy Zero") using with [RetroPie](https://retropie.org.uk/).
+*   DIY植物自动浇水系统：[1](http://www.instructables.com/id/Automatic-Plant-Watering-and-Soil-Moisture-Sensing/ "Automatic Plant Watering and Soil Moisture Sensing"), [2](http://www.instructables.com/id/Raspberry-Pi-Irrigation-Controller/ "Raspberry Pi Irrigation Controller"), [3](https://hackaday.io/project/2711-autonomous-watering-system "Autonomous watering system"), [4](https://blog.serverdensity.com/automatically-watering-your-plants-with-sensors-a-pi-and-webhooks/)
+*   弄个[个人语音助理](http://www.instructables.com/id/Raspberri-Personal-Assistant/?ALLSTEPS)
+*   弄个[便携式游戏机](http://www.instructables.com/id/Raspberry-Pi-Portable-Games-Console/step6/Assembling-the-Console/), [便携式Pi街机系统](http://www.instructables.com/id/Build-your-own-Mini-Arcade-Cabinet-with-Raspberry-/)或者使用 [RetroPie](https://retropie.org.uk/)的[Game Boy Zero](https://www.raspberrypi.org/blog/game-boy-zero/ "Game Boy Zero")。
 
       ![Portable Pi gaming console](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-portable-games-console.jpg)
       ![Porta Pi Arcade](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-arcade.jpg)
       ![Game Boy Zero](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-gameboy-zero.jpg)
 
-*   Turn your Raspberry Pi into a gaming console with the [Lakka](http://www.lakka.tv/ "The open source game console") Linux distro
-*   Have your Pi run a [Twitter bot that tweets photos](http://blog.bandwidth.com/actually-using-your-raspberry-pi-part-4-twitter-bot/) from the Pi Camera
-*   DIY Pi-controlled espresso machine using [iSPRESSO](http://ispresso.net/ "iSPRESSO is an appliance modification comprised of Raspberry Pi computer, solid state relays, temp sensor, buttons and a display, a custom Printed Circuit Board, and custom linux shell scripts and a good bit of python code")
-*   [DIY Amazon Echo](https://github.com/amzn/alexa-avs-raspberry-pi) using Alexa voice service:
+*  使用[Lakka](http://www.lakka.tv/ "The open source game console") Linux发行版，把你的树莓派编程一个游戏控制台
+*   让你的Pi运行一个[发照片的Twitter机器人](http://blog.bandwidth.com/actually-using-your-raspberry-pi-part-4-twitter-bot/)，照片来自于Pi照相机
+*   使用[iSPRESSO](http://ispresso.net/ "iSPRESSO is an appliance modification comprised of Raspberry Pi computer, solid state relays, temp sensor, buttons and a display, a custom Printed Circuit Board, and custom linux shell scripts and a good bit of python code")，DIY Pi控制的咖啡机
+*   使用Alexa语音服务，[DIY Amazon Echo](https://github.com/amzn/alexa-avs-raspberry-pi)：
 
     ![](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-rpi-diy-alexa.jpg)
 
-*   Setup [wireless electrical outlets via RF modules](https://timleland.com/wireless-power-outlets/ "Wireless power outlets") made for the Pi or hack your own [voice-controlled electrical outlets](http://www.instructables.com/id/Wireless-Multi-Channel-Voice-Controlled-Electrical/):
+*   为Pi定制[通过RF模块设置无线电源插座wireless electrical outlets via RF modules](https://timleland.com/wireless-power-outlets/ "Wireless power outlets") 或hack你自己的[声控电源插座](http://www.instructables.com/id/Wireless-Multi-Channel-Voice-Controlled-Electrical/)：
 
     ![](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-pi-wireless-voice-outlets.jpg)
 
-*   Create your own [BitTorrent downloading box](http://www.howtogeek.com/142044/how-to-turn-a-raspberry-pi-into-an-always-on-bittorrent-box/ "How to Turn a Raspberry Pi into an Always-On BitTorrent Box")
-*   Make a [Raspberry Pi server cluster](http://makezine.com/projects/build-a-compact-4-node-raspberry-pi-cluster/):
+*   创建你自己的[BitTorrent下载盒](http://www.howtogeek.com/142044/how-to-turn-a-raspberry-pi-into-an-always-on-bittorrent-box/ "How to Turn a Raspberry Pi into an Always-On BitTorrent Box")
+*   做一个[树莓派服务器集群](http://makezine.com/projects/build-a-compact-4-node-raspberry-pi-cluster/):
 
     ![pi cluster](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-picluster.jpg)
 
-*   Have the Raspberry Pi [open the door with a Slack chat command](http://blog.tryolabs.com/2016/06/01/raspberrypi-slack-our-humble-contribution-to-the-offices-laziness/ "RASPBERRY PI + SLACK: OUR HUMBLE CONTRIBUTION TO THE OFFICE¡¯S LAZINESS")
-*   Use it as a server for [Home Assistant](https://home-assistant.io/) or [pimatic](https://pimatic.org/ "pimatic is a home automation framework that runs on node.js. It provides a common extensible platform for home control and automation tasks") for all the connected devices and appliances in your home or [have it run HomeBridge](https://github.com/nfarina/homebridge/wiki/Running-HomeBridge-on-a-Raspberry-Pi "Homebridge is a lightweight NodeJS server you can run on your home network that emulates the iOS HomeKit API.") to allow Siri to control more home automation devices.
-*   Use your Pi to host any of these [free web applications yourself](https://github.com/Kickball/awesome-selfhosted/blob/master/README.md)
-**   DIY [Seenote](https://www.getseenote.com/) digital sticky note / to-do list
-*   [Write a Python web server](http://mattrichardson.com/Raspberry-Pi-Flask/) to control electronics connected to the Pi's GPIO pins from any browser
-*   Play a [MIDI file over a Tesla coil](https://www.youtube.com/watch?v=KhvExaTCXHA)
-*   Create a [high-res networked outdoor camera](http://blog.wq.lc/16-megapixel-outdoor-network-camera-on-the-cheap/ "16 Megapixel Outdoor Network Camera on the Cheap"):
+*   让树莓派[根据Slack聊天命令开门](http://blog.tryolabs.com/2016/06/01/raspberrypi-slack-our-humble-contribution-to-the-offices-laziness/ "RASPBERRY PI + SLACK: OUR HUMBLE CONTRIBUTION TO THE OFFICE¡¯S LAZINESS")
+*   对于你家里所有连接的设备和应用，把它当成[Home Assistant](https://home-assistant.io/)或者[pimatic](https://pimatic.org/ "pimatic is a home automation framework that runs on node.js. It provides a common extensible platform for home control and automation tasks")的服务器，或者[让它运行HomeBridge](https://github.com/nfarina/homebridge/wiki/Running-HomeBridge-on-a-Raspberry-Pi "Homebridge is a lightweight NodeJS server you can run on your home network that emulates the iOS HomeKit API.")，从而允许Siri控制更多的家庭自动化设备。
+*   使用你的Pi来自己托管任意[免费的web应用](https://github.com/Kickball/awesome-selfhosted/blob/master/README.md)
+**   DIY [Seenote](https://www.getseenote.com/) 数字便条 / 待办事项列表
+*   [写一个Python web服务器](http://mattrichardson.com/Raspberry-Pi-Flask/)来从任意浏览器控制连接到Pi的GPIO引脚的设备
+*   [通过一个特斯拉线圈来播放MIDI文件](https://www.youtube.com/watch?v=KhvExaTCXHA)
+*   创建一个[高分辨率网络户外摄像头](http://blog.wq.lc/16-megapixel-outdoor-network-camera-on-the-cheap/ "16 Megapixel Outdoor Network Camera on the Cheap")：
 
     ![](https://turbo.paulstamatiou.com/uploads/2016/06/pstam-networked-outdoor-picam.jpg)
 
-*   And [many](https://hackaday.io/list/3424-raspberry-pi-projects) more [projects](http://www.instructables.com/id/Raspberry-Pi-Projects/)...
+*   以及[许多](https://hackaday.io/list/3424-raspberry-pi-projects)更多的[项目](http://www.instructables.com/id/Raspberry-Pi-Projects/)...
 
 #### Pi不大适合做什么？
 
