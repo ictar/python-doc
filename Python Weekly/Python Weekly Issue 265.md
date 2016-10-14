@@ -1,4 +1,4 @@
-原文：[Python Weekly Issue 264](http://eepurl.com/cjSenT)
+原文：[Python Weekly Issue 265](http://eepurl.com/cjSenT)
 ---
   
 欢迎来到Python周刊第265期。让我们直入主题。
