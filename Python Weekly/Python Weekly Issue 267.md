@@ -1,6 +1,6 @@
 原文：[Python Weekly Issue 267](http://eepurl.com/clVF5r)
   
-欢迎来到Python周刊第266期。让我们直奔主题。 
+欢迎来到Python周刊第267期。让我们直奔主题。 
   
 # 新闻  
   
