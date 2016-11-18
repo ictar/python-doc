@@ -29,3 +29,4 @@
 - [Issue 267](./Python Weekly Issue 267.md)
 - [Issue 268](./Python Weekly Issue 268.md)
 - [Issue 269](./Python Weekly Issue 269.md)
+- [Issue 270](./Python Weekly Issue 270.md)
