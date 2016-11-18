@@ -24,3 +24,5 @@
 - [旅程中带着Ipad Pro和Raspberry Pi备份照片](./旅程中带着Ipad Pro和Raspberry Pi备份照片.md)
 
 	很久以来，Lenin都一直在寻求找到一个理想的旅行照片备份解决方法。然后他发现，Ipad Pro+Raspberry Pi是个不错的方案。
+
+- [用Python实现Raspberry Pi条码扫描仪](./用Python实现Raspberry Pi条码扫描仪.md)
