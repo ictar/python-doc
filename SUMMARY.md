@@ -13,7 +13,6 @@
 	- [Python Cookbook 3rd Edition Documentation(中文版)](http://python3-cookbook.readthedocs.org/zh_CN/latest/index.html)
 	- [什么是stackless](./Python Common/什么是stackless.md)
 	- [2016年的Python 3](./Python Common/2016年的Python 3.md)         
-	- [面试中遇到的问题们……](./Python Common/面试中遇到的问题们…….ipynb)
 	- [合并Python中的字典的惯用方法](./Python Common/合并Python中的字典的惯用方法.md)
 	- [惯用Python：推导](./Python Common/惯用Python：推导.md)
 	- [在Python 3中比较类型](./Python Common/在Python 3中比较类型.md)
