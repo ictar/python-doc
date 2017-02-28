@@ -19,7 +19,7 @@
 	- [Python 201 – 什么是双端队列(deque)](./Python Common/Python 201 – 什么是双端队列(deque).md)
 	- [高级asyncio测试](./Python Common/高级asyncio测试.md)
 	- [惯用Python：布尔表达式](./Python Common/惯用Python：布尔表达式.md)
-	- [base64-使用ASCII编码二进制数据](./Python Common/base64-使用ASCII编码二进制数据.org)
+	- [base64-使用ASCII编码二进制数据](./Python Common/base64-使用ASCII编码二进制数据.md)
 	- [Lists和Tuples大对决](./Python Common/Lists和Tuples大对决.md)
 	- [解释python中的*args和**kwargs](./Python Common/解释python中的*args和**kwargs.md)
 	- [深度探索Python：让我们审查dict模块](./Python Common/深度探索Python：让我们审查dict模块.md)
