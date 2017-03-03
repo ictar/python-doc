@@ -2,6 +2,8 @@
 translate python documents to Chinese for convenient reference
 简而言之，这里用来存放那些Python文档君们，并且尽力将其翻译成中文~~
 
+gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-zh/)
+
 # 说明
 1. 能在网上找到现成的当然是最好啦，这类型的文档，会直接提供链接，用[中文版](#)这种形式给出。
 2. 如果不能找到，会给出自己翻的中文版本。
