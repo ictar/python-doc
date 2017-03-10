@@ -1,0 +1,120 @@
+#+TITLE: New in Python: Syntax for variable annotations
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-03-10 五 17:07]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+#+URL: http://www.blog.pythonlibrary.org/2017/01/12/new-in-python-syntax-for-variable-annotations/                                      
+
+[[https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-pep526][Python 3.6]] added another interesting new feature that is known as Syntax for variable annotations. This new feature is outlined in [[https://www.python.org/dev/peps/pep-0526][PEP 526]]
+. The basic premise of this PEP is take the idea of Type Hinting ([[https://www.python.org/dev/peps/pep-0484][PEP 484]]) to its next logical step, which is basically adding option type
+definitions to Python variables, including class variables and instance variables. Please note that adding these annotations or
+definitions does not suddenly make Python a statically typed language. The interpreter still doesn’t care what type the variable is.
+However, a Python IDE or other utility like pylint could have an annotation checker added to them that could highlight when you use a
+variable that you have annotated as one type and then used incorrectly by changing its type mid-function.
+
+Let’s look at a simple example so we can see how this works:
+
+#+BEGIN_SRC python
+  # annotate.py
+  name: str = 'Mike'
+#+END_SRC
+
+What we have here is a Python file that we have named annotate.py. In it, we have created a variable, name, and annotated it to indicate
+it is a string. This is done by adding a colon after the variable name and then specifying what type it should be. You don’t have to
+assign anything to the variable if you don’t want to. The following is just as valid:
+
+#+BEGIN_SRC python
+  # annotate.py
+  name: str
+#+END_SRC
+
+When you annotate a variable, it will get added to the module’s or class’s __annotations__ attribute. Let’s try importing the first
+version of our annotate module and access that attribute:
+
+#+BEGIN_SRC python
+  >>> import annotate
+  >>> annotate.__annotations__
+  {'name': <class 'str'>}
+  >>> annotate.name
+  'Mike'
+#+END_SRC
+
+As you can see, the __annotations__ attribute returns a Python dict with the variable name as the key and the type as the value. Let’s add
+a couple of other annotations to our module and see how the __annotations__ attribute updates.
+
+#+BEGIN_SRC python
+  # annotate2.py
+  name: str = 'Mike'
+ 
+  ages: list = [12, 20, 32]
+ 
+  class Car:
+      variable: dict
+#+END_SRC
+
+In this code, we add an annotated list variable and a class with an annotated class variable. Now let’s import our new version of the
+annotate module and check out its __annotations__ attribute:
+
+#+BEGIN_SRC python
+  >>> import annotate
+  >>> annotate.__annotations__
+  {'name': <class 'str'>, 'ages': <class 'list'>}
+  >>> annotate.Car.__annotations__
+  {'variable': <class 'dict'>}
+  >>> car = annotate.Car()
+  >>> car.__annotations__
+  {'variable': <class 'dict'>}
+#+END_SRC
+
+This time around, we see that the annotations dictionary contains two items. You will note that the module level __annotations__ attribute
+does not contain the annotated class variable. To get access to that, we need to access the Car class directly or create a Car instance
+and access the attribute that way.
+
+As one of my readers pointed out, you can make this example more compliant to PEP 484 by using the typing module. Take a look at the
+following example:
+
+#+BEGIN_SRC python
+  # annotate3.py
+  from typing import Dict, List
+ 
+  name: str = 'Mike'
+ 
+  ages: List[int] = [12, 20, 32]
+ 
+  class Car:
+ 
+      variable: Dict
+#+END_SRC
+
+Let’s run this code in the interpreter and see how the output changes:
+
+#+BEGIN_SRC python
+  import annotate
+ 
+  In [2]: annotate.__annotations__
+  Out[2]: {'ages': typing.List[int], 'name': str}
+ 
+  In [3]: annotate.Car.__annotations__
+  Out[3]: {'variable': typing.Dict}
+#+END_SRC
+
+You will note that most of the types are now coming from the typing module.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+* Wrapping Up
+
+I found this new feature to be really interesting. While I love Python’s dynamic nature, I can also see the value in knowing what type a
+variable should be after working with C++ for the past couple of years. Of course, due to Python’s excellent introspection support,
+figuring out an object’s type is trivial. But this new feature could make static checkers better and also make your code more obvious,
+especially when you have to go back and update a piece of software you haven’t worked with in a few months or years.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Additional Reading
+
+  * PEP 526 – [[https://www.python.org/dev/peps/pep-0526][Syntax for variable annotations]]
+  * PEP 484 – [[https://www.python.org/dev/peps/pep-0484][Type Hinting]]
+  * Python 3.6: [[https://docs.python.org/3.6/whatsnew/3.6.html][What’s New]]
