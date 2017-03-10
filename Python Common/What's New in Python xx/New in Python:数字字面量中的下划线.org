@@ -1,11 +1,11 @@
-#+TITLE: New in Python: Underscores in Numeric Literals
+#+TITLE: New in Python:数字字面量中的下划线
+#+URL: http://www.blog.pythonlibrary.org/2017/01/11/new-in-python-underscores-in-numeric-literals/                                      
 #+AUTHOR: lujun9972
-#+TAGS: raw
-#+DATE: [2017-03-10 五 16:29]
+#+TAGS: What's New in Python xx
+#+DATE: [2017-03-10 五 16:56]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-#+URL: http://www.blog.pythonlibrary.org/2017/01/11/new-in-python-underscores-in-numeric-literals/                                      
 
 Python 3.6 新增了一些有趣的功能. 本文要说的这项功能脱胎于[[https://www.python.org/dev/peps/pep-0515][PEP 515: Underscores in Numeric Literals]].
 正如其名所言,它允许你在写一个很长的数字时用下划线(代替常用的逗号)来进行分段.
