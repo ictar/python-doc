@@ -7,31 +7,29 @@
 
 #+URL: http://www.blog.pythonlibrary.org/2017/01/12/new-in-python-syntax-for-variable-annotations/                                      
 
-[[https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-pep526][Python 3.6]] added another interesting new feature that is known as Syntax for variable annotations. This new feature is outlined in [[https://www.python.org/dev/peps/pep-0526][PEP 526]]
-. The basic premise of this PEP is take the idea of Type Hinting ([[https://www.python.org/dev/peps/pep-0484][PEP 484]]) to its next logical step, which is basically adding option type
-definitions to Python variables, including class variables and instance variables. Please note that adding these annotations or
-definitions does not suddenly make Python a statically typed language. The interpreter still doesn’t care what type the variable is.
-However, a Python IDE or other utility like pylint could have an annotation checker added to them that could highlight when you use a
-variable that you have annotated as one type and then used incorrectly by changing its type mid-function.
+[[https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-pep526][Python 3.6]] 开始支持变量注解了(Syntax for variable annotations). 这是一项脱胎于 [[https://www.python.org/dev/peps/pep-0526][PEP 526]] 的新功能. 
+这个PEP将Type Hinting ([[https://www.python.org/dev/peps/pep-0484][PEP 484]]) 的理念变成了现实. 它可以为Python变量(包括类变量和实例变量)添加额外可选的类型声明. 
+请注意,添加这些注解或者说声明并不会让Python变成一门静态类型语言. 解释器依然并不关心变量的类型是什么.
+但是对于Python IDE或其他类似pylink这样的工具来说,他们可以使用这些注解来进行检查,并高亮出与注解声明类型不一致的变量来.
 
-Let’s look at a simple example so we can see how this works:
+下面通过一个简单的例子来看看它是怎么工作的:
 
 #+BEGIN_SRC python
   # annotate.py
   name: str = 'Mike'
 #+END_SRC
 
-What we have here is a Python file that we have named annotate.py. In it, we have created a variable, name, and annotated it to indicate
-it is a string. This is done by adding a colon after the variable name and then specifying what type it should be. You don’t have to
-assign anything to the variable if you don’t want to. The following is just as valid:
+这是 =annotate.py= 中的内容. 其中,我们创建了一个变量: =name=, 它后面的注解说明它是一个字符串. 
+为变量添加注解就是在变量名后加上一个冒号以及该变量所属的类型. 
+如果你不想为变量赋值也可以. 下面的句子也没问题.
 
 #+BEGIN_SRC python
   # annotate.py
   name: str
 #+END_SRC
 
-When you annotate a variable, it will get added to the module’s or class’s __annotations__ attribute. Let’s try importing the first
-version of our annotate module and access that attribute:
+当你为一个变量添加了注解,该变量就会被添加到 module 或是 class 的 =__annotations__= 属性中. 
+下面让我们导入这个 =annotate= module,然后看看它的属性:
 
 #+BEGIN_SRC python
   >>> import annotate
@@ -41,8 +39,9 @@ version of our annotate module and access that attribute:
   'Mike'
 #+END_SRC
 
-As you can see, the __annotations__ attribute returns a Python dict with the variable name as the key and the type as the value. Let’s add
-a couple of other annotations to our module and see how the __annotations__ attribute updates.
+你可以看到, =__annotations__= 属性返回了一个Python dict变量, 其中以变量名为key,以对应的注解类型为value. 
+
+下面让我们添加一些其他类型的注解,再看看 =__annotations__= 属性会变成怎样的.
 
 #+BEGIN_SRC python
   # annotate2.py
@@ -54,8 +53,8 @@ a couple of other annotations to our module and see how the __annotations__ attr
       variable: dict
 #+END_SRC
 
-In this code, we add an annotated list variable and a class with an annotated class variable. Now let’s import our new version of the
-annotate module and check out its __annotations__ attribute:
+在这段代码中, 我们添加了一个带注解的 =list= 变量,以及一个类,这个类中又定义了一个带注解的类变量. 
+现在我们再导入这个 =annotate= module,然后看看 =__annotations__= 属性是怎样的:
 
 #+BEGIN_SRC python
   >>> import annotate
@@ -68,12 +67,10 @@ annotate module and check out its __annotations__ attribute:
   {'variable': <class 'dict'>}
 #+END_SRC
 
-This time around, we see that the annotations dictionary contains two items. You will note that the module level __annotations__ attribute
-does not contain the annotated class variable. To get access to that, we need to access the Car class directly or create a Car instance
-and access the attribute that way.
+这一次你会发现这个注解字典中包含了两项内容,而其中并没有那个类变量.
+要看到这个类变量,你需要访问 =Car= 这个类中的 =__annotations__= 属性,或者先创建一个Car实例,然后再访问该实例的 =__annotations__= 属性.
 
-As one of my readers pointed out, you can make this example more compliant to PEP 484 by using the typing module. Take a look at the
-following example:
+有读者指出, 借助于 =typing= module,你可以让这里的例子更接近PEP484的要求. 比如下面这个例子:
 
 #+BEGIN_SRC python
   # annotate3.py
@@ -88,7 +85,7 @@ following example:
       variable: Dict
 #+END_SRC
 
-Let’s run this code in the interpreter and see how the output changes:
+在解释器中运行这段代码会发现如下结果:
 
 #+BEGIN_SRC python
   import annotate
@@ -100,16 +97,15 @@ Let’s run this code in the interpreter and see how the output changes:
   Out[3]: {'variable': typing.Dict}
 #+END_SRC
 
-You will note that most of the types are now coming from the typing module.
+你会发现大部分的type现在都来自于 =typing= module了.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 * Wrapping Up
 
-I found this new feature to be really interesting. While I love Python’s dynamic nature, I can also see the value in knowing what type a
-variable should be after working with C++ for the past couple of years. Of course, due to Python’s excellent introspection support,
-figuring out an object’s type is trivial. But this new feature could make static checkers better and also make your code more obvious,
-especially when you have to go back and update a piece of software you haven’t worked with in a few months or years.
+我发现这项新功能确实很有用. 我很喜欢Python的动态特性,但这几年的C++经历也让我同时能发现明确变量类型的价值所在.
+当然,Python有很强大的内省能力,要探测出一个对象的类型并不难. 但是这个项新功能能够改进静态检查器,同时让你的代码更易懂.
+尤其当你需要回过头来维护一个N久没有接触过的软件时更是如此.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
