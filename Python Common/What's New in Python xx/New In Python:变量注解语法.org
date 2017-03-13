@@ -1,11 +1,11 @@
-#+TITLE: New in Python: Syntax for variable annotations
+#+TITLE: New In Python:变量注解语法
+#+URL: http://www.blog.pythonlibrary.org/2017/01/12/new-in-python-syntax-for-variable-annotations/                                      
 #+AUTHOR: lujun9972
-#+TAGS: raw
-#+DATE: [2017-03-10 五 17:07]
+#+TAGS: What's New in Python xx
+#+DATE: [2017-03-13 一 23:06]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-#+URL: http://www.blog.pythonlibrary.org/2017/01/12/new-in-python-syntax-for-variable-annotations/                                      
 
 [[https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-pep526][Python 3.6]] 开始支持变量注解了(Syntax for variable annotations). 这是一项脱胎于 [[https://www.python.org/dev/peps/pep-0526][PEP 526]] 的新功能. 
 这个PEP将Type Hinting ([[https://www.python.org/dev/peps/pep-0484][PEP 484]]) 的理念变成了现实. 它可以为Python变量(包括类变量和实例变量)添加额外可选的类型声明. 
