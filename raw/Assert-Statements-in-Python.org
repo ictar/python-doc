@@ -1,0 +1,284 @@
+#+TITLE: Assert-Statements-in-Python
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-03-14 二 02:39]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+#+URL: https://dbader.org/blog/python-assert-tutorial
+
+How to use assertions to help automatically detect errors in your Python
+programs in order to make them more reliable and easier to debug.
+
+[[https://dbader.org/blog/figures/python-assert.png]]
+
+* What Are Assertions & What Are They Good For?
+
+Python’s assert statement is a debugging aid that tests a condition. If the
+condition is true, it does nothing and your program just continues to execute.
+But if the assert condition evaluates to false, it raises an AssertionError
+exception with an optional error message.
+
+The proper use of assertions is to inform developers about unrecoverable
+errors in a program. They’re not intended to signal expected error conditions,
+like “file not found”, where a user can take corrective action or just try
+again.
+
+Another way to look at it is to say that assertions are internal self-checks
+for your program. They work by declaring some conditions as impossible in your
+code. If one of these conditions doesn’t hold that means there’s a bug in the
+program.
+
+If your program is bug-free, these conditions will never occur. But if they do
+occur the program will crash with an assertion error telling you exactly which
+“impossible” condition was triggered. This makes it much easier to track down
+and fix bugs in your programs.
+
+To summarize: Python’s assert statement is a debugging aid, not a mechanism
+for handling run-time errors. The goal of using assertions is to let
+developers find the likely root cause of a bug more quickly. An assertion
+error should never be raised unless there’s a bug in your program.
+
+* Assert in Python — An Example
+
+Here’s a simple example so you can see where assertions might come in handy. I
+tried to give this some semblance of a real world problem you might actually
+encounter in one of your programs.
+
+Suppose you were building an online store with Python. You’re working to add a
+discount coupon functionality to the system and eventually write the following
+apply_discount function:
+
+#+BEGIN_SRC python
+  def apply_discount(product, discount):
+      price = int(product['price'] * (1.0 - discount))
+      assert 0 <= price <= product['price']
+      return price
+#+END_SRC
+
+Notice the assert statement in there? It will guarantee that, no matter what,
+discounted prices cannot be lower than $0 and they cannot be higher than the
+original price of the product.
+
+Let’s make sure this actually works as intended if we call this function to
+apply a valid discount:
+
+#+BEGIN_SRC python
+  #
+  # Our example product: Nice shoes for $149.00
+  #
+  >>> shoes = {'name': 'Fancy Shoes', 'price': 14900}
+
+  #
+  # 25% off -> $111.75
+  #
+  >>> apply_discount(shoes, 0.25)
+  11175
+#+END_SRC
+
+Alright, this worked nicely. Now, let’s try to apply some invalid discounts:
+
+#+BEGIN_SRC python
+  #
+  # A "200% off" discount:
+  #
+  >>> apply_discount(shoes, 2.0)
+  Traceback (most recent call last):
+    File "<input>", line 1, in <module>
+      apply_discount(prod, 2.0)
+    File "<input>", line 4, in apply_discount
+      assert 0 <= price <= product['price']
+  AssertionError
+
+  #
+  # A "-30% off" discount:
+  #
+  >>> apply_discount(shoes, -0.3)
+  Traceback (most recent call last):
+    File "<input>", line 1, in <module>
+      apply_discount(prod, -0.3)
+    File "<input>", line 4, in apply_discount
+      assert 0 <= price <= product['price']
+  AssertionError
+#+END_SRC
+
+As you can see, trying to apply an invalid discount raises an AssertionError
+exception that points out the line with the violated assertion condition. If
+we ever encounter one of these errors while testing our online store it will
+be easy to find out what happened by looking at the traceback.
+
+This is the power of assertions, in a nutshell.
+
+* Python’s Assert Syntax
+
+It’s always a good idea to study up on how a language feature is actually
+implemented in Python before you start using it. So let’s take a quick look at
+the [[https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement][syntax for the assert statement according to the Python docs]]:
+
+#+BEGIN_SRC python
+  assert_stmt ::= "assert" expression1 ["," expression2]
+#+END_SRC
+
+In this case expression1 is the condition we test, and the optional
+expression2 is an error message that’s displayed if the assertion fails.
+
+At execution time, the Python interpreter transforms each assert statement
+into roughly the following:
+
+#+BEGIN_SRC python
+  if __debug__:
+      if not expression1:
+          raise AssertionError(expression2)
+#+END_SRC
+
+You can use expression2 to pass an optional error message that will be
+displayed with the AssertionError in the traceback. This can simplify
+debugging even further—for example, I’ve seen code like this:
+
+#+BEGIN_SRC python
+  if cond == 'x':
+      do_x()
+  elif cond == 'y':
+      do_y()
+  else:
+      assert False, ("This should never happen, but it does occasionally. "
+                     "We're currently trying to figure out why. "
+                     "Email dbader if you encounter this in the wild.")
+#+END_SRC
+
+Is this ugly? Well, yes. But it’s definitely a valid and helpful technique if
+you’re faced with a [[https://en.wikipedia.org/wiki/Heisenbug][heisenbug-type issue]] in one of your applications. 😉
+
+* Common Pitfalls With Using Asserts in Python
+
+Before you move on, there are two important caveats with using assertions in
+Python that I’d like to call out.
+
+The first one has to do with introducing security risks and bugs into your
+applications, and the second one is about a syntax quirk that makes it easy to
+write useless assertions.
+
+This sounds (and potentially is) pretty horrible, so you might at least want
+to skim these two caveats or read their summaries below.
+
+** Caveat #1 – Don’t Use Asserts for Data Validation
+
+*Asserts can be turned off globally in the Python interpreter. Don’t rely on assert expressions to be executed for data validation or data processing.*
+
+The biggest caveat with using asserts in Python is that [[https://docs.python.org/3/library/constants.html#__debug__][assertions can be]]
+[[https://docs.python.org/3/library/constants.html#__debug__][globally disabled]] with the -O and -OO command line switches, as well as the
+PYTHONOPTIMIZE environment variable in CPython.
+
+This turns any assert statement into a null-operation: the assertions simply
+get compiled away and won’t be evaluated, which means that none of the
+conditional expressions will be executed.
+
+This is an intentional design decision used similarly by many other
+programming languages. As a side-effect it becomes extremely dangerous to use
+assert statements as a quick and easy way to validate input data.
+
+Let me explain—if your program uses asserts to check if a function argument
+contains a “wrong” or unexpected value this can backfire quickly and lead to
+bugs or security holes.
+
+Let’s take a look at a simple example. Imagine you’re building an online store
+application with Python. Somewhere in your application code there’s a function
+to delete a product as per a user’s request:
+
+#+BEGIN_SRC python
+  def delete_product(product_id, user):
+      assert user.is_admin(), 'Must have admin privileges to delete'
+      assert store.product_exists(product_id), 'Unknown product id'
+      store.find_product(product_id).delete()
+#+END_SRC
+
+Take a close look at this function. What happens if assertions are disabled?
+
+There are two serious issues in this three-line function example, caused by
+the incorrect use of assert statements:
+
+ 1. Checking for admin privileges with an assert statement is dangerous. If
+    assertions are disabled in the Python interpreter, this turns into a
+    null-op. Therefore any user can now delete products. The privileges check
+    doesn’t even run. This likely introduces a security problem and opens the
+    door for attackers to destroy or severely damage the data in your
+    customer’s or company’s online store. Not good.
+ 2. The product_exists() check is skipped when assertions are disabled. This
+    means find_product() can now be called with invalid product ids—which
+    could lead to more severe bugs depending on how our program is written. In
+    the worst case this could be an avenue for someone to launch Denial of
+    Service attacks against our store. If the store app crashes if we attempt
+    to delete an unknown product, it might be possible for an attacker to
+    bombard it with invalid delete requests and cause an outage.
+
+How might we avoid these problems? The answer is to not use assertions to do
+data validation. Instead we could do our validation with regular if-statements
+and raise validation exceptions if necessary. Like so:
+
+#+BEGIN_SRC python
+  def delete_product(product_id, user):
+      if not user.is_admin():
+          raise AuthError('Must have admin privileges to delete')
+
+      if not store.product_exists(product_id):
+          raise ValueError('Unknown product id')
+
+      store.find_product(product_id).delete()
+#+END_SRC
+
+This updated example also has the benefit that instead of raising unspecific
+AssertionError exceptions, it now raises semantically correct exceptions like
+ValueError or AuthError (which [[https://dbader.org/blog/python-custom-exceptions][we’d have to define ourselves]]).
+
+** Caveat #2 – Asserts That Never Fail
+
+It’s easy to accidentally write Python assert statements that always evaluate
+to true. I’ve been bitten by this myself in the past. I wrote [[https://dbader.org/blog/catching-bogus-python-asserts][a longer article]]
+[[https://dbader.org/blog/catching-bogus-python-asserts][about this specific issue you can check out by clicking here]].
+
+Alternatively, here’s the executive summary:
+
+*When you pass a tuple as the first argument in an assert statement, the assertion always evaluates as true and therefore never fails.*
+
+For example, this assertion will never fail:
+
+#+BEGIN_SRC python
+  assert(1 == 2, 'This should fail')
+#+END_SRC
+
+This has to do with non-empty tuples always being truthy in Python. If you
+pass a tuple to an assert statement it leads to the assert condition to always
+be true—which in turn leads to the above assert statement being useless
+because it can never fail and trigger an exception.
+
+It’s relatively easy to accidentally write bad multi-line asserts due to this
+unintuitive behavior. This quickly leads to broken test cases that give a
+false sense of security in our test code. Imagine you had this assertion
+somewhere in your unit test suite:
+
+#+BEGIN_SRC python
+  assert (
+      counter == 10,
+      'It should have counted all the items'
+  )
+#+END_SRC
+
+Upon first inspection this test case looks completely fine. However, this test
+case would never catch an incorrect result: it always evaluates to True,
+regardless of the state of the counter variable.
+
+Like I said, it’s rather easy to shoot yourself in the foot with this (mine
+still hurts). Luckily, there are some countermeasures you can apply to prevent
+this syntax quirk from causing trouble:
+
+[[https://dbader.org/blog/catching-bogus-python-asserts][>> Read the full article on bogus assertions to get the dirty details.]]
+
+* Python Assertions — Summary
+
+Despite these caveats I believe that Python’s assertions are a powerful
+debugging tool that’s frequently underused by Python developers.
+
+Understanding how assertions work and when to apply them can help you write
+more maintainable and easier to debug Python programs. It’s a great skill to
+learn that will help bring your Python to the next level and make you a more
+well-rounded Pythonista.
