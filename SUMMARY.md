@@ -4,7 +4,10 @@
 
 ## Python语言相关
 - [Python Common](./Python Common/README.md)
-	- [3.5.1](./Python Common/3.5.1/README.md) 
+	- [3.5.1](./Python Common/3.5.1/README.md)
+	- [What's New in Python xx](./Python Common/What's New in Python xx/README.md)
+		- [New In Python：变量注解语法](./Python Common/What's New in Python xx/New In Python：变量注解语法.md)
+		- [New in Python：数字字面量中的下划线](./Python Common/What's New in Python xx/New in Python：数字字面量中的下划线.md)
 	- [Python 2和3中的异常泄漏](./Python Common/Python 2和3中的异常泄漏.md)
 	- [为什么存在Python 3](./Python Common/为什么存在Python 3.md)
 	- [Python async-await教程](./Python Common/Python async-await教程.md)
@@ -153,6 +156,7 @@
 	- [Issue 282](./Python Weekly/Python Weekly Issue 282.md)
 	- [Issue 283](./Python Weekly/Python Weekly Issue 283.md)
 	- [Issue 284](./Python Weekly/Python Weekly Issue 284.md)
+	- [Issue 285](./Python Weekly/Python Weekly Issue 284.md)
 - Pycoder's Weekly    
 	* 中文版：[蟒周刊](http://weekly.pychina.org/)
 
