@@ -7,6 +7,9 @@
 -->
 
 原文地址:http://www.blog.pythonlibrary.org/2017/01/12/new-in-python-syntax-for-variable-annotations/
+
+---
+
 [Python 3.6](https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-pep526) 开始支持变量注解了(Syntax for variable annotations). 这是一项脱胎于 [PEP 526](https://www.python.org/dev/peps/pep-0526) 的新功能. 这个PEP将Type Hinting ([PEP 484](https://www.python.org/dev/peps/pep-0484)) 的理念变成了现实. 它可以为Python变量(包括类变量和实例变量)添加额外可选的类型声明. 请注意,添加这些注解或者说声明并不会让Python变成一门静态类型语言. 解释器依然并不关心变量的类型是什么. 但是对于Python IDE或其他类似pylink这样的工具来说,他们可以使用这些注解来进行检查,并高亮出与注解声明类型不一致的变量来.
 
 下面通过一个简单的例子来看看它是怎么工作的:
@@ -96,14 +99,12 @@ Out[3]: {'variable': typing.Dict}
 
 <a id="orgf39fe31"></a>
 
-# Wrapping Up
-
+# 总结
 我发现这项新功能确实很有用. 我很喜欢Python的动态特性,但这几年的C++经历也让我同时能发现明确变量类型的价值所在. 当然,Python有很强大的内省能力,要探测出一个对象的类型并不难. 但是这个项新功能能够改进静态检查器,同时让你的代码更易懂. 尤其当你需要回过头来维护一个N久没有接触过的软件时更是如此.
 
 ---
 
-Additional Reading
-
--   PEP 526 – [Syntax for variable annotations](https://www.python.org/dev/peps/pep-0526)
+扩展阅读
+-   PEP 526 – [Syntax for variable annotations](https://www.python.org/dev/peps/pep-0526)
 -   PEP 484 – [Type Hinting](https://www.python.org/dev/peps/pep-0484)
 -   Python 3.6: [What’s New](https://docs.python.org/3.6/whatsnew/3.6.html)
