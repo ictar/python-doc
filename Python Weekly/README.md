@@ -45,3 +45,4 @@
 - [Issue 283](./Python Weekly Issue 283.md)
 - [Issue 284](./Python Weekly Issue 284.md)
 - [Issue 285](./Python Weekly Issue 285.md)
+- [Issue 286](./Python Weekly Issue 286.md)
