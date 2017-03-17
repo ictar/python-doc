@@ -7,47 +7,34 @@
 
 #+URL: https://dbader.org/blog/python-assert-tutorial
 
-How to use assertions to help automatically detect errors in your Python
-programs in order to make them more reliable and easier to debug.
+如何利用断言自动探测Python程序中的错误使之更可靠且易于调试.
 
 [[https://dbader.org/blog/figures/python-assert.png]]
 
-* What Are Assertions & What Are They Good For?
+* 什么时断言 & 断言擅长什么?
 
-Python’s assert statement is a debugging aid that tests a condition. If the
-condition is true, it does nothing and your program just continues to execute.
-But if the assert condition evaluates to false, it raises an AssertionError
-exception with an optional error message.
+Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个条件为真,则它什么也不做,你的程序照常往下执行.
+但若条件为假,则它会抛出一个 =AssertionError= 异常,该异常甚至还能包括一个错误信息.
 
-The proper use of assertions is to inform developers about unrecoverable
-errors in a program. They’re not intended to signal expected error conditions,
-like “file not found”, where a user can take corrective action or just try
-again.
+=assertions= 的正确使用方法是用它来通知开发者程序中出现了无法回复的异常. 
+你不能用它来处理类似"文件没找到"这类可以预见的错误,因为用户可以采取行动修正这一错误,然后重试.
 
-Another way to look at it is to say that assertions are internal self-checks
-for your program. They work by declaring some conditions as impossible in your
-code. If one of these conditions doesn’t hold that means there’s a bug in the
-program.
+另一种看法是把 =assertions= 看成是程序的内部检查工具.
+它标注某些情况是不可能在代码中出现的. 如果真的出现了其中的情况,那表示程序中肯定有bug.
 
-If your program is bug-free, these conditions will never occur. But if they do
-occur the program will crash with an assertion error telling you exactly which
-“impossible” condition was triggered. This makes it much easier to track down
-and fix bugs in your programs.
+若你的程序中没有bug, 就不会触发这些条件. 但如果真的触发了这些条件,那么程序就会崩溃,并显示一条断言错误信息告诉你是触发了哪一条"不该出现的"条件.
+这有利于追踪和修复bug.
 
-To summarize: Python’s assert statement is a debugging aid, not a mechanism
-for handling run-time errors. The goal of using assertions is to let
-developers find the likely root cause of a bug more quickly. An assertion
-error should never be raised unless there’s a bug in your program.
+总结起来就是: Python的 =assert= 是一种调试的工具而不适于用来处理运行时错误的.
+使用断言是为了让开发者快速找到bug产生的根源.
+应该要做到只有当你的程序中出现bug时才能抛出断言错误.
 
-* Assert in Python — An Example
+* Python中的Assert — 举个例子
 
-Here’s a simple example so you can see where assertions might come in handy. I
-tried to give this some semblance of a real world problem you might actually
-encounter in one of your programs.
+下面是一个简单的例子,展示一下断言应该怎么用.
+我尽量让这个例子更实际一点.
 
-Suppose you were building an online store with Python. You’re working to add a
-discount coupon functionality to the system and eventually write the following
-apply_discount function:
+假设你在用Python搭建一个在线商场. 你需要为它添加一项折扣券的功能因此写了下面这个 =apply_discount= 功能:
 
 #+BEGIN_SRC python
   def apply_discount(product, discount):
@@ -56,12 +43,9 @@ apply_discount function:
       return price
 #+END_SRC
 
-Notice the assert statement in there? It will guarantee that, no matter what,
-discounted prices cannot be lower than $0 and they cannot be higher than the
-original price of the product.
+注意到了那个 =assert= 语句了么? 它会保证,不管怎么样,打折后的价格都不会低于0元,也不会高于原价.
 
-Let’s make sure this actually works as intended if we call this function to
-apply a valid discount:
+让我们用各种折扣来调用该函数,确保该函数能如我们所愿那边地正常工作.
 
 #+BEGIN_SRC python
   #
@@ -76,7 +60,7 @@ apply a valid discount:
   11175
 #+END_SRC
 
-Alright, this worked nicely. Now, let’s try to apply some invalid discounts:
+不错,挺正常的. 现在再试试其他非法的折扣:
 
 #+BEGIN_SRC python
   #
