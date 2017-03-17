@@ -86,12 +86,10 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
   AssertionError
 #+END_SRC
 
-As you can see, trying to apply an invalid discount raises an AssertionError
-exception that points out the line with the violated assertion condition. If
-we ever encounter one of these errors while testing our online store it will
-be easy to find out what happened by looking at the traceback.
+如你所见,当传入一个非法的折扣时会引发 =AssertionError= 异常,并指出异常的行以及不匹配的断言条件.
+当我们在测试在线商场时,若出现了这种错误,通过查看 traceback 可以很方便地找出错误原因.
 
-This is the power of assertions, in a nutshell.
+这就是断言的威力.
 
 * Python’s Assert Syntax
 
