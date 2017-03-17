@@ -93,19 +93,15 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
 
 * Python’s Assert Syntax
 
-It’s always a good idea to study up on how a language feature is actually
-implemented in Python before you start using it. So let’s take a quick look at
-the [[https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement][syntax for the assert statement according to the Python docs]]:
+开始使用某项语言特性前最好先了解它是如何实现的. 下面我们就来看一下 [[https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement][Python文档中assert语句的语法是怎样的]]:
 
 #+BEGIN_SRC python
   assert_stmt ::= "assert" expression1 ["," expression2]
 #+END_SRC
 
-In this case expression1 is the condition we test, and the optional
-expression2 is an error message that’s displayed if the assertion fails.
+其中 =expression1= 就是我们要测试的条件, 而可选的 =expression2= 是断言失败时要显示的错误信息.
 
-At execution time, the Python interpreter transforms each assert statement
-into roughly the following:
+在执行期间,Python解释器会将每个 =assert= 语句都转换成类似下面这样:
 
 #+BEGIN_SRC python
   if __debug__:
@@ -113,9 +109,8 @@ into roughly the following:
           raise AssertionError(expression2)
 #+END_SRC
 
-You can use expression2 to pass an optional error message that will be
-displayed with the AssertionError in the traceback. This can simplify
-debugging even further—for example, I’ve seen code like this:
+你也可以通过 =expression2= 传递一个可选的错误信息, 当触发 =AssertionError= 异常时, 该错误信息也会一同在 traceback 中显示出来.
+它可以进一步简化调试. 举个例子,我曾见过这样的代码:
 
 #+BEGIN_SRC python
   if cond == 'x':
@@ -128,8 +123,7 @@ debugging even further—for example, I’ve seen code like this:
                      "Email dbader if you encounter this in the wild.")
 #+END_SRC
 
-Is this ugly? Well, yes. But it’s definitely a valid and helpful technique if
-you’re faced with a [[https://en.wikipedia.org/wiki/Heisenbug][heisenbug-type issue]] in one of your applications. 😉
+这段代码丑吗? 是的,的确很丑. 但是当你遇见 [[https://en.wikipedia.org/wiki/Heisenbug][heisenbug-type issue]] 这样的问题时,这种技术都很有用了. 😉
 
 * Common Pitfalls With Using Asserts in Python
 
