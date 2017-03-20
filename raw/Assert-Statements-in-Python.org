@@ -11,7 +11,7 @@
 
 [[https://dbader.org/blog/figures/python-assert.png]]
 
-* 什么时断言 & 断言擅长什么?
+* 什么是断言 & 断言擅长什么?
 
 Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个条件为真,则它什么也不做,你的程序照常往下执行.
 但若条件为假,则它会抛出一个 =AssertionError= 异常,该异常甚至还能包括一个错误信息.
@@ -91,7 +91,7 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
 
 这就是断言的威力.
 
-* Python’s Assert Syntax
+* Python中Assert的语法
 
 开始使用某项语言特性前最好先了解它是如何实现的. 下面我们就来看一下 [[https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement][Python文档中assert语句的语法是怎样的]]:
 
@@ -123,43 +123,30 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
                      "Email dbader if you encounter this in the wild.")
 #+END_SRC
 
-这段代码丑吗? 是的,的确很丑. 但是当你遇见 [[https://en.wikipedia.org/wiki/Heisenbug][heisenbug-type issue]] 这样的问题时,这种技术都很有用了. 😉
+这段代码丑吗? 是的,的确很丑. 但是当你遇见 [[https://en.wikipedia.org/wiki/Heisenbug][heisenbug]] 这样的问题时,这种技术都很有用了. 😉
 
 * Common Pitfalls With Using Asserts in Python
 
-Before you move on, there are two important caveats with using assertions in
-Python that I’d like to call out.
+在你继续往下读之前,有两点需要注意:
 
-The first one has to do with introducing security risks and bugs into your
-applications, and the second one is about a syntax quirk that makes it easy to
+第一点告诉你如何防止引入安全风险和bug,第二点 about a syntax quirk that makes it easy to
 write useless assertions.
 
-This sounds (and potentially is) pretty horrible, so you might at least want
-to skim these two caveats or read their summaries below.
+这两条警告听起来(而且实际上也是)听恐怖的, 所以请你至少了解一下这两条警告或者至少读一下后面的总结.
 
-** Caveat #1 – Don’t Use Asserts for Data Validation
+** 警告 #1 – 不要将Assert用于数据验证
 
-*Asserts can be turned off globally in the Python interpreter. Don’t rely on assert expressions to be executed for data validation or data processing.*
+*Python解释器可以全面关闭Assert特性. 因此不要依赖 =assert= 表达式来进行数据验证和数据处理.*
 
-The biggest caveat with using asserts in Python is that [[https://docs.python.org/3/library/constants.html#__debug__][assertions can be]]
-[[https://docs.python.org/3/library/constants.html#__debug__][globally disabled]] with the -O and -OO command line switches, as well as the
-PYTHONOPTIMIZE environment variable in CPython.
+使用 =asserts= 一定要注意,通过给CPython提供命令行参数(或者修改PYTHONOPTIMIZE环境变量) =-O= 或 =-OO= 可以 [[https://docs.python.org/3/library/constants.html#__debug__][全面禁止断言生效]]
 
-This turns any assert statement into a null-operation: the assertions simply
-get compiled away and won’t be evaluated, which means that none of the
-conditional expressions will be executed.
+这会将所有的 =assert= 语句都转换成空操作: 断言在编译时会被丢弃,而且也不会被执行,因此里面的条件表达式也就不会执行了.
 
-This is an intentional design decision used similarly by many other
-programming languages. As a side-effect it becomes extremely dangerous to use
-assert statements as a quick and easy way to validate input data.
+许多语言都有类似的这种设计. 这带来的一个后果就是用 =assert= 语句来校验输入的数据是很危险的一件事情.
 
-Let me explain—if your program uses asserts to check if a function argument
-contains a “wrong” or unexpected value this can backfire quickly and lead to
-bugs or security holes.
+也就是说,如果你想用 =assert= 来检查函数参数的合法性,那恐怕会事与愿违,而且很容易产生bug和安全漏洞.
 
-Let’s take a look at a simple example. Imagine you’re building an online store
-application with Python. Somewhere in your application code there’s a function
-to delete a product as per a user’s request:
+让我们来看一个简单的例子. 假设你在用python创建一个在线商场的应用. 在代码中有一个函数用来响应用户请求删除一个产品:
 
 #+BEGIN_SRC python
   def delete_product(product_id, user):
@@ -168,7 +155,7 @@ to delete a product as per a user’s request:
       store.find_product(product_id).delete()
 #+END_SRC
 
-Take a close look at this function. What happens if assertions are disabled?
+仔细看看这个函数. 如果断言被禁用了会怎样?
 
 There are two serious issues in this three-line function example, caused by
 the incorrect use of assert statements:
