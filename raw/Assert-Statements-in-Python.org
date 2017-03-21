@@ -29,7 +29,7 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
 使用断言是为了让开发者快速找到bug产生的根源.
 应该要做到只有当你的程序中出现bug时才能抛出断言错误.
 
-* Python中的Assert — 举个例子
+* Assert的一个例子
 
 下面是一个简单的例子,展示一下断言应该怎么用.
 我尽量让这个例子更实际一点.
@@ -91,7 +91,7 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
 
 这就是断言的威力.
 
-* Python中Assert的语法
+* Assert的语法
 
 开始使用某项语言特性前最好先了解它是如何实现的. 下面我们就来看一下 [[https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement][Python文档中assert语句的语法是怎样的]]:
 
@@ -125,7 +125,7 @@ Python的 =assert= 语句可以用于调试. 它会测试一个条件,若这个�
 
 这段代码丑吗? 是的,的确很丑. 但是当你遇见 [[https://en.wikipedia.org/wiki/Heisenbug][heisenbug]] 这样的问题时,这种技术都很有用了. 😉
 
-* Common Pitfalls With Using Asserts in Python
+* 使用Assert时常见的坑
 
 在你继续往下读之前,有两点需要注意:
 
@@ -157,26 +157,16 @@ write useless assertions.
 
 仔细看看这个函数. 如果断言被禁用了会怎样?
 
-There are two serious issues in this three-line function example, caused by
-the incorrect use of assert statements:
+这个函数虽然只有短短的三行,但是由于误用 =assert= 语句,产生了两个严重的问题:
 
- 1. Checking for admin privileges with an assert statement is dangerous. If
-    assertions are disabled in the Python interpreter, this turns into a
-    null-op. Therefore any user can now delete products. The privileges check
-    doesn’t even run. This likely introduces a security problem and opens the
-    door for attackers to destroy or severely damage the data in your
-    customer’s or company’s online store. Not good.
- 2. The product_exists() check is skipped when assertions are disabled. This
-    means find_product() can now be called with invalid product ids—which
-    could lead to more severe bugs depending on how our program is written. In
-    the worst case this could be an avenue for someone to launch Denial of
-    Service attacks against our store. If the store app crashes if we attempt
-    to delete an unknown product, it might be possible for an attacker to
-    bombard it with invalid delete requests and cause an outage.
+1. 使用 =assert= 语句来验证管理员特权是很危险的. Python解释器禁用断言会让它变成一个空操作. 
+   由于根本不会运行特权检查语句,这使得任何用户都能够删除产品. 
+   这样一来就引入了一个安全问题,允许攻击者损坏你的客户或公司的在线商城中的数据.
+   这可不妙啊.
+2. 禁用断言后, =product_exists()= 检查会被跳过. 也就是说 =find_product()= 的参数可能是一个非法的产品id号—这可能会产生很严重的bug.
+   在最坏的情况下, 它会导致针对我们商场的拒绝服务的攻击. 若删除未知的商品会导致商场崩溃的话,攻击者就可以通过发起age无效的删除请求让我们的商场失去服务能力.
 
-How might we avoid these problems? The answer is to not use assertions to do
-data validation. Instead we could do our validation with regular if-statements
-and raise validation exceptions if necessary. Like so:
+那我们该怎么办呢? 答案是不要用断言来做数据验证, 而改用普通的if语句+抛出验证异常的方法来验证. 像这样子:
 
 #+BEGIN_SRC python
   def delete_product(product_id, user):
@@ -189,35 +179,26 @@ and raise validation exceptions if necessary. Like so:
       store.find_product(product_id).delete()
 #+END_SRC
 
-This updated example also has the benefit that instead of raising unspecific
-AssertionError exceptions, it now raises semantically correct exceptions like
-ValueError or AuthError (which [[https://dbader.org/blog/python-custom-exceptions][we’d have to define ourselves]]).
+相比之下,修改后的函数不再只是抛出泛泛的 =AssertionError= 异常,它能够根据实际情况抛出像 =ValueError= 或 =AuthError= 这类更贴合实际意义的异常(当然 [[https://dbader.org/blog/python-custom-exceptions][这些异常需要我们自己定义]]).
 
-** Caveat #2 – Asserts That Never Fail
+** 警告 #2 – 小心写出永远不会失败的Assert语句
 
-It’s easy to accidentally write Python assert statements that always evaluate
-to true. I’ve been bitten by this myself in the past. I wrote [[https://dbader.org/blog/catching-bogus-python-asserts][a longer article]]
-[[https://dbader.org/blog/catching-bogus-python-asserts][about this specific issue you can check out by clicking here]].
+一不小心就会写出永远为真的assert语句. 我之前也着过这个道. 还专门写过 [[https://dbader.org/blog/catching-bogus-python-asserts][一篇相关的文章]].
 
-Alternatively, here’s the executive summary:
+总结起来就是:
 
-*When you pass a tuple as the first argument in an assert statement, the assertion always evaluates as true and therefore never fails.*
+*当你使用一个元组作为assert语句的第一个参数时,该断言永远为真不会失败.*
 
-For example, this assertion will never fail:
+比如, 这个断言就永远不会失败:
 
 #+BEGIN_SRC python
   assert(1 == 2, 'This should fail')
 #+END_SRC
 
-This has to do with non-empty tuples always being truthy in Python. If you
-pass a tuple to an assert statement it leads to the assert condition to always
-be true—which in turn leads to the above assert statement being useless
-because it can never fail and trigger an exception.
+这是因为非空的元组在Python中总是为真. 传递一个元组给 =assert= 语句会让该 =assert= 的条件永远为真—这样以来上面的 =assert= 语句也就没啥用了,它永远不可能失败然后触发异常.
 
-It’s relatively easy to accidentally write bad multi-line asserts due to this
-unintuitive behavior. This quickly leads to broken test cases that give a
-false sense of security in our test code. Imagine you had this assertion
-somewhere in your unit test suite:
+这种反直觉的行为很容易使得在写多行的assert时出错. 它会破坏测试代码中的测试案例,使它们失去保障安全的能力. 
+比如你可能在单元测试集中有下面这样一个断言:
 
 #+BEGIN_SRC python
   assert (
@@ -226,22 +207,15 @@ somewhere in your unit test suite:
   )
 #+END_SRC
 
-Upon first inspection this test case looks completely fine. However, this test
-case would never catch an incorrect result: it always evaluates to True,
-regardless of the state of the counter variable.
+初看起来貌似没什么问题. 然而该测试案例永远无法捕捉到错误的结果:不管 =counter= 变量的值是什么,它的结果总为真.
 
-Like I said, it’s rather easy to shoot yourself in the foot with this (mine
-still hurts). Luckily, there are some countermeasures you can apply to prevent
-this syntax quirk from causing trouble:
+就像我说过的,你很容易就误用了assert. 不过好在有一些措施能够帮助你避开这些问题:
 
 [[https://dbader.org/blog/catching-bogus-python-asserts][>> Read the full article on bogus assertions to get the dirty details.]]
 
-* Python Assertions — Summary
+* 总结
 
-Despite these caveats I believe that Python’s assertions are a powerful
-debugging tool that’s frequently underused by Python developers.
+虽然有写警告,我依然认为Python的断言是一个非常强力的调试工具,然而该工具尚未被开发者们充分地使用起来.
 
-Understanding how assertions work and when to apply them can help you write
-more maintainable and easier to debug Python programs. It’s a great skill to
-learn that will help bring your Python to the next level and make you a more
-well-rounded Pythonista.
+理解断言的工作原理以及学会在恰当的时候使用断言会帮助你写出更加可维护也更加易于调试的程序.
+学会这项技能会提升你的Python代码水平,让你成为一个更成熟的Python开发者.
