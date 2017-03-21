@@ -1,11 +1,11 @@
-#+TITLE: Assert-Statements-in-Python
+#+TITLE: Python中的assert语句
+#+URL: https://dbader.org/blog/python-assert-tutorial
 #+AUTHOR: lujun9972
-#+TAGS: raw
-#+DATE: [2017-03-14 二 02:39]
+#+TAGS: Python Common
+#+DATE: [2017-03-21 二 18:29]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-#+URL: https://dbader.org/blog/python-assert-tutorial
 
 如何利用断言自动探测Python程序中的错误使之更可靠且易于调试.
 
