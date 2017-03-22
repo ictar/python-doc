@@ -1,11 +1,11 @@
-#+TITLE: Python and Lambdas
+#+TITLE: Python中的lambda表达式
+#+URL: https://allanderek.github.io/posts/python-and-lambdas/
 #+AUTHOR: lujun9972
-#+TAGS: raw
-#+DATE: [2017-03-22 三 12:32]
+#+TAGS: Python Common
+#+DATE: [2017-03-22 三 16:44]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-#+URL: https://allanderek.github.io/posts/python-and-lambdas/
 
 我拥有函数式编程的经验, 因此我非常热衷于使用函数以及lambda表达式,也就是所谓的匿名函数.
 然而我发现当写Python时我并不怎么使用它的lambda语法,我很好奇怎么会这样. 
