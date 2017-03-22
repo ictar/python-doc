@@ -7,91 +7,91 @@
 
 #+URL: https://allanderek.github.io/posts/python-and-lambdas/
 
-I come from a functional programming background, so I a lot of love for functions and
-so-called anonymous functions or lambdas. However, I have realised that I don't make use of
-Python's lambda syntax much, and I wanted to articulate why. This may mostly sound pretty
-negative towards lambdas, but bear in mind I'm certainly not against lambdas in general.
+我拥有函数式编程的经验, 因此我非常热衷于使用函数以及lambda表达式,也就是所谓的匿名函数.
+然而我发现当写Python时我并不怎么使用它的lambda语法,我很好奇怎么会这样. 
+这么说似乎对lambda很不利 但是请记住,总体来说我并不讨厌lambda.
 
-A lambda expression could always be avoided by simply defining the function in question.
-So the question becomes when is a lambda more readable than a definition? That is almost
-always because the function you're attempting to create is so simple that the definition
-syntax gets in the way. It is often used when the function in question is going to be used as
-an argument to some method. For example the sort method on a list takes as argument
-they key to be used when comparing the elements. So if you have a list of items and you
-want to sort them by their prices you can do something such as:
+所有的lambda表达式都能被普通函数所代替. 问题是,什么情况下使用lambda会比定义普通函数拥有更好的可读性?
+答案是几乎总是这样. 因为你要定义的函数太简单了,定义的语法反而会阻碍对内容的理解. 
+这些函数一般都会作为其他方法的参数来使用. 比如可以作为 list的 =sort= 方法中的 =key= 参数的值,在比较元素时使用.
+如果你有一个包含item的列表,然后想根据这些item的price来排序,那么你可以这么做:
 
-list_of_items.sort(key=lambda x: x.price)
+#+BEGIN_SRC python
+  list_of_items.sort(key=lambda x: x.price)
+#+END_SRC
 
-We could of course have gotten the use of lambda with a definition:
+当然可以通过定义函数的方式来代替lambda:
 
-def price(item):
-    return item.price
-list_of_items.sort(key=price)
+#+BEGIN_SRC python
+  def price(item):
+      return item.price
+  list_of_items.sort(key=price)
+#+END_SRC
 
-This is not quite equivalent because it introduces a new name into the current scope that
-would not otherwise have been there, but I don't ever recall reaching for a lambda
-expression in order to avoid polluting the name space.
+严格来说,这两者是不等价的,因为后面这种方式会引入一个新名字到当前作用域中而前者不会, 不过我并不会仅仅为了避免污染命名空间就选择用lambda表达式.
 
-We could even define a generic higher-order function to make a function out of attribute
-access.
+我们甚至可以定义一个一般性的高阶函数,用于生成一个访问属性的函数.
 
-def f_attr(attr_name):
-    def attr_getter(item):
-        return getattr(item, attr_name)
-    return attr_getter
+#+BEGIN_SRC python
+  def f_attr(attr_name):
+      def attr_getter(item):
+          return getattr(item, attr_name)
+      return attr_getter
 
-list_of_items.sort(key=f_attr('price'))
+  list_of_items.sort(key=f_attr('price'))
+#+END_SRC
 
-This is surely worse than the first two attempts, but if you have multiple sorts to do, then
-using definitions can get tedious:
+这看起来要比前两个版本更糟糕, 但若你要根据不同属性进行多次排序,那么使用定义普通函数的方法会很烦:
 
-def price(item):
-    return item.price
-list_of_items.sort(key=price)
-do_something(list_of_items)
+#+BEGIN_SRC python
+  def price(item):
+      return item.price
+  list_of_items.sort(key=price)
+  do_something(list_of_items)
 
-def quantity(item):
-    return item.quantity
-list_of_items.sort(key=quantity)
-do_something(list_of_items)
+  def quantity(item):
+      return item.quantity
+  list_of_items.sort(key=quantity)
+  do_something(list_of_items)
 
-def margin(item):
-    return item.margin
-list_of_items.sort(key=margin)
-do_something(list_of_items)
+  def margin(item):
+      return item.margin
+  list_of_items.sort(key=margin)
+  do_something(list_of_items)
+#+END_SRC
 
-as compared with the lambda version:
+相比来说使用lambda就简单多了:
 
-list_of_items.sort(key=lambda x: x.price)
-do_something(list_of_items)
-list_of_items.sort(key=lambda x: x.quantity)
-do_something(list_of_items)
-list_of_items.sort(key=lambda x: x.margin)
-do_something(list_of_items)
+#+BEGIN_SRC python
+  list_of_items.sort(key=lambda x: x.price)
+  do_something(list_of_items)
+  list_of_items.sort(key=lambda x: x.quantity)
+  do_something(list_of_items)
+  list_of_items.sort(key=lambda x: x.margin)
+  do_something(list_of_items)
+#+END_SRC
 
-The f_attr version is similar:
+使用f_attr也一样:
 
-list_of_items.sort(key=f_attr('price'))
-do_something(list_of_items)
-list_of_items.sort(key=f_attr('quantity'))
-do_something(list_of_items)
-list_of_items.sort(key=f_attr('margin'))
-do_something(list_of_items)
+#+BEGIN_SRC python
+  list_of_items.sort(key=f_attr('price'))
+  do_something(list_of_items)
+  list_of_items.sort(key=f_attr('quantity'))
+  do_something(list_of_items)
+  list_of_items.sort(key=f_attr('margin'))
+  do_something(list_of_items)
+#+END_SRC
 
-In fact that could be done with a loop:
+甚至还能用循环来解决:
 
-for attribute in ['price', 'quantity', 'margin']:
-    list_of_items.sort(key=f_attr(attribute))
-    do_something(list_of_items)
+#+BEGIN_SRC python
+  for attribute in ['price', 'quantity', 'margin']:
+      list_of_items.sort(key=f_attr(attribute))
+      do_something(list_of_items)
+#+END_SRC
 
-I think the lambda version is at least sometimes more readable. However, I often miss the
-self-documenting nature of a definition, in that giving the function a name acts as some
-pretty decent documentation especially for the kind of simple function you might otherwise
-use a lambda expression for.
+我认为lambda版本至少在某些情况下会更有可读性. 但是函数天然具有自我说明的功能,因为函数名本身就有说明的作用,尤其那些能用lambda表达式代替的简单函数,他们的自描述性更强.
 
-So, for a lambda expression to be the right choice, the function in question has to be so
-simple as to not benefit from the extra documentation afforded by its name (such as simple
-attribute access). 
+所以,最好用lambda表达式来代替那些内容足够简单,无需函数名就能充分理解意义的函数(比如单纯的访问对象属性).
 
-I just don't seem to find myself in that situation very often. Perhaps I'm just not making my
-own functions general enough by accepting functions as arguments.
+不过这种情况对我来说很少见. 也许是我定义的函数还不够一般化以至于要接受其他函数作为参数吧.
