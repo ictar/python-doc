@@ -71,3 +71,7 @@
 - [Python：声明动态属性](./Python：声明动态属性.md)
 
 - [了解Python类实例化](./了解Python类实例化.md)
+
+- [Python中的assert语句](./Python中的assert语句.md)
+
+- [Python新增的secrets模块](./Python新增的secrets模块.md)
