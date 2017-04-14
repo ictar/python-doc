@@ -201,5 +201,6 @@
 	- [Requests vs. urllib：它解决了什么问题？](./Others/Requests vs. urllib：它解决了什么问题？.md)
 	- [更好的Python对象序列化方法](./Others/更好的Python对象序列化方法.md)
 	- [使用列表推导式实现zip](./Others/使用列表推导式实现zip.md)
-	- [Python项目中的Makefiles](/Others/Python项目中的Makefiles.md)
+	- [Python项目中的Makefiles](./Others/Python项目中的Makefiles.md)
+	- [婚礼规模：我是如何使用Twilio, Python和Google来自动化我的婚礼的](./Others/婚礼规模：我是如何使用Twilio, Python和Google来自动化我的婚礼的.md)
 # [小黑屋](./raw/README.md)

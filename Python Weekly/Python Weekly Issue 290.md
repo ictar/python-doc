@@ -43,7 +43,7 @@
   
 [zi2zi：使用条件对话网络掌握中国书法](https://kaonashi-tyc.github.io/2017/04/06/zi2zi.html)  
   
-[婚礼规模：我是如何使用Twilio, Python和Google来自动化我的婚礼的](https://www.twilio.com/blog/2017/04/wedding-at-scale-how-i-used-twilio-python-and-google-to-automate-my-wedding.html)  
+[婚礼规模：我是如何使用Twilio, Python和Google来自动化我的婚礼的](https://www.twilio.com/blog/2017/04/wedding-at-scale-how-i-used-twilio-python-and-google-to-automate-my-wedding.html)  | [中文版](./Others/婚礼规模：我是如何使用Twilio, Python和Google来自动化我的婚礼的.md)
   
 [使用Context Free Grammar和Pyparsing构建Slack Bot CLI](https://hashedin.com/2017/03/29/build-slack-bot-cli-using-cfg-pyparsing/)  
   
