@@ -164,6 +164,7 @@
 	- [Issue 288](./Python Weekly/Python Weekly Issue 288.md)
 	- [Issue 289](./Python Weekly/Python Weekly Issue 289.md)
 	- [Issue 290](./Python Weekly/Python Weekly Issue 290.md)
+	- [Issue 291](./Python Weekly/Python Weekly Issue 291.md)
 - Pycoder's Weekly    
 	* 中文版：[蟒周刊](http://weekly.pychina.org/)
 
