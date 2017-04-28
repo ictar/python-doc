@@ -51,3 +51,4 @@
 - [Issue 289](./Python Weekly Issue 289.md)
 - [Issue 290](./Python Weekly Issue 290.md)
 - [Issue 291](./Python Weekly Issue 291.md)
+- [Issue 292](./Python Weekly Issue 292.md)
