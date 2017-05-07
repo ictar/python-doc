@@ -1,8 +1,8 @@
 # 开始
 
 是Django的新用户？或者是普通的Web开发者？你来到了正确的地方：阅读这份材料来快速上手Django。
-- [Django一览](https://docs.djangoproject.com/en/1.11/intro/overview/)
-- [快速安装指南](https://docs.djangoproject.com/en/1.11/intro/install/)
+- [Django一览](./overview.md)
+- [快速安装指南](./install.md)
 - [编写你的第一个Django app，第一部分](https://docs.djangoproject.com/en/1.11/intro/tutorial01/)
 - [编写你的第一个Django app，第二部分](https://docs.djangoproject.com/en/1.11/intro/tutorial02/)
 - [编写你的第一个Django app，第三部分](https://docs.djangoproject.com/en/1.11/intro/tutorial03/)

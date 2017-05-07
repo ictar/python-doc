@@ -10,7 +10,7 @@
 
 Django有大量的文档。关于如何组织的高层次概述可以帮助你知道到哪查找你想要的东西：
 
-* [教程](https://docs.djangoproject.com/en/1.9/intro/) take you by the hand through a series of steps to create a Web application. Start here if you’re new to Django or Web application development. Also look at the “First steps” below.
+* [教程](./intro/) take you by the hand through a series of steps to create a Web application. Start here if you’re new to Django or Web application development. Also look at the “First steps” below.
 * [主题指导](https://docs.djangoproject.com/en/1.9/topics/) discuss key topics and concepts at a fairly a fairly high level and provide useful background information and explanation.
 * [参考指导](https://docs.djangoproject.com/en/1.9/ref/) contain technical reference for APIs and other aspects of Django’s machinery. They describe how it works and how to use it but assume that you have a basic understanding of key concepts.
 * [How-to指导](https://docs.djangoproject.com/en/1.9/howto/) are recipes. They guide you through the steps involved in addressing key problems and use-cases. They are more advanced than tutorials and assume some knowledge of how Django works.
