@@ -78,11 +78,11 @@ Quit the server with CONTROL-C.
 >默认地，[`runserver`](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver)命令使用内部IP的8000端口启动开发服务器。
 >如果你想要改变服务器的端口，就把它作为一个命令行参数传递。举个例子，这个命令会在8080端口启动服务器：
 >```
-$ python manage.py runserver 8080
+>$ python manage.py runserver 8080
 >```
 >如果你想要改变服务器的IP，把它和端口一起传递，例如，要监听所有可用的公共IP（这在你使用Vagrant或在互联网的其他电脑上展示你的作品时十分有用），使用：
 >```
-$ python manage.py runserver 0:8000
+>$ python manage.py runserver 0:8000
 >```
 >`0`是`0.0.0.0`的缩写，完整的开发服务器的文档可以在[runserver](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver)参考中找到。
 >
