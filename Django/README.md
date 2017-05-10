@@ -3,7 +3,7 @@
 [Django官方](https://www.djangoproject.com/)文档
 
 # 目录说明
-- [1.11](./1.11/) Django 1.9版本官方文档
+- [1.11](./1.11/) Django 1.11版本官方文档
 - [使用Django进行原型化](./使用Django进行原型化.md)
 
 - [使用Kubernetes使Django应用变得可扩展并具有弹性](./使用Kubernetes使Django应用变得可扩展并具有弹性.md)
