@@ -25,7 +25,7 @@ Django有大量的文档。关于如何组织的高层次概述可以帮助你�
 
 * **从无到有**: [概述](./intro/overview.md) | [安装](./intro/install.md)
 * **教程: 第一部分**:[第1部分：请求和响应](./intro/tutorial01.md) |
-[第2部分：模型和admin站点](https://docs.djangoproject.com/en/1.11/intro/tutorial02/) |
+[第2部分：模型和admin站点](./intro/tutorial02.md) |
 [第3部分：视图和模板](https://docs.djangoproject.com/en/1.11/intro/tutorial03/) |
 [第4部分：表单和通用视图](https://docs.djangoproject.com/en/1.11/intro/tutorial04/) |
 [第5部分：测试](https://docs.djangoproject.com/en/1.11/intro/tutorial05/) |

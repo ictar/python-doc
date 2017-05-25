@@ -2,7 +2,7 @@
 
 由于Django是在一个快节奏的新闻编辑室环境下开发出来的，因此它被设计成让普通的网站开发工作简单而快 捷。以下简单关于如何用 Django 编写一个数据库驱动的Web应用程序的非正式的概述。
 
-本文档的目标是给你描述足够的技术细节能让你理解Django是如何工作的，但是它并不表示是一个新手指南或参考目录 – 其实这些我们都有! 当你准备新建一个项目，你可以 [从新手指南开始](https://docs.djangoproject.com/en/1.11/intro/tutorial01/) 或者 [深入阅读详细的文档](https://docs.djangoproject.com/en/1.11/topics/)。
+本文档的目标是给你描述足够的技术细节能让你理解Django是如何工作的，但是它并不表示是一个新手指南或参考目录 – 其实这些我们都有! 当你准备新建一个项目，你可以 [从新手指南开始](./intro/tutorial01.md) 或者 [深入阅读详细的文档](https://docs.djangoproject.com/en/1.11/topics/)。
 
 ## 设计你的模型(model)
 尽管你在 Django 中可以不使用数据库，但是它提供了一个完善的可以用 Python 代码描述你的数据库结构的对象关联映射([ORM，object-relational mapper](https://en.wikipedia.org/wiki/Object-relational_mapping))。
@@ -236,4 +236,4 @@ Django 有一个模板搜索路径板，它让你尽可能的减少冗余而重�
 - 一个 [聚合框架](https://docs.djangoproject.com/en/1.11/ref/contrib/syndication/) 可以让创建 RSS 和 Atom 的 feeds 同写一个小小的 Python 类一样容易。
 - 更性感的自动创建管理站点功能 – 本文仅仅触及了点皮毛。
 
-显然，下一步你应该[下载Django](https://www.djangoproject.com/download/)，阅读[教程](https://docs.djangoproject.com/en/1.11/intro/tutorial01/)和加入[社区](https://www.djangoproject.com/community/)，感谢您的关注！
+显然，下一步你应该[下载Django](https://www.djangoproject.com/download/)，阅读[教程](./intro/tutorial01.md)和加入[社区](https://www.djangoproject.com/community/)，感谢您的关注！
