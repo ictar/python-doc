@@ -5,7 +5,7 @@
 - [快速安装指南](./install.md)
 - [编写你的第一个Django app，第一部分](./intro/tutorial01.md)
 - [编写你的第一个Django app，第二部分](./intro/tutorial02.md)
-- [编写你的第一个Django app，第三部分](https://docs.djangoproject.com/en/1.11/intro/tutorial03/)
+- [编写你的第一个Django app，第三部分](./intro/tutorial03.md)
 - [编写你的第一个Django app，第四部分](https://docs.djangoproject.com/en/1.11/intro/tutorial04/)
 - [编写你的第一个Django app，第五部分](https://docs.djangoproject.com/en/1.11/intro/tutorial05/)
 - [编写你的第一个Django app，第六部分](https://docs.djangoproject.com/en/1.11/intro/tutorial06/)
