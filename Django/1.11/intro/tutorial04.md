@@ -113,7 +113,7 @@ def results(request, question_id):
 ---
 ## 使用通用视图：代码越少越好
 
-`detail()`（来自[教程3](./turotial03.md）和`results()`视图非常简单 - 同时如上所述，冗余。显示投票列表的`index()`视图也是类似的。
+`detail()`（来自[教程3](./turotial03.md)）和`results()`视图非常简单 - 同时如上所述，冗余。显示投票列表的`index()`视图也是类似的。
 
 这些视图代表基本Web开发的常见情况：根据URL中传递的参数从数据库中获取数据，加载模板并返回渲染的模板。因为这很常见，Django提供了一个称为“通用视图”系统的快捷方式。
 
@@ -149,8 +149,8 @@ urlpatterns = [
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
 ```
-
 请注意，第二和第三个模式的正则表达式中匹配模式的名称已从`<question_id>`更改为`<pk>`。
+
 ---
 ### 修改视图
 
