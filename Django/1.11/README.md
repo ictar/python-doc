@@ -28,7 +28,7 @@ Django有大量的文档。关于如何组织的高层次概述可以帮助你�
   [第2部分：模型和admin站点](./intro/tutorial02.md) |
   [第3部分：视图和模板](./intro/tutorial03.md) |
   [第4部分：表单和通用视图](./intro/tutorial04.md) |
-  [第5部分：测试](https://docs.djangoproject.com/en/1.11/intro/tutorial05/) |
+  [第5部分：测试](./intro/tutorial05.md) |
   [第6部分：静态文件](https://docs.djangoproject.com/en/1.11/intro/tutorial06/) |
   [第7部分：定制admin站点](https://docs.djangoproject.com/en/1.11/intro/tutorial07/)
 * **高级教程**: [如何编写可复用的应用程序](https://docs.djangoproject.com/en/1.11/intro/reusable-apps/) |
