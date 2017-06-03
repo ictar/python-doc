@@ -31,6 +31,7 @@
 	- [了解Python类实例化](./Python Common/了解Python类实例化.md)
 	- [Python中的assert语句](./Python Common/Python中的assert语句.md)
     - [Python新增的secrets模块](./Python Common/Python新增的secrets模块.md)
+    - [Python中的lambda表达式](./Python Common/Python中的lambda表达式.md)
 ## Web框架
 - [Django](./Django/README.md)
 	- [1.9](./Django/1.9/README.md) Django 1.9版本官方文档
@@ -170,6 +171,7 @@
 	- [Issue 294](./Python Weekly/Python_Weekly_Issue_294.md)
 	- [Issue 295](./Python Weekly/Python_Weekly_Issue_295.md)
 	- [Issue 296](./Python Weekly/Python_Weekly_Issue_296.md)
+	- [Issue 297](./Python Weekly/Python_Weekly_Issue_297.md)
 - Pycoder's Weekly    
 	* 中文版：[蟒周刊](http://weekly.pychina.org/)
 

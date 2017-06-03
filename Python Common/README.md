@@ -75,3 +75,5 @@
 - [Python中的assert语句](./Python中的assert语句.md)
 
 - [Python新增的secrets模块](./Python新增的secrets模块.md)
+
+- [Python中的lambda表达式](./Python中的lambda表达式.md)
