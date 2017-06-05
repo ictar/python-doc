@@ -31,6 +31,7 @@
 	- [了解Python类实例化](./Python Common/了解Python类实例化.md)
 	- [Python中的assert语句](./Python Common/Python中的assert语句.md)
     - [Python新增的secrets模块](./Python Common/Python新增的secrets模块.md)
+    - [Python中的lambda表达式](./Python Common/Python中的lambda表达式.md)
 ## Web框架
 - [Django](./Django/README.md)
 	- [1.9](./Django/1.9/README.md) Django 1.9版本官方文档
