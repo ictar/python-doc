@@ -48,7 +48,7 @@
 
 [Django, ELB健康检查和持续交付](http://tech.octopus.energy/2016/05/05/django-elb-health-checks.html) 
 
-[中文版](../Django/Django, ELB健康检查和持续交付.md)
+[中文版](../Django/Django%2C%20ELB健康检查和持续交付.md)
 
 [Python, Postgres, SQLAlchemy, 和PGA Tour Stats](https://bigishdata.com/2016/05/08/python-postgres-sqlalchemy-and-pga-tour-stats/)
 
