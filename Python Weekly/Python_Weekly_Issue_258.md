@@ -25,7 +25,7 @@
 
 这篇文章重温Tensorflow上的RNNs的使用最佳实践，特别是在官网上没有得到很好记录的特性。
 
-[Lists和Tuples大对决](http://nedbatchelder.com/blog/201608/lists_vs_tuples.html) | [中文版](../Python Common/Lists和Tuples大对决.md)
+[Lists和Tuples大对决](http://nedbatchelder.com/blog/201608/lists_vs_tuples.html) | [中文版](../Python%20Common/Lists和Tuples大对决.md)
 
 常见的Python初学者问题：列表和元组之间有何区别？答案是，有两个不同的差异，以及两者之复杂的相互作用。这就是技术差异和文化差异。
 
@@ -41,7 +41,7 @@
 
 这篇文章讨论了参数化学习和线性分类的基础知识。虽然简单，但是线性分类可以被看成更高级的机器学习算法基本构架模块，自然扩展到神经网络和卷积神经网络。
 
-[使用Python和LLVM的，用于TensorFlow计算图形的JIT本地代码生成](http://blog.christianperone.com/2016/08/jit-native-code-generation-for-tensorflow-computation-graphs-using-python-and-llvm/) [中文版](../Science and Data Analysis/用于格式化和数据清理的便捷Python库.md)
+[使用Python和LLVM的，用于TensorFlow计算图形的JIT本地代码生成](http://blog.christianperone.com/2016/08/jit-native-code-generation-for-tensorflow-computation-graphs-using-python-and-llvm/) [中文版](../Science%20and%20Data%20Analysis/用于格式化和数据清理的便捷Python库.md)
 
 [Python JIT来了](https://lwn.net/Articles/691070/)
 

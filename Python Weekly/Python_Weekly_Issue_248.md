@@ -43,7 +43,7 @@
 
 本文我们将看到过滤pandas DataFrame和更新基于各种标准的数据的一些例子。使用这种方式，我将解释一些关于pandas索引以及如何基于简单或复杂的条件，使用诸如.loc , .ix 和.iloc的索引方法来快速容易的更新数据子集。
 
-[在有限预算上计算最佳公路旅行](http://www.randalolson.com/2016/06/05/computing-optimal-road-trips-on-a-limited-budget/) [中文版](../Machine Learning/在有限预算上计算最佳公路旅行.md)
+[在有限预算上计算最佳公路旅行](http://www.randalolson.com/2016/06/05/computing-optimal-road-trips-on-a-limited-budget/) [中文版](../Machine%20Learning/在有限预算上计算最佳公路旅行.md)
 
 本文通过引入多目标Pareto最优化到算法中，以扩展优化公路旅行的想法。它简要介绍了Pareto最优化是如何工作的，以及它在有限的预算下，是如何帮助我们优化公路旅行的。
 
@@ -61,11 +61,11 @@
 
 [用变分推理估计PyMC3中的神经网络](http://twiecki.github.io/blog/2016/06/01/bayesian-deep-learning/)
 
-[在Python中实现你自己的推荐系统](http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-your-own-recommender-systems-in-python-2) [../Science and Data Analysis/在Python中实现你自己的推荐系统.md]
+[在Python中实现你自己的推荐系统](http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-your-own-recommender-systems-in-python-2) [../Science%20and%20Data%20Analysis/在Python中实现你自己的推荐系统.md]
 
 [设置深度学习硬件时的注意事项](http://www.pyimagesearch.com/2016/06/13/considerations-when-setting-up-deep-learning-hardware/)
 
-[Python中一个简单的基于内容的推荐引擎](http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html) ([中文版](../Science and Data Analysis/Python中一个简单的基于内容的推荐引擎.md))
+[Python中一个简单的基于内容的推荐引擎](http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html) ([中文版](../Science%20and%20Data%20Analysis/Python中一个简单的基于内容的推荐引擎.md))
 
 # 本周的Python工作
 

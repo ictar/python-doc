@@ -24,7 +24,7 @@ GeoViews是一个新的Python库，它使得探索和可视化地理，气象，
 
 我们今天的客人是Michael Cuthbert，MIT的音乐方面的副教授，以及Music21项目的主要研究者，而Music21项目是我们讨论的重点。Music21是一个让音乐分析方便有趣的Python库。它支持与诸如MIDI, MusicXML, Lilypond等等流行格式的集成。它也与Elvis项目集成良好，允许用户导入大量的音乐，便于分析。Music21是音乐家和类似的机器学习研究人员探索音乐中模式和结构的一个很好的平台。
 
-[使用预测算法追踪实时健康趋势](http://blog.algorithmia.com/predictive-algorithms-track-real-time-health-trends/) | [中文](../Machine Learning/使用预测算法追踪实时健康趋势.md)
+[使用预测算法追踪实时健康趋势](http://blog.algorithmia.com/predictive-algorithms-track-real-time-health-trends/) | [中文](../Machine%20Learning/使用预测算法追踪实时健康趋势.md)
 
 在这个教程中，我们将构建一个实时健康显示面板，用来追踪一个人的血压读数，进行时间序列分析，然后使用预测算法绘制时间趋势。本教程是使用时间序列算法和预测API来创建你个人健康显示面板的起点。
 
@@ -32,11 +32,11 @@ GeoViews是一个新的Python库，它使得探索和可视化地理，气象，
 
 当前关于房租租赁的数据源，例如人口普查或商业数据库，关注大型公寓，它们并不反映近期的市场活动或者美国租赁市场的全概貌。为了填补这个缺失，我们收集，清理，分析，映射，并可视化一千一百万个Craigslist房租租赁房源。数据揭示了美国大城市住房市场内以及跨大城市住房市场的细粒度空间和时间模式。我们发现，一些大城市地区只有个位数百分比的低于公平市场租金的房源。自愿地理信息的非传统来源为规划人员提供当前在替代来源，例如人口普查数据，缺失的租赁和住房特征的实时的，局部尺度评估。
 
-[深度探索Python: 让我们审查dict模块](https://www.buzzfeed.com/andrewkelleher/deep-exploration-into-python-lets-review-the-dict-module) | [中文](../Python Common/深度探索Python：让我们审查dict模块.md)
+[深度探索Python: 让我们审查dict模块](https://www.buzzfeed.com/andrewkelleher/deep-exploration-into-python-lets-review-the-dict-module) | [中文](../Python%20Common/深度探索Python：让我们审查dict模块.md)
 
 Dictobject.c是Python的dict对象背后的模块。它非常常用，但有一些鲜为人知的秘密，这些秘密对于了解最佳性能非常有用
 
-[分析iPhone步数数据](http://blog.yhat.com/posts/phone-steps-timeseries.html) | [中文](../Science and Data Analysis/分析iPhone步数数据.md)
+[分析iPhone步数数据](http://blog.yhat.com/posts/phone-steps-timeseries.html) | [中文](../Science%20and%20Data%20Analysis/分析iPhone步数数据.md)
 
 本文展示了如何使用pandas timeseries和ggplot来分析iPhone步数数据。
 

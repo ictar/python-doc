@@ -30,9 +30,9 @@ Armin Ronacher是Python软件生态圈的一个多产贡献者，他创造了诸
 
 本文展示了如何使用Plotly和Python，在3D中绘制客户服务指标。
 
-[分析权力游戏图表](http://www.lyonwj.com/2016/06/26/graph-of-thrones-neo4j-social-network-analysis/) | [中文版](../Science and Data Analysis/分析权力游戏图表.md)
+[分析权力游戏图表](http://www.lyonwj.com/2016/06/26/graph-of-thrones-neo4j-social-network-analysis/) | [中文版](../Science%20and%20Data%20Analysis/分析权力游戏图表.md)
 
-[使用Python探索NFL选秀](http://savvastjortjoglou.com/nfl-draft.html) | [中文版](../Science and Data Analysis/使用Python探索NFL选秀.md)
+[使用Python探索NFL选秀](http://savvastjortjoglou.com/nfl-draft.html) | [中文版](../Science%20and%20Data%20Analysis/使用Python探索NFL选秀.md)
 
 [第65集：使用RethinkDB，扑向实时网络](https://talkpython.fm/episodes/show/65/jump-on-the-real-time-web-with-rethinkdb)
 

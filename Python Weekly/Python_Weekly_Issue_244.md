@@ -36,7 +36,7 @@ Bot是Slack通道和外部应用直接一个超级有用的桥梁。让我们编
 
 在这个matplotlib教程中，我们将介绍该库的基本知识，并看看如何进行一些中间可视化。我们将使用包含将近240,000条关于Hillary Clinton, Donald Trump, 和Bernie Sanders，目前所有美国总统候选人的推特的数据集。
 
-[中文版](../Science and Data Analysis/Matplotlib教程 - 绘制提到Trump, Clinton & Sanders的推特.md)
+[中文版](../Science%20and%20Data%20Analysis/Matplotlib教程%20-%20绘制提到Trump,%20Clinton%20&%20Sanders的推特.md)
 
 [Episode #58: 使用并发，库和模式创建更好的Python程序](https://talkpython.fm/episodes/show/58/create-better-python-programs-with-concurrency-libraries-and-patterns)
 

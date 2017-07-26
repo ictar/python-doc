@@ -34,7 +34,7 @@ Django团队很高兴宣布，Channels项目现在是Django项目的官方的一
 
 能够处理流数据对任何有抱负的数据科学家来说都是一项重要技能。在这篇文章中，我们将谈谈处理流数据的策略，并看看一个流化和存储来自Twitter数据的例子。
   
-[不可不知的一点Python陷阱](https://access.redhat.com/blogs/766093/posts/2592591) | [中文](../Python Common/不可不知的一点Python陷阱.md)
+[不可不知的一点Python陷阱](https://access.redhat.com/blogs/766093/posts/2592591) | [中文](../Python%20Common/不可不知的一点Python陷阱.md)
 
 在这篇文章中，它主要针对Python新手，会看到少量安全相关的小技巧；有经验的开发者可能会注意到后面的特殊性。
   

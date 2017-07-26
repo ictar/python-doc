@@ -18,11 +18,11 @@
 
 你有博客吗？在上面，你写了多少篇文章呢？你有没有发现一直写作，或者开始进行一些技术写作很难呢？本周，我们或许可以帮助你解决这些问题。
 
-[如何扩展Django User Model](http://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html) | [中文版](../Django/如何扩展Django User模型.md)
+[如何扩展Django User Model](http://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html) | [中文版](../Django/如何扩展Django%20User模型.md)
 
 本教程介绍了一些策略，你可以用它们来简单的扩展默认的Django User Model，这样，你就无需一切从头开始。
 
-[我是如何构建一个Slack机器人来帮助我在San Francisco找房子的](https://www.dataquest.io/blog/apartment-finding-slackbot/) | [中文版](../Others/我是如何构建一个Slack机器人来帮助我在San Francisco找房子的.md)
+[我是如何构建一个Slack机器人来帮助我在San Francisco找房子的](https://www.dataquest.io/blog/apartment-finding-slackbot/) | [中文版](../Others/我是如何构建一个Slack机器人来帮助我在San%20Francisco找房子的.md)
 
 [机器学习很好玩！第四部分：使用深度学习进行面部识别](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78)
 
@@ -30,7 +30,7 @@
 
 [愚蠢的Python技巧：滥用显式self](https://medium.com/@hwayne/stupid-python-tricks-abusing-explicit-self-53d46b72e9e0)
 
-[Django Channels和Celery示例](http://vincenttide.com/blog/1/django-channels-and-celery-example/) [中文版](../Django/Django Channels和Celery示例.md)
+[Django Channels和Celery示例](http://vincenttide.com/blog/1/django-channels-and-celery-example/) [中文版](../Django/Django%20Channels和Celery示例.md)
 
 [为Numpy编写类型桩](http://www.machinalis.com/blog/writing-type-stubs-for-numpy/)
 
