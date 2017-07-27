@@ -29,7 +29,7 @@
 
 在这篇文章中，你会发现可以如何使用scikit-learn Python机器学习库中的网格搜索功能来调Keras深度学习模型的超参数。
 
-[设计Pythonic API](http://noamelf.com/2016/08/05/designing-pythonic-apis/) | [中文](../Others/设计Pythonic API.md)
+[设计Pythonic API](http://noamelf.com/2016/08/05/designing-pythonic-apis/) | [中文](../Others/设计Pythonic%20API.md)
 
 当编写一个包（库）的时候，为它提供一个良好的API，几乎与它的功能本身一样重要（好吧，至少你想要让别人使用），但怎么才算一个良好的API呢？在这篇文章中，我将尝试通过比较Requests和Urllib（Python标准库的一部分）在一些经典的HTTP场景的使用，从而提供关于这个问题的一些见解，并看看为什么Requests已经成为了Python用户中的事实上的标准。
 
@@ -51,7 +51,7 @@
 
 [使用TensorFlow中的深度学习进行图像修复](http://bamos.github.io/2016/08/09/deep-completion/)
 
-[Requests vs. urllib：它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html)  | [中文版](../Others/Requests vs. urllib：它解决了什么问题？.md)
+[Requests vs. urllib：它解决了什么问题？](http://www.curiousefficiency.org/posts/2016/08/what-problem-does-it-solve.html)  | [中文版](../Others/Requests%20vs.%20urllib：它解决了什么问题？.md)
 
 [EuroPython 2016年视频集](https://www.youtube.com/playlist?list=PL8uoeex94UhE3FDvjacSlHFffoNEoPzzm)
 

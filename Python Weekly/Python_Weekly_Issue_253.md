@@ -19,7 +19,7 @@
 
 # 文章，教程和讲座
 
-[对超过1M的酒店点评进行机器学习，发现有趣的见解](https://blog.monkeylearn.com/machine-learning-1m-hotel-reviews-finds-interesting-insights/) | [中文版](../Machine Learning/对超过1M的酒店点评进行机器学习，发现有趣的见解.md)
+[对超过1M的酒店点评进行机器学习，发现有趣的见解](https://blog.monkeylearn.com/machine-learning-1m-hotel-reviews-finds-interesting-insights/) | [中文版](../Machine%20Learning/对超过1M的酒店点评进行机器学习，发现有趣的见解.md)
 
 本文中，我们将涵盖可以如何使用这些机器学习模型来分析数百万条来自于TripAdvisor的点评，然后比较人们对不同城市的酒店的感受，来学习各种有趣的事情。
 
@@ -45,7 +45,7 @@ Scrapy被设计成可扩展的，并且组件之间松耦合。你可以使用�
 
 [映射瑞典小镇名字的原子部分](http://maxberggren.se/2016/07/14/atomic-parts-of-town-names/)
 
-[Python, GIL, 和Pyston](http://blog.kevmod.com/2014/06/python-the-gil-and-pyston/) [中文版](../Others/Python, GIL, 和Pyston.md)
+[Python, GIL, 和Pyston](http://blog.kevmod.com/2014/06/python-the-gil-and-pyston/) [中文版](../Others/Python,%20GIL,%20和Pyston.md)
 
 [SciPy 2016视频](https://www.youtube.com/playlist?list=PLGB9meziqbzpRP7mVyihOihNzm_J2Kx9I)
 

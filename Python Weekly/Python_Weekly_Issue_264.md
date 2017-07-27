@@ -46,7 +46,7 @@
   
 [网络效应说明：PageRank和偏好连接](https://medium.com/@bgoncalves/network-effects-explained-pagerank-and-preferential-attachment-61fdf93d023a)  
   
-[了解Python类实例化](http://amir.rachum.com/blog/2016/10/03/understanding-python-class-instantiation/)  | [中文](../Python Common/了解Python类实例化.md)
+[了解Python类实例化](http://amir.rachum.com/blog/2016/10/03/understanding-python-class-instantiation/)  | [中文](../Python%20Common/了解Python类实例化.md)
   
   
 # 书籍

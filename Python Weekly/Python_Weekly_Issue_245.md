@@ -24,7 +24,7 @@ PyConIE 2016的建议征集现已开放。格式将由两个座谈轨迹和两�
 
 在这个notebook上，我们将开发一个机器学习模型来预测纽约的出租车需求。
 
-[中文版](../Science and Data Analysis/使用BigQuery和TensorFlow进行需求预测.md)
+[中文版](../Science%20and%20Data%20Analysis/使用BigQuery和TensorFlow进行需求预测.md)
 
 [Episode #60：使用Ufora将Python缩放到1000个内核上](https://talkpython.fm/episodes/show/60/scaling-python-to-1000-s-of-cores-with-ufora)
 
