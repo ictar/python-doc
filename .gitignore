@@ -100,3 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 
+# customer
+.idea
+.idea/inspectionProfiles/Project_Default.xml
+.idea/vcs.xml
