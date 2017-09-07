@@ -12,7 +12,7 @@ gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-
 欢迎抓虫~~
 
 # 目录说明
-- [Python Common](./Python Common/) python 常规文档
+- [Python Common](./Python%20Common 'python 常规文档') python 常规文档
 
 ## Web框架
 - [Django](./Django) Django 相关文档
@@ -33,22 +33,22 @@ gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-
 - [Hardware](./Hardware)	硬件相关，物联网，无人机等……
 
 ## 科学计算和数据分析
-- [Science and Data Analysis](./Science and Data Analysis)
+- [Science and Data Analysis](./Science%20and%20Data%20Analysis 'Science and Data Analysis')
 
 ## 自然语言处理
 - [NLP](./NLP)
 
 ## 机器学习
-- [Machine Learning](./Machine Learning)
+- [Machine Learning](./Machine%20Learning 'Machine Learning')
 
 ## 函数式编程
-- [Functional Programming](./Functional Programming)
+- [Functional Programming](./Functional%20Programming 'Functional Programming')
 
 ## 图像处理
-- [Image Processing](./Image Processing)
+- [Image Processing](./Image%20Processing 'Image Processing')
 
 ## 资源
-- [Python Weekly](./Python Weekly)
+- [Python Weekly](./Python%20Weekly 'Python Weekly')
 - Pycoder's Weekly    
 	* 中文版：[蟒周刊](http://weekly.pychina.org/)
 
