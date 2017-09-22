@@ -35,56 +35,66 @@
 
 在本指南的这个部分，我将会实现高性能的最有价值的方法 —— 缓存。缓存的本质是将最常用的数据放置到快速存储中，从而加速对它们的访问。重要的是，了解快速存储（比方说，内存）常常容量是有限的。因此，我们应该只将其用于常常使用的数据。
   
-[Detecting Malicious Requests with Keras &amp; Tensorflow](https://medium.com/slalom-engineering/detecting-malicious-requests-with-keras-tensorflow-5d5db06b4f28)  
+[利用Keras和Tensorflow，检测恶意请求](https://medium.com/slalom-engineering/detecting-malicious-requests-with-keras-tensorflow-5d5db06b4f28)  
   
-[Remote-controlling macOS with a Python Telegram bot](https://medium.com/@half0wl/remote-controlling-macos-with-a-python-telegram-bot-d656d2e00226)   
+[通过Python Telegram机器人，远程控制macOS](https://medium.com/@half0wl/remote-controlling-macos-with-a-python-telegram-bot-d656d2e00226)   
   
-[Analyzing One Million robots.txt Files](https://intoli.com/blog/analyzing-one-million-robots-txt-files/)  
+[分析一百万个robots.txt文件](https://intoli.com/blog/analyzing-one-million-robots-txt-files/)  
   
-[AI in Practice: Identifying Parts of Speech in Python](https://medium.com/@brianray_7981/ai-in-practice-identifying-parts-of-speech-in-python-8a690c7a1a08)  
+[AI实战：识别Python中的部分语言](https://medium.com/@brianray_7981/ai-in-practice-identifying-parts-of-speech-in-python-8a690c7a1a08)  
   
-[Real-time object detection with deep learning and OpenCV](http://www.pyimagesearch.com/2017/09/18/real-time-object-detection-with-deep-learning-and-opencv/)  
+[使用深度学习和OpenCV，进行实时对象检测](http://www.pyimagesearch.com/2017/09/18/real-time-object-detection-with-deep-learning-and-opencv/)  
   
-[Predicting Portland Home Prices](https://laurenshareshian.github.io/Predicting-Portland-Home-Prices/)  
+[预测博览房屋价格](https://laurenshareshian.github.io/Predicting-Portland-Home-Prices/)  
   
-[A guide to logging in Python](https://opensource.com/article/17/9/python-logging)  
+[Python中的日志记录指南](https://opensource.com/article/17/9/python-logging)  
   
   
 # 好玩的项目，工具和库  
   
 [face_classification](https://github.com/oarriaga/face_classification)  
-Real-time face detection and emotion/gender classification using fer2013/imdb datasets with a keras CNN model and openCV.  
+
+实时面部检测和表情/性别分类，使用fer2013/imdb数据集和一个keras CNN模型与openCV。
   
 [Evennia](http://www.evennia.com/)   
-Evennia is an open-source library and toolkit for building multi-player online text games (MUD, MUX, MUSH, MUCK and other MU*). You easily design your entire game using normal Python modules. Apart from supporting traditional clients, Evennia comes with both a game web-client and a web-server out of the box.  
+
+Evennia是一个用来构建多玩家在线文本游戏(MUD, MUX, MUSH, MUCK和其他MU*)的开源库和工具集。使用普通的Python模块，轻松设计你自己完整的游戏。除了支持传统客户端，Evennia还自带了一个游戏web客户端和web服务器。
   
 [EvalAI](https://github.com/Cloud-CV/EvalAI)   
-EvalAI is an open source web application that helps researchers, students and data-scientists to create, collaborate and participate in various AI challenges organized round the globe  
+
+EvalAI是一个开源web应用，帮助研究人员、学生和数据科学家创建、协作和参与全球各地的AI挑战。
   
 [Pysimplechain](https://github.com/EricAlcaide/pysimplechain/)  
-Python implementation of a blockchain in less than 200 lines of code.  
+
+少于200行代码的区块链Python实现。
   
 [GeoPySpark](https://github.com/locationtech-labs/geopyspark)  
-GeoPySpark is a Python bindings library for GeoTrellis, a Scala library for working with geospatial data in a distributed environment. By using PySpark, GeoPySpark is able to provide na interface into the GeoTrellis framework.  
+
+GeoPySpark是GeoTrellis的一个Python绑定库，GeoTrellis是一个在分布式环境中处理地理空间数据的Scala库。通过使用PySpark，GeoPySpark可以为GeoTrellis框架提供接口。
   
 [GeoNotebook](https://github.com/OpenGeoscience/geonotebook)   
-A Jupyter notebook extension for geospatial visualization and analysis.  
+
+一个用于地理空间可视化和分析的Jupyter notebook扩展。
   
 [SQLCell](https://github.com/tmthyjames/SQLCell)  
-SQLCell is a magic function for the Jupyter Notebook that executes raw, parallel, parameterized SQL queries with the ability to accept Python values as parameters, assign output data to Python variables while concurrently running Python code. And *much* more.  
+
+SQLCell是一个用于Jupyter Notebook的魔术函数，它执行原始、并行以及参数化的SQL查询，并且能够接受Python值作为参数，将输出值赋给Python变量，同时运行Python代码。还有更多功能。
   
 [fairseq-py](https://github.com/facebookresearch/fairseq-py)  
-Facebook AI Research Sequence-to-Sequence Toolkit written in Python.  
+
+Facebook AI研究序列到序列工具包，用Python编写。
   
 [style2paints](https://github.com/lllyasviel/style2paints)  
-The AI can paint on a sketch accroding to a given specific color style.  
+
+根据一种给定的特定颜色样式，这个AI可以在草图上绘制颜色。
   
-[forseti-security](https://github.com/GoogleCloudPlatform/forseti-security)  
-A community-driven collection of open source tools to improve the security of your Google Cloud Platform environments.  
+[forseti-security](https://github.com/GoogleCloudPlatform/forseti-security)
+
+一个用来提高Google Cloud Platform环境安全的社区驱动的开源工具集合。
   
 [face-alignment](https://github.com/1adrianb/face-alignment)  
 
-2D and 3D Face alignment library build using pytorch.  
+2D和3D人脸对齐库，使用pytorch。
   
   
 # 最新发布  
