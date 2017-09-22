@@ -72,3 +72,4 @@
 - [Issue 310](./Python_Weekly_Issue_310.md)
 - [Issue 311](./Python_Weekly_Issue_311.md)
 - [Issue 312](./Python_Weekly_Issue_312.md)
+- [Issue 313](./Python_Weekly_Issue_313.md)
