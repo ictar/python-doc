@@ -188,6 +188,7 @@
 	- [Issue 311](./Python Weekly/Python_Weekly_Issue_311.md)
 	- [Issue 312](./Python Weekly/Python_Weekly_Issue_312.md)
 	- [Issue 313](./Python Weekly/Python_Weekly_Issue_313.md)
+	- [Issue 314](./Python Weekly/Python_Weekly_Issue_314.md)
 - Pycoder's Weekly    
 	* 中文版：[蟒周刊](http://weekly.pychina.org/)
 
