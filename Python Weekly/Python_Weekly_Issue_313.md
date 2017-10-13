@@ -45,7 +45,7 @@
   
 [使用深度学习和OpenCV，进行实时对象检测](http://www.pyimagesearch.com/2017/09/18/real-time-object-detection-with-deep-learning-and-opencv/)  
   
-[预测博览房屋价格](https://laurenshareshian.github.io/Predicting-Portland-Home-Prices/)  
+[预测波兰房屋价格](https://laurenshareshian.github.io/Predicting-Portland-Home-Prices/)  
   
 [Python中的日志记录指南](https://opensource.com/article/17/9/python-logging)  
   
