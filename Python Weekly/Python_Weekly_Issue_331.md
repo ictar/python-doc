@@ -31,15 +31,16 @@ Talk Python Training 的 [Everything Bundle](https://training.talkpython.fm/cour
   
 [使用自定义 C 扩展来增强 Python](http://stackabuse.com/enhancing-python-with-custom-c-extensions/)
 
-本文将重点介绍用来为 Python 构建 C 扩展的 CPython API 的功能。I will be going over the the general workflow for taking a small library of fairly banal, toy example, C functions and exposing in to a Python wrapper.  
-  
-[Simplifying Offline Python Deployments With Docker](https://realpython.com/blog/python/offline-python-deployments-with-docker/)   
-Learn how to package up a Python project for distribution internally on a machine cut off from the Internet using Docker.  
-  
+本文将重点介绍用来为 Python 构建 C 扩展的 CPython API 的功能。我将重点介绍编写一个相当平庸的玩具一般的示例 C 函数库，然后将其暴露于 Python 封装器中的一般工作流程。
+
+[使用 Docker，简化脱机 Python 部署](https://realpython.com/blog/python/offline-python-deployments-with-docker/)
+
+学习如何使用 Docker，打包一个 Python 项目，用以在从互联网上断开的机器上进行部署。
+
 [我建立了一个 Jupyter Notebook，它会给你分析加密货币的投资组合](http://grantbartel.com/blog/jupyter-notebook-that-will-analyze-cryptocurrency-portfolios/)
 
-The amount of engagement in the crypto investment space needs no introduction. With market caps, volumes, and public awareness on the rise, I thought I'd put together a simple Jupyter notebook to get a clearer and broader viewpoint into the investment activities within my own crypto portfolio.  
-  
+加密投资领域的参与量不言自明。随着市场上限、成交量和公众意识的不断提高，我想我会把这些都放进一个简单的 Jupyter notebook 中，从而更清晰更广泛地看清楚我自己的加密货币投资组合中投资活动。
+
 [欢迎来到未来！](https://medium.com/the-infinite-machine/welcome-to-the-future-3ca4fb5a4656)
 
 本文解释了 App Engine 的分布式分层未来的基础知识，这是创建复杂分布式系统的一个抽象概念。
