@@ -95,3 +95,4 @@
 - [Issue 333](./Python_Weekly_Issue_333.md)
 - [Issue 334](./Python_Weekly_Issue_334.md)
 - [Issue 335](./Python_Weekly_Issue_335.md)
+- [Issue 336](./Python_Weekly_Issue_336.md)
