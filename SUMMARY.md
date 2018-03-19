@@ -32,6 +32,7 @@
 	- [Python中的assert语句](./Python Common/Python中的assert语句.md)
     - [Python新增的secrets模块](./Python Common/Python新增的secrets模块.md)
     - [Python中的lambda表达式](./Python Common/Python中的lambda表达式.md)
+    - [我是如何修复 Python 3.7 中一个非常老的 GIL 竞争条件的](./Python Common/python37-gil-change.md)
 ## Web框架
 - [Django](./Django/README.md)
 	- [1.9](./Django/1.9/README.md) Django 1.9版本官方文档
