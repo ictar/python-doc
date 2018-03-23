@@ -2,7 +2,7 @@
 
 ---
 
-欢迎来到Python周刊第 338 期。让我们直奔主题
+欢迎来到Python周刊第 338 期。让我们直奔主题。
   
 # 来自赞助商 
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/afd87cff-158f-4358-84b1-e08990fb7860.png)](https://www.digitalocean.com/community/tutorials/how-to-write-a-slash-command-with-flask-and-python-3-on-ubuntu-16-04?utm_source=paid_newsletter+python+weekly&utm_medium=display&utm_campaign=Brand+tutorial+newsletter&utm_content=3-15-2018+python+weekly)
