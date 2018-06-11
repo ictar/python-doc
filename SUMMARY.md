@@ -225,6 +225,7 @@
 	- [Issue 347](./Python Weekly/Python_Weekly_Issue_347.md)
 	- [Issue 348](./Python Weekly/Python_Weekly_Issue_348.md)
 	- [Issue 349](./Python Weekly/Python_Weekly_Issue_349.md)
+	- [Issue 350](./Python Weekly/Python_Weekly_Issue_350.md)
 - Pycoder's Weekly    
 	* 中文版：[蟒周刊](http://weekly.pychina.org/)
 
