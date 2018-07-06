@@ -2,7 +2,7 @@
 
 ---
 
-欢迎来到Python周刊第 352 期。让我们直奔主题。
+欢迎来到Python周刊第 353 期。让我们直奔主题。
 
 
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/99a93b21-580d-40ed-96ba-539d38b8f78b.jpg)](https://click.linksynergy.com/link?id=x9UsEHf2tls&offerid=323085.903744&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fpython-for-data-science-and-machine-learning-bootcamp%2F)
