@@ -2,7 +2,7 @@
 
 ---
 
-欢迎来到Python周刊第 361 期。让我们直奔主题。
+欢迎来到Python周刊第 362 期。让我们直奔主题。
 
 
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/e174bc29-bff7-4393-b883-768557bd5fc8.jpg)](https://click.linksynergy.com/link?id=x9UsEHf2tls&offerid=323085.543600&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fautomate%2F)
