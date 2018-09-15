@@ -8,7 +8,7 @@
 # 来自赞助商
 [![](https://gallery.mailchimp.com/e2e180baf855ac797ef407fc7/images/fb87e896-e3dc-4e12-bcfe-1244601263fe.jpg)](https://try.digitalocean.com/performance/?utm_medium=Display&utm_source=Python_Weekly&utm_campaign=2018_Brand&utm_content=Conversation_with_100_125x125)
 
-使用 DigitalOcean 部署任何规模的超快 Python 应用，这是一个开发者友好的云平台，旨在满足你的需求。了解 DigitalOcean 如何简化你的基础架构吧。[在这之上构建你的下一个应用吧（有 $100 积分哦）](https://try.digitalocean.com/performance/?utm_medium=Display&utm_source=Python_Weekly&utm_campaign=2018_Brand&utm_content=Conversation_with_100_125x125).   
+使用 DigitalOcean 部署任何规模的超快 Python 应用，这是一个开发者友好的云平台，旨在满足你的需求。了解 DigitalOcean 如何简化你的基础架构吧。[ v](https://try.digitalocean.com/performance/?utm_medium=Display&utm_source=Python_Weekly&utm_campaign=2018_Brand&utm_content=Conversation_with_100_125x125).   
   
 # 文章，教程和讲座
   
