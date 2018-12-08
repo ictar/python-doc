@@ -127,3 +127,4 @@
 - [Issue 365](./Python_Weekly_Issue_365.md)
 - [Issue 374](./Python_Weekly_Issue_374.md)
 - [Issue 375](./Python_Weekly_Issue_375.md)
+- [Issue 376](./Python_Weekly_Issue_376.md)
