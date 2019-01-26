@@ -132,3 +132,4 @@
 - [Issue 378](./Python_Weekly_Issue_378.md)
 - [Issue 379](./Python_Weekly_Issue_379.md)
 - [Issue 380](./Python_Weekly_Issue_380.md)
+- [Issue 381](./Python_Weekly_Issue_381.md)
