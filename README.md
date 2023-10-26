@@ -1,4 +1,4 @@
-# pythondocument
+# Python Document
 translate python documents to Chinese for convenient reference
 简而言之，这里用来存放那些Python文档君们，并且尽力将其翻译成中文~~
 
@@ -15,8 +15,8 @@ gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-
 - [Python Common](./Python%20Common 'python 常规文档') python 常规文档
 
 ## Web框架
-- [Django](./Django) Django 相关文档
-- [Flask](./Flask) Flask相关文档
+- [Django](./Web/Django) Django 相关文档
+- [Flask](./Web/Flask) Flask相关文档
 
 ## web爬取
 - [Scrapy](./Scrapy) Scrapy相关文档
@@ -69,3 +69,8 @@ gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-
 
 # 贡献者
 - [lujun9972](https://github.com/lujun9972)
+
+# 请我喝杯咖啡吧
+
+
+<a href="https://www.buymeacoffee.com/ictar" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
