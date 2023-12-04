@@ -74,3 +74,6 @@ gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-
 
 
 <a href="https://www.buymeacoffee.com/ictar" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+---
+[![Star History Chart](https://api.star-history.com/svg?repos=ictar/python-doc&type=Date)](https://star-history.com/?utm_source=bestxtools.com#ictar/python-doc&Date)
