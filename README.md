@@ -70,10 +70,8 @@ gitbook地址：[Python Chinese documents](https://ictar.gitbooks.io/python-doc-
 # 贡献者
 - [lujun9972](https://github.com/lujun9972)
 
-# 请我喝杯咖啡吧
-
-
-<a href="https://www.buymeacoffee.com/ictar" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+# 捐赠
+如果你觉得这个项目对你有帮助，那就请我喝杯东西吧 <a href="https://www.buymeacoffee.com/ictar" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ---
 [![Star History Chart](https://api.star-history.com/svg?repos=ictar/python-doc&type=Date)](https://star-history.com/?utm_source=bestxtools.com#ictar/python-doc&Date)
