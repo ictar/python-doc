@@ -3,209 +3,16 @@
 ---
 
 
+# Python 版本间的主要变动的总结
 
-
-Summary of Major Changes Between Python Versions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{
- "@context": "https://schema.org",
- "@type": "Article",
- "publisher": {
- "@type": "Organization",
- "name": "NicholasHairs.com",
- "url": "https://www.nicholashairs.com/",
- "logo": {
- "@type": "ImageObject",
- "url": "https://www.nicholashairs.com/favicon.ico",
- "width": 48,
- "height": 48
- }
- },
- "author": {
- "@type": "Person",
- "name": "Nicholas Hairs",
- "image": {
- "@type": "ImageObject",
- "url": "https://www.nicholashairs.com/content/images/2019/05/linkedin.jpg",
- "width": 200,
- "height": 200
- },
- "url": "https://www.nicholashairs.com/author/me/",
- "sameAs": []
- },
- "headline": "Summary of Major Changes Between Python Versions",
- "url": "https://www.nicholashairs.com/posts/major-changes-between-python-versions/",
- "datePublished": "2024-02-02T07:57:28.000Z",
- "dateModified": "2024-02-09T05:07:21.000Z",
- "image": {
- "@type": "ImageObject",
- "url": "https://images.unsplash.com/photo-1538439907460-1596cafd4eff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDR8fHB5dGhvbnxlbnwwfHx8fDE3MDY4NjA1MDl8MA&ixlib=rb-4.0.3&q=80&w=2000",
- "width": 2000,
- "height": 1355
- },
- "keywords": "Python",
- "description": "This post is designed to be a quick reference for the major changes introduced with each new version of Python. This can help with taking advantages of using new features as you upgrade your code base, or ensuring that you have the correct guards for compatibility with older versions.\n\nThere are two sections to this post: the first covers the actual changes, the second useful tools, links, and utilities that can aid with upgrading code bases.\n\n\nVersions\n\nIn this section I&#x27;ve documented the major",
- "mainEntityOfPage": {
- "@type": "WebPage",
- "@id": "https://www.nicholashairs.com/"
- }
-}
- 
-
-
-.gh-post-upgrade-cta-content,
-.gh-post-upgrade-cta {
- display: flex;
- flex-direction: column;
- align-items: center;
- font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
- text-align: center;
- width: 100%;
- color: #ffffff;
- font-size: 16px;
-}
-
-.gh-post-upgrade-cta-content {
- border-radius: 8px;
- padding: 40px 4vw;
-}
-
-.gh-post-upgrade-cta h2 {
- color: #ffffff;
- font-size: 28px;
- letter-spacing: -0.2px;
- margin: 0;
- padding: 0;
-}
-
-.gh-post-upgrade-cta p {
- margin: 20px 0 0;
- padding: 0;
-}
-
-.gh-post-upgrade-cta small {
- font-size: 16px;
- letter-spacing: -0.2px;
-}
-
-.gh-post-upgrade-cta a {
- color: #ffffff;
- cursor: pointer;
- font-weight: 500;
- box-shadow: none;
- text-decoration: underline;
-}
-
-.gh-post-upgrade-cta a:hover {
- color: #ffffff;
- opacity: 0.8;
- box-shadow: none;
- text-decoration: underline;
-}
-
-.gh-post-upgrade-cta a.gh-btn {
- display: block;
- background: #ffffff;
- text-decoration: none;
- margin: 28px 0 0;
- padding: 8px 18px;
- border-radius: 4px;
- font-size: 16px;
- font-weight: 600;
-}
-
-.gh-post-upgrade-cta a.gh-btn:hover {
- opacity: 0.92;
-}
-
-
-
-:root {--ghost-accent-color: #15171A;}
-
-
-
-
-
-
-[NicholasHairs.com](https://www.nicholashairs.com) 
-
-
-
-
-* [Home](https://www.nicholashairs.com/)
-* [About](https://www.nicholashairs.com/author/me/)
-
-
-
-
-
-
-[Sign in](#/portal/signin)
-[Subscribe](#/portal/signup)
-
-
-
-
-
-
-
-
-
-
-[Python](/tag/python/)
-
-
-# Summary of Major Changes Between Python Versions
-
-
-
-
-* [![Nicholas Hairs](/content/images/size/w100/2019/05/linkedin.jpg)](/author/me/)
-
-
-
-#### [Nicholas Hairs](/author/me/)
-
-
-
-Feb 2, 2024
-• 9 min read
+_Feb 2, 2024_
 
 
 
 
 
 ![Summary of Major Changes Between Python Versions](https://images.unsplash.com/photo-1538439907460-1596cafd4eff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDR8fHB5dGhvbnxlbnwwfHx8fDE3MDY4NjA1MDl8MA&ixlib=rb-4.0.3&q=80&w=2000)
-Photo by [David Clode](https://unsplash.com/@davidclode?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+摄影：[David Clode](https://unsplash.com/@davidclode?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
 
 
 
@@ -213,13 +20,13 @@ This post is designed to be a quick reference for the major changes introduced w
 
 There are two sections to this post: the first covers the actual changes, the second useful tools, links, and utilities that can aid with upgrading code bases.
 
-# Versions
+# 版本
 
 In this section I've documented the major changes to the Python syntax and standard library. Except for the `typing` module I've mostly excluded changes to modules. I have **not** included any changes to the C-API, byte-code, or other low level parts.
 
 For each section the end-of-life date (EOL) refers to the date at which the Python Software Foundation will not longer provide security patches for a particular version.
 
-## [Python 3.7 and earlier](https://docs.python.org/3/whatsnew/index.html)
+## [Python 3.7 及更早版本](https://docs.python.org/3/whatsnew/index.html)
 
 This section has been combined as all these versions are already EOL at the time of writing, but if you've been programming in Python for a while you may have forgotten about when these features were introduced.
 
@@ -235,30 +42,31 @@ This section has been combined as all these versions are already EOL at the time
 
 ## [Python 3.8](https://docs.python.org/3/whatsnew/3.8.html) (EOL Oct 2024)
 
-### Assignment expressions
+### 赋值表达式
 
-Also known as the Walrus operator
+也称为海象运算符（Walrus operator）
 
-
-```
+```py
 if (thing := get_thing()) is not None:
   do_something(thing)
 else:
   raise Exception(f"Something is wrong with {thing}")
 ```
+
 ### Positional only parameters
 
 
-```
+```py
 def foo(a, b, /, c, d, *, e, f):
   # a, b: positional only
   # c, d: positional or keyword
   # e, f: keyword only
 ```
+
 ### Self documenting f-strings
 
 
-```
+```py
 # Before
 f"user={user}"
 
@@ -268,7 +76,7 @@ f"{user=}"
 ### Importlib Metadata
 
 
-```
+```py
 import importlib.metadata
 importlib.metadata.version("some-library")
 # "2.3.4"
@@ -362,7 +170,7 @@ thing: str | list[str] | None = None
 Allows for much better passing of typing information when working with `Callable` and other similar types.
 
 
-```
+```py
 from typing import Awaitable, Callable, ParamSpec, TypeVar
 
 P = ParamSpec("P")
@@ -391,7 +199,7 @@ LOG_PREFIX = 'LOG[DEBUG]'  # a module constant
 ### Typing: `TypeGuard` ([PEP 647](https://peps.python.org/pep-0647/))
 
 
-```
+```py
 _T = TypeVar("_T")
 
 def is_two_element_tuple(val: Tuple[_T, ...]) -> TypeGuard[Tuple[_T, _T]]:
@@ -406,7 +214,7 @@ def func(names: Tuple[str, ...]):
 ### Parenthesized Context Managers ([PEP 617](https://peps.python.org/pep-0617/))
 
 
-```
+```py
 with (CtxManager() as example):
   ...
 
@@ -427,6 +235,7 @@ with (
 ):
   ...
 ```
+
 ### Dataclasses: `slots`, `kw_only`
 
 [Dataclass decorator](https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass) now supports following:
@@ -673,104 +482,6 @@ When using `pyproject.toml` black will respect the versions specified by
 `project.requires-python`.
 
 [GitHub - psf/black: The uncompromising Python code formatterThe uncompromising Python code formatter. Contribute to psf/black development by creating an account on GitHub.![](https://github.com/fluidicon.png)GitHubpsf![](https://repository-images.githubusercontent.com/125266328/48aef880-6cce-11e9-9e3c-3ca0dd3ac138)](https://github.com/psf/black)
-
-
-
-
-
-## Sign up for more like this.
-
-
-[Enter your email
-Subscribe](#/portal)
-
-
-
-
-
-[![Debugging AWS Lambda Networking with Reachability Analyzer](https://images.unsplash.com/photo-1606765962248-7ff407b51667?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDN8fG5vJTIwaW50ZXJuZXR8ZW58MHx8fHwxNjY2Nzg1MjAx&ixlib=rb-4.0.3&q=80&w=600)](/posts/debugging-aws-lambda-networking-with/)
-
-[## 
- Debugging AWS Lambda Networking with Reachability Analyzer
-
-
-
-Reachability Analyzer is a fantastic little tool from AWS, however it does have a number of gotchya's.](/posts/debugging-aws-lambda-networking-with/)
-
-Jan 27, 2023
-4 min read
-
-
-
-
-[![Musings on Auth: Definitions](/content/images/size/w600/2022/11/bernard-hermant-IhcSHrZXFs4-unsplash.jpg)](/posts/musings-on-auth-definitions/)
-
-[## 
- Musings on Auth: Definitions
-
-
-
-Today everyone is familiar with usernames and passwords as a way of logging into a website, but where does this fit into the larger picture?](/posts/musings-on-auth-definitions/)
-
-Nov 15, 2022
-7 min read
-
-
-
-
-[![Moving domain-park.org to Beta](/content/images/size/w600/2022/05/source-gb74f2b3c8_1920-1.jpg)](/posts/moving-domain-park-to-beta/)
-
-[## 
- Moving domain-park.org to Beta
-
-
-
-Originally launched in March 2020, domain-park.org was my first attempt at open infrastructure for the web. After 2 years of Alpha, it's time to give this service some tender-loving-care.](/posts/moving-domain-park-to-beta/)
-
-May 6, 2022
-5 min read
-
-
-
-
-
-
-
-
-[NicholasHairs.com](https://www.nicholashairs.com) © 2024
-
-* [GitHub](https://www.github.com/nhairs)
-* [LinkedIn](https://www.linkedin.com/in/nicholas-hairs/)
-* [domain-park.org](https://www.domain-park.org)
-
-
-
-[Powered by Ghost](https://ghost.org/)
-
-
-
-
-
-
-
-$(document).ready(function () {
- // Mobile Menu Trigger
- $('.gh-burger').click(function () {
- $('body').toggleClass('gh-head-open');
- });
- // FitVids - Makes video embeds responsive
- $(".gh-content").fitVids();
-});
-
-
-
-
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
-
- gtag('config', 'G-V723RFJDR8');
-
 
 
 
