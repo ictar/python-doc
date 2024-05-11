@@ -2,6 +2,7 @@
 
 本目录是Python Weekly的中译版，从Issue 243开始。
 
+- [Issue 649](./Python_Weekly_Issue_649.md)
 - [Issue 648](./Python_Weekly_Issue_648.md)
 - [Issue 647](./Python_Weekly_Issue_647.md)
 - [Issue 646](./Python_Weekly_Issue_646.md)
